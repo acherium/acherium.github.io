@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+.wrap {
+    display: flex;
+    position: relative;
+    width: 90%;
+    height: 100%;
+}
+
+.area1 {
+    display: flex;
+    position: relative;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.area2 {
+    display: flex;
+    position: relative;
+    width: 50%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.title_bar {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 5rem;
+}
+
+.title_area {
+    display: flex;
+    position: relative;
+    width: 70%;
+    height: 100%;
+}
+
+.title_icon_area {
+    display: flex;
+    position: relative;
+    width: 5rem;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.title_icon_area > img {
+    width: 3rem;
+    height: auto;
+}
+
+.title_text_area {
+    display: flex;
+    position: relative;
+    width: 100% - 5rem;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.author {
+    width: 100%;
+    font-size: 0.8rem;
+    color: lightgray;
+}
+
+.title_button_area {
+    display: flex;
+    position: relative;
+    height: 100%;
+    flex: 1;
+    background: pink;
+}
+
+.map_area {
+    display: flex;
+    position: relative;
+    flex: 1;
+    padding: 1rem;
+}
+
+.map_viewport {
+    display: flex;
+    position: relative;
+    flex: 1;
+    border: solid 2px lightgray;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#koreamap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#koreamap_shape {
+    /* transform: translate(160px, 360px) scale(0.05); */
+    translate: 160px 360px;
+    scale: 0.05;
+}
