@@ -2,9 +2,12 @@ const tooltip = document.querySelector("#name_tooltip");
 const map = document.querySelector("#koreamap");
 const mapShape = document.querySelector("#koreamap_shape");
 
-let translateX = 160;
-let translateY = 360;
-let scale = 0.05;
+const xposOrigin = 200;
+const yposOrigin = 360;
+const scaleOrigin = 0.045;
+let xpos = xposOrigin;
+let ypos = yposOrigin;
+let scale = scaleOrigin;
 
 document.querySelectorAll("path").forEach(x => {
     x.addEventListener("mouseover", () => {
@@ -31,21 +34,32 @@ function mapSize(x) {
     return 0;
 };
 
+function mapViewReset() {
+    xpos = xposOrigin;
+    ypos = yposOrigin;
+    scale = scaleOrigin;
+    mapShape.style.scale = scale;
+    mapShape.style.translate = `${xpos}px ${ypos}px`;
+    return 0;
+};
+
 map.onmousewheel = x => {
     mapSize(x.deltaY > 0 ? 0 : 1);
 };
 
 map.onmousedown = () => {
     map.onmousemove = x => {
-        translateX += x.movementX * 1.5;
-        translateY += x.movementY * 1.5;
-        mapShape.style.translate = `${translateX}px ${translateY}px`;
+        xpos += x.movementX * 1.5;
+        ypos += x.movementY * 1.5;
+        mapShape.style.translate = `${xpos}px ${ypos}px`;
     };
 
     map.onmouseup = () => {
         map.onmousemove = null;
     };
 };
+
+mapViewReset();
 
 
 

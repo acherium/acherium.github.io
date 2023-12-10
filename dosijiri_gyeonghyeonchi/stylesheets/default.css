@@ -78,7 +78,7 @@
     position: relative;
     height: 100%;
     flex: 1;
-    background: pink;
+    /* background: pink; */
 }
 
 .map_area {
@@ -103,8 +103,35 @@
     height: 100%;
 }
 
-#koreamap_shape {
-    /* transform: translate(160px, 360px) scale(0.05); */
-    translate: 160px 360px;
-    scale: 0.05;
+.button {
+    display: flex;
+    position: relative;
+    min-width: 1rem;
+    min-height: 1rem;
+    margin: 2px;
+    padding: 4px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: rgb(240, 240, 240);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.button > img {
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+}
+
+.button > span {
+    padding: 5px 0 0 0;
+}
+
+.button:hover {
+    filter: brightness(1.03);
+}
+
+.button:active {
+    filter: brightness(0.95)
 }
