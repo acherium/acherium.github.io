@@ -9,6 +9,11 @@ let xpos = xposOrigin;
 let ypos = yposOrigin;
 let scale = scaleOrigin;
 
+let xposOriginLast = 0;
+let yposOriginLast = 0;
+let xposLast = 0;
+let yposLast = 0;
+
 document.querySelectorAll("path").forEach(x => {
     x.addEventListener("mouseover", () => {
         tooltip.style.opacity = 1;
@@ -57,6 +62,20 @@ map.onmousedown = () => {
     map.onmouseup = () => {
         map.onmousemove = null;
     };
+};
+
+map.ontouchstart = x => {
+    xposOriginLast = parseInt(mapShape.style.translate.split(" ")[0].split("px")[0]);
+    yposOriginLast = parseInt(mapShape.style.translate.split(" ")[1].split("px")[0]);
+    xposLast = x.touches[0].clientX;
+    yposLast = x.touches[0].clientY;
+};
+
+map.ontouchmove = x => {
+    // console.log(x);
+    xpos = xposOriginLast - ( xposLast - x.touches[0].clientX );
+    ypos = yposOriginLast - ( yposLast - x.touches[0].clientY );
+    mapShape.style.translate = `${xpos}px ${ypos}px`;
 };
 
 mapViewReset();
