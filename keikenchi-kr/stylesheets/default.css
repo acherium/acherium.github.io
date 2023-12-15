@@ -135,3 +135,23 @@
 .button:active {
     filter: brightness(0.95)
 }
+
+#controller_area {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 8rem;
+    flex-direction: column;
+}
+
+#map_controller_area, #paint_controller_area {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 50%;
+    flex-direction: row;
+}
+
+#map_controller_area > .button, #paint_controller_area > .button {
+    width: 3rem;
+}

@@ -34,6 +34,7 @@ document.addEventListener("mousemove", x => {
 });
 
 function mapSize(x) {
+    if (!x && scale - 0.01 <= 0) return 0;
     scale = scale + ( x ? 0.01 : -0.01 );
     mapShape.style.scale = scale;
     return 0;
@@ -48,7 +49,7 @@ function mapViewReset() {
     return 0;
 };
 
-map.onmousewheel = x => {
+map.onwheel = x => {
     mapSize(x.deltaY > 0 ? 0 : 1);
 };
 
@@ -72,7 +73,6 @@ map.ontouchstart = x => {
 };
 
 map.ontouchmove = x => {
-    // console.log(x);
     xpos = xposOriginLast - ( xposLast - x.touches[0].clientX );
     ypos = yposOriginLast - ( yposLast - x.touches[0].clientY );
     mapShape.style.translate = `${xpos}px ${ypos}px`;
@@ -126,6 +126,5 @@ const color = {
 const doChangeColor = (x) => {
     const i = parseInt(x.value);
     x.value = ( i >= Object.values(color).length - 1? 0 : i + 1 );
-    console.log(x.value);
     x.style.fill = color[x.value];
 };

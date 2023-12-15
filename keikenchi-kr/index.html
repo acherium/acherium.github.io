@@ -275,19 +275,51 @@
                                 <span>debug: <input id="debug_input" type="text"/><button onclick="doCheckCode();">input</button></span><br/>
                                 <span>하양: 미답/통과, 노랑: 접지, 주황: 방문, 분홍: 숙박, 빨강: 거주</span>
                             </div>
-                            <div id="map_button_area">
-                                <div class="button" onclick="mapSize(1)">
-                                    <img src="./images/icon_plus.svg" alt="지도 확대">
-                                    <span>확대</span>
-                                </div>
-                                <div class="button" onclick="mapSize(0)">
-                                    <img src="./images/icon_minus.svg" alt="지도 축소">
-                                    <span>축소</span>
-                                </div>
-                                <div class="button" onclick="mapViewReset()">
-                                    <img src="./images/icon_reset.svg" alt="지도 상태 초기화">
-                                    <span>초기화</span>
-                                </div>
+                        </div>
+                    </div>
+                    <div id="controller_area">
+                        <div id="map_controller_area">
+                            <div class="button" onclick="mapSize(1)">
+                                <img src="./images/icon_none.svg" alt="지도 확대">
+                                <span>확대</span>
+                            </div>
+                            <div class="button" onclick="mapSize(0)">
+                                <img src="./images/icon_none.svg" alt="지도 축소">
+                                <span>축소</span>
+                            </div>
+                            <div class="button" onclick="mapViewReset()">
+                                <img src="./images/icon_none.svg" alt="지도 위치/확대 비율 초기화">
+                                <span>초기화</span>
+                            </div>
+                        </div>
+                        <div id="paint_controller_area">
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="1" lyra_description="구역을 미답 상태로 칠합니다.">
+                                <span>미답</span>
+                            </div>
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="1" lyra_description="구역을 단순 통과한 상태로 칠합니다.\n[통과]는 이동 중 지나갔으나 내리지 않은 상태입니다.">
+                                <span>통과</span>
+                            </div>
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="1" lyra_description="구역을 내림 상태로 칠합니다.\n[내림]은 이동 중 정차하여 내렸으나 관내 시설물 또는 건물을 사용 또는 방문하지 않은 상태입니다.">
+                                <span>내림</span>
+                            </div>
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="1" lyra_description="구역을 방문 상태로 칠합니다.\n[방문]은 해당 지역 관내의 시설물 또는 건물을 1회 이상 방문 한 상태입니다.">
+                                <span>방문</span>
+                            </div>
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="1" lyra_description="구역을 숙박 상태로 칠합니다.\n[숙박]은 해당 지역 관내에서 하루 이상 숙박 한 상태입니다.">
+                                <span>숙박</span>
+                            </div>
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="1" lyra_description="구역을 거주 상태로 칠합니다.\n[거주]는 해당 지역에 거주중인 상태입니다.">
+                                <span>거주</span>
+                            </div>
+                            <div class="button" onclick="alert(true)">
+                                <img src="./images/icon_none.svg" alt="경현치 초기화">
+                                <span>초기화</span>
                             </div>
                         </div>
                     </div>
