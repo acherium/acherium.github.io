@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+/* 창 전환 애니메이션용 클래스 */
+.lyra-ani-window-jumpup {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.lyra-ani-window-fade {
+    opacity: 0;
+}
+
+.lyra-ani-transition {
+    transition: all 0.5s;
+}
+
+.lyra-ani-transition > * {
+    transition: all 0.5s;
+}

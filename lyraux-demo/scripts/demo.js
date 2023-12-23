@@ -35,7 +35,7 @@ const modalList = {
             {
                 "icon": "accept",
                 "nametag": "확인",
-                "onclick": `location.href = "./index-night.html"`
+                "onclick": "cycleTheme();"
             },
             {
                 "icon": "deny",
@@ -91,7 +91,7 @@ function showModal(e) {
         _buttonNametag.innerText = b.nametag;
 
         if (b.onclick) {
-            _button.setAttribute("onclick", `${b.onclick}`);
+            _button.setAttribute("onclick", `${b.onclick}closeModal(this.parentNode.parentNode.parentNode.parentNode);`);
         } else {
             _button.setAttribute("onclick", "closeModal(this.parentNode.parentNode.parentNode.parentNode);");
         };
@@ -122,4 +122,32 @@ function closeModal(e) {
     setTimeout(() => {
         body.removeChild(e);
     }, 200);
+};
+
+
+const stylesheetList = {
+    "day": {
+        "main": "./stylesheets/day/lyra-mainstyle.css",
+        "palette": "./stylesheets/day/lyra-color-palette.css"
+    },
+    "night": {
+        "main": "./stylesheets/night/lyra-mainstyle.css",
+        "palette": "./stylesheets/night/lyra-color-palette.css"
+    }
+};
+
+let themeMode = 0;
+
+const stylesheet = document.querySelector("#style-main");
+const palette = document.querySelector("#style-palette");
+
+function cycleTheme() {
+    body.classList.add("lyra-ani-transition");
+    setTimeout(() => {
+        body.classList.remove("lyra-ani-transition");
+    }, 500);
+    stylesheet.href = stylesheetList[themeMode ? "day" : "night"]["main"];
+    palette.href = stylesheetList[themeMode ? "day" : "night"]["palette"];
+    themeMode = themeMode ? 0 : 1;
+    return 0;
 };
