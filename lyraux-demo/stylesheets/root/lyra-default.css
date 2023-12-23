@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* 버튼 객체 */
+.lyra-button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    padding: 3px;
+
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.lyra-button > * {
+    transition: all 0.1s;
+}
+
+.lyra-button:hover {
+    background: var(--lyra-color-button-hover);
+    box-shadow: 0 2px 3px 0 var(--lyra-color-shadow);
+}
+
+.lyra-button:hover .lyra-icon {
+    filter: brightness(0) invert(1);
+}
+
+.lyra-button:hover .lyra-button-nametag {
+    color: var(--lyra-color-white);
+}
+
+.lyra-button:active {
+    filter: brightness(0.5);
+    transform: scale(0.95);
+}
+
+.lyra-button-horizontal {
+    min-width: 72px;
+    width: fit-content;
+    height: 40px;
+}
+
+.lyra-button-vertical {
+    flex-direction: column;
+
+    min-width: 50px;
+    width: fit-content;
+    height: 60px;
+}
+
+.lyra-button-minimal {
+    padding: 8px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.lyra-button-nametag {
+    margin: 0 8px 0 8px;
+
+    font-size: var(--lyra-color-font-button);
+    color: var(--lyra-color-font-button);
+}
+
+.lyra-button-vertical .lyra-button-nametag {
+    margin: 4px 4px 0 4px;
+}
+
+.lyra-button-cover {
+    position: absolute;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+}
+
+.lyra-button-horizontal .lyra-icon {
+    margin: 0 0 0 8px;
+}
+
+/* 아이콘 객체 */
+.lyra-icon {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+}
+
+/* 문자열 객체 */
+.lyra-title {
+    font-size: var(--lyra-value-font-title);
+    color: var(--lyra-color-font-title);
+}
+
+.lyra-content {
+    font-size: var(--lyra-value-font-content);
+    color: var(--lyra-color-font-content);
+}
+
+.lyra-caption {
+    font-size: var(--lyra-value-font-caption);
+    color: var(--lyra-color-font-caption);
+}
