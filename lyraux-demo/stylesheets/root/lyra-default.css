@@ -124,6 +124,7 @@
     height: 100%;
 
     backdrop-filter: blur(10px);
+    transition: all ease-in-out 0.2s;
 }
 
 .lyra-modal-area {
@@ -133,8 +134,12 @@
     justify-content: center;
     z-index: 11;
 
+    margin: 0 20px 0 20px;
     width: 100%;
     min-height: 300px;
+
+    border-radius: var(--lyra-value-modal-radius);
+    transition: all ease-in-out 0.2s;
 }
 
 .lyra-modal-wrap {
@@ -143,7 +148,7 @@
     align-items: flex-start;
     justify-content: start;
     flex-direction: column;
-    padding: 10px;
+    padding: 20px;
 
     box-sizing: border-box;
     max-width: 800px;
@@ -159,4 +164,14 @@
 
 .lyra-modal-button-area .lyra-button {
     margin-left: 8px;
+}
+
+/* 창 전환 애니메이션용 클래스 */
+.lyra-ani-window-jumpup {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.lyra-ani-window-fade {
+    opacity: 0;
 }
