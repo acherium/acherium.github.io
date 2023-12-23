@@ -13,6 +13,8 @@
     
     <link rel="stylesheet" href="./stylesheets/night/lyra-mainstyle.css">
     <link rel="stylesheet" href="./stylesheets/night/lyra-color-palette.css">
+
+    <script src="./scripts/demo.js" defer></script>
 </head>
 <body>
     <h1>test</h1>
@@ -50,10 +52,17 @@
     </div>
 
     <div class="lyra-content"><br/>테마 전환</div>
-    <div class="lyra-button lyra-button-horizontal" onclick="location.href = `./index.html`">
+    <div class="lyra-button lyra-button-horizontal" onclick="showModal(`theme-cycle-day`);">
         <div class="lyra-button-cover"></div>
         <div class="lyra-icon lyra-icon-day"></div>
         <div class="lyra-button-nametag">라이트모드</div>
+    </div>
+
+    <div class="lyra-content"><br/>모달 표시</div>
+    <div class="lyra-button lyra-button-horizontal" onclick="showModal(`info`);">
+        <div class="lyra-button-cover"></div>
+        <div class="lyra-icon lyra-icon-alert"></div>
+        <div class="lyra-button-nametag">정보</div>
     </div>
 </body>
 </html>

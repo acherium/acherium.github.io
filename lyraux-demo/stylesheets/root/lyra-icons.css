@@ -42,3 +42,8 @@
 .lyra-icon-deny {
     background-image: url("../../assets/icons/icon-deny.svg");
 }
+
+/* 경고 아이콘 */
+.lyra-icon-alert {
+    background-image: url("../../assets/icons/icon-alert.svg");
+}

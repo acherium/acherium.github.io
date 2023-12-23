@@ -10,3 +10,12 @@
 .lyra-icon {
     filter: brightness(0);
 }
+
+/* 모달 윈도우 객체 */
+.lyra-modal-background {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.lyra-modal-area {
+    background: white;
+}

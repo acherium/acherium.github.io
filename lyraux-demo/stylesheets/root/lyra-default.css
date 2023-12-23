@@ -101,3 +101,62 @@
     font-size: var(--lyra-value-font-caption);
     color: var(--lyra-color-font-caption);
 }
+
+/* 모달 윈도우 객체 */
+.lyra-modal {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.lyra-modal-background {
+    position: absolute;
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+
+    backdrop-filter: blur(10px);
+}
+
+.lyra-modal-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+
+    width: 100%;
+    min-height: 300px;
+}
+
+.lyra-modal-wrap {
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    justify-content: start;
+    flex-direction: column;
+    padding: 10px;
+
+    box-sizing: border-box;
+    max-width: 800px;
+    width: 100%;
+    height: 100%;
+}
+
+.lyra-modal-button-area {
+    display: flex;
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+.lyra-modal-button-area .lyra-button {
+    margin-left: 8px;
+}
