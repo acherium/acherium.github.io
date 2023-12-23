@@ -60,6 +60,9 @@ function showModal(e) {
     modalArea.classList.add("lyra-modal-area");
     modalArea.classList.add("lyra-ani-window-jumpup");
 
+    const modalAreaMain = document.createElement("div");
+    modalAreaMain.classList.add("lyra-modal-area-main");
+
     const modalWrap = document.createElement("div");
     modalWrap.classList.add("lyra-modal-wrap");
 
@@ -91,9 +94,9 @@ function showModal(e) {
         _buttonNametag.innerText = b.nametag;
 
         if (b.onclick) {
-            _button.setAttribute("onclick", `${b.onclick}closeModal(this.parentNode.parentNode.parentNode.parentNode);`);
+            _button.setAttribute("onclick", `${b.onclick}closeModal(this.parentNode.parentNode.parentNode.parentNode.parentNode);`);
         } else {
-            _button.setAttribute("onclick", "closeModal(this.parentNode.parentNode.parentNode.parentNode);");
+            _button.setAttribute("onclick", "closeModal(this.parentNode.parentNode.parentNode.parentNode.parentNode);");
         };
 
         _button.append(_buttonCover);
@@ -102,10 +105,15 @@ function showModal(e) {
         modalButtonArea.append(_button);
     });
 
+    const modalGradient = document.createElement("div");
+    modalGradient.classList.add("lyra-modal-backdrop");
+
     modalWrap.append(modalTitle);
     modalWrap.append(modalContent);
     modalWrap.append(modalButtonArea);
-    modalArea.append(modalWrap);
+    modalAreaMain.append(modalWrap);
+    modalArea.append(modalAreaMain);
+    modalArea.append(modalGradient);
     modal.append(modalBackground);
     modal.append(modalArea);
     body.append(modal);

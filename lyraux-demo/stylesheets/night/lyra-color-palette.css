@@ -21,4 +21,8 @@
     --lyra-color-button-background: rgb(30, 30, 30);
     --lyra-color-button-hover: rgb(133, 22, 196);
     --lyra-color-button-hoverfilter: invert(21%) sepia(96%) saturate(4133%) hue-rotate(275deg) brightness(78%) contrast(104%); 
+
+    /* 모달 윈도우 구성요소 */
+    --lyra-color-modal-gradient-pos1: rgba(133, 22, 196, 0);
+    --lyra-color-modal-gradient-pos2: rgba(133, 22, 196, 0.1);
 }
