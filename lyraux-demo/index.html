@@ -15,55 +15,46 @@
     <link rel="stylesheet" id="style-main" href="./stylesheets/day/lyra-mainstyle.css">
     <link rel="stylesheet" id="style-palette" href="./stylesheets/day/lyra-color-palette.css">
 
+    <script src="./scripts/lyraux-main.js" defer></script>
     <script src="./scripts/demo.js" defer></script>
 </head>
 <body>
-    <h1>test</h1>
     <div class="lyra-title">Title</div>
     <div class="lyra-content">Content</div>
     <div class="lyra-caption">Caption</div>
 
-    <div class="lyra-button lyra-button-vertical">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-none"></div>
-        <div class="lyra-button-nametag">테스트</div>
-    </div>
-
-    <div class="lyra-button lyra-button-horizontal">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-day"></div>
-        <div class="lyra-button-nametag">테스트</div>
-    </div>
-
-    <div class="lyra-button lyra-button-minimal">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-night"></div>
-    </div>
-
-    <div class="lyra-button lyra-button-horizontal">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-accept"></div>
-        <div class="lyra-button-nametag">예</div>
-    </div>
-
-    <div class="lyra-button lyra-button-horizontal">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-deny"></div>
-        <div class="lyra-button-nametag">아니오</div>
-    </div>
-
-    <div class="lyra-content"><br/>테마 전환</div>
+    <div class="lyra-content"><br>테마 전환</div>
     <div class="lyra-button lyra-button-horizontal" onclick="showModal(`theme-cycle-night`);">
         <div class="lyra-button-cover"></div>
         <div class="lyra-icon lyra-icon-night"></div>
         <div class="lyra-button-nametag">다크모드</div>
     </div>
 
-    <div class="lyra-content"><br/>모달 표시</div>
+    <div class="lyra-content"><br>모달 표시</div>
     <div class="lyra-button lyra-button-horizontal" onclick="showModal(`info`);">
         <div class="lyra-button-cover"></div>
         <div class="lyra-icon lyra-icon-alert"></div>
         <div class="lyra-button-nametag">정보</div>
     </div>
+
+    <div class="lyra-content"><br>알림 표시</div>
+    <div class="lyra-button lyra-button-horizontal" onclick="addNotification(`abc`, `lorem ipsum`)">
+        <div class="lyra-button-cover"></div>
+        <div class="lyra-icon lyra-icon-alert"></div>
+        <div class="lyra-button-nametag">알림</div>
+    </div>
+    <div class="lyra-button lyra-button-horizontal" onclick="addNotification(`abc`, `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`)">
+        <div class="lyra-button-cover"></div>
+        <div class="lyra-icon lyra-icon-alert"></div>
+        <div class="lyra-button-nametag">좀 긴 알림</div>
+    </div>
+
+    <br>
+    <div class="lyra-content">class test</div>
+    <div class="testarea"></div>
+
+    <section id="lyra-notification-area">
+        <h1 hidden>알림 영역</h1>
+    </section>
 </body>
 </html>

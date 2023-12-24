@@ -44,94 +44,35 @@ const modalList = {
             }
         ]
     }
-}
+};
+
+const modalOndisplayList = {};
+const notificationOndisplayList = [];
 
 function showModal(e) {
-    const raw = modalList[e];
-    const modal = document.createElement("div");
-    modal.classList.add("lyra-modal")
+    const id = Object.keys(modalOndisplayList).length ? parseInt(Object.keys(modalOndisplayList).pop()) + 1 : 0;
 
-    const modalBackground = document.createElement("div");
-    modalBackground.classList.add("lyra-modal-background");
-    modalBackground.classList.add("lyra-ani-window-fade");
-    modalBackground.setAttribute("onclick", "closeModal(this.parentNode);");
+    const data = modalList[e];
+    const buttons = [];
 
-    const modalArea = document.createElement("div");
-    modalArea.classList.add("lyra-modal-area");
-    modalArea.classList.add("lyra-ani-window-jumpup");
-
-    const modalAreaMain = document.createElement("div");
-    modalAreaMain.classList.add("lyra-modal-area-main");
-
-    const modalWrap = document.createElement("div");
-    modalWrap.classList.add("lyra-modal-wrap");
-
-    const modalTitle = document.createElement("div");
-    modalTitle.classList.add("lyra-title");
-    modalTitle.innerText = raw.title;
-
-    const modalContent = document.createElement("div");
-    modalContent.classList.add("lyra-content");
-    modalContent.innerText = raw.content;
-
-    const modalButtonArea = document.createElement("div");
-    modalButtonArea.classList.add("lyra-modal-button-area");
-
-    raw.buttons.forEach(b => {
-        const _button = document.createElement("div");
-        _button.classList.add("lyra-button");
-        _button.classList.add("lyra-button-horizontal");
-
-        const _buttonCover = document.createElement("div");
-        _buttonCover.classList.add("lyra-button-cover");
-
-        const _buttonIcon = document.createElement("div");
-        _buttonIcon.classList.add("lyra-icon");
-        _buttonIcon.classList.add(`lyra-icon-${b.icon}`);
-
-        const _buttonNametag = document.createElement("div");
-        _buttonNametag.classList.add("lyra-button-nametag");
-        _buttonNametag.innerText = b.nametag;
-
-        if (b.onclick) {
-            _button.setAttribute("onclick", `${b.onclick}closeModal(this.parentNode.parentNode.parentNode.parentNode.parentNode);`);
+    data.buttons.forEach(x => {
+        const button = new LyraButton("horizontal", `${x.icon}`, `${x.nametag}`);
+        if (x.onclick) {
+            button.setAttribute("onclick", `${x.onclick};modalOndisplayList[${id}].modal.close();`);
         } else {
-            _button.setAttribute("onclick", "closeModal(this.parentNode.parentNode.parentNode.parentNode.parentNode);");
+            button.setAttribute("onclick", `modalOndisplayList[${id}].modal.close();`);
         };
-
-        _button.append(_buttonCover);
-        _button.append(_buttonIcon);
-        _button.append(_buttonNametag);
-        modalButtonArea.append(_button);
+        buttons.push(button);
     });
 
-    const modalGradient = document.createElement("div");
-    modalGradient.classList.add("lyra-modal-backdrop");
+    const modal = new LyraModal(id, `${data.title}`, `${data.content}`, "body", buttons);
+    modal.show(body);
 
-    modalWrap.append(modalTitle);
-    modalWrap.append(modalContent);
-    modalWrap.append(modalButtonArea);
-    modalAreaMain.append(modalWrap);
-    modalArea.append(modalAreaMain);
-    modalArea.append(modalGradient);
-    modal.append(modalBackground);
-    modal.append(modalArea);
-    body.append(modal);
-
-    setTimeout(() => {
-        modalArea.classList.remove("lyra-ani-window-jumpup");
-        modalBackground.classList.remove("lyra-ani-window-fade");
-    }, 30);
+    modalOndisplayList[id] = {
+        id: id,
+        modal: modal
+    };
 };
-
-function closeModal(e) {
-    e.querySelector(".lyra-modal-area").classList.add("lyra-ani-window-jumpup");
-    e.querySelector(".lyra-modal-background").classList.add("lyra-ani-window-fade");
-    setTimeout(() => {
-        body.removeChild(e);
-    }, 200);
-};
-
 
 const stylesheetList = {
     "day": {
@@ -158,4 +99,54 @@ function cycleTheme() {
     palette.href = stylesheetList[themeMode ? "day" : "night"]["palette"];
     themeMode = themeMode ? 0 : 1;
     return 0;
+};
+
+const notificationArea = document.querySelector("#lyra-notification-area");
+
+function addNotification(t, c) {
+    const notification = document.createElement("div");
+    notification.classList.add("lyra-notification");
+    notification.classList.add("lyra-ani-notification-out");
+    notification.classList.add("lyra-ani-window-fade");
+
+    const title = document.createElement("div");
+    title.classList.add("lyra-title");
+    title.innerText = `${t}`;
+
+    const content = document.createElement("div");
+    content.classList.add("lyra-content");
+    content.innerText = `${c}`;
+
+    const clearButton = new LyraButton("horizontal", "deny", "닫기")
+    clearButton.setAttribute("onclick", "closeNotification(this.parentNode)");
+
+    notification.append(title);
+    notification.append(content);
+    notification.append(clearButton);
+    notificationArea.append(notification);
+
+    let timeout = setTimeout(() => {
+        closeNotification(notification, timeout);
+    }, 5000);
+
+    setTimeout(() => {
+        notification.classList.add("lyra-ani-notification-transition-in");
+        notification.classList.remove("lyra-ani-notification-out");
+        notification.classList.remove("lyra-ani-window-fade");
+    }, 30);
+
+    return 0;
+};
+
+function closeNotification(n) {
+    // clearTimeout(t);
+
+    n.classList.add("lyra-ani-notification-transition-out");
+    n.classList.remove("lyra-ani-notification-transition-in");
+    n.classList.add("lyra-ani-notification-out");
+    n.classList.add("lyra-ani-window-fade");
+
+    setTimeout(() => {
+        notificationArea.removeChild(n);
+    }, 200);
 };

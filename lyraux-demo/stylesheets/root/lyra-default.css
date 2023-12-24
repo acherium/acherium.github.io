@@ -56,6 +56,10 @@
     height: fit-content;
 }
 
+.lyra-button-minimal :not(.lyra-icon) {
+    display: none;
+}
+
 .lyra-button-nametag {
     margin: 0 8px 0 8px;
 
@@ -191,4 +195,44 @@
 
 .lyra-modal-button-area .lyra-button {
     margin-left: 8px;
+}
+
+/* 알림 영역 구성요소 */
+#lyra-notification-area {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    bottom: 0;
+    right: 0;
+
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+
+    /* background: yellow; */
+}
+
+.lyra-notification {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 5px 0 30px 10px;
+    padding: 20px;
+    
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 80px;
+    height: fit-content;
+
+    background: var(--lyra-color-white);
+    border-radius: var(--lyra-value-modal-radius) 0 0 var(--lyra-value-modal-radius);
+    box-shadow: var(--lyra-shadow-small);
+}
+
+.lyra-notification:first-child {
+    background: red;
 }

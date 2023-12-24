@@ -25,4 +25,7 @@
     /* 모달 윈도우 구성요소 */
     --lyra-color-modal-gradient-pos1: rgba(133, 22, 196, 0);
     --lyra-color-modal-gradient-pos2: rgba(133, 22, 196, 0.1);
+
+    /* 그림자 */
+    --lyra-shadow-small: 0 2px 3px 0 var(--lyra-color-shadow);
 }
