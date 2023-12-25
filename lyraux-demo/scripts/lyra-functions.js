@@ -53,7 +53,7 @@ function create(type, param) {
                 throw Error("invalid selector");
             };
         });
-    } else {
+    } else if (param && param.constructor === String) {
         if (`${param}`.startsWith("#")) {
             _result.id = `${param}`.substring(1);
         } else if (`${param}`.startsWith(".")) {

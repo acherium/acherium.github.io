@@ -65,11 +65,79 @@ const notificationList = {
         "autoClose": false,
         "buttons": [
             {
-                button: new LyraButton("horizontal", "deny", "닫기"),
+                button: {
+                    type: "horizontal",
+                    icon: "deny",
+                    nametag: "닫기"
+                },
             },
             {
-                button: new LyraButton("horizontal", "none", `alert("Hello, world!)`),
+                button: {
+                    type: "horizontal",
+                    icon: "none",
+                    nametag: `alert("Hello, world!);`
+                },
                 action: `alert("Hello, world!");`
+            }
+        ]
+    },
+    "LOREM-IMAGE": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-MEDIUM"),
+        "autoClose": false,
+        "thumbnail": "./assets/banners/banner-snapforgithub.svg",
+        "buttons": [
+            {
+                button: {
+                    type: "horizontal",
+                    icon: "accept",
+                    nametag: getString("STRING-BUTTON-NOTIFICATION-OKAY")
+                }
+            }
+        ]
+    },
+    "LOREM-VERTICAL-IMAGE": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-MEDIUM"),
+        "autoClose": false,
+        "thumbnail": "./assets/images/image-banner-vertical.png",
+        "buttons": [
+            {
+                button: {
+                    type: "horizontal",
+                    icon: "accept",
+                    nametag: getString("STRING-BUTTON-NOTIFICATION-OKAY")
+                }
+            }
+        ]
+    },
+    "LOREM-HORIZONTAL-IMAGE": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-MEDIUM"),
+        "autoClose": false,
+        "thumbnail": "./assets/images/image-100px-horizontal.png",
+        "buttons": [
+            {
+                button: {
+                    type: "horizontal",
+                    icon: "accept",
+                    nametag: getString("STRING-BUTTON-NOTIFICATION-OKAY")
+                }
+            }
+        ]
+    },
+    "LOREM-SMALL-IMAGE": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-MEDIUM"),
+        "autoClose": false,
+        "thumbnail": "./assets/images/image-100px.png",
+        "buttons": [
+            {
+                button: {
+                    type: "horizontal",
+                    icon: "accept",
+                    nametag: getString("STRING-BUTTON-NOTIFICATION-OKAY")
+                }
             }
         ]
     }

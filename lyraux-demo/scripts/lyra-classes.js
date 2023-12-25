@@ -129,10 +129,8 @@ class LyraNotification{
         const _notification = create("div", [ ".lyra-notification", ".lyra-ani-notification-out", ".lyra-ani-window-fade" ]);
         const _title = create("div", ".lyra-title");
         const _content = create("div", ".lyra-content");
-        const _thumbnail = create("div", ".lyra-notification-thumbnail");
         const _buttonArea = create("div", ".lyra-notification-button-area");
 
-        _notification.append(_thumbnail);
         _notification.append(_title);
         _notification.append(_content);
         _notification.append(_buttonArea);
@@ -151,7 +149,7 @@ class LyraNotification{
         };
         this.thumbnail = {
             value: null,
-            raw: _thumbnail
+            raw: null
         };
         this.buttons = {
             values: [],
@@ -166,6 +164,7 @@ class LyraNotification{
             if (typeof param["title"] !== "undefined") this.setTitle(param["title"]);
             if (typeof param["content"] !== "undefined") this.setContent(param["content"]);
             if (typeof param["autoClose"] !== "undefined") this.setAutoClose(param["autoClose"]);
+            if (typeof param["thumbnail"] !== "undefined") this.setThumbnail(param["thumbnail"]);
 
             if (typeof param["buttons"] !== "undefined") {
                 if (param["buttons"].constructor !== Array) throw Error(getString("ERROR-NOTIFICATION-PROVIDED-BUTTON-LIST-IS-NOT-AN-ARRAY"));
@@ -212,19 +211,38 @@ class LyraNotification{
         return this;
     };
 
+    setThumbnail(url) {
+        if (url.constructor !== String) throw Error(getString("ERROR-CLASS-PROVIDED-PARAMETER-IS-NOT-A-STRING"));
+
+        const _thumbnail = create("div", ".lyra-notification-thumbnail-area");
+        this.raw.append(_thumbnail);
+        this.thumbnail.raw = _thumbnail
+
+        const image = create("img", ".lyra-notification-thumbnail-main");
+        const backdrop = create("img", ".lyra-notification-thumbnail-backdrop");
+        image.src = url;
+        backdrop.src = url;
+
+        this.thumbnail.value = url;
+        this.thumbnail.raw.append(backdrop);
+        this.thumbnail.raw.append(image);
+        return this;
+    };
+
     addButton(param) {
         if (!param) throw Error(getString("ERROR-NOTIFICATION-NO-BUTTON-DATA"));
         if (!param["button"]) throw Error(getString("ERROR-NOTIFICATION-INVALID-BUTTON-DATA"));
-        const raw = param.button;
+        const raw = param["button"];
+        const button = new LyraButton(raw.type, raw.icon, raw.nametag, ( raw.alt || "" ));
 
         if (param["action"] && param["action"].constructor !== String) throw Error(getString("ERROR-NOTIFICATION-INVALID-BUTTONS-DATA"));
-        raw.setAttribute("onclick", ( param["action"] || `closeNotification(${this.id});` ));
+        button.setAttribute("onclick", ( param["action"] || `closeNotification(${this.id});` ));
 
-        this.buttons.values.push(raw);
-        this.buttons.area.append(raw);
+        this.buttons.values.push(button);
+        this.buttons.area.append(button);
         
         return this;
-    }
+    };
 
     show() {
         this.target.raw.append(this.raw);
