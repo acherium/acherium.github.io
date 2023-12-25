@@ -42,6 +42,10 @@
     height: 40px;
 }
 
+.lyra-button-horizontal .lyra-button-nametag {
+    margin: 0 10px 0 8px;
+}
+
 .lyra-button-vertical {
     flex-direction: column;
 
@@ -233,6 +237,22 @@
     box-shadow: var(--lyra-shadow-small);
 }
 
-.lyra-notification:first-child {
-    background: red;
+.lyra-notification >:not(:last-child):not(:first-child) {
+    margin: 0 0 20px 0;
+}
+
+.lyra-notification-button-area {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    width: 100%;
+    height: auto;
+    /* background: yellow; */
+}
+
+.lyra-notification-button-area * {
+    margin: 0 10px 0 0;
 }

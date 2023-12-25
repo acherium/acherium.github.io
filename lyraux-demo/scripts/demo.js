@@ -1,5 +1,4 @@
 const body = document.querySelector("body");
-setStringAll();
 
 const modalList = {
     "info": {
@@ -45,6 +44,47 @@ const modalList = {
             }
         ]
     }
+};
+
+const notificationList = {
+    "LOREM-SHORT": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-SHORT")
+    },
+    "LOREM-MEDIUM": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-MEDIUM")
+    },
+    "LOREM-LONG": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-LONG")
+    },
+    "LOREM-PERMANENT": {
+        "title": getString("DEBUG-LYRA-TEST-NOTIFICATION-TITLE"),
+        "content": getString("DEBUG-LYRA-LOREM-LONG"),
+        "autoClose": false,
+        "buttons": [
+            {
+                button: new LyraButton("horizontal", "deny", "닫기"),
+            },
+            {
+                button: new LyraButton("horizontal", "none", `alert("Hello, world!)`),
+                action: `alert("Hello, world!");`
+            }
+        ]
+    }
+};
+
+function showNotification(target) {
+    const raw = notificationList[target];
+    const notification = new LyraNotification(raw);
+    notification.show();
+    return 0;
+};
+
+function closeNotification(target) {
+    lyra.ondisplay.notification[target].close();
+    return 0;
 };
 
 const modalOndisplayList = {};
@@ -100,54 +140,4 @@ function cycleTheme() {
     palette.href = stylesheetList[themeMode ? "day" : "night"]["palette"];
     themeMode = themeMode ? 0 : 1;
     return 0;
-};
-
-const notificationArea = document.querySelector("#lyra-notification-area");
-
-function addNotification(t, c) {
-    const notification = document.createElement("div");
-    notification.classList.add("lyra-notification");
-    notification.classList.add("lyra-ani-notification-out");
-    notification.classList.add("lyra-ani-window-fade");
-
-    const title = document.createElement("div");
-    title.classList.add("lyra-title");
-    title.innerText = `${t}`;
-
-    const content = document.createElement("div");
-    content.classList.add("lyra-content");
-    content.innerText = `${c}`;
-
-    const clearButton = new LyraButton("horizontal", "deny", "닫기")
-    clearButton.setAttribute("onclick", "closeNotification(this.parentNode)");
-
-    notification.append(title);
-    notification.append(content);
-    notification.append(clearButton);
-    notificationArea.append(notification);
-
-    let timeout = setTimeout(() => {
-        closeNotification(notification, timeout);
-    }, 5000);
-
-    setTimeout(() => {
-        notification.classList.add("lyra-ani-notification-transition-in");
-        notification.classList.remove("lyra-ani-notification-out");
-        notification.classList.remove("lyra-ani-window-fade");
-    }, 30);
-
-    return 0;
-};
-
-function closeNotification(n) {
-    // clearTimeout(t);
-
-    n.classList.add("lyra-ani-notification-transition-out");
-    n.classList.remove("lyra-ani-notification-transition-in");
-    n.classList.add("lyra-ani-notification-out");
-    n.classList.add("lyra-ani-window-fade");
-
-    setTimeout(() => {
-        notificationArea.removeChild(n);
-    }, 200);
 };
