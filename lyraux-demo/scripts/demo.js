@@ -1,4 +1,5 @@
 const body = document.querySelector("body");
+setStringAll();
 
 const modalList = {
     "info": {
@@ -29,8 +30,8 @@ const modalList = {
         ]
     },
     "theme-cycle-night": {
-        "title": "테마 전환",
-        "content": "테마를 다크모드로 전환합니다.",
+        "title": "STRING-TITLE-CHANGE-NIGHT-MODE",
+        "content": "STRING-CONTENT-CHANGE-NIGHT-MODE",
         "buttons": [
             {
                 "icon": "accept",
