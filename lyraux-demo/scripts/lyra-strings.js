@@ -24,6 +24,15 @@ const lyraStrings = {
         "STRING-BUTTON-NOTIFICATION-DENY": "아니오",
 
         // 오류 설명문
+        "ERROR-COMMON-UNDEFINED-TYPE": "타입이 제공되지 않았습니다.",
+        "ERROR-COMMON-INVALID-TYPE": "제공된 타입이 올바르지 않습니다.",
+        "ERROR-COMMON-UNDEFINED-PARAMETER": "매개변수가 제공되지 않았습니다.",
+        "ERROR-COMMON-INVALID-PARAMETER": "제공된 매개변수가 올바르지 않습니다.",
+        "ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT": "제공된 매개변수가 객체가 아닙니다.",
+        "ERROR-COMMON-PARAMETER-IS-NOT-AN-ARRAY": "제공된 매개변수가 배열이 아닙니다.",
+        "ERROR-COMMON-PARAMETER-IS-NOT-A-STRING": "제공된 매개변수가 문자열이 아닙니다.",
+        "ERROR-COMMON-PARAMETER-IS-NOT-A-NUMBER": "제공된 매개변수가 숫자가 아닙니다.",
+        "ERROR-COMMON-PARAMETER-IS-NOT-A-BOOLEAN": "제공된 매개변수가 참 또는 거짓 값이 아닙니다.",
         "ERROR-CREATE-UNDEFINED-TYPE": "타입이 제공되지 않았습니다.",
         "ERROR-CLASS-INVALID-ID": "제공된 ID값이 없거나 올바르지 않습니다.",
         "ERROR-CLASS-UNDEFINED-PARAMETER": "매개변수값이 제공되지 않았습니다.",
@@ -44,6 +53,14 @@ const lyraStrings = {
         "ERROR-NOTIFICATION-INVALID-BUTTON-DATA": "제공된 버튼 개체가 올바르지 않습니다.",
 
         // 디버깅용
+        "DEBUG-LYRA-TEST-BUTTON-HORIZONTAL": "가로 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-VERTICAL": "세로 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-RED": "빨강 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-GREEN": "초록 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-BLUE": "파랑 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-WARNING": "주의가 필요한 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-TRANSPARENT": "투명 버튼",
+        "DEBUG-LYRA-TEST-BUTTON-DISABLED": "작동 중지된 버튼",
         "DEBUG-LYRA-TEST-NOTIFICATION-SHORT": "알림 생성",
         "DEBUG-LYRA-TEST-NOTIFICATION-LONG": "긴 알림 생성",
         "DEBUG-LYRA-TEST-NOTIFICATION-PERMANENT": "안 사라지는 알림",

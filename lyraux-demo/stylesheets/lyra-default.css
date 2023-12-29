@@ -1,0 +1,202 @@
+@charset "UTF-8";
+@font-face {
+    font-family: "NEXON Lv1 Gothic";
+    src: url("../assets/fonts/NEXON-Lv1-Gothic-OTF.woff") format("woff2"),
+        url("../assets/fonts/NEXON-Lv1-Gothic-OTF.eot") format("embedded-opentype");
+}
+@font-face {
+    font-family: "NEXON Lv1 Gothic Bold";
+    src: url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Bold.woff") format("woff2"),
+        url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Bold.eot") format("embedded-opentype");
+}
+@font-face {
+    font-family: "NEXON Lv1 Gothic Light";
+    src: url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Light.woff") format("woff2"),
+        url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Light.eot") format("embedded-opentype");
+}
+
+* {
+    overflow: hidden;
+    
+    margin: 0;
+    padding: 0;
+
+    user-select: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    
+    background: var(--lyra-color-background);
+    font-family: "NEXON Lv1 Gothic";
+}
+
+h1, h2, h3, h4, h5, h6, span {
+    color: var(--lyra-color-font-default);
+}
+
+/* 버튼 객체 */
+.lyra-button {
+    display: flex;
+    position: relative;
+
+    padding: 4px;
+    
+    min-width: 10px;
+    width: fit-content;
+    min-height: 10px;
+    height: fit-content;
+
+    border-radius: var(--lyra-value-border-radius);
+    cursor: pointer;
+    transition: all ease-in-out 0.1s;
+}
+
+.lyra-button * {
+    transition: all ease-in-out 0.1s;
+}
+
+.lyra-button:hover {
+    box-shadow: var(--lyra-shadow-button-hover);
+}
+
+.lyra-button:active {
+    box-shadow: var(--lyra-shadow-button-active);
+    transform: var(--lyra-transform-button-active);
+}
+
+.lyra-button:disabled {
+    cursor: text;
+}
+
+.lyra-button:not(.lyra-button-color-default):hover {
+    filter: var(--lyra-filter-button-hover);
+}
+
+.lyra-button:not(.lyra-button-color-default):active {
+    filter: var(--lyra-filter-button-active);
+}
+
+.lyra-button-cover {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.lyra-button-color-default {
+    background: var(--lyra-color-button-default);
+}
+
+.lyra-button-color-default * {
+    filter: var(--lyra-filter-button-default);
+}
+
+.lyra-button-color-default:hover {
+    background: var(--lyra-color-button-accent);
+}
+
+.lyra-button-color-default:hover * {
+    filter: var(--lyra-filter-button-accent);
+}
+
+.lyra-button-color-default:active {
+    filter: var(--lyra-filter-button-active);
+}
+
+.lyra-button-color-accent {
+    background: var(--lyra-color-button-accent);
+}
+
+.lyra-button-color-accent * {
+    filter: var(--lyra-filter-button-accent);
+}
+
+.lyra-button-color-warning {
+    background: var(--lyra-color-button-warning);
+}
+
+.lyra-button-color-warning * {
+    filter: var(--lyra-filter-button-warning);
+}
+
+.lyra-button-color-transparent {
+    background: var(--lyra-color-button-transparent);
+}
+
+.lyra-button-color-transparent * {
+    filter: var(--lyra-filter-button-transparent);
+}
+
+.lyra-button-color-red {
+    background: var(--lyra-color-button-red);
+}
+
+.lyra-button-color-red * {
+    filter: var(--lyra-filter-button-red);
+}
+
+.lyra-button-color-green {
+    background: var(--lyra-color-button-green);
+}
+
+.lyra-button-color-green * {
+    filter: var(--lyra-filter-button-green);
+}
+
+.lyra-button-color-blue {
+    background: var(--lyra-color-button-blue);
+}
+
+.lyra-button-color-blue * {
+    filter: var(--lyra-filter-button-blue);
+}
+
+.lyra-button-vertical {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lyra-button-horizontal {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.lyra-button-icon {
+    margin: 4px;
+    order: -1;
+}
+
+.lyra-button-name {
+    margin: 4px;
+}
+
+/* 아이콘 객체 */
+.lyra-icon {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+}
+
+/* 문자열 객체 */
+.lyra-title {
+    font-family: "NEXON Lv1 Gothic OTF Bold", sans-serif;
+    font-size: var(--lyra-value-font-title);
+    color: var(--lyra-color-font-title);
+}
+
+.lyra-content {
+    font-size: var(--lyra-value-font-content);
+    color: var(--lyra-color-font-content);
+}
+
+.lyra-caption {
+    font-family: "NEXON Lv1 Gothic OTF Light", sans-serif;
+    font-size: var(--lyra-value-font-caption);
+    color: var(--lyra-color-font-caption);
+}

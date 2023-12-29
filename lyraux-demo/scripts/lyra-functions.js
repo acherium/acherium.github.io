@@ -35,33 +35,50 @@ function setStringAll() {
     return 0;
 };
 
-// Element 생성과 클래스/ID 지정을 한 번에 하는 함수
-function create(type, param) {
-    if (!type) {
-        throw Error("no type");
-    };
+function create(type, value, param) {
+    if (!type) throw Error("ERROR-COMMON-UNDEFINED-TYPE");
+    if (!value) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+    if (value.constructor !== String) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-STRING"));
+    if (param && param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
+    if (param && Object.values(param).filter(x => x).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-STRING"));
 
-    const _result = document.createElement(`${type}`);
-
-    if (param && param.constructor === Array) {
-        param.forEach(x => {
-            if (`${x}`.startsWith("#")) {
-                _result.id = `${x}`.substring(1);
-            } else if (`${x}`.startsWith(".")) {
-                _result.classList.add(`${x}`.substring(1));
-            } else {
-                throw Error("invalid selector");
-            };
-        });
-    } else if (param && param.constructor === String) {
-        if (`${param}`.startsWith("#")) {
-            _result.id = `${param}`.substring(1);
-        } else if (`${param}`.startsWith(".")) {
-            _result.classList.add(`${param}`.substring(1));
-        } else {
-            throw Error("invalid selector");
+    const result = document.createElement(`${type}`);
+    value.split(/ +/g).forEach(x => {
+        if (x.startsWith("#")) {
+            result.id = x.substring(1);
+        } else if (x.startsWith(".")) {
+            result.classList.add(x.substring(1));
         };
+    });
+
+    if (param) {
+        if (param["string"]) result.setAttribute("lyra-string", param["string"]);
+        if (param["description"]) result.setAttribute("lyra-description", param["description"]);
+        if (param["alt"]) result.setAttribute("alt", param["alt"]);
+        if (param["onclick"]) result.setAttribute("onclick", param["onclick"]);
+        if (param["disabled"]) result.setAttribute("disabled", "true");
     };
 
-    return _result;
+    return result;
+};
+
+// 알림창 개체 만들고 표시하는 함수
+function showNotification(target) {
+    const raw = notificationList[target];
+    const notification = new LyraNotification(raw);
+    notification.show();
+    return 0;
+};
+
+// 특정 알림창 닫는 함수
+function closeNotification(target) {
+    lyra.ondisplay.notification[target].close();
+    return 0;
+};
+
+// 특정 배열에 대한 새 고유 코드값을 생성하는 함수
+// 키가 숫자 ID로 지정되어 오름차순으로 저장된 객체를 대상으로 함
+// 목록 속 마지막 객체의 ID값의 +1을 반환, 객체가 없는 빈 목록이면 0을 반환
+function getUniqueCode(list) {
+    return Object.keys(list).length ? parseInt(Object.keys(list)[Object.keys(list).length - 1]) + 1 : 0;
 };

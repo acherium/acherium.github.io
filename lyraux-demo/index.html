@@ -6,81 +6,18 @@
     <title>LyraUX Demo</title>
 
     <link rel="icon" href="./assets/favicon/favicon-lyra.svg">
-    <link rel="stylesheet" href="./stylesheets/root/lyra-reset.css">
-    <link rel="stylesheet" href="./stylesheets/root/lyra-icons.css">
-    <link rel="stylesheet" href="./stylesheets/root/lyra-ux-values.css">
-    <link rel="stylesheet" href="./stylesheets/root/lyra-default.css">
-    <link rel="stylesheet" href="./stylesheets/root/lyra-animations.css">
+    <link rel="stylesheet" href="./stylesheets/lyra-default.css">
+    <link rel="stylesheet" href="./stylesheets/lyra-miscellaneous.css">
     
-    <link rel="stylesheet" id="style-main" href="./stylesheets/day/lyra-mainstyle.css">
-    <link rel="stylesheet" id="style-palette" href="./stylesheets/day/lyra-color-palette.css">
+    <link rel="stylesheet" id="style-palette" href="./stylesheets/palette/lyra-palette-day.css">
 
     <script src="./scripts/lyra-init.js" defer></script>
     <script src="./scripts/lyra-functions.js" defer></script>
     <script src="./scripts/lyra-classes.js" defer></script>
     <script src="./scripts/lyra-strings.js" defer></script>
-    <script src="./scripts/demo.js" defer></script>
+    <script src="./scripts/test-button.js" defer></script>
 </head>
 <body>
-    <div class="lyra-title">Title</div>
-    <div class="lyra-content">Content</div>
-    <div class="lyra-caption">Caption</div>
-
-    <div class="lyra-content"><br>테마 전환</div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showModal(`theme-cycle-night`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-night"></div>
-        <div class="lyra-button-nametag" lyra-string="STRING-BUTTON-THEME"></div>
-    </div>
-
-    <div class="lyra-content"><br>모달 표시</div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showModal(`info`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="STRING-BUTTON-ABOUT"></div>
-    </div>
-
-    <div class="lyra-content"><br>알림 표시</div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-MEDIUM`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-SHORT"></div>
-    </div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-LONG`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-LONG"></div>
-    </div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-PERMANENT`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-PERMANENT"></div>
-    </div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-IMAGE`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-WITH-IMAGE"></div>
-    </div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-VERTICAL-IMAGE`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-WITH-VERTICAL-IMAGE"></div>
-    </div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-HORIZONTAL-IMAGE`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-WITH-HORIZONTAL-IMAGE"></div>
-    </div>
-    <div class="lyra-button lyra-button-horizontal" onclick="showNotification(`LOREM-SMALL-IMAGE`);">
-        <div class="lyra-button-cover"></div>
-        <div class="lyra-icon lyra-icon-alert"></div>
-        <div class="lyra-button-nametag" lyra-string="DEBUG-LYRA-TEST-NOTIFICATION-WITH-SMALL-IMAGE"></div>
-    </div>
-
-    <br>
-    <div class="lyra-content">class test</div>
-    <div class="testarea"></div>
-
     <section id="lyra-notification-area">
         <h1 hidden>알림 영역</h1>
     </section>

@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+/* 변수 */
+:root {
+    /* 곡률 */
+    --lyra-value-border-radius: 4px;
+    --lyra-value-modal-radius: 8px;
+
+    /* 글꼴 크기 */
+    --lyra-value-font-title: 28px;
+    --lyra-value-font-content: 16px;
+    --lyra-value-font-caption: 12px;
+    --lyra-value-font-button: 16px;
+}
+
+
+/* 애니메이션 */
+/* 창 전환 애니메이션용 클래스 */
+.lyra-ani-window-jumpup {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.lyra-ani-window-fade {
+    opacity: 0;
+}
+
+.lyra-ani-transition {
+    transition: all ease-in-out 0.5s;
+}
+
+.lyra-ani-transition * {
+    transition: all ease-in-out 0.5s;
+}
+
+/* 모달 윈도우 표시 애니메이션용 클래스 */
+.lyra-ani-modal-transition-in {
+    transition: all ease-out 0.2s;
+}
+
+.lyra-ani-modal-transition-out {
+    transition: all ease-in 0.2s;
+}
+
+/* 알림 표시 애니메이션용 클래스 */
+.lyra-ani-notification-out {
+    transform: translateX(20px);
+}
+
+.lyra-ani-notification-transition-in {
+    transition: all ease-out 0.2s;
+}
+
+.lyra-ani-notification-transition-out {
+    transition: all ease-in 0.2s;
+}
+
+
+/* 아이콘 관련 */
+/* 아이콘 색상 필터 */
+/* 강조색상 변환 */ .lyra-iconfilter-lyra { filter: invert(21%) sepia(96%) saturate(4133%) hue-rotate(275deg) brightness(78%) contrast(104%); }
+/* 검은색 변환*/    .lyra-iconfilter-black { filter: brightness(0); }
+/* 흰색 변환*/      .lyra-iconfilter-white { filter: brightness(0) invert(1); }
+
+/* 아이콘 */
+/* 대표 아이콘 */   .lyra-icon-lyra { background-image: url("../assets/icons/icon-lyra.svg"); } 
+/* 기본 아이콘 */   .lyra-icon-none { background-image: url("../assets/icons/icon-none.svg"); }
+/* 낮 아이콘 */     .lyra-icon-day { background-image: url("../assets/icons/icon-day.svg"); }
+/* 밤 아이콘 */     .lyra-icon-night { background-image: url("../assets/icons/icon-night.svg") }
+/* 수락 아이콘 */   .lyra-icon-accept { background-image: url("../assets/icons/icon-accept.svg"); }
+/* 거절 아이콘 */   .lyra-icon-deny { background-image: url("../assets/icons/icon-deny.svg"); }
+/* 경고 아이콘 */   .lyra-icon-alert { background-image: url("../assets/icons/icon-alert.svg"); }
+/* 레이어 아이콘 */ .lyra-icon-layer { background-image: url("../assets/icons/icon-layer.svg"); }
+/* 이미지 아이콘 */ .lyra-icon-image { background-image: url("../assets/icons/icon-image.svg"); }
