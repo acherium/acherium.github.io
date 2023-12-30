@@ -277,7 +277,11 @@ class LyraModal {
         this.sort = this.mid + lyra.path["PATH-LYRA-MODAL-OFFSET"];
         this.pos = {
             x: 0,
-            y: 0
+            y: 0,
+            touch: {
+                x: 0,
+                y: 0
+            }
         };
         this.target = {
             value: param["target"] || "body",
@@ -344,6 +348,39 @@ class LyraModal {
                 this.target.raw.onmousemove = null;
                 this.target.raw.onmouseup = null;
             };
+        };
+
+        this.raw.handle.icon.ontouchstart = (t1) => {
+            this.changeState();
+            this.pos.touch.x = t1.touches[0].clientX;
+            this.pos.touch.y = t1.touches[0].clientY;
+
+            this.target.raw.ontouchmove = (t2) => {
+                this.pos.x = t2.touches[0].clientX - this.pos.touch.x;
+                this.pos.y = t2.touches[0].clientY - this.pos.touch.y;
+                this.raw.window.style["left"] = `${this.pos.x}px`;
+                this.raw.window.style["top"] = `${this.pos.y}px`;
+            };
+
+            const endTransition = () => {
+                this.changeState();
+
+                this.raw.window.classList.add("lyra-ani-modal-position-reset");
+                setTimeout(() => {
+                    this.raw.window.classList.remove("lyra-ani-modal-position-reset");
+                }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
+                
+                this.pos.x = 0;
+                this.pos.y = 0;
+                this.raw.window.style["left"] = `${this.pos.x}px`;
+                this.raw.window.style["top"] = `${this.pos.y}px`;
+                
+                this.target.raw.ontouchmove = null;
+            };
+
+            this.target.raw.ontouchend = endTransition;
+
+            this.target.raw.ontouchcancel = endTransition;
         };
 
         this.raw.handle.area.append(this.raw.handle.icon);
