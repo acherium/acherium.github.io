@@ -376,6 +376,8 @@ class LyraModal {
                 this.raw.window.style["top"] = `${this.pos.y}px`;
                 
                 this.target.raw.ontouchmove = null;
+                this.target.raw.ontouchend = null;
+                this.target.raw.ontouchcancel = null;
             };
 
             this.target.raw.ontouchend = endTransition;
