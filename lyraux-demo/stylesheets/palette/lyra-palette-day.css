@@ -30,6 +30,9 @@
     --lyra-color-button-red: var(--lyra-color-red);
     --lyra-color-button-green: var(--lyra-color-green);
     --lyra-color-button-blue: var(--lyra-color-blue);
+    --lyra-color-button-cover-default: rgba(255, 255, 255 , 0);
+    --lyra-color-button-cover-hover: rgba(255, 255, 255, 0.2);
+    --lyra-color-button-cover-active: rgba(0, 0, 0, 0.2);
     --lyra-filter-button-default: brightness(0);
     --lyra-filter-button-accent: brightness(0) invert(1);
     --lyra-filter-button-warning: brightness(0);
@@ -44,8 +47,13 @@
     --lyra-transform-button-active: scale(0.95);
 
     /* 모달 윈도우 구성요소 */
+    --lyra-color-modal-background: rgba(0, 0, 0, 0.5);
+    --lyra-color-modal-window: rgb(255, 255, 255);
+    --lyra-color-modal-handle: rgb(220, 220, 220);
     --lyra-color-modal-gradient-pos1: rgba(133, 22, 196, 0);
     --lyra-color-modal-gradient-pos2: rgba(133, 22, 196, 0.1);
+    --lyra-filter-modal-backdrop: blur(10px);
+    --lyra-shadow-modal: 0 2px 3px 0 var(--lyra-color-shadow);
 
     /* 그림자 */
     --lyra-shadow-small: 0 2px 3px 0 var(--lyra-color-shadow);

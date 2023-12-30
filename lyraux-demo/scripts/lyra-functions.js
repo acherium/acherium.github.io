@@ -35,9 +35,9 @@ function setStringAll() {
     return 0;
 };
 
-function create(type, value, param) {
+function create(type, value = "", param) {
     if (!type) throw Error("ERROR-COMMON-UNDEFINED-TYPE");
-    if (!value) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+    // if (!value) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
     if (value.constructor !== String) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-STRING"));
     if (param && param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
     if (param && Object.values(param).filter(x => x).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-STRING"));
@@ -81,4 +81,12 @@ function closeNotification(target) {
 // 목록 속 마지막 객체의 ID값의 +1을 반환, 객체가 없는 빈 목록이면 0을 반환
 function getUniqueCode(list) {
     return Object.keys(list).length ? parseInt(Object.keys(list)[Object.keys(list).length - 1]) + 1 : 0;
+};
+
+// CSS 값에서 숫자만 추출하는 함수
+// 값이 비어있으면 0을 반환
+function getValue(x) {
+    const r = x.length ? parseInt(`${x}`.split(/\D*/g).join("")) : 0;
+    console.log(r);
+    return r;
 };

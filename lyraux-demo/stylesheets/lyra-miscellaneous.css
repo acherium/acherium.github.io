@@ -2,15 +2,24 @@
 
 /* 변수 */
 :root {
+    /* 글꼴 */
+    --lyra-font-main: "Pretendard Variable", sans-serif;
+    --lyra-font-main-bold: "Pretendard Variable Bold", sans-serif;
+    --lyra-font-main-light: "Pretendard Variable Light", sans-serif;
+
     /* 곡률 */
     --lyra-value-border-radius: 4px;
     --lyra-value-modal-radius: 8px;
 
+    /* 버튼 관련 */
+    --lyra-value-button-padding: 5px;
+    --lyra-value-button-transition: all ease-in-out 0.05s;
+
     /* 글꼴 크기 */
     --lyra-value-font-title: 28px;
-    --lyra-value-font-content: 16px;
-    --lyra-value-font-caption: 12px;
-    --lyra-value-font-button: 16px;
+    --lyra-value-font-content: 13px;
+    --lyra-value-font-caption: 10px;
+    --lyra-value-font-button: 13px;
 }
 
 
@@ -21,7 +30,11 @@
     transform: scale(0.95);
 }
 
-.lyra-ani-window-fade {
+.lyra-ani-window-transition {
+    transition: all ease-in-out 0.1s;
+}
+
+.lyra-ani-window-hidden {
     opacity: 0;
 }
 
@@ -34,13 +47,10 @@
 }
 
 /* 모달 윈도우 표시 애니메이션용 클래스 */
-.lyra-ani-modal-transition-in {
-    transition: all ease-out 0.2s;
-}
-
-.lyra-ani-modal-transition-out {
-    transition: all ease-in 0.2s;
-}
+.lyra-ani-modal-transition { transition: all ease-in-out 0.2s; }
+.lyra-ani-modal-transition-in { transition: all ease-out 0.2s; }
+.lyra-ani-modal-transition-out { transition: all ease-in 0.2s; }
+.lyra-ani-modal-position-reset { transition: all cubic-bezier(0.73, 1.87, 0.62, 0.71) 0.2s; }
 
 /* 알림 표시 애니메이션용 클래스 */
 .lyra-ani-notification-out {

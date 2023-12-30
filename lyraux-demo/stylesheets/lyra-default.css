@@ -1,20 +1,27 @@
 @charset "UTF-8";
 @font-face {
-    font-family: "NEXON Lv1 Gothic";
-    src: url("../assets/fonts/NEXON-Lv1-Gothic-OTF.woff") format("woff2"),
-        url("../assets/fonts/NEXON-Lv1-Gothic-OTF.eot") format("embedded-opentype");
+	font-family: "Pretendard Variable";
+	src: url('../assets/fonts/PretendardVariable.woff2') format('woff2-variations');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
 }
 @font-face {
-    font-family: "NEXON Lv1 Gothic Bold";
-    src: url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Bold.woff") format("woff2"),
-        url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Bold.eot") format("embedded-opentype");
+	font-family: "Pretendard Variable Bold";
+	src: url('../assets/fonts/PretendardVariable.woff2') format('woff2-variations');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
 }
 @font-face {
-    font-family: "NEXON Lv1 Gothic Light";
-    src: url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Light.woff") format("woff2"),
-        url("../assets/fonts/NEXON-Lv1-Gothic-OTF-Light.eot") format("embedded-opentype");
+	font-family: "Pretendard Variable Light";
+	src: url('../assets/fonts/PretendardVariable.woff2') format('woff2-variations');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
+/* 초기화 */
 * {
     overflow: hidden;
     
@@ -29,11 +36,37 @@ body {
     height: 100vh;
     
     background: var(--lyra-color-background);
-    font-family: "NEXON Lv1 Gothic";
+    font-family: var(--lyra-font-main);
 }
 
 h1, h2, h3, h4, h5, h6, span {
     color: var(--lyra-color-font-default);
+}
+
+/* 아이콘 객체 */
+.lyra-icon {
+    width: 18px;
+    height: 18px;
+    background-size: cover;
+}
+
+/* 문자열 객체 */
+.lyra-title {
+    font-family: var(--lyra-font-main-bold);
+    font-size: var(--lyra-value-font-title);
+    color: var(--lyra-color-font-title);
+}
+
+.lyra-content {
+    font-family: var(--lyra-font-main);
+    font-size: var(--lyra-value-font-content);
+    color: var(--lyra-color-font-content);
+}
+
+.lyra-caption {
+    font-family: var(--lyra-font-main-light);
+    font-size: var(--lyra-value-font-caption);
+    color: var(--lyra-color-font-caption);
 }
 
 /* 버튼 객체 */
@@ -41,7 +74,7 @@ h1, h2, h3, h4, h5, h6, span {
     display: flex;
     position: relative;
 
-    padding: 4px;
+    padding: var(--lyra-value-button-padding);
     
     min-width: 10px;
     width: fit-content;
@@ -50,111 +83,61 @@ h1, h2, h3, h4, h5, h6, span {
 
     border-radius: var(--lyra-value-border-radius);
     cursor: pointer;
-    transition: all ease-in-out 0.1s;
+    transition: var(--lyra-value-button-transition);
 }
 
 .lyra-button * {
-    transition: all ease-in-out 0.1s;
-}
-
-.lyra-button:hover {
-    box-shadow: var(--lyra-shadow-button-hover);
-}
-
-.lyra-button:active {
-    box-shadow: var(--lyra-shadow-button-active);
-    transform: var(--lyra-transform-button-active);
+    transition: var(--lyra-value-button-transition);
 }
 
 .lyra-button:disabled {
     cursor: text;
 }
 
-.lyra-button:not(.lyra-button-color-default):hover {
-    filter: var(--lyra-filter-button-hover);
+.lyra-button:not(.lyra-button-color-default):hover > .lyra-button-cover {
+    background: var(--lyra-color-button-cover-hover);
 }
 
-.lyra-button:not(.lyra-button-color-default):active {
-    filter: var(--lyra-filter-button-active);
+.lyra-button.lyra-button:not(.lyra-button-color-default):active > .lyra-button-cover {
+    background: var(--lyra-color-button-cover-active);
 }
 
 .lyra-button-cover {
     display: flex;
     position: absolute;
+    z-index: 1;
     top: 0;
     left: 0;
 
     width: 100%;
     height: 100%;
+
+    background: var(--lyra-color-button-cover-default);
 }
 
-.lyra-button-color-default {
-    background: var(--lyra-color-button-default);
-}
+.lyra-button-color-default { background: var(--lyra-color-button-default); }
+.lyra-button-color-default *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-default); }
+.lyra-button-color-default:hover { background: var(--lyra-color-button-accent); }
+.lyra-button-color-default:hover *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-accent); }
+.lyra-button-color-default:active { filter: var(--lyra-filter-button-active); }
 
-.lyra-button-color-default * {
-    filter: var(--lyra-filter-button-default);
-}
+.lyra-button-color-accent { background: var(--lyra-color-button-accent); }
+.lyra-button-color-accent *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-accent); }
 
-.lyra-button-color-default:hover {
-    background: var(--lyra-color-button-accent);
-}
+.lyra-button-color-warning { background: var(--lyra-color-button-warning); }
+.lyra-button-color-warning *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-warning); }
 
-.lyra-button-color-default:hover * {
-    filter: var(--lyra-filter-button-accent);
-}
+.lyra-button-color-transparent { background: var(--lyra-color-button-transparent); }
+.lyra-button-color-transparent *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-transparent); }
 
-.lyra-button-color-default:active {
-    filter: var(--lyra-filter-button-active);
-}
+.lyra-button-color-red { background: var(--lyra-color-button-red); }
+.lyra-button-color-red *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-red); }
 
-.lyra-button-color-accent {
-    background: var(--lyra-color-button-accent);
-}
+.lyra-button-color-green { background: var(--lyra-color-button-green); }
+.lyra-button-color-green *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-green); }
 
-.lyra-button-color-accent * {
-    filter: var(--lyra-filter-button-accent);
-}
-
-.lyra-button-color-warning {
-    background: var(--lyra-color-button-warning);
-}
-
-.lyra-button-color-warning * {
-    filter: var(--lyra-filter-button-warning);
-}
-
-.lyra-button-color-transparent {
-    background: var(--lyra-color-button-transparent);
-}
-
-.lyra-button-color-transparent * {
-    filter: var(--lyra-filter-button-transparent);
-}
-
-.lyra-button-color-red {
-    background: var(--lyra-color-button-red);
-}
-
-.lyra-button-color-red * {
-    filter: var(--lyra-filter-button-red);
-}
-
-.lyra-button-color-green {
-    background: var(--lyra-color-button-green);
-}
-
-.lyra-button-color-green * {
-    filter: var(--lyra-filter-button-green);
-}
-
-.lyra-button-color-blue {
-    background: var(--lyra-color-button-blue);
-}
-
-.lyra-button-color-blue * {
-    filter: var(--lyra-filter-button-blue);
-}
+.lyra-button-color-blue { background: var(--lyra-color-button-blue); }
+.lyra-button-color-blue *:not(.lyra-button-cover) { filter: var(--lyra-filter-button-blue); }
 
 .lyra-button-vertical {
     flex-direction: column;
@@ -168,35 +151,153 @@ h1, h2, h3, h4, h5, h6, span {
 }
 
 .lyra-button-icon {
-    margin: 4px;
+    margin: var(--lyra-value-button-padding);
     order: -1;
 }
 
 .lyra-button-name {
-    margin: 4px;
+    margin: var(--lyra-value-button-padding);
+
+    font-size: var(--lyra-value-font-button);
 }
 
-/* 아이콘 객체 */
-.lyra-icon {
-    width: 24px;
-    height: 24px;
-    background-size: cover;
+/* 모달 객체 */
+.lyra-modal {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: all 0.2s;
 }
 
-/* 문자열 객체 */
-.lyra-title {
-    font-family: "NEXON Lv1 Gothic OTF Bold", sans-serif;
-    font-size: var(--lyra-value-font-title);
-    color: var(--lyra-color-font-title);
+.lyra-modal-background {
+    position: absolute;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: var(--lyra-color-modal-background);
+    backdrop-filter: var(--lyra-filter-modal-backdrop);
+    transition: all ease-in-out 0.2s;
 }
 
-.lyra-content {
-    font-size: var(--lyra-value-font-content);
-    color: var(--lyra-color-font-content);
+.lyra-modal-background-effect {
+    position: absolute;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url("../assets/images/image-noise.png");
+    opacity: 0.03;
 }
 
-.lyra-caption {
-    font-family: "NEXON Lv1 Gothic OTF Light", sans-serif;
-    font-size: var(--lyra-value-font-caption);
-    color: var(--lyra-color-font-caption);
+.lyra-modal-window {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    top: 0;
+    left: 0;
+
+    margin: 0 20px;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 300px;
+    max-height: 100vh;
+    height: fit-content;
+
+    background: var(--lyra-color-modal-background);
+    border-radius: var(--lyra-value-modal-radius);
+    backdrop-filter: var(--lyra-filter-modal-backdrop);
+    box-shadow: var(--lyra-shadow-modal);
+}
+
+.lyra-modal-area {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    box-sizing: border-box;
+    width: 100%;
+    min-height: inherit;
+    height: 100%;
+
+    background: var(--lyra-color-modal-window);
+    transition: all ease-in-out 0.2s;
+}
+
+.lyra-modal-handle-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 30px;
+}
+
+.lyra-modal-handle {
+    margin: 11px;
+
+    min-width: 70px;
+    min-height: 8px;
+    
+    background: var(--lyra-color-modal-handle);
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+.lyra-modal-wrap {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+
+    box-sizing: border-box;
+    max-width: 80%;
+    width: 100%;
+    max-height: 100vh;
+    flex: 1;
+}
+
+.lyra-modal-wrap > * {
+    margin-top: 10px;
+}
+
+.lyra-modal-thumbnail {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    order: -1;
+
+    width: 100%;
+    min-height: 100px;
+    max-height: 500px;
+}
+
+.lyra-modal-thumbnail > img {
+    max-width: 100%;
+}
+
+.lyra-modal-button-area {
+    display: flex;
+    align-self: flex-end;
+    order: 9;
+
+    margin-top: auto;
 }

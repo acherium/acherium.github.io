@@ -2,6 +2,7 @@
 const lyraStrings = {
     "ko-KR": {
         // 개체 표시용 문자열
+        "STRING-TITLE-ABOUT-LYRA": "LyraUX 정보",
         "STRING-TITLE-THEME": "테마",
         "STRING-TITLE-CHANGE-THEME": "테마 전환",
         "STRING-TITLE-CHANGE-DAY-MODE": "라이트모드 전환",
@@ -69,6 +70,7 @@ const lyraStrings = {
         "DEBUG-LYRA-TEST-NOTIFICATION-WITH-VERTICAL-IMAGE": "세로로 긴 그림",
         "DEBUG-LYRA-TEST-NOTIFICATION-WITH-HORIZONTAL-IMAGE": "가로로 긴 그림",
         "DEBUG-LYRA-TEST-NOTIFICATION-WITH-SMALL-IMAGE": "작은 그림",
+        "DEBUG-LYRA-TEST-MODAL-SHOW": "창 생성",
         "DEBUG-LYRA-LOREM-SHORT": "Lorem ipsum",
         "DEBUG-LYRA-LOREM-MEDIUM": "Lorem ipsum dolor sit amet",
         "DEBUG-LYRA-LOREM-LONG": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."

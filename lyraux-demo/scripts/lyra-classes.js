@@ -1,5 +1,5 @@
 // 버튼 클래스
-class LyraButtonEnhanced {
+class LyraButton {
     constructor(param = {}) {
         // if (!param) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
@@ -265,15 +265,20 @@ class LyraButtonEnhanced {
 };
 
 // 기본 모달 클래스
-class LyraModalEnhanced {
+class LyraModal {
     constructor(param = {}) {
         if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
-        if (Object.values(param).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+        // if (Object.values(param).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.id = param["id"] || null;
         this.class = param["class"] | null;
         this.mid = getUniqueCode(lyra.ondisplay.modal);
+        this.state = true;
         this.sort = this.mid + lyra.path["PATH-LYRA-MODAL-OFFSET"];
+        this.pos = {
+            x: 0,
+            y: 0
+        };
         this.target = {
             value: param["target"] || "body",
             raw: document.querySelector(param["target"] || "body")
@@ -292,32 +297,179 @@ class LyraModalEnhanced {
         };
         this.thumbnail = {
             value: param["thumbnail"] || null,
+            img: null,
             raw: null
         };
+        if (param["buttons"] && param["buttons"].constructor !== Array) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
         this.buttons = {
-            values: [],
+            values: param["buttons"] || [],
             area: create("div", ".lyra-modal-button-area")
         };
 
         this.raw = {};
         this.raw.modal = create("div", ".lyra-modal");
-        this.raw.background = create("div", ".lyra-background");
+        this.raw.background = create("div", ".lyra-modal-background", { onclick: `lyra.ondisplay.modal[${this.mid}].close();` });
+        this.raw.effect = create("div", ".lyra-modal-background-effect");
         this.raw.window = create("div", ".lyra-modal-window");
+        this.raw.grain = create("div", ".lyra-modal-background-effect");
         this.raw.area = create("div", ".lyra-modal-area");
+        this.raw.wrap = create("div", ".lyra-modal-wrap");
+        this.raw.handle = {
+            area: create("div", ".lyra-modal-handle-area"),
+            icon: create("div", ".lyra-modal-handle")
+        };
 
-        this.raw.area.append(this.buttons.area);
+        this.raw.handle.icon.onmousedown = () => {
+            this.changeState();
+
+            this.target.raw.onmousemove = (m) => {
+                this.pos.x += m.movementX;
+                this.pos.y += m.movementY;
+                this.raw.window.style["left"] = `${this.pos.x}px`;
+                this.raw.window.style["top"] = `${this.pos.y}px`;
+            };
+            this.target.raw.onmouseup = () => {
+                this.changeState();
+
+                this.raw.window.classList.add("lyra-ani-modal-position-reset");
+                setTimeout(() => {
+                    this.raw.window.classList.remove("lyra-ani-modal-position-reset");
+                }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
+                
+                this.pos.x = 0;
+                this.pos.y = 0;
+                this.raw.window.style["left"] = `${this.pos.x}px`;
+                this.raw.window.style["top"] = `${this.pos.y}px`;
+
+                this.target.raw.onmousemove = null;
+                this.target.raw.onmouseup = null;
+            };
+        };
+
+        this.raw.handle.area.append(this.raw.handle.icon);
+        this.raw.wrap.append(this.buttons.area);
+        this.raw.area.append(this.raw.handle.area);
+        this.raw.area.append(this.raw.wrap);
+        this.raw.window.append(this.raw.grain);
         this.raw.window.append(this.raw.area);
+        this.raw.background.append(this.raw.effect);
         this.raw.modal.append(this.raw.background);
         this.raw.modal.append(this.raw.window);
 
+        if (this.title.value) {
+            this.title.raw = create("div", ".lyra-title", { string: this.title.value });
+            this.raw.wrap.append(this.title.raw);
+        };
+        if (this.content.value) {
+            this.content.raw = create("div", ".lyra-content", { string: this.content.value });
+            this.raw.wrap.append(this.content.raw);
+        };
+        if (this.thumbnail.value) {
+            this.thumbnail.img = create("img");
+            this.thumbnail.img.src = this.thumbnail.value;
+            this.thumbnail.raw = create("div", ".lyra-modal-thumbnail");
+            this.thumbnail.raw.append(this.thumbnail.img);
+            this.raw.wrap.append(this.thumbnail.raw);
+        };
+        if (this.buttons.values.length) {
+            this.buttons.values.forEach(b => {
+                const button = new LyraButton(b);
+                if (!b["onclick"]) button.raw.setAttribute("onclick", `lyra.ondisplay.modal[${this.mid}].close();`);
+                this.buttons.area.append(button.raw);
+            });
+        };
+
         this.raw.modal.style["z-index"] = this.sort;
+        setStringChildrens(this.raw.modal);
 
         return this;
     };
 
     unsetID() {
         this.id = null;
+        this.raw.modal.id = null;
 
         return this;
-    }
+    };
+
+    setID(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        this.id = x;
+        this.raw.modal.id = x;
+
+        return this;
+    };
+
+    unsetClass() {
+        this.class = null;
+        Array.from(this.raw.modal.classList).forEach(x => {
+            this.raw.modal.classList.remove(x);
+        });
+
+        this.raw.modal.classList.add("lyra-modal");
+
+        return this;
+    };
+
+    setClass(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        this.class = `${this.class ? `${this.class} ` : ""}${x}`;
+        this.raw.modal.classList.add(x);
+
+        return this;
+    };
+
+    changeState() {
+        this.target.raw.style["cursor"] = this.state ? "move" : null;
+        this.raw.handle.icon.style["cursor"] = this.state ? "move" : "pointer";
+        this.raw.background.style["opacity"] = this.state ? "0" : "1";
+        this.raw.area.style["opacity"] = this.state ? "0" : "1";
+
+        this.state = this.state ? false : true;
+
+        return this;
+    };
+
+    show() {
+        this.raw.modal.classList.add("lyra-ani-window-hidden");
+        this.raw.window.classList.add("lyra-ani-window-jumpup");
+        this.raw.window.classList.add("lyra-ani-modal-transition-in");
+
+        this.target.raw.append(this.raw.modal);
+        lyra.ondisplay.modal[this.mid] = this; 
+
+        setTimeout(() => {
+            this.raw.modal.classList.remove("lyra-ani-window-hidden");
+            this.raw.window.classList.remove("lyra-ani-window-jumpup");
+
+            setTimeout(() => {
+                this.raw.window.classList.remove("lyra-ani-modal-transition-in");
+            }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
+        }, lyra.path["PATH-LYRA-TIMEOUT-BUFFER"]);
+
+        return this;
+    };
+
+    close() {
+        this.raw.modal.classList.add("lyra-ani-window-hidden");
+        this.raw.window.classList.add("lyra-ani-modal-transition-in");
+        this.raw.window.classList.add("lyra-ani-window-jumpup");
+
+        setTimeout(() => {
+            this.target.raw.removeChild(this.raw.modal);
+        }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
+
+        return this;
+    };
+
+    destroy() {
+        this.raw.modal.remove();
+        delete lyra.ondisplay.modal[this.mid];
+
+        return;
+    };
 };
