@@ -172,7 +172,6 @@ h1, h2, h3, h4, h5, h6, span {
     height: 100vh;
     top: 0;
     left: 0;
-    transition: all 0.2s;
 }
 
 .lyra-modal-background {
@@ -184,7 +183,6 @@ h1, h2, h3, h4, h5, h6, span {
 
     background: var(--lyra-color-modal-background);
     backdrop-filter: var(--lyra-filter-modal-backdrop);
-    transition: all ease-in-out 0.2s;
 }
 
 .lyra-modal-background-effect {
@@ -195,7 +193,7 @@ h1, h2, h3, h4, h5, h6, span {
     height: 100%;
 
     background-image: url("../assets/images/image-noise.png");
-    opacity: 0.03;
+    opacity: 0.02;
 }
 
 .lyra-modal-window {
@@ -248,15 +246,20 @@ h1, h2, h3, h4, h5, h6, span {
 }
 
 .lyra-modal-handle {
-    margin: 11px;
-
-    min-width: 70px;
-    min-height: 8px;
-    
-    background: var(--lyra-color-modal-handle);
-    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px;
 
     cursor: pointer;
+}
+
+.lyra-modal-handle-icon {
+    min-width: 50px;
+    min-height: 4px;
+
+    background: var(--lyra-color-modal-handle);
+    border-radius: 2px;
 }
 
 .lyra-modal-wrap {

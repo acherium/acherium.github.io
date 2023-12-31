@@ -283,6 +283,7 @@ class LyraModal {
                 y: 0
             }
         };
+        this.fixed = param["fixed"] || false;
         this.target = {
             value: param["target"] || "body",
             raw: document.querySelector(param["target"] || "body")
@@ -320,11 +321,12 @@ class LyraModal {
         this.raw.wrap = create("div", ".lyra-modal-wrap");
         this.raw.handle = {
             area: create("div", ".lyra-modal-handle-area"),
-            icon: create("div", ".lyra-modal-handle")
+            bar: create("div", ".lyra-modal-handle"),
+            icon: create("div", ".lyra-modal-handle-icon")
         };
 
-        this.raw.handle.icon.onmousedown = () => {
-            this.changeState();
+        this.raw.handle.bar.onmousedown = () => {
+            this.changeState(false);
 
             this.target.raw.onmousemove = (m) => {
                 this.pos.x += m.movementX;
@@ -333,7 +335,7 @@ class LyraModal {
                 this.raw.window.style["top"] = `${this.pos.y}px`;
             };
             this.target.raw.onmouseup = () => {
-                this.changeState();
+                this.changeState(true);
 
                 this.raw.window.classList.add("lyra-ani-modal-position-reset");
                 setTimeout(() => {
@@ -350,8 +352,8 @@ class LyraModal {
             };
         };
 
-        this.raw.handle.icon.ontouchstart = (t1) => {
-            this.changeState();
+        this.raw.handle.bar.ontouchstart = (t1) => {
+            this.changeState(false);
             this.pos.touch.x = t1.touches[0].clientX;
             this.pos.touch.y = t1.touches[0].clientY;
 
@@ -363,7 +365,7 @@ class LyraModal {
             };
 
             const endTransition = () => {
-                this.changeState();
+                this.changeState(true);
 
                 this.raw.window.classList.add("lyra-ani-modal-position-reset");
                 setTimeout(() => {
@@ -385,7 +387,8 @@ class LyraModal {
             this.target.raw.ontouchcancel = endTransition;
         };
 
-        this.raw.handle.area.append(this.raw.handle.icon);
+        this.raw.handle.bar.append(this.raw.handle.icon);
+        this.raw.handle.area.append(this.raw.handle.bar);
         this.raw.wrap.append(this.buttons.area);
         this.raw.area.append(this.raw.handle.area);
         this.raw.area.append(this.raw.wrap);
@@ -462,11 +465,15 @@ class LyraModal {
         return this;
     };
 
-    changeState() {
-        this.target.raw.style["cursor"] = this.state ? "move" : null;
-        this.raw.handle.icon.style["cursor"] = this.state ? "move" : "pointer";
-        this.raw.background.style["opacity"] = this.state ? "0" : "1";
-        this.raw.area.style["opacity"] = this.state ? "0" : "1";
+    changeState(bool) {
+        if (!bool.constructor) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (bool.constructor !== Boolean) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-BOOLEAN"));
+        this.state = bool;
+
+        this.target.raw.style["cursor"] = this.state ? null : "move";
+        this.raw.handle.bar.style["cursor"] = this.state ? null : "move";
+        this.raw.background.style["opacity"] = this.state ? null : "0";
+        this.raw.area.style["opacity"] = this.state ? null : "0";
 
         this.state = this.state ? false : true;
 
@@ -474,7 +481,8 @@ class LyraModal {
     };
 
     show() {
-        this.raw.modal.classList.add("lyra-ani-window-hidden");
+        this.raw.background.classList.add("lyra-ani-window-hidden");
+        this.raw.background.classList.add("lyra-ani-modal-transition-in");
         this.raw.window.classList.add("lyra-ani-window-jumpup");
         this.raw.window.classList.add("lyra-ani-modal-transition-in");
 
@@ -482,7 +490,7 @@ class LyraModal {
         lyra.ondisplay.modal[this.mid] = this; 
 
         setTimeout(() => {
-            this.raw.modal.classList.remove("lyra-ani-window-hidden");
+            this.raw.background.classList.remove("lyra-ani-window-hidden");
             this.raw.window.classList.remove("lyra-ani-window-jumpup");
 
             setTimeout(() => {
@@ -494,7 +502,12 @@ class LyraModal {
     };
 
     close() {
-        this.raw.modal.classList.add("lyra-ani-window-hidden");
+        if (this.fixed) {
+            alert("이 창은 닫을 수 없습니다.");
+            return;
+        };
+
+        this.raw.background.classList.add("lyra-ani-window-hidden");
         this.raw.window.classList.add("lyra-ani-modal-transition-in");
         this.raw.window.classList.add("lyra-ani-window-jumpup");
 
@@ -506,6 +519,11 @@ class LyraModal {
     };
 
     destroy() {
+        if (this.fixed) {
+            alert("이 창은 제거할 수 없습니다.");
+            return;
+        };
+
         this.raw.modal.remove();
         delete lyra.ondisplay.modal[this.mid];
 
