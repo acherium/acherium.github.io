@@ -465,6 +465,117 @@ class LyraModal {
         return this;
     };
 
+    unsetTitle() {
+        this.title.value = null;
+        if (this.title.raw) {
+            this.title.raw.remove();
+            this.title.raw = null;
+        };
+
+        return this;
+    };
+
+    setTitle(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        if (!this.title.raw) {
+            this.title.raw = create("div", ".lyra-title");
+            this.raw.wrap.append(this.title.raw);
+        } else {
+            this.title.raw.innerText = "";
+            this.title.raw.removeAttribute("lyra-string");
+        };
+
+        this.title.value = x;
+        this.title.raw.setAttribute("lyra-string", this.title.value);
+        setString(this.title.raw);
+
+        return this;
+    };
+
+    unsetContent() {
+        this.content.value = null;
+        if (this.content.raw) {
+            this.content.raw.remove();
+            this.content.raw = null;
+        };
+
+        return this;
+    };
+
+    setContent(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        if (!this.content.raw) {
+            this.content.raw = create("div", ".lyra-content");
+            this.raw.wrap.append(this.content.raw);
+        } else {
+            this.content.raw.innerText = "";
+            this.content.raw.removeAttribute("lyra-string");
+        };
+
+        this.content.value = x;
+        this.content.raw.setAttribute("lyra-string", this.content.value);
+        setString(this.content.raw);
+
+        return this;
+    };
+
+    unsetThumbnail() {
+        this.thumbnail.value = null;
+        if (this.thumbnail.img) {
+            this.thumbnail.img.remove();
+            this.thumbnail.img = null;
+        };
+        if (this.thumbnail.raw) {
+            this.thumbnail.raw.remove();
+            this.thumbnail.raw = null;
+        };
+
+        return this;
+    };
+
+    setThumbnail(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        this.thumbnail.value = x;
+
+        if (!this.thumbnail.img) this.thumbnail.img = create("img");
+        if (!this.thumbnail.raw) this.thumbnail.raw = create("div", ".lyra-modal-thumbnail");
+        this.thumbnail.img.src = this.thumbnail.value;
+        this.thumbnail.raw.append(this.thumbnail.img);
+        this.raw.wrap.append(this.thumbnail.raw);
+
+        return this;
+    };
+
+    unsetButtons() {
+        this.buttons.values = [];
+        Array.from(this.buttons.raw.childrens).forEach(b => {
+            b.remove();
+        });
+
+        return this;
+    };
+
+    setButton(b) {
+        if (!b) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+
+        if (b.constructor === Object) this.buttons.values.push(b);
+        else if (b.constructor === Array) this.buttons.values = b;
+
+        this.buttons.values.forEach(x => {
+            const button = new LyraButton(x);
+            if (!x["onclick"]) button.raw.setAttribute("onclick", `lyra.ondisplay.modal[${this.mid}].close();`);
+            this.buttons.area.append(button.raw);
+        });
+
+        return this;
+    };
+
     changeState(bool) {
         if (!bool.constructor) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (bool.constructor !== Boolean) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-BOOLEAN"));
@@ -476,6 +587,15 @@ class LyraModal {
         this.raw.area.style["opacity"] = this.state ? null : "0";
 
         this.state = this.state ? false : true;
+
+        return this;
+    };
+
+    changeFixed(bool) {
+        if (!bool.constructor) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (bool.constructor !== Boolean) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-BOOLEAN"));
+
+        this.fixed = bool;
 
         return this;
     };
@@ -503,8 +623,10 @@ class LyraModal {
 
     close() {
         if (this.fixed) {
-            alert("이 창은 닫을 수 없습니다.");
-            return;
+            const alertWindow = new LyraAlert({ content: "이 창은 닫을 수 없습니다." });
+            alertWindow.show();
+
+            return this;
         };
 
         this.raw.background.classList.add("lyra-ani-window-hidden");
@@ -526,6 +648,63 @@ class LyraModal {
 
         this.raw.modal.remove();
         delete lyra.ondisplay.modal[this.mid];
+
+        return;
+    };
+};
+
+// 경고 메시지 클래스
+class LyraAlert {
+    constructor(param = {}) {
+        if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
+
+        this.target = document.querySelector("#lyra-alert-area");
+        this.content = {
+            value: param["content"] || null,
+            raw: create("div", ".lyra-alert-content")
+        };
+        this.raw = {};
+
+        this.raw.alert = create("div", ".lyra-alert");
+        this.raw.effect = create("div", ".lyra-modal-background-effect");
+
+        this.raw.alert.append(this.raw.effect);
+        this.raw.alert.append(this.content.raw);
+
+        if (this.content.value) this.content.raw.innerText = this.content.value;
+
+        return this;
+    };
+
+    show() {
+        this.raw.alert.classList.add("lyra-ani-modal-transition-in");
+        this.raw.alert.classList.add("lyra-ani-window-hidden");
+        this.raw.alert.classList.add("lyra-ani-window-jumpup");
+
+        this.target.append(this.raw.alert);
+
+        setTimeout(() => {
+            console.log(true);
+            this.raw.alert.classList.remove("lyra-ani-window-hidden");
+            this.raw.alert.classList.remove("lyra-ani-window-jumpup");
+
+            setTimeout(() => {
+                this.close();
+            }, lyra.path["PATH-LYRA-ALERT-TIMEOUT"]);
+        }, lyra.path["PATH-LYRA-TIMEOUT-BUFFER"]);
+
+        return this;
+    };
+
+    close() {
+        this.raw.alert.classList.remove("lyra-ani-modal-transition-in");
+        this.raw.alert.classList.add("lyra-ani-modal-transition-out");
+        this.raw.alert.classList.add("lyra-ani-window-hidden");
+        this.raw.alert.classList.add("lyra-ani-window-jumpup");
+        
+        setTimeout(() => {
+            this.raw.alert.remove();
+        }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
 
         return;
     };

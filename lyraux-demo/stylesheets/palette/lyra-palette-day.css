@@ -52,8 +52,14 @@
     --lyra-color-modal-handle: rgb(220, 220, 220);
     --lyra-color-modal-gradient-pos1: rgba(133, 22, 196, 0);
     --lyra-color-modal-gradient-pos2: rgba(133, 22, 196, 0.1);
-    --lyra-filter-modal-backdrop: blur(10px);
+    --lyra-filter-modal-backdrop: blur(20px);
     --lyra-shadow-modal: 0 2px 3px 0 var(--lyra-color-shadow);
+
+    /* 경고 구성요소 */
+    --lyra-color-alert-background: rgba(0, 0, 0, 0.5);
+    --lyra-color-alert-font: var(--lyra-color-white);
+    --lyra-filter-alert-backdrop: blur(20px);
+    --lyra-shadow-alert: 0 2px 3px 0 var(--lyra-color-shadow);
 
     /* 그림자 */
     --lyra-shadow-small: 0 2px 3px 0 var(--lyra-color-shadow);

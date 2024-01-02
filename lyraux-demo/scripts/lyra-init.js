@@ -16,7 +16,8 @@ const lyra = {
         "PATH-LYRA-WINDOW-OFFSET": 10,
         "PATH-LYRA-THEMES": [ "day", "night" ],
         "PATH-LYRA-BUTTON-DIRECTIONS": [ "horizontal", "vertical" ],
-        "PATH-LYRA-BUTTON-COLORS": [ "default", "accent", "warning", "transparent", "red", "green", "blue" ]
+        "PATH-LYRA-BUTTON-COLORS": [ "default", "accent", "warning", "transparent", "red", "green", "blue" ],
+        "PATH-LYRA-ALERT-TIMEOUT": 5000
     },
     information: {
         name: "LyraEngine for GitHub Pages",
@@ -29,3 +30,11 @@ const lyra = {
 document.addEventListener("DOMContentLoaded", () => {
     setStringAll();
 });
+
+window.onerror = (event, source, lineno, colno, error) => {
+    const message = `${event} @ ${source.split("/").pop()}`;
+    setTimeout(() => {
+        const errorAlert = new LyraAlert({ content: message });
+        errorAlert.show();
+    }, 30);
+};

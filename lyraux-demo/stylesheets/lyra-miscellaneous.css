@@ -7,19 +7,20 @@
     --lyra-font-main-bold: "Pretendard Variable Bold", sans-serif;
     --lyra-font-main-light: "Pretendard Variable Light", sans-serif;
 
-    /* 곡률 */
-    --lyra-value-border-radius: 4px;
-    --lyra-value-modal-radius: 8px;
-
-    /* 버튼 관련 */
-    --lyra-value-button-padding: 5px;
-    --lyra-value-button-transition: all ease-in-out 0.05s;
-
     /* 글꼴 크기 */
     --lyra-value-font-title: 28px;
     --lyra-value-font-content: 13px;
     --lyra-value-font-caption: 10px;
     --lyra-value-font-button: 13px;
+
+    /* 곡률 */
+    --lyra-value-border-radius: 4px;
+    --lyra-value-modal-radius: 8px;
+    --lyra-value-alert-radius: 8px;
+
+    /* 버튼 관련 */
+    --lyra-value-button-padding: 5px;
+    --lyra-value-button-transition: all ease-in-out 0.05s;
 }
 
 

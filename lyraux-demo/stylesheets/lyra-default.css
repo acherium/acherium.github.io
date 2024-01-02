@@ -183,6 +183,7 @@ h1, h2, h3, h4, h5, h6, span {
 
     background: var(--lyra-color-modal-background);
     backdrop-filter: var(--lyra-filter-modal-backdrop);
+    cursor: pointer;
 }
 
 .lyra-modal-background-effect {
@@ -295,6 +296,8 @@ h1, h2, h3, h4, h5, h6, span {
 
 .lyra-modal-thumbnail > img {
     max-width: 100%;
+    min-height: inherit;
+    max-height: inherit;
 }
 
 .lyra-modal-button-area {
@@ -303,4 +306,57 @@ h1, h2, h3, h4, h5, h6, span {
     order: 9;
 
     margin-top: auto;
+}
+
+.lyra-modal-button-area * {
+    margin-left: 4px;
+}
+
+/* 경고 영역 객체 */
+#lyra-alert-area {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    margin: 0 10%;
+    bottom: 60%;
+
+    width: 80%;
+    height: auto;
+}
+
+#lyra-alert-area > * {
+    margin: 10px;
+}
+
+.lyra-alert {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 800px;
+    width: 100%;
+    min-height: 80px;
+    height: auto;
+
+    background: var(--lyra-color-alert-background);
+    border-radius: var(--lyra-value-alert-radius);
+    backdrop-filter: var(--lyra-filter-alert-backdrop);
+    box-shadow: var(--lyra-shadow-alert);
+    color: var(--lyra-color-alert-font);
+}
+
+.lyra-alert-content {
+    position: relative;
+    margin: 30px;
+
+    max-width: 100%;
+    width: auto;
+    height: 100%;
+
+    font-size: var(--lyra-value-font-title);
+    text-wrap: wrap;
 }
