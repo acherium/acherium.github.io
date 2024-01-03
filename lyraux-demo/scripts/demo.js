@@ -1,7 +1,6 @@
 const body = document.querySelector("body");
 
-const buttonNotification = new LyraButton({
-    id: "#test-button-horizontal",
+const testbutton1 = new LyraButton({
     name: "DEBUG-LYRA-TEST-MODAL-SHOW",
     onclick: `modal1.show();`
 });
@@ -16,9 +15,9 @@ const modal1 = new LyraModal({
 });
 
 
-const buttonLyraInformation = new LyraButton({
-    id: "#test-button-horizontal",
+const testbutton2 = new LyraButton({
     name: "STRING-BUTTON-ABOUT-LYRA",
+    icon: "lyra",
     onclick: `modal2.show();`
 });
 const modal2 = new LyraModal({
@@ -32,17 +31,16 @@ const modal2 = new LyraModal({
     ]
 });
 
-body.append(buttonNotification.raw);
-body.append(buttonLyraInformation.raw);
+body.append(testbutton1.node.main);
+body.append(testbutton2.node.main);
 
-
-const modal3 = new LyraModal({
-    fixed: true,
-    buttons: [
-        {
-            name: "STRING-BUTTON-OKAY",
-            onclick: "aaa.aaa"
-        }
-    ]
+const testbutton3 = new LyraButton({
+    name: "DEBUG-LYRA-TEST-NOTIFICATION-SHORT",
+    onclick: `showNotification(testnoti1);`
 });
-modal3.show();
+const testnoti1 = {
+    title: "test",
+    content: "test"
+};
+
+body.append(testbutton3.node.main);

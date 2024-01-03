@@ -90,3 +90,14 @@ function getValue(x) {
     console.log(r);
     return r;
 };
+
+// 모달 관련 함수
+function showModal(id) {
+    lyra.ondisplay.modal[id].show();
+    return 0;
+};
+
+function closeModal(id) {
+    lyra.ondisplay.modal[id].close();
+    return 0;
+};

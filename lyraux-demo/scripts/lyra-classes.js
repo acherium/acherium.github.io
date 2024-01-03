@@ -9,62 +9,44 @@ class LyraButton {
         if (param["direction"] && !directions.includes(param["direction"])) throw Error(getString("ERROR-COMMON-INVALID-TYPE"));
         this.id = param["id"] || null;
         this.class = param["class"] || null;
-        this.direction = param["direction"] || "horizontal";
-        this.color = param["color"] || "default";
-        this.icon = {
-            value: param["icon"] || null,
-            raw: null
-        };
-        this.name = {
-            value: param["name"] || null,
-            raw: null
-        };
-        this.description = param["description"] || null;
-        this.alt = param["alt"] || null;
-        this.onclick = param["onclick"] || null;
-        this.disabled = param["disabled"] || null;
-        
-        const cover = create("div", `.lyra-button-cover`);
-        this.raw = create("div",
-            `${this.id ? `${this.id} ` : ""}.lyra-button .lyra-button-${this.direction} .lyra-button-color-${this.color}${this.class ? this.class.join(" ") : ""}`,
-            {
-                description: this.description,
-                alt: this.alt,
-                onclick: this.onclick,
-                disabled: this.disabled
-            });
-        this.raw.append(cover);
 
-        if (this.icon.value) {
-            this.icon.raw = create("div", `.lyra-icon .lyra-button-icon .lyra-icon-${this.icon.value}`);
-            this.raw.append(this.icon.raw);
+        this.option = {
+            direction: ( param["direction"] && lyra.path["PATH-LYRA-BUTTON-DIRECTIONS"].includes(param["direction"]) ) ? param["direction"] : "horizontal",
+            color: param["color"] || "default",
+            description: param["description"] || null,
+            alt: param["alt"] || null,
+            onclick: param["onclick"] || null,
+            disabled: param["disabled"] || null
         };
-        if (this.name.value) {
-            this.name.raw = create("div", `.lyra-button-name`, { string: this.name.value });
-            this.raw.append(this.name.raw);
+        this.data = {
+            icon: param["icon"] || null,
+            name: param["name"] || null
+        };
+        this.node = {
+            main: create("div",
+                `${this.id ? `${this.id} ` : ""}.lyra-button .lyra-button-${this.option.direction} .lyra-button-color-${this.option.color}${this.class ? this.class.join(" ") : ""}`,
+                {
+                    description: this.option.description,
+                    alt: this.option.alt,
+                    onclick: this.option.onclick,
+                    disabled: this.option.disabled
+                }),
+            cover: create("div", ".lyra-button-cover"),
+            icon: null,
+            name: null
         };
 
-        setString(this.name.raw);
-        return this;
-    };
+        this.node.main.append(this.node.cover);
 
-    init() {
-        this.unsetID();
-        this.unsetClass();
-        this.unsetDirection();
-        this.unsetColor();
-        this.unsetIcon();
-        this.unsetName();
-        this.unsetDescription();
-        this.unsetAlt();
-        this.unsetOnclick();
+        if (this.data.icon) this.setIcon(this.data.icon);
+        if (this.data.name) this.setName(this.data.name);
 
         return this;
     };
 
     unsetID() {
         this.id = null;
-        this.raw.id = null;
+        this.node.main.id = null;
 
         return this;
     };
@@ -74,20 +56,20 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.id = x;
-        this.raw.id = x;
+        this.node.main.id = x;
 
         return this;
     };
 
     unsetClass() {
         this.class = null;
-        Array.from(this.raw.classList).forEach(x => {
-            this.raw.classList.remove(x);
+        Array.from(this.node.main.classList).forEach(x => {
+            this.node.main.classList.remove(x);
         });
 
-        this.raw.classList.add("lyra-button");
-        this.raw.classList.add(`lyra-button-${this.direction}`);
-        this.raw.classList.add(`lyra-button-color-${this.color}`);
+        this.node.main.classList.add("lyra-button");
+        this.node.main.classList.add(`lyra-button-${this.direction}`);
+        this.node.main.classList.add(`lyra-button-color-${this.color}`);
 
         return this;
     };
@@ -97,15 +79,15 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.class = `${this.class ? `${this.class} ` : ""}${x}`;
-        this.raw.classList.add(x);
+        this.node.main.classList.add(x);
 
         return this;
     };
 
     unsetDirection() {
-        this.raw.classList.remove(`lyra-button-${this.direction}`);
+        this.node.main.classList.remove(`lyra-button-${this.direction}`);
         this.direction = "horizontal";
-        this.raw.classList.add(`lyra-button-${this.direction}`);
+        this.node.main.classList.add(`lyra-button-${this.direction}`);
 
         return this;
     };
@@ -115,17 +97,17 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
         if (!lyra.path["PATH-LYRA-BUTTON-DIRECTIONS"].includes(x)) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        this.raw.classList.remove(`lyra-button-${this.direction}`);
+        this.node.main.classList.remove(`lyra-button-${this.direction}`);
         this.direction = x;
-        this.raw.classList.add(`lyra-button-${this.direction}`);
+        this.node.main.classList.add(`lyra-button-${this.direction}`);
 
         return this;
     };
 
     unsetColor() {
-        this.raw.classList.remove(`lyra-button-color-${this.color}`);
+        this.node.main.classList.remove(`lyra-button-color-${this.color}`);
         this.color = "default";
-        this.raw.classList.add(`lyra-button-color-${this.color}`);
+        this.node.main.classList.add(`lyra-button-color-${this.color}`);
 
         return this;
     };
@@ -135,18 +117,18 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
         if (!lyra.path["PATH-LYRA-BUTTON-COLORS"].includes(x)) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        this.raw.classList.remove(`lyra-button-color-${this.color}`);
+        this.node.main.classList.remove(`lyra-button-color-${this.color}`);
         this.color = x;
-        this.raw.classList.add(`lyra-button-color-${this.color}`);
+        this.node.main.classList.add(`lyra-button-color-${this.color}`);
 
         return this;
     };
 
     unsetIcon() {
-        this.icon.value = null;
-        if (this.icon.raw) {
-            this.icon.raw.remove();
-            this.icon.raw = null;
+        this.data.icon = null;
+        if (this.node.icon) {
+            this.node.icon.remove();
+            this.node.icon = null;
         };
 
         return this;
@@ -156,24 +138,24 @@ class LyraButton {
         if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        if (!this.icon.raw) {
-            this.icon.raw = create("div", ".lyra-icon .lyra-button-icon");
-            this.raw.append(this.icon.raw);
+        if (!this.node.icon) {
+            this.node.icon = create("div", ".lyra-icon .lyra-button-icon");
+            this.node.main.append(this.node.icon);
         } else {
-            this.icon.raw.classList.remove(`lyra-icon-${this.icon.value}`);
+            this.node.icon.classList.remove(`lyra-icon-${this.data.icon}`);
         };
 
-        this.icon.value = x;
-        this.icon.raw.classList.add(`lyra-icon-${this.icon.value}`);
+        this.data.icon = x;
+        this.node.icon.classList.add(`lyra-icon-${this.data.icon}`);
 
         return this;
     };
 
     unsetName() {
-        this.name.value = null;
-        if (this.name.raw) {
-            this.name.raw.remove();
-            this.name.raw = null;
+        this.data.name = null;
+        if (this.node.name) {
+            this.node.name.remove();
+            this.node.name = null;
         };
 
         return this;
@@ -183,24 +165,24 @@ class LyraButton {
         if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        if (!this.name.raw) {
-            this.name.raw = create("div", ".lyra-button-name");
-            this.raw.append(this.name.raw);
+        if (!this.node.name) {
+            this.node.name = create("div", ".lyra-button-name");
+            this.node.main.append(this.node.name);
         } else {
-            this.name.raw.innerText = "";
-            this.name.raw.removeAttribute("lyra-string");
+            this.node.name.innerText = "";
+            this.node.name.removeAttribute("lyra-string");
         };
 
-        this.name.value = x;
-        this.name.raw.setAttribute("lyra-string", this.name.value);
-        setString(this.name.raw);
+        this.data.name = x;
+        this.node.name.setAttribute("lyra-string", this.data.name);
+        setString(this.node.name);
 
         return this;
     };
 
     unsetDescription() {
         this.description = null;
-        this.raw.removeAttribute("lyra-description");
+        this.node.main.removeAttribute("lyra-description");
 
         return this;
     };
@@ -210,14 +192,14 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.description = x;
-        this.raw.setAttribute("lyra-description", x);
+        this.node.main.setAttribute("lyra-description", x);
 
         return this;
     };
 
     unsetAlt() {
         this.alt = null;
-        this.raw.removeAttribute("alt");
+        this.node.main.removeAttribute("alt");
 
         return this;
     };
@@ -227,14 +209,14 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.alt = x;
-        this.raw.setAttribute("alt", x);
+        this.node.main.setAttribute("alt", x);
 
         return this;
     };
 
     unsetOnclick() {
         this.onclick = null;
-        this.raw.removeAttribute("onclick");
+        this.node.main.removeAttribute("onclick");
 
         return this;
     };
@@ -244,21 +226,21 @@ class LyraButton {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.onclick = x;
-        this.raw.setAttribute("onclick", x);
+        this.node.main.setAttribute("onclick", x);
 
         return this;
     };
 
     unsetDisable() {
         this.disabled = null;
-        this.raw.removeAttribute("disabled");
+        this.node.main.removeAttribute("disabled");
 
         return this;
     };
 
     setDisable() {
         this.disabled = "true";
-        this.raw.setAttribute("disabled", "true");
+        this.node.main.setAttribute("disabled", "true");
 
         return this;
     };
@@ -270,166 +252,139 @@ class LyraModal {
         if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
         // if (Object.values(param).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
+        this.uid = getUniqueCode(lyra.ondisplay.modal);
         this.id = param["id"] || null;
         this.class = param["class"] | null;
-        this.mid = getUniqueCode(lyra.ondisplay.modal);
-        this.state = true;
-        this.sort = this.mid + lyra.path["PATH-LYRA-MODAL-OFFSET"];
-        this.pos = {
-            x: 0,
-            y: 0,
-            touch: {
+
+        this.option = {
+            state: true,
+            sort: this.uid + lyra.path["PATH-LYRA-MODAL-OFFSET"],
+            pos: {
                 x: 0,
-                y: 0
-            }
+                y: 0,
+                touch: {
+                    x: 0,
+                    y: 0
+                }
+            },
+            fixed: Boolean(param["fixed"]) || false
         };
-        this.fixed = param["fixed"] || false;
-        this.target = {
-            value: param["target"] || "body",
-            raw: document.querySelector(param["target"] || "body")
+        this.data = {
+            target: param["target"] || "body",
+            title: param["title"] || null,
+            content: param["content"] || null,
+            icon: param["icon"] || null,
+            thumbnail: param["thumbnail"] || null,
+            buttons: ( param["buttons"] && param["buttons"].constructor === Array ) ? param["buttons"] : []
         };
-        this.title = {
-            value: param["title"] || null,
-            raw: null
-        };
-        this.content = {
-            value: param["content"] || null,
-            raw: null
-        };
-        this.icon = {
-            value: param["icon"] || null,
-            raw: null
-        };
-        this.thumbnail = {
-            value: param["thumbnail"] || null,
-            img: null,
-            raw: null
-        };
-        if (param["buttons"] && param["buttons"].constructor !== Array) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
-        this.buttons = {
-            values: param["buttons"] || [],
-            area: create("div", ".lyra-modal-button-area")
-        };
-
-        this.raw = {};
-        this.raw.modal = create("div", ".lyra-modal");
-        this.raw.background = create("div", ".lyra-modal-background", { onclick: `lyra.ondisplay.modal[${this.mid}].close();` });
-        this.raw.effect = create("div", ".lyra-modal-background-effect");
-        this.raw.window = create("div", ".lyra-modal-window");
-        this.raw.grain = create("div", ".lyra-modal-background-effect");
-        this.raw.area = create("div", ".lyra-modal-area");
-        this.raw.wrap = create("div", ".lyra-modal-wrap");
-        this.raw.handle = {
-            area: create("div", ".lyra-modal-handle-area"),
-            bar: create("div", ".lyra-modal-handle"),
-            icon: create("div", ".lyra-modal-handle-icon")
+        this.node = {
+            target: document.querySelector(this.data.target),
+            main: create("div", ".lyra-modal"),
+            backdrop: create("div", ".lyra-modal-background", { onclick: `closeModal(${this.uid});` }),
+            backdropEffect: create("div", ".lyra-modal-background-effect"),
+            window: create("div", ".lyra-modal-window"),
+            windowEffect: create("div", ".lyra-modal-background-effect"),
+            area: create("div", ".lyra-modal-area"),
+            wrap: create("div", ".lyra-modal-wrap"),
+            handleArea: create("div", ".lyra-modal-handle-area"),
+            handleBar: create("div", ".lyra-modal-handle"),
+            handleIcon: create("div", ".lyra-modal-handle-icon"),
+            title: null,
+            content: null,
+            icon: null,
+            thumbnail: null,
+            thumbnailImg: null,
+            buttons: create("div", ".lyra-modal-button-area")
         };
 
-        this.raw.handle.bar.onmousedown = () => {
+        this.node.handleBar.onmousedown = () => {
             this.changeState(false);
 
-            this.target.raw.onmousemove = (m) => {
-                this.pos.x += m.movementX;
-                this.pos.y += m.movementY;
-                this.raw.window.style["left"] = `${this.pos.x}px`;
-                this.raw.window.style["top"] = `${this.pos.y}px`;
+            this.node.target.onmousemove = (m) => {
+                this.option.pos.x += m.movementX;
+                this.option.pos.y += m.movementY;
+                this.node.window.style["left"] = `${this.option.pos.x}px`;
+                this.node.window.style["top"] = `${this.option.pos.y}px`;
             };
-            this.target.raw.onmouseup = () => {
+            this.node.target.onmouseup = () => {
                 this.changeState(true);
 
-                this.raw.window.classList.add("lyra-ani-modal-position-reset");
+                this.node.window.classList.add("lyra-ani-modal-position-reset");
                 setTimeout(() => {
-                    this.raw.window.classList.remove("lyra-ani-modal-position-reset");
+                    this.node.window.classList.remove("lyra-ani-modal-position-reset");
                 }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
                 
-                this.pos.x = 0;
-                this.pos.y = 0;
-                this.raw.window.style["left"] = `${this.pos.x}px`;
-                this.raw.window.style["top"] = `${this.pos.y}px`;
+                this.option.pos.x = 0;
+                this.option.pos.y = 0;
+                this.node.window.style["left"] = `${this.option.pos.x}px`;
+                this.node.window.style["top"] = `${this.option.pos.y}px`;
 
-                this.target.raw.onmousemove = null;
-                this.target.raw.onmouseup = null;
+                this.node.target.onmousemove = null;
+                this.node.target.onmouseup = null;
             };
         };
 
-        this.raw.handle.bar.ontouchstart = (t1) => {
+        this.node.handleBar.ontouchstart = (t1) => {
             this.changeState(false);
-            this.pos.touch.x = t1.touches[0].clientX;
-            this.pos.touch.y = t1.touches[0].clientY;
+            this.option.pos.touch.x = t1.touches[0].clientX;
+            this.option.pos.touch.y = t1.touches[0].clientY;
 
-            this.target.raw.ontouchmove = (t2) => {
-                this.pos.x = t2.touches[0].clientX - this.pos.touch.x;
-                this.pos.y = t2.touches[0].clientY - this.pos.touch.y;
-                this.raw.window.style["left"] = `${this.pos.x}px`;
-                this.raw.window.style["top"] = `${this.pos.y}px`;
+            this.node.target.ontouchmove = (t2) => {
+                this.option.pos.x = t2.touches[0].clientX - this.option.pos.touch.x;
+                this.option.pos.y = t2.touches[0].clientY - this.option.pos.touch.y;
+                this.node.window.style["left"] = `${this.option.pos.x}px`;
+                this.node.window.style["top"] = `${this.option.pos.y}px`;
             };
 
             const endTransition = () => {
                 this.changeState(true);
 
-                this.raw.window.classList.add("lyra-ani-modal-position-reset");
+                this.node.window.classList.add("lyra-ani-modal-position-reset");
                 setTimeout(() => {
-                    this.raw.window.classList.remove("lyra-ani-modal-position-reset");
+                    this.node.window.classList.remove("lyra-ani-modal-position-reset");
                 }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
                 
-                this.pos.x = 0;
-                this.pos.y = 0;
-                this.raw.window.style["left"] = `${this.pos.x}px`;
-                this.raw.window.style["top"] = `${this.pos.y}px`;
+                this.option.pos.x = 0;
+                this.option.pos.y = 0;
+                this.node.window.style["left"] = `${this.option.pos.x}px`;
+                this.node.window.style["top"] = `${this.option.pos.y}px`;
                 
-                this.target.raw.ontouchmove = null;
-                this.target.raw.ontouchend = null;
-                this.target.raw.ontouchcancel = null;
+                this.node.target.ontouchmove = null;
+                this.node.target.ontouchend = null;
+                this.node.target.ontouchcancel = null;
             };
 
-            this.target.raw.ontouchend = endTransition;
+            this.node.target.ontouchend = endTransition;
 
-            this.target.raw.ontouchcancel = endTransition;
-        };
-
-        this.raw.handle.bar.append(this.raw.handle.icon);
-        this.raw.handle.area.append(this.raw.handle.bar);
-        this.raw.wrap.append(this.buttons.area);
-        this.raw.area.append(this.raw.handle.area);
-        this.raw.area.append(this.raw.wrap);
-        this.raw.window.append(this.raw.grain);
-        this.raw.window.append(this.raw.area);
-        this.raw.background.append(this.raw.effect);
-        this.raw.modal.append(this.raw.background);
-        this.raw.modal.append(this.raw.window);
-
-        if (this.title.value) {
-            this.title.raw = create("div", ".lyra-title", { string: this.title.value });
-            this.raw.wrap.append(this.title.raw);
-        };
-        if (this.content.value) {
-            this.content.raw = create("div", ".lyra-content", { string: this.content.value });
-            this.raw.wrap.append(this.content.raw);
-        };
-        if (this.thumbnail.value) {
-            this.thumbnail.img = create("img");
-            this.thumbnail.img.src = this.thumbnail.value;
-            this.thumbnail.raw = create("div", ".lyra-modal-thumbnail");
-            this.thumbnail.raw.append(this.thumbnail.img);
-            this.raw.wrap.append(this.thumbnail.raw);
-        };
-        if (this.buttons.values.length) {
-            this.buttons.values.forEach(b => {
-                const button = new LyraButton(b);
-                if (!b["onclick"]) button.raw.setAttribute("onclick", `lyra.ondisplay.modal[${this.mid}].close();`);
-                this.buttons.area.append(button.raw);
-            });
+            this.node.target.ontouchcancel = endTransition;
         };
 
-        this.raw.modal.style["z-index"] = this.sort;
-        setStringChildrens(this.raw.modal);
+        this.node.handleBar.append(this.node.handleIcon);
+        this.node.handleArea.append(this.node.handleBar);
+        this.node.wrap.append(this.node.buttons);
+        this.node.area.append(this.node.handleArea);
+        this.node.area.append(this.node.wrap);
+        this.node.window.append(this.node.windowEffect);
+        this.node.window.append(this.node.area);
+        this.node.backdrop.append(this.node.backdropEffect);
+        this.node.main.append(this.node.backdrop);
+        this.node.main.append(this.node.window);
+
+        if (this.data.title) this.setTitle(this.data.title);
+        if (this.data.content) this.setContent(this.data.content);
+        if (this.data.thumbnail) this.setThumbnail(this.data.thumbnail);
+        if (this.data.buttons.length) this.setButton(this.data.buttons);
+
+        this.node.main.style["z-index"] = this.option.sort;
+        lyra.ondisplay.modal[this.uid] = this; 
+        // setStringChildrens(this.node.main);
 
         return this;
     };
 
     unsetID() {
         this.id = null;
-        this.raw.modal.id = null;
+        this.node.main.id = null;
 
         return this;
     };
@@ -439,18 +394,18 @@ class LyraModal {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.id = x;
-        this.raw.modal.id = x;
+        this.node.main.id = x;
 
         return this;
     };
 
     unsetClass() {
         this.class = null;
-        Array.from(this.raw.modal.classList).forEach(x => {
-            this.raw.modal.classList.remove(x);
+        Array.from(this.node.main.classList).forEach(x => {
+            this.node.main.classList.remove(x);
         });
 
-        this.raw.modal.classList.add("lyra-modal");
+        this.node.main.classList.add("lyra-modal");
 
         return this;
     };
@@ -460,16 +415,16 @@ class LyraModal {
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
         this.class = `${this.class ? `${this.class} ` : ""}${x}`;
-        this.raw.modal.classList.add(x);
+        this.node.main.classList.add(x);
 
         return this;
     };
 
     unsetTitle() {
-        this.title.value = null;
-        if (this.title.raw) {
-            this.title.raw.remove();
-            this.title.raw = null;
+        this.data.title = null;
+        if (this.node.title) {
+            this.node.title.remove();
+            this.node.title = null;
         };
 
         return this;
@@ -479,26 +434,26 @@ class LyraModal {
         if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        if (!this.title.raw) {
-            this.title.raw = create("div", ".lyra-title");
-            this.raw.wrap.append(this.title.raw);
+        if (!this.node.title) {
+            this.node.title = create("div", ".lyra-title");
+            this.node.wrap.append(this.node.title);
         } else {
-            this.title.raw.innerText = "";
-            this.title.raw.removeAttribute("lyra-string");
+            this.node.title.innerText = "";
+            this.node.title.removeAttribute("lyra-string");
         };
 
-        this.title.value = x;
-        this.title.raw.setAttribute("lyra-string", this.title.value);
-        setString(this.title.raw);
+        this.data.title = x;
+        this.node.title.setAttribute("lyra-string", this.data.title);
+        setString(this.node.title);
 
         return this;
     };
 
     unsetContent() {
-        this.content.value = null;
-        if (this.content.raw) {
-            this.content.raw.remove();
-            this.content.raw = null;
+        this.data.content = null;
+        if (this.node.content) {
+            this.node.content.remove();
+            this.node.content = null;
         };
 
         return this;
@@ -508,30 +463,30 @@ class LyraModal {
         if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        if (!this.content.raw) {
-            this.content.raw = create("div", ".lyra-content");
-            this.raw.wrap.append(this.content.raw);
+        if (!this.node.content) {
+            this.node.content = create("div", ".lyra-content");
+            this.node.wrap.append(this.node.content);
         } else {
-            this.content.raw.innerText = "";
-            this.content.raw.removeAttribute("lyra-string");
+            this.node.content.innerText = "";
+            this.node.content.removeAttribute("lyra-string");
         };
 
-        this.content.value = x;
-        this.content.raw.setAttribute("lyra-string", this.content.value);
-        setString(this.content.raw);
+        this.data.content = x;
+        this.node.content.setAttribute("lyra-string", this.data.content);
+        setString(this.node.content);
 
         return this;
     };
 
     unsetThumbnail() {
-        this.thumbnail.value = null;
-        if (this.thumbnail.img) {
-            this.thumbnail.img.remove();
-            this.thumbnail.img = null;
+        this.data.thumbnail = null;
+        if (this.node.thumbnailImg) {
+            this.node.thumbnailImg.remove();
+            this.node.thumbnailImg = null;
         };
-        if (this.thumbnail.raw) {
-            this.thumbnail.raw.remove();
-            this.thumbnail.raw = null;
+        if (this.node.thumbnail) {
+            this.node.thumbnail.remove();
+            this.node.thumbnail = null;
         };
 
         return this;
@@ -541,20 +496,20 @@ class LyraModal {
         if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
 
-        this.thumbnail.value = x;
+        this.data.thumbnail = x;
 
-        if (!this.thumbnail.img) this.thumbnail.img = create("img");
-        if (!this.thumbnail.raw) this.thumbnail.raw = create("div", ".lyra-modal-thumbnail");
-        this.thumbnail.img.src = this.thumbnail.value;
-        this.thumbnail.raw.append(this.thumbnail.img);
-        this.raw.wrap.append(this.thumbnail.raw);
+        if (!this.node.thumbnailImg) this.node.thumbnailImg = create("img");
+        if (!this.node.thumbnail) this.node.thumbnail = create("div", ".lyra-modal-thumbnail");
+        this.node.thumbnailImg.src = this.data.thumbnail;
+        this.node.thumbnail.append(this.node.thumbnailImg);
+        this.node.wrap.append(this.node.thumbnail);
 
         return this;
     };
 
     unsetButtons() {
-        this.buttons.values = [];
-        Array.from(this.buttons.raw.childrens).forEach(b => {
+        this.data.buttons = [];
+        Array.from(this.node.buttons.childrens).forEach(b => {
             b.remove();
         });
 
@@ -564,13 +519,13 @@ class LyraModal {
     setButton(b) {
         if (!b) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
 
-        if (b.constructor === Object) this.buttons.values.push(b);
-        else if (b.constructor === Array) this.buttons.values = b;
+        if (b.constructor === Object) this.data.buttons.push(b);
+        else if (b.constructor === Array) this.data.buttons = b;
 
-        this.buttons.values.forEach(x => {
+        this.data.buttons.forEach(x => {
             const button = new LyraButton(x);
-            if (!x["onclick"]) button.raw.setAttribute("onclick", `lyra.ondisplay.modal[${this.mid}].close();`);
-            this.buttons.area.append(button.raw);
+            if (!x["onclick"]) button.node.main.setAttribute("onclick", `closeModal(${this.uid});`);
+            this.node.buttons.append(button.node.main);
         });
 
         return this;
@@ -579,14 +534,14 @@ class LyraModal {
     changeState(bool) {
         if (!bool.constructor) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (bool.constructor !== Boolean) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-A-BOOLEAN"));
-        this.state = bool;
+        this.option.state = bool;
 
-        this.target.raw.style["cursor"] = this.state ? null : "move";
-        this.raw.handle.bar.style["cursor"] = this.state ? null : "move";
-        this.raw.background.style["opacity"] = this.state ? null : "0";
-        this.raw.area.style["opacity"] = this.state ? null : "0";
+        this.node.target.style["cursor"] = this.option.state ? null : "move";
+        this.node.handleBar.style["cursor"] = this.option.state ? null : "move";
+        this.node.backdrop.style["opacity"] = this.option.state ? null : "0";
+        this.node.area.style["opacity"] = this.option.state ? null : "0";
 
-        this.state = this.state ? false : true;
+        this.option.state = this.option.state ? false : true;
 
         return this;
     };
@@ -601,20 +556,19 @@ class LyraModal {
     };
 
     show() {
-        this.raw.background.classList.add("lyra-ani-window-hidden");
-        this.raw.background.classList.add("lyra-ani-modal-transition-in");
-        this.raw.window.classList.add("lyra-ani-window-jumpup");
-        this.raw.window.classList.add("lyra-ani-modal-transition-in");
+        this.node.backdrop.classList.add("lyra-ani-window-hidden");
+        this.node.backdrop.classList.add("lyra-ani-modal-transition-in");
+        this.node.window.classList.add("lyra-ani-window-jumpup");
+        this.node.window.classList.add("lyra-ani-modal-transition-in");
 
-        this.target.raw.append(this.raw.modal);
-        lyra.ondisplay.modal[this.mid] = this; 
+        this.node.target.append(this.node.main);
 
         setTimeout(() => {
-            this.raw.background.classList.remove("lyra-ani-window-hidden");
-            this.raw.window.classList.remove("lyra-ani-window-jumpup");
+            this.node.backdrop.classList.remove("lyra-ani-window-hidden");
+            this.node.window.classList.remove("lyra-ani-window-jumpup");
 
             setTimeout(() => {
-                this.raw.window.classList.remove("lyra-ani-modal-transition-in");
+                this.node.window.classList.remove("lyra-ani-modal-transition-in");
             }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
         }, lyra.path["PATH-LYRA-TIMEOUT-BUFFER"]);
 
@@ -623,18 +577,18 @@ class LyraModal {
 
     close() {
         if (this.fixed) {
-            const alertWindow = new LyraAlert({ content: "이 창은 닫을 수 없습니다." });
+            const alertWindow = new LyraAlert({ content: "이 창은 닫을 수 없습니다" });
             alertWindow.show();
 
             return this;
         };
 
-        this.raw.background.classList.add("lyra-ani-window-hidden");
-        this.raw.window.classList.add("lyra-ani-modal-transition-in");
-        this.raw.window.classList.add("lyra-ani-window-jumpup");
+        this.node.backdrop.classList.add("lyra-ani-window-hidden");
+        this.node.window.classList.add("lyra-ani-modal-transition-in");
+        this.node.window.classList.add("lyra-ani-window-jumpup");
 
         setTimeout(() => {
-            this.target.raw.removeChild(this.raw.modal);
+            this.node.target.removeChild(this.node.main);
         }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
 
         return this;
@@ -642,11 +596,13 @@ class LyraModal {
 
     destroy() {
         if (this.fixed) {
-            alert("이 창은 제거할 수 없습니다.");
-            return;
+            const alertWindow = new LyraAlert({ content: "이 창은 닫을 수 없습니다" });
+            alertWindow.show();
+
+            return this;
         };
 
-        this.raw.modal.remove();
+        this.node.main.remove();
         delete lyra.ondisplay.modal[this.mid];
 
         return;
@@ -658,35 +614,34 @@ class LyraAlert {
     constructor(param = {}) {
         if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
 
-        this.target = document.querySelector("#lyra-alert-area");
-        this.content = {
-            value: param["content"] || null,
-            raw: create("div", ".lyra-alert-content")
+        this.data = {
+            content: param["content"] || null
         };
-        this.raw = {};
+        this.node = {
+            target: document.querySelector(lyra.path["PATH-LYRA-ALERT-AREA"]),
+            main: create("div", ".lyra-alert"),
+            effect: create("div", ".lyra-modal-background-effect"),
+            content: create("div", ".lyra-alert-content", { string: this.data.content })
+        };
 
-        this.raw.alert = create("div", ".lyra-alert");
-        this.raw.effect = create("div", ".lyra-modal-background-effect");
+        this.node.main.append(this.node.effect);
+        this.node.main.append(this.node.content);
 
-        this.raw.alert.append(this.raw.effect);
-        this.raw.alert.append(this.content.raw);
-
-        if (this.content.value) this.content.raw.innerText = this.content.value;
+        setString(this.node.content);
 
         return this;
     };
 
     show() {
-        this.raw.alert.classList.add("lyra-ani-modal-transition-in");
-        this.raw.alert.classList.add("lyra-ani-window-hidden");
-        this.raw.alert.classList.add("lyra-ani-window-jumpup");
+        this.node.main.classList.add("lyra-ani-modal-transition-in");
+        this.node.main.classList.add("lyra-ani-window-hidden");
+        this.node.main.classList.add("lyra-ani-window-jumpup");
 
-        this.target.append(this.raw.alert);
+        this.node.target.append(this.node.main);
 
         setTimeout(() => {
-            console.log(true);
-            this.raw.alert.classList.remove("lyra-ani-window-hidden");
-            this.raw.alert.classList.remove("lyra-ani-window-jumpup");
+            this.node.main.classList.remove("lyra-ani-window-hidden");
+            this.node.main.classList.remove("lyra-ani-window-jumpup");
 
             setTimeout(() => {
                 this.close();
@@ -697,15 +652,49 @@ class LyraAlert {
     };
 
     close() {
-        this.raw.alert.classList.remove("lyra-ani-modal-transition-in");
-        this.raw.alert.classList.add("lyra-ani-modal-transition-out");
-        this.raw.alert.classList.add("lyra-ani-window-hidden");
-        this.raw.alert.classList.add("lyra-ani-window-jumpup");
-        
+        this.node.main.classList.remove("lyra-ani-modal-transition-in");
+        this.node.main.classList.add("lyra-ani-modal-transition-out");
+        this.node.main.classList.add("lyra-ani-window-hidden");
+        this.node.main.classList.add("lyra-ani-window-jumpup");
+
         setTimeout(() => {
-            this.raw.alert.remove();
+            this.node.main.remove();
         }, lyra.path["PATH-LYRA-MODAL-ANIMATION-DURATION"]);
 
         return;
+    };
+};
+
+// 기본 알림 클래스
+class LyraNotification {
+    constructor(param = {}) {
+        if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
+
+        this.uid = getUniqueCode(lyra.ondisplay.notification);
+        this.id = param["id"] || null;
+        this.class = param["class"] || null;
+
+        this.option = {
+            target: document.querySelector(lyra.path["PATH-LYRA-NOTIFICATION-AREA"]),
+            autoClose: Boolean(param["autoClose"]),
+            timeout: parseInt(param["timeout"]) || lyra.path["PATH-LYRA-NOTIFICATION-DEFAULT-TIMEOUT"]
+        };
+        this.data = {
+            title: param["title"] || null,
+            content: param["content"] || null,
+            thumbnail: param["thumbnail"] || null,
+            buttons: ( param["buttons"] && param["buttons"].constructor === Array ) ? param["buttons"] : null
+        };
+        this.node = {
+            main: create("div", ".lyra-notification"),
+            title: null,
+            content: null,
+            thumbnail: null,
+            buttons: null
+        };
+
+        lyra.ondisplay.notification[this.uid] = this;
+
+        return this;
     };
 };

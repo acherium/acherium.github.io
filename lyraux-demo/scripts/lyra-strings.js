@@ -48,6 +48,7 @@ const lyraStrings = {
         "ERROR-MODAL-UNDEFINED-TARGET": "대상 개체가 지정되지 않았습니다.",
         "ERROR-MODAL-INVALID-TARGET": "대상 개체가 존재하지 않거나 제공된 값이 올바르지 않습니다.",
         "ERROR-MODAL-PROVIDED-BUTTON-LIST-IS-NOT-AN-ARRAY": "제공된 버튼 목록이 배열이 아니거나 값이 올바르지 않습니다.",
+        "ERROR-MODAL-FIXED": "이 창은 닫을 수 없습니다.",
         "ERROR-NOTIFICATION-AREA-IS-NOT-EXIST": "알림 표시 영역이 존재하지 않거나 올바르지 않습니다.",
         "ERROR-NOTIFICATION-PROVIDED-BUTTON-LIST-IS-NOT-AN-ARRAY": "제공된 버튼 목록이 배열이 아니거나 값이 올바르지 않습니다.",
         "ERROR-NOTIFICATION-NO-BUTTON-DATA": "추가할 버튼 개체가 제공되지 않았습니다.",
