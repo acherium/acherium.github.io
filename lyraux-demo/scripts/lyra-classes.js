@@ -675,7 +675,6 @@ class LyraNotification {
         this.class = param["class"] || null;
 
         this.option = {
-            target: document.querySelector(lyra.path["PATH-LYRA-NOTIFICATION-AREA"]),
             autoClose: Boolean(param["autoClose"]),
             timeout: parseInt(param["timeout"]) || lyra.path["PATH-LYRA-NOTIFICATION-DEFAULT-TIMEOUT"]
         };
@@ -686,15 +685,168 @@ class LyraNotification {
             buttons: ( param["buttons"] && param["buttons"].constructor === Array ) ? param["buttons"] : null
         };
         this.node = {
+            target: document.querySelector(lyra.path["PATH-LYRA-NOTIFICATION-AREA"]),
             main: create("div", ".lyra-notification"),
             title: null,
             content: null,
             thumbnail: null,
+            thumbnailImg: null,
+            thumbnailBackdrop: null,
             buttons: null
         };
+
+        if (this.data.title) this.setTitle(this.data.title);
+        if (this.data.content) this.setContent(this.data.content);
+        if (this.data.thumbnail) this.setThumbnail(this.data.thumbnail);
 
         lyra.ondisplay.notification[this.uid] = this;
 
         return this;
+    };
+
+    unsetID() {
+        this.id = null;
+        this.node.main.id = null;
+
+        return this;
+    };
+
+    setID(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        this.id = x;
+        this.node.main.id = x;
+
+        return this;
+    };
+
+    unsetClass() {
+        this.class = null;
+        Array.from(this.node.main.classList).forEach(x => {
+            this.node.main.classList.remove(x);
+        });
+
+        this.node.main.classList.add("lyra-modal");
+
+        return this;
+    };
+
+    setClass(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        this.class = `${this.class ? `${this.class} ` : ""}${x}`;
+        this.node.main.classList.add(x);
+
+        return this;
+    };
+
+    unsetTitle() {
+        this.data.title = null;
+        if (this.node.title) {
+            this.node.title.remove();
+            this.node.title = null;
+        };
+
+        return this;
+    };
+
+    setTitle(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        if (!this.node.title) {
+            this.node.title = create("div", ".lyra-title");
+            this.node.main.append(this.node.title);
+        } else {
+            this.node.title.innerText = "";
+            this.node.title.removeAttribute("lyra-string");
+        };
+
+        this.data.title = x;
+        this.node.title.setAttribute("lyra-string", this.data.title);
+        setString(this.node.title);
+
+        return this;
+    };
+
+    unsetContent() {
+        this.data.content = null;
+        if (this.node.content) {
+            this.node.content.remove();
+            this.node.content = null;
+        };
+
+        return this;
+    };
+
+    setContent(x) {
+        if (!x) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+        if (x.constructor !== String) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+
+        if (!this.node.content) {
+            this.node.content = create("div", ".lyra-content");
+            this.node.main.append(this.node.content);
+        } else {
+            this.node.content.innerText = "";
+            this.node.content.removeAttribute("lyra-string");
+        };
+
+        this.data.content = x;
+        this.node.content.setAttribute("lyra-string", this.data.content);
+        setString(this.node.content);
+
+        return this;
+    };
+
+    setThumbnail(url) {
+        if (url.constructor !== String) throw Error(getString("ERROR-CLASS-PROVIDED-PARAMETER-IS-NOT-A-STRING"));
+
+        this.node.thumbnail = create("div", ".lyra-notification-thumbnail-area");
+        this.node.main.append(this.node.thumbnail);
+
+        this.node.thumbnailImg = create("img", ".lyra-notification-thumbnail-main");
+        this.node.thumbnailBackdrop = create("img", ".lyra-notification-thumbnail-backdrop");
+        this.node.thumbnailImg.src = url;
+        this.node.thumbnailBackdrop.src = url;
+
+        this.data.thumbnail = url;
+        this.node.thumbnail.append(this.node.thumbnailBackdrop);
+        this.node.thumbnail.append(this.node.thumbnailImg);
+        return this;
+    };
+
+    show() {
+        this.node.main.classList.add("lyra-ani-notification-transition-in");
+        this.node.main.classList.add("lyra-ani-notification-out");
+        this.node.main.classList.add("lyra-ani-window-hidden");
+
+        this.node.target.append(this.node.main);
+        setTimeout(() => {
+            this.node.main.classList.remove("lyra-ani-notification-out");
+            this.node.main.classList.remove("lyra-ani-window-hidden");
+        }, lyra.path["PATH-LYRA-TIMEOUT-BUFFER"]);
+
+        return this;
+    };
+
+    close() {
+        this.node.main.classList.remove("lyra-ani-notification-transition-in");
+        this.node.main.classList.add("lyra-ani-notification-transition-out");
+        this.node.main.classList.add("lyra-ani-notification-out");
+        this.node.main.classList.add("lyra-ani-window-hidden");
+
+        setTimeout(() => {
+            this.node.main.remove();
+            this.destroy();
+        }, lyra.path["PATH-LYRA-NOTIFICATION-ANIMATION-DURATION"]);
+
+        return this;
+    };
+
+    destroy() {
+        delete lyra.ondisplay.notification[this.uid];
+        return;
     };
 };

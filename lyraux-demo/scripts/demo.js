@@ -36,11 +36,18 @@ body.append(testbutton2.node.main);
 
 const testbutton3 = new LyraButton({
     name: "DEBUG-LYRA-TEST-NOTIFICATION-SHORT",
-    onclick: `showNotification(testnoti1);`
+    onclick: `showNotification("testnoti1");`
 });
-const testnoti1 = {
-    title: "test",
-    content: "test"
+const notis = {
+    testnoti1: {
+        title: "test",
+        content: "test",
+        thumbnail: "./assets/images/image-100px-horizontal.png",
+    }
 };
 
 body.append(testbutton3.node.main);
+
+function showNotification(x) {
+    new LyraNotification(notis[x]).show();
+};

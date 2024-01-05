@@ -10,6 +10,7 @@ const lyra = {
     path: {
         "PATH-LYRA-NOTIFICATION-AREA": "#lyra-notification-area",
         "PATH-LYRA-NOTIFICATION-DEFAULT-TIMEOUT": 5000,
+        "PATH-LYRA-NOTIFICATION-ANIMATION-DURATION": 200,
         "PATH-LYRA-ALERT-AREA": "#lyra-alert-area",
         "PATH-LYRA-MODAL-ANIMATION-DURATION": 200,
         "PATH-LYRA-TIMEOUT-BUFFER": 30,
