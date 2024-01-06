@@ -477,17 +477,14 @@ class LyraModal {
 
         return this;
     };
-
+    
     unsetThumbnail() {
+        if (this.node.thumbnailImg) this.node.thumbnailImg.remove();
+        if (this.node.thumbnail) this.node.thumbnail.remove();
+
+        this.node.thumbnail = null;
+        this.node.thumbnailImg = null;
         this.data.thumbnail = null;
-        if (this.node.thumbnailImg) {
-            this.node.thumbnailImg.remove();
-            this.node.thumbnailImg = null;
-        };
-        if (this.node.thumbnail) {
-            this.node.thumbnail.remove();
-            this.node.thumbnail = null;
-        };
 
         return this;
     };
@@ -576,7 +573,7 @@ class LyraModal {
     };
 
     close() {
-        if (this.fixed) {
+        if (this.option.fixed) {
             const alertWindow = new LyraAlert({ content: "이 창은 닫을 수 없습니다" });
             alertWindow.show();
 
@@ -675,14 +672,14 @@ class LyraNotification {
         this.class = param["class"] || null;
 
         this.option = {
-            autoClose: Boolean(param["autoClose"]),
+            autoClose: typeof param["autoClose"] !== "undefined" ? Boolean(param["autoClose"]) : true,
             timeout: parseInt(param["timeout"]) || lyra.path["PATH-LYRA-NOTIFICATION-DEFAULT-TIMEOUT"]
         };
         this.data = {
             title: param["title"] || null,
             content: param["content"] || null,
             thumbnail: param["thumbnail"] || null,
-            buttons: ( param["buttons"] && param["buttons"].constructor === Array ) ? param["buttons"] : null
+            buttons: ( param["buttons"] && param["buttons"].constructor === Array ) ? param["buttons"] : []
         };
         this.node = {
             target: document.querySelector(lyra.path["PATH-LYRA-NOTIFICATION-AREA"]),
@@ -698,6 +695,7 @@ class LyraNotification {
         if (this.data.title) this.setTitle(this.data.title);
         if (this.data.content) this.setContent(this.data.content);
         if (this.data.thumbnail) this.setThumbnail(this.data.thumbnail);
+        if (this.data.buttons) this.setButton(this.data.buttons);
 
         lyra.ondisplay.notification[this.uid] = this;
 
@@ -799,6 +797,19 @@ class LyraNotification {
 
         return this;
     };
+    
+    unsetThumbnail() {
+        if (this.node.thumbnailBackdrop) this.node.thumbnailBackdrop.remove();
+        if (this.node.thumbnailImg) this.node.thumbnailImg.remove();
+        if (this.node.thumbnail) this.node.thumbnail.remove();
+
+        this.node.thumbnail = null;
+        this.node.thumbnailImg = null;
+        this.node.thumbnailBackdrop = null;
+        this.data.thumbnail = null;
+
+        return this;
+    };
 
     setThumbnail(url) {
         if (url.constructor !== String) throw Error(getString("ERROR-CLASS-PROVIDED-PARAMETER-IS-NOT-A-STRING"));
@@ -816,6 +827,37 @@ class LyraNotification {
         this.node.thumbnail.append(this.node.thumbnailImg);
         return this;
     };
+    
+    unsetButtons() {
+        if (this.node.buttons) this.node.buttons.remove();
+        this.node.buttons = null;
+
+        this.data.buttons = [];
+        Array.from(this.node.buttons.childrens).forEach(b => {
+            b.remove();
+        });
+
+        return this;
+    };
+
+    setButton(b) {
+        if (!b) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
+
+        if (b.constructor === Object) this.data.buttons.push(b);
+        else if (b.constructor === Array) this.data.buttons = b;
+        
+        if (!this.node.buttons) this.node.buttons = create("div", ".lyra-notification-button-area");
+
+        this.data.buttons.forEach(x => {
+            const button = new LyraButton(x);
+            if (!x["onclick"]) button.node.main.setAttribute("onclick", `closeNotification(${this.uid});`);
+            this.node.buttons.append(button.node.main);
+        });
+
+        if (this.data.buttons.length&& !this.node.main.querySelectorAll(".lyra-notification-button-area").length) this.node.main.append(this.node.buttons);
+
+        return this;
+    };
 
     show() {
         this.node.main.classList.add("lyra-ani-notification-transition-in");
@@ -823,6 +865,7 @@ class LyraNotification {
         this.node.main.classList.add("lyra-ani-window-hidden");
 
         this.node.target.append(this.node.main);
+
         setTimeout(() => {
             this.node.main.classList.remove("lyra-ani-notification-out");
             this.node.main.classList.remove("lyra-ani-window-hidden");

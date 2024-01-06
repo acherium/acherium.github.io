@@ -42,7 +42,18 @@ const notis = {
     testnoti1: {
         title: "test",
         content: "test",
-        thumbnail: "./assets/images/image-100px-horizontal.png",
+        thumbnail: "./assets/banners/banner-lyra.svg",
+        autoClose: false,
+        buttons: [
+            {
+                name: "STRING-BUTTON-OKAY",
+                color: "red"
+            },
+            {
+                name: "alert",
+                onclick: `alert(true);`
+            }
+        ]
     }
 };
 
