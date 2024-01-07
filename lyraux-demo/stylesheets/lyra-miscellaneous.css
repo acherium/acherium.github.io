@@ -47,6 +47,9 @@
     transition: all ease-in-out 0.5s;
 }
 
+.lyra-ani-theme-transition { transition: all ease-in-out 0.3s; }
+.lyra-ani-theme-transition * { transition: all ease-in-out 0.3s; }
+
 /* 모달 윈도우 표시 애니메이션용 클래스 */
 .lyra-ani-modal-transition { transition: all ease-in-out 0.2s; }
 .lyra-ani-modal-transition-in { transition: all ease-out 0.2s; }

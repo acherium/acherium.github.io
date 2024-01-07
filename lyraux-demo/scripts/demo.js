@@ -26,7 +26,8 @@ const modal2 = new LyraModal({
     thumbnail: "./assets/banners/banner-snapforgithub.svg",
     buttons: [
         {
-            name: "STRING-BUTTON-OKAY"
+            name: "STRING-BUTTON-OKAY",
+            closeModal: true
         }
     ]
 });
@@ -62,3 +63,41 @@ body.append(testbutton3.node.main);
 function showNotification(x) {
     new LyraNotification(notis[x]).show();
 };
+
+
+
+
+const themeCycleButton = new LyraButton({
+    name: `STRING-BUTTON-THEME-${lyra.theme ? "DAY" : "NIGHT"}`,
+    icon: lyra.theme ? "day" : "night",
+    onclick: "cycleThemeConfirm();"
+});
+
+function cycleThemeConfirm() {
+    const themeModal = new LyraModal({
+        title: `STRING-TITLE-CHANGE-${lyra.theme ? "DAY" : "NIGHT"}-MODE`,
+        content: `STRING-CONTENT-CHANGE-${lyra.theme ? "DAY" : "NIGHT"}-MODE`
+    });
+    themeModal.setButton([
+        {
+            name: "STRING-BUTTON-OKAY",
+            color: "accent",
+            onclick: `cycleTheme();`,
+            closeModal: true
+        },
+        {
+            name: "STRING-BUTTON-CANCEL",
+            closeModal: true
+        }
+    ])
+    themeModal.show();
+    return 0;
+};
+
+function cycleTheme() {
+    changeTheme(lyra.theme ? "day" : "night");
+    themeCycleButton.setName(`STRING-BUTTON-THEME-${lyra.theme ? "DAY" : "NIGHT"}`).setIcon(lyra.theme ? "day" : "night");
+    return 0;
+};
+
+body.append(themeCycleButton.node.main);

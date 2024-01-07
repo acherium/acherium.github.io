@@ -101,3 +101,24 @@ function closeModal(id) {
     lyra.ondisplay.modal[id].close();
     return 0;
 };
+
+// 테마 관련 함수
+function changeTheme(name) {
+    if (!lyra.path["PATH-LYRA-THEMES"].includes(name)) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+    
+    lyra.theme = lyra.path["PATH-LYRA-THEMES"].indexOf(name);
+    console.log(lyra.theme);
+    applyTheme();
+
+    return 0;
+};
+
+function applyTheme() {
+    document.querySelector("body").classList.add("lyra-ani-theme-transition");
+    document.querySelector("#style-palette").href = `./stylesheets/palette/lyra-palette-${lyra.path["PATH-LYRA-THEMES"][lyra.theme]}.css`;
+    setTimeout(() => {
+        document.querySelector("body").classList.remove("lyra-ani-theme-transition");
+    }, lyra.path["PATH-LYRA-THEME-TRANSITION-DURATION"]);
+
+    return 0;
+};

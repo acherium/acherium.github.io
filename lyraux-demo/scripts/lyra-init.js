@@ -8,6 +8,8 @@ const lyra = {
         notification: {}
     },
     path: {
+        "PATH-LYRA-THEMES": [ "day", "night" ],
+        "PATH-LYRA-THEME-TRANSITION-DURATION": 300,
         "PATH-LYRA-NOTIFICATION-AREA": "#lyra-notification-area",
         "PATH-LYRA-NOTIFICATION-DEFAULT-TIMEOUT": 5000,
         "PATH-LYRA-NOTIFICATION-ANIMATION-DURATION": 200,
@@ -16,7 +18,6 @@ const lyra = {
         "PATH-LYRA-TIMEOUT-BUFFER": 30,
         "PATH-LYRA-MODAL-OFFSET": 110,
         "PATH-LYRA-WINDOW-OFFSET": 10,
-        "PATH-LYRA-THEMES": [ "day", "night" ],
         "PATH-LYRA-BUTTON-DIRECTIONS": [ "horizontal", "vertical" ],
         "PATH-LYRA-BUTTON-COLORS": [ "default", "accent", "warning", "transparent", "red", "green", "blue" ],
         "PATH-LYRA-ALERT-TIMEOUT": 5000

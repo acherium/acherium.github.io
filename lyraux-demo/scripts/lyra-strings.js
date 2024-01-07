@@ -23,6 +23,8 @@ const lyraStrings = {
         "STRING-BUTTON-NOTIFICATION-ACCEPT": "예",
         "STRING-BUTTON-DENY": "아니오",
         "STRING-BUTTON-NOTIFICATION-DENY": "아니오",
+        "STRING-BUTTON-CANCEL": "취소",
+        "STRING-BUTTON-NOTIFICATION-CANCEL": "취소",
 
         // 오류 설명문
         "ERROR-COMMON-UNDEFINED-TYPE": "타입이 제공되지 않았습니다.",

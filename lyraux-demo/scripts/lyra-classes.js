@@ -3,7 +3,8 @@ class LyraButton {
     constructor(param = {}) {
         // if (!param) throw Error(getString("ERROR-COMMON-UNDEFINED-PARAMETER"));
         if (param.constructor !== Object) throw Error(getString("ERROR-COMMON-PARAMETER-IS-NOT-AN-OBJECT"));
-        if (Object.values(param).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
+        // console.log(param);
+        // if (Object.values(param).filter(x => x.constructor !== String).length) throw Error(getString("ERROR-COMMON-INVALID-PARAMETER"));
         const directions = [ "horizontal", "vertical" ];
         
         if (param["direction"] && !directions.includes(param["direction"])) throw Error(getString("ERROR-COMMON-INVALID-TYPE"));
@@ -521,7 +522,10 @@ class LyraModal {
 
         this.data.buttons.forEach(x => {
             const button = new LyraButton(x);
-            if (!x["onclick"]) button.node.main.setAttribute("onclick", `closeModal(${this.uid});`);
+            let onclick = "";
+            if (x["onclick"]) onclick += x["onclick"];
+            if (x["closeModal"]) onclick += `;closeModal(${this.uid});`;
+            if (onclick.length) button.node.main.setAttribute("onclick", onclick);
             this.node.buttons.append(button.node.main);
         });
 

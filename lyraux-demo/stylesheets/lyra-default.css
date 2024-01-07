@@ -393,7 +393,7 @@ h1, h2, h3, h4, h5, h6, span {
     min-height: 80px;
     height: fit-content;
 
-    background: var(--lyra-color-white);
+    background: var(--lyra-color-notification-background);
     border-radius: var(--lyra-value-modal-radius) 0 0 var(--lyra-value-modal-radius);
     box-shadow: var(--lyra-shadow-small);
 }
