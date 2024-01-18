@@ -72,7 +72,7 @@
 
 /* 아이콘 관련 */
 /* 아이콘 색상 필터 */
-/* 강조색상 변환 */ .lyra-iconfilter-lyra { filter: invert(21%) sepia(96%) saturate(4133%) hue-rotate(275deg) brightness(78%) contrast(104%); }
+/* 강조색상 변환 */ .lyra-iconfilter-lyra { filter: brightness(0) saturate(100%) invert(14%) sepia(78%) saturate(6339%) hue-rotate(280deg) brightness(99%) contrast(124%); }
 /* 검은색 변환*/    .lyra-iconfilter-black { filter: brightness(0); }
 /* 흰색 변환*/      .lyra-iconfilter-white { filter: brightness(0) invert(1); }
 

@@ -23,7 +23,7 @@ const testbutton2 = new LyraButton({
 const modal2 = new LyraModal({
     title: "STRING-TITLE-ABOUT-LYRA",
     content: `${lyra.information.name}\n${lyra.information.author} 제작\n버전 ${lyra.information.version}`,
-    thumbnail: "./assets/banners/banner-snapforgithub.svg",
+    thumbnail: "./assets/banners/banner-lyra.svg",
     buttons: [
         {
             name: "STRING-BUTTON-OKAY",
