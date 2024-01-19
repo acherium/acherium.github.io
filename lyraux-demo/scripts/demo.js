@@ -2,7 +2,8 @@ const body = document.querySelector("body");
 
 const testbutton1 = new LyraButton({
     name: "DEBUG-LYRA-TEST-MODAL-SHOW",
-    onclick: `modal1.show();`
+    onclick: `modal1.show();`,
+    description: "테스트"
 });
 const modal1 = new LyraModal({
     title: "DEBUG-LYRA-LOREM-SHORT",
@@ -27,7 +28,8 @@ const modal2 = new LyraModal({
     buttons: [
         {
             name: "STRING-BUTTON-OKAY",
-            closeModal: true
+            closeModal: true,
+            description: "확인 버튼을 누르면 이 창을 닫습니다."
         }
     ]
 });

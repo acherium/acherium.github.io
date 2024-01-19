@@ -37,6 +37,28 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("body").append(create("div", "#lyra-notification-area"));
     document.querySelector("body").append(create("div", "#lyra-alert-area"));
 
+    // 툴팁 생성
+    const tooltip = create("div", "#lyra-description");
+    tooltip.style["top"] = "0px";
+    tooltip.style["left"] = "0px";
+    tooltip.style["opacity"] = "0";
+    document.querySelector("body").append(tooltip);
+
+    document.onpointerover = (e) => {
+        if (e.target.attributes["lyra-description"]) {
+            tooltip.innerText = e.target.attributes["lyra-description"].value;
+            tooltip.style["opacity"] = "1";
+        } else {
+            tooltip.innerText = null;
+            tooltip.style["opacity"] = "0";
+        };
+    };
+
+    document.onpointermove = (e) => {
+        tooltip.style["top"] = `${e.clientY + 20}px`;
+        tooltip.style["left"] = `${e.clientX + 20}px`;
+    };
+
     // 오류 발생 시 화면에 표시
     window.onerror = (event, source, lineno, colno, error) => {
         const message = `${event} @ ${source.split("/").pop()}`;

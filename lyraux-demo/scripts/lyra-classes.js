@@ -27,12 +27,11 @@ class LyraButton {
             main: create("div",
                 `${this.id ? `${this.id} ` : ""}.lyra-button .lyra-button-${this.option.direction} .lyra-button-color-${this.option.color}${this.class ? this.class.join(" ") : ""}`,
                 {
-                    description: this.option.description,
                     alt: this.option.alt,
                     onclick: this.option.onclick,
                     disabled: this.option.disabled
                 }),
-            cover: create("div", ".lyra-button-cover"),
+            cover: create("div", ".lyra-button-cover", { description: this.option.description }),
             icon: null,
             name: null
         };

@@ -87,7 +87,6 @@ function getUniqueCode(list) {
 // 값이 비어있으면 0을 반환
 function getValue(x) {
     const r = x.length ? parseInt(`${x}`.split(/\D*/g).join("")) : 0;
-    console.log(r);
     return r;
 };
 

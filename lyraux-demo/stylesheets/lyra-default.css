@@ -446,3 +446,15 @@ h1, h2, h3, h4, h5, h6, span {
     filter: brightness(0.5) blur(20px);
     transform: scale(1.5);
 }
+
+/* 툴팁 개체 */
+#lyra-description {
+    display: inline-flex;
+    position: absolute;
+    padding: 10px;
+    z-index: 1999;
+
+    background: var(--lyra-color-description-background);
+    border-radius: var(--lyra-value-border-radius);
+    opacity: 0;
+}
