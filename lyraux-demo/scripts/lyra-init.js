@@ -38,25 +38,46 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("body").append(create("div", "#lyra-alert-area"));
 
     // 툴팁 생성
-    const tooltip = create("div", "#lyra-description");
-    tooltip.style["top"] = "0px";
-    tooltip.style["left"] = "0px";
-    tooltip.style["opacity"] = "0";
-    document.querySelector("body").append(tooltip);
+    const tooltipArea = create("div", "#lyra-description");
+    const tooltip = create("div", "#lyra-description-main");
+    tooltipArea.append(tooltip);
+
+    tooltipArea.style["top"] = "0px";
+    tooltipArea.style["left"] = "0px";
+    // tooltipArea.style["opacity"] = "0";
+
+    tooltipArea.append(create("div", "#lyra-description-backdrop"));
+    tooltipArea.append(tooltip);
+    document.querySelector("body").append(tooltipArea);
+
+    function openTooltip(content) {
+        tooltip.innerText = `${content}`;
+        tooltipArea.classList.remove("lyra-ani-tooltip-fade-out");
+        tooltipArea.classList.add("lyra-ani-tooltip-fade-in");
+        return;
+    };
+
+    function closeTooltip() {
+        tooltipArea.classList.remove("lyra-ani-tooltip-fade-in");
+        tooltipArea.classList.add("lyra-ani-tooltip-fade-out");
+    };
 
     document.onpointerover = (e) => {
         if (e.target.attributes["lyra-description"]) {
-            tooltip.innerText = e.target.attributes["lyra-description"].value;
-            tooltip.style["opacity"] = "1";
+            openTooltip(e.target.attributes["lyra-description"].value);
         } else {
-            tooltip.innerText = null;
-            tooltip.style["opacity"] = "0";
+            if (!tooltip.innerText.length) return;
+            closeTooltip();
         };
     };
 
     document.onpointermove = (e) => {
-        tooltip.style["top"] = `${e.clientY + 20}px`;
-        tooltip.style["left"] = `${e.clientX + 20}px`;
+        tooltipArea.style["top"] = `${e.clientY + 20}px`;
+        tooltipArea.style["left"] = `${e.clientX + 20}px`;
+    };
+
+    document.onclick = () => {
+        closeTooltip();
     };
 
     // 오류 발생 시 화면에 표시

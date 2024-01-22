@@ -69,6 +69,44 @@
     transition: all ease-in 0.2s;
 }
 
+/* 툴팁 표시 애니메이션용 클래스 */
+.lyra-ani-tooltip-fade-out {
+    animation-duration: 0.1s;
+    animation-name: lyra-ani-tooltip-hidden;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+@keyframes lyra-ani-tooltip-hidden {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+}
+
+.lyra-ani-tooltip-fade-in {
+    /* opacity: 1; */
+    animation-duration: 0.1s;
+    animation-name: lyra-ani-tooltip-fade-in;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+@keyframes lyra-ani-tooltip-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 
 /* 아이콘 관련 */
 /* 아이콘 색상 필터 */

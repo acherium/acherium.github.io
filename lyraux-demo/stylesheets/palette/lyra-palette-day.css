@@ -62,7 +62,8 @@
     --lyra-shadow-alert: 0 2px 3px 0 var(--lyra-color-shadow);
 
     /* 툴팁 구성요소 */
-    --lyra-color-description-background: rgb(250, 250, 250);
+    --lyra-color-description-background: rgba(0, 0, 0, 0.5);
+    --lyra-color-description-content: var(--lyra-color-white);
 
     /* 그림자 */
     --lyra-shadow-small: 0 2px 3px 0 var(--lyra-color-shadow);
