@@ -6,6 +6,7 @@
 
 .icon-menu { background-image: url("../assets/icon/menu.svg"); }
 .icon-search { background-image: url("../assets/icon/search.svg"); }
+.icon-outer { background-image: url("../assets/icon/outer.svg"); }
 
 #area {
     display: flex;

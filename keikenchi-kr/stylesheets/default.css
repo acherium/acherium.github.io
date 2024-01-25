@@ -1,5 +1,57 @@
 @charset "UTF-8";
 
+#main {
+    flex-direction: column;
+}
+
+#main * {
+    overflow: hidden;
+}
+
+#name_tooltip {
+    display: inline;
+    position: fixed;
+    width: auto;
+    height: auto;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background: white;
+    border: solid 2px lightgray;
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+}
+
+/* .area2 {
+    background: green;
+} */
+
+path {
+    transition: all 0.1s;
+}
+
+path:hover {
+    filter: brightness(0.8);
+}
+
+#map_button_area {
+    display: inline;
+    height: 1rem;
+    line-height: 1rem;
+    z-index: 2;
+}
+
+.old {
+    display: inline-block;
+    position: absolute;
+    background: white;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
 .wrap {
     display: flex;
     position: relative;
@@ -91,6 +143,7 @@
 .map_viewport {
     display: flex;
     position: relative;
+    overflow: hidden;
     flex: 1;
     border: solid 2px lightgray;
     border-radius: 10px;
@@ -120,7 +173,7 @@
 }
 
 .button > img {
-    max-width: 1.5rem;
+    max-width: 1.5em;
     max-height: 1.5rem;
 }
 
@@ -153,5 +206,5 @@
 }
 
 #map_controller_area > .button, #paint_controller_area > .button {
-    width: 3rem;
+    width: 4rem;
 }

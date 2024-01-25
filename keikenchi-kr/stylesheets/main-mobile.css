@@ -1,0 +1,44 @@
+@charset "UTF-8";
+@media screen and (max-width: 1416px) {
+    #main {
+        margin-bottom: 0;
+
+        border-radius: var(--value-radius-main) var(--value-radius-main) 0 0;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    :root {
+        --value-radius-main: 16px;
+    }
+
+    #main {
+        padding: 20px;
+    }
+
+    #menu {
+        padding: 0 10px 0 10px;
+
+        height: 80px;
+    }
+
+    #logo {
+        width: 60px;
+        height: 60px;
+    
+        background-image: url("../assets/logo/logomark.svg");
+        background-size: 24px;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: var(--value-radius);
+        cursor: pointer;
+    }
+
+    .menu-button > .icon {
+        margin-right: 0;
+    }
+
+    .menu-button > span {
+        display: none;
+    }
+}
