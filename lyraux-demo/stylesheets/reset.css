@@ -1,24 +1,23 @@
 @charset "UTF-8";
 @font-face {
-	font-family: "Pretendard Variable";
-	src: url('../assets/fonts/pretendard/PretendardVariable.woff2') format('woff2-variations');
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
+	font-family: "Spoqa Han Sans Neo";
+	src: url("../assets/fonts/spoqa/SpoqaHanSansNeo-Regular.ttf") format("truetype");
 }
 @font-face {
-	font-family: "Pretendard Variable Bold";
-	src: url('../assets/fonts/pretendard/PretendardVariable.woff2') format('woff2-variations');
-	font-weight: 800;
-	font-style: normal;
-	font-display: swap;
+	font-family: "Spoqa Han Sans Neo Thin";
+	src: url("../assets/fonts/spoqa/SpoqaHanSansNeo-Thin.ttf") format("truetype");
 }
 @font-face {
-	font-family: "Pretendard Variable Light";
-	src: url('../assets/fonts/pretendard/PretendardVariable.woff2') format('woff2-variations');
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
+	font-family: "Spoqa Han Sans Neo Light";
+	src: url("../assets/fonts/spoqa/SpoqaHanSansNeo-Light.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Spoqa Han Sans Neo Medium";
+	src: url("../assets/fonts/spoqa/SpoqaHanSansNeo-Medium.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Spoqa Han Sans Neo Bold";
+	src: url("../assets/fonts/spoqa/SpoqaHanSansNeo-Bold.ttf") format("truetype");
 }
 
 * {
@@ -42,7 +41,7 @@ body {
     height: 100vh;
 
     background-color: var(--color-backdrop);
-    font-family: "Pretendard Variable";
+    font-family: "Spoqa Han Sans Neo";
 }
 
 h1, h2, h3, h4, h5, h6, span {
@@ -50,7 +49,7 @@ h1, h2, h3, h4, h5, h6, span {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Pretendard Variable Bold";
+    font-family: "Spoqa Han Sans Neo Bold";
 }
 
 h1 {
