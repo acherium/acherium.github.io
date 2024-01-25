@@ -1,7 +1,11 @@
 @charset "UTF-8";
 :root {
     --value-radius: 4px;
+    --value-radius-main: 8px;
 }
+
+.icon-menu { background-image: url("../assets/icon/menu.svg"); }
+.icon-search { background-image: url("../assets/icon/search.svg"); }
 
 #area {
     display: flex;
@@ -30,7 +34,7 @@
     flex: 1;
 
     background-color: var(--color-background);
-    border-radius: 8px;
+    border-radius: var(--value-radius-main);
 }
 
 #main * {
@@ -38,6 +42,8 @@
 }
 
 #logo {
+    margin-right: auto;
+
     width: 150px;
     height: 80px;
 
@@ -55,4 +61,42 @@
 
 #logo:active {
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+#menu-right {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: auto;
+    height: 80px;
+
+    /* background-color: red; */
+}
+
+.menu-button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    padding: 20px;
+
+    height: fit-content;
+
+    border-radius: var(--value-radius);
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.menu-button:active {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.menu-button > .icon {
+    margin-right: 8px;
 }

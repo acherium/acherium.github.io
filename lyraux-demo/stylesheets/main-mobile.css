@@ -1,0 +1,39 @@
+@charset "UTF-8";
+@media screen and (max-width: 1416px) {
+    #main {
+        margin-bottom: 0;
+
+        border-radius: var(--value-radius-main) var(--value-radius-main) 0 0;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #menu {
+        padding: 0 10px 0 10px;
+    }
+
+    #logo {
+        width: 80px;
+        height: 80px;
+    
+        background-image: url("../assets/logo/logomark.svg");
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: var(--value-radius);
+        cursor: pointer;
+    }
+
+    .menu-button > .icon {
+        margin-right: 0;
+
+        width: 28px;
+        height: 28px;
+
+        background-size: 28px;
+    }
+
+    .menu-button > span {
+        display: none;
+    }
+}
