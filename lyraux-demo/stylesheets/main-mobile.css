@@ -8,8 +8,12 @@
 }
 
 @media screen and (max-width: 700px) {
-    :root{
+    :root {
         --value-radius-main: 16px;
+    }
+
+    #main {
+        padding: 20px;
     }
 
     #menu {
