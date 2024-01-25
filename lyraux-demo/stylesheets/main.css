@@ -1,0 +1,58 @@
+@charset "UTF-8";
+:root {
+    --value-radius: 4px;
+}
+
+#area {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    height: 100%;
+}
+
+#menu {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: 100px;
+}
+
+#main {
+    display: flex;
+    position: relative;
+    overflow: scroll;
+    margin-bottom: 8px;
+
+    flex: 1;
+
+    background-color: var(--color-background);
+    border-radius: 8px;
+}
+
+#main * {
+    overflow: visible;
+}
+
+#logo {
+    width: 150px;
+    height: 80px;
+
+    background-image: url("../assets/logo/logo.svg");
+    background-size: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: var(--value-radius);
+    cursor: pointer;
+}
+
+#logo:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+#logo:active {
+    background-color: rgba(0, 0, 0, 0.5);
+}

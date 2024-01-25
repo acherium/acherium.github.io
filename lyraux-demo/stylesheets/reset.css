@@ -1,0 +1,70 @@
+@charset "UTF-8";
+@font-face {
+	font-family: "Pretendard Variable";
+	src: url('../assets/fonts/pretendard/PretendardVariable.woff2') format('woff2-variations');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Pretendard Variable Bold";
+	src: url('../assets/fonts/pretendard/PretendardVariable.woff2') format('woff2-variations');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Pretendard Variable Light";
+	src: url('../assets/fonts/pretendard/PretendardVariable.woff2') format('woff2-variations');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+* {
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+
+    user-select: none;
+}
+
+body {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--color-backdrop);
+    font-family: "Pretendard Variable";
+}
+
+h1, h2, h3, h4, h5, h6, span {
+    color: var(--color-font-default);
+}
+
+.wrap {
+    max-width: 1400px;
+    width: 100%;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+#watermark {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+
+    color: rgba(50, 50, 50, 0.5);
+    text-align: right;
+}
