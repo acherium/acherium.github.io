@@ -83,7 +83,7 @@
     margin-left: 8px;
     padding: 20px;
 
-    height: fit-content;
+    height: 60px;
 
     border-radius: var(--value-radius);
     cursor: pointer;
