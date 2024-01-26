@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<body>
+    <div id="demo">
+        <div id="demo-left">
+            <div class="view-list w100">
+                <div class="view-list-active" value="demo-main" onclick="viewdemo(this);">
+                    <div class="icon icon-menu"></div>
+                    <span>시작 페이지</span>
+                </div>
+                <div value="demo-buttons" onclick="viewdemo(this);">
+                    <div class="icon icon-menu"></div>
+                    <span>버튼</span>
+                </div>
+                <div value="demo-loading" onclick="viewdemo(this);">
+                    <div class="icon icon-menu"></div>
+                    <span>로딩 아이콘</span>
+                </div>
+            </div>
+        </div>
+        <div id="demo-right"></div>
+    </div>
+    <script>
+        alert(true);
+        view("#demo-right", "demo-main");
+    </script>
+</body>
+</html>

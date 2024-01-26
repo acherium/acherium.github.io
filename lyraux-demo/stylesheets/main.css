@@ -194,3 +194,68 @@ button > *:not(:nth-child(1)) {
     font-family: "Spoqa Han Sans Neo Bold";
     text-align: center;
 }
+
+#demo {
+    display: flex;
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+#demo-left {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-right: 20px;
+
+    width: 20%;
+    height: 100%;
+}
+
+#demo-right {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    flex: 1;
+}
+
+.view-list {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.view-list > div {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+
+    width: 100%;
+
+    border-radius: var(--value-radius);
+    cursor: pointer;
+}
+
+.view-list > div > * {
+    margin: 5px;
+}
+
+.view-list > div > *:not(:nth-child(1)) {
+    margin-left: 0px;
+}
+
+.view-list-active {
+    background-color: var(--color-dark);
+}
+
+.view-list-active > * {
+    filter: brightness(0) invert(1);
+}

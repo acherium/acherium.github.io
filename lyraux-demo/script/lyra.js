@@ -13,6 +13,7 @@ const view = (target, view) => {
             dom = dom.body;
 
             Array.from(dom.childNodes).filter((node) => !filter.includes(node.nodeName)).forEach((node) => {
+                console.log(node);
                 area.append(node);
             });
         });

@@ -89,6 +89,14 @@ h6 {
     position: relative;
 }
 
+.w100 {
+    width: 100%;
+}
+
+.h100 {
+    height: 100%;
+}
+
 .icon {
     width: 18px;
     height: 18px;
