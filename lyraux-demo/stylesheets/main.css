@@ -4,10 +4,6 @@
     --value-radius-main: 8px;
 }
 
-.icon-menu { background-image: url("../assets/icon/menu.svg"); }
-.icon-search { background-image: url("../assets/icon/search.svg"); }
-.icon-outer { background-image: url("../assets/icon/outer.svg"); }
-
 #area {
     display: flex;
     position: relative;
@@ -101,4 +97,28 @@
 
 .menu-button > .icon {
     margin-right: 8px;
+}
+
+button {
+    display: flex;
+    position: relative;
+    padding: 5px;
+    
+    min-width: 10px;
+    width: fit-content;
+    min-height: 10px;
+    height: fit-content;
+
+    font-family: "Spoqa Han Sans Neo Medium";
+    border: 0;
+    border-radius: var(--value-radius);
+    cursor: pointer;
+}
+
+button > * {
+    margin: 5px;
+}
+
+button > *:not(:nth-child(1)) {
+    margin-left: 0px;
 }

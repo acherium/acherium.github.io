@@ -97,6 +97,11 @@ h6 {
     background-repeat: no-repeat;
 }
 
+.icon-menu { background-image: url("../assets/icon/menu.svg"); }
+.icon-search { background-image: url("../assets/icon/search.svg"); }
+.icon-outer { background-image: url("../assets/icon/outer.svg"); }
+.icon-back { background-image: url("../assets/icon/back.svg"); }
+
 #watermark {
     position: fixed;
     right: 10px;

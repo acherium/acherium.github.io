@@ -5,6 +5,10 @@
 
         border-radius: var(--value-radius-main) var(--value-radius-main) 0 0;
     }
+
+    #menu {
+        padding: 0 10px 0 10px;
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -17,8 +21,6 @@
     }
 
     #menu {
-        padding: 0 10px 0 10px;
-
         height: 80px;
     }
 

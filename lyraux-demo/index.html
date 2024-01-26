@@ -10,12 +10,15 @@
 
     <link rel="stylesheet" href="./stylesheets/reset.css">
     <link rel="stylesheet" href="./stylesheets/main.css">
-    <link rel="stylesheet" href="./stylesheets/main-mobile.css">
+    <link rel="stylesheet" href="./stylesheets/main-responsive.css">
+
+    <script src="./script/lyra.js" defer></script>
+    <script src="./script/demo.js" defer></script>
 </head>
 <body>
     <div id="area" class="wrap">
         <div id="menu">
-            <div id="logo"></div>
+            <div id="logo" onclick="view(`index`);"></div>
             <div id="menu-right">
                 <div id="menu-search" class="menu-button">
                     <div class="icon icon-search"></div>
@@ -32,10 +35,6 @@
             </div>
         </div>
         <div id="main">
-            <section>
-                <h1>Hello, world!</h1>
-                <p>LyraUX 데모 페이지입니다.</p>
-            </section>
         </div>
     </div>
     <p id="watermark">LyraUX 데모<br>Acherium 제작<br>acherium@pm.me<br>마지막 수정 2024-01-26</p>
