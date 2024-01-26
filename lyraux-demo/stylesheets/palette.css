@@ -3,4 +3,6 @@
     --color-backdrop: rgb(240, 240, 240);
     --color-background: rgb(255, 255, 255);
     --color-font-default: rgb(20, 20, 20);
+    --color-black: rgb(0, 0, 0);
+    --color-dark: rgb(20, 20, 20);
 }
