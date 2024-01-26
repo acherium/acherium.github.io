@@ -4,4 +4,4 @@ const viewList = {
 };
 
 Object.freeze(viewList);
-view("index");
+view("#main", "index");

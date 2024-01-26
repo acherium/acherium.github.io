@@ -1,17 +1,19 @@
-const view = (target) => {
-    if (!viewList[target]) throw Error();
+const view = (target, view) => {
+    if (!target || target.constructor !== String) throw Error(1);
+    if (!document.querySelector(target)) throw Error(2);
+    if (!viewList[view]) throw Error(3);
 
-    const main = document.querySelector("#main");
+    const area = document.querySelector(target);
     const filter = [ "#text", "#comment", "SCRIPT" ];
-    clearMain();
+    clearNode(target);
     
-    fetch(viewList[target]).then((res) => {
+    fetch(viewList[view]).then((res) => {
         res.text().then((html) => {
             let dom = new DOMParser().parseFromString(html, "text/html");
             dom = dom.body;
 
             Array.from(dom.childNodes).filter((node) => !filter.includes(node.nodeName)).forEach((node) => {
-                main.append(node);
+                area.append(node);
             });
         });
     });
@@ -19,8 +21,8 @@ const view = (target) => {
     return 0;
 };
 
-const clearMain = () => {
-    Array.from(document.querySelector("#main").childNodes).forEach((node) => {
+const clearNode = (target) => {
+    Array.from(document.querySelector(target).childNodes).forEach((node) => {
         node.remove();
     });
 
