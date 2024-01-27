@@ -49,24 +49,26 @@
     }
 
     #leftside-list {
-        background: var(--color-backdrop);
+        padding-bottom: 10px;
+
+        border-radius: 0 0 var(--value-radius-main) var(--value-radius-main);
     }
 
     #leftside-list, #leftside-list-collapse-on {
         position: absolute;
     }
 
-    #leftside-view-viewport {
+    #list-view-viewport {
         padding-top: 50px;
     }
 
     #leftside-list > #leftside-list-collapse > .icon {
-        background-image: url("../assets/icon/collapse2.svg");
+        background-image: url("../assets/icon/collapse3.svg");
     }
 
-    #leftside-list-collapse-on {
+    #leftside-list {
         display: flex;
-        position: relative;
+        position: absolute;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
@@ -74,10 +76,39 @@
     
         width: 100%;
         height: auto;
+
+        background: none;
+    }
+
+    #leftside-list-collapse-on {
+        display: flex;
+        position: absolute;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-right: 20px;
+        z-index: 1;
+    
+        width: 100%;
+        height: auto;
+    
+        background: var(--color-background);
+    }
+
+    #leftside-list > #leftside-list-main, #leftside-list-collapse-on span {
+        display: none;
+    }
+
+    #leftside-list-collapse-on > #leftside-list-main, #leftside-list-collapse-on span {
+        display: flex;
+    }
+
+    #leftside-list-collapse-on > #leftside-list-collapse > span {
+        display: inline;
     }
 
     #leftside-list-collapse-on > #leftside-list-collapse > .icon {
-        background-image: url("../assets/icon/collapse3.svg");
+        background-image: url("../assets/icon/collapse2.svg");
     }
 
     #leftside-list {

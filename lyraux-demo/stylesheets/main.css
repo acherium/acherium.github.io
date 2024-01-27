@@ -210,7 +210,7 @@ button > *:not(:nth-child(1)) {
     justify-content: flex-start;
     flex-direction: column;
     margin-right: 20px;
-    z-index: 2;
+    z-index: 1;
 
     width: 250px;
     height: 100%;
