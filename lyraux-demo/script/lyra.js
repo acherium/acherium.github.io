@@ -32,16 +32,30 @@ const view = (target, name) => {
             });
 
             if (flag === 1) {
-                const list = document.querySelector("#list-view-list");
-                if (!list) throw Error(4);
+                const listmain = document.querySelector("#leftside-list");
+                if (!listmain) throw Error(4);
+
+                const list = document.querySelector("#leftside-list-main");
+                if (!list) throw Error(5);
+
+                const collapse = document.querySelector("#leftside-list-collapse");
+                if (!collapse) throw Error(6);
+
+                collapse.addEventListener("click", () => {
+                    listmain.id = listmain.id === "leftside-list" ? "leftside-list-collapse-on" : "leftside-list";
+                });
 
                 Array.from(list.childNodes).filter((node) => node.nodeName !== "#text").forEach((node) => {
-                    node.onclick = () => {
+                    node.addEventListener("click", () => {
                         document.querySelector(".view-list-active").classList.remove("view-list-active");
                         view("#list-view-viewport", node.attributes["value"].value);
                         node.classList.add("view-list-active");
-                    };
+                    });
                 });
+
+                collapse.onclick = () => {
+                    
+                };
 
                 const first = Array.from(list.childNodes).filter((node) => node.nodeName !== "#text")[0];
                 if (first) {

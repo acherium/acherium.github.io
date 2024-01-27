@@ -109,6 +109,7 @@ h6 {
 .icon-search { background-image: url("../assets/icon/search.svg"); }
 .icon-outer { background-image: url("../assets/icon/outer.svg"); }
 .icon-back { background-image: url("../assets/icon/back.svg"); }
+.icon-collapse { background-image: url("../assets/icon/collapse.svg"); }
 
 #watermark {
     position: fixed;
