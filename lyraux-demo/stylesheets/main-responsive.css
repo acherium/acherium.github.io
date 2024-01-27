@@ -49,34 +49,18 @@
     }
 
     #leftside-list {
-        padding-bottom: 10px;
-
-        border-radius: 0 0 var(--value-radius-main) var(--value-radius-main);
-    }
-
-    #leftside-list, #leftside-list-collapse-on {
-        position: absolute;
-    }
-
-    #list-view-viewport {
-        padding-top: 50px;
-    }
-
-    #leftside-list > #leftside-list-collapse > .icon {
-        background-image: url("../assets/icon/collapse3.svg");
-    }
-
-    #leftside-list {
         display: flex;
         position: absolute;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
-        margin-right: 20px;
+        margin-right: 0px;
+        padding-bottom: 10px;
     
         width: 100%;
         height: auto;
 
+        border-radius: 0 0 var(--value-radius-main) var(--value-radius-main);
         background: none;
     }
 
@@ -93,6 +77,22 @@
         height: auto;
     
         background: var(--color-background);
+    }
+
+    #leftside-list-collapse {
+        justify-content: center;
+    }
+
+    #leftside-list, #leftside-list-collapse-on {
+        position: absolute;
+    }
+
+    #list-view-viewport {
+        padding-top: 50px;
+    }
+
+    #leftside-list > #leftside-list-collapse > .icon {
+        background-image: url("../assets/icon/collapse3.svg");
     }
 
     #leftside-list > #leftside-list-main, #leftside-list-collapse-on span {

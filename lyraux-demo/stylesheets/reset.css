@@ -105,11 +105,21 @@ h6 {
     background-repeat: no-repeat;
 }
 
+.icon-lyra { background-image: url("../assets/icon/lyra.svg"); }
 .icon-menu { background-image: url("../assets/icon/menu.svg"); }
-.icon-search { background-image: url("../assets/icon/search.svg"); }
-.icon-outer { background-image: url("../assets/icon/outer.svg"); }
 .icon-back { background-image: url("../assets/icon/back.svg"); }
-.icon-collapse { background-image: url("../assets/icon/collapse.svg"); }
+.icon-search { background-image: url("../assets/icon/search.svg"); }
+.icon-button { background-image: url("../assets/icon/button.svg"); }
+.icon-loading { background-image: url("../assets/icon/loading.svg"); }
+.icon-outer { background-image: url("../assets/icon/outer.svg"); }
+.icon-arrow0 { background-image: url("../assets/icon/arrow0.svg"); }
+.icon-arrow1 { background-image: url("../assets/icon/arrow1.svg"); }
+.icon-arrow2 { background-image: url("../assets/icon/arrow2.svg"); }
+.icon-arrow3 { background-image: url("../assets/icon/arrow3.svg"); }
+.icon-collapse0 { background-image: url("../assets/icon/collapse0.svg"); }
+.icon-collapse1 { background-image: url("../assets/icon/collapse1.svg"); }
+.icon-collapse2 { background-image: url("../assets/icon/collapse2.svg"); }
+.icon-collapse3 { background-image: url("../assets/icon/collapse3.svg"); }
 
 #watermark {
     position: fixed;
