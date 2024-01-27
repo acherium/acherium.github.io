@@ -195,7 +195,7 @@ button > *:not(:nth-child(1)) {
     text-align: center;
 }
 
-#demo {
+#leftside-list-view {
     display: flex;
     position: relative;
 
@@ -203,35 +203,19 @@ button > *:not(:nth-child(1)) {
     height: 100%;
 }
 
-#demo-left {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-right: 20px;
-
-    width: 20%;
-    height: 100%;
-}
-
-#demo-right {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    flex: 1;
-}
-
-.view-list {
+#list-view-list {
     display: flex;
     position: relative;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
+    margin-right: 20px;
+
+    width: 250px;
+    height: 100%;
 }
 
-.view-list > div {
+#list-view-list > div {
     display: flex;
     position: relative;
     align-items: center;
@@ -244,11 +228,11 @@ button > *:not(:nth-child(1)) {
     cursor: pointer;
 }
 
-.view-list > div > * {
+#list-view-list > div > * {
     margin: 5px;
 }
 
-.view-list > div > *:not(:nth-child(1)) {
+#list-view-list > div > *:not(:nth-child(1)) {
     margin-left: 0px;
 }
 
@@ -258,4 +242,20 @@ button > *:not(:nth-child(1)) {
 
 .view-list-active > * {
     filter: brightness(0) invert(1);
+}
+
+#list-view-viewport {
+    position: relative;
+
+    flex: 1;
+}
+
+#demo-loading {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
 }

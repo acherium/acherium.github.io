@@ -14,7 +14,7 @@ const viewList = {
 };
 
 Object.freeze(viewList);
-view("#main", "index");
+view("#main", "demo");
 
 const viewdemo = (node) => {
     document.querySelector(".view-list-active").classList.remove("view-list-active");

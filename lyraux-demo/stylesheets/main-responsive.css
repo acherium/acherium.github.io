@@ -43,4 +43,13 @@
     .menu-button > span {
         display: none;
     }
+
+    #leftside-list-view {
+        flex-direction: column;
+    }
+
+    #list-view-list {
+        width: 100%;
+        height: auto;
+    }
 }
