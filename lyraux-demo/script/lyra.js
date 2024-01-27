@@ -50,6 +50,8 @@ const view = (target, name) => {
                         document.querySelector(".view-list-active").classList.remove("view-list-active");
                         view("#list-view-viewport", node.attributes["value"].value);
                         node.classList.add("view-list-active");
+
+                        if (window.innerWidth <= 700) listmain.id = "leftside-list";
                     });
                 });
 
