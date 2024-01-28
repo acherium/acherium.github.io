@@ -81,6 +81,13 @@ const clearNode = (target) => {
 
 const cycleTheme = () => {
     const palette = document.querySelector("#palette");
-    palette.href = palette.href.split(/\//g).pop() === "palette-day.css" ? "./stylesheets/palette-night.css" : "./stylesheets/palette-day.css";
+    palette.href = palette.href.split(/\//g).pop() === "palette-light.css" ? "./stylesheets/palette-dark.css" : "./stylesheets/palette-light.css";
+    return 0;
+};
+
+const setTheme = (num) => {
+    const themes = [ "combined", "light", "dark" ];
+    const palette = document.querySelector("#palette");
+    palette.href = `./stylesheets/palette-${themes[num]}.css`;
     return 0;
 };
