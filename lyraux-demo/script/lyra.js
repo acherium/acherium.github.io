@@ -125,10 +125,10 @@ const view = (target, name) => {
 
                 h.onpointerdown = (click) => {
                     const pos = click.target.getBoundingClientRect();
-                    col.h = click.layerX;
+                    col.h = Math.round(click.layerX / pos.width * 360);
                     applyPicker();
                     document.onpointermove = (drag) => {
-                        col.h = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 360 : drag.clientX - pos.x );
+                        col.h = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 360 : Math.round(( drag.clientX - pos.x ) / pos.width * 360) );
                         applyPicker();
                     };
                     document.onpointerup = () => {
@@ -138,10 +138,10 @@ const view = (target, name) => {
 
                 s.onpointerdown = (click) => {
                     const pos = click.target.getBoundingClientRect();
-                    col.s = Math.round(click.layerX / 360 * 100);
+                    col.s = Math.round(click.layerX / pos.width * 100);
                     applyPicker();
                     document.onpointermove = (drag) => {
-                        col.s = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / 360 * 100) );
+                        col.s = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / pos.width * 100) );
                         applyPicker();
                     };
                     document.onpointerup = () => {
@@ -151,10 +151,10 @@ const view = (target, name) => {
 
                 l.onpointerdown = (click) => {
                     const pos = click.target.getBoundingClientRect();
-                    col.l = Math.round(click.layerX / 360 * 100);
+                    col.l = Math.round(click.layerX / pos.width * 100);
                     applyPicker();
                     document.onpointermove = (drag) => {
-                        col.l = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / 360 * 100) );
+                        col.l = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / pos.width * 100) );
                         applyPicker();
                     };
                     document.onpointerup = () => {
