@@ -35,9 +35,9 @@
     border-radius: var(--value-radius-main);
 }
 
-#main * {
+/* #main * {
     overflow: visible;
-}
+} */
 
 #logo {
     display: flex;
@@ -149,55 +149,38 @@ button > *:not(:nth-child(1)) {
     display: flex;
     position: relative;
     margin: 8px;
+
+    width: 100px;
+    height: 6px;
+
+    border-radius: 3px;
+    background-color: var(--color-default);
 }
 
 .loading > div > div {
-    width: 6px;
+    position: absolute;
+    left: -50px;
+
+    width: 25px;
     height: 6px;
 
-    border-radius: 50%;
-    background-color: var(--color-default);
+    opacity: 0.8;
+    border-radius: 3px;
+    background-color: var(--color-background);
 
     animation-name: ani-loading;
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
-}
-
-.loading > div > div:not(:nth-child(1)) {
-    margin-left: 6px;
-}
-
-.loading > div > div:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.loading > div > div:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.loading > div > div:nth-child(4) {
-    animation-delay: 0.6s;
-}
-
-.loading > div > div:nth-child(5) {
-    animation-delay: 0.8s;
-}
-
-.loading > div > div:nth-child(6) {
-    animation-delay: 1s;
+    animation-timing-function: linear;
 }
 
 @keyframes ani-loading {
     0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
+        left: -50px;
     }
 
     100% {
-        opacity: 1;
+        left: 150px;
     }
 }
 
