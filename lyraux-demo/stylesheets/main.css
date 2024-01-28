@@ -349,30 +349,30 @@ button > *:not(:nth-child(1)) {
     position: relative;
     flex-direction: column;
 
-    min-width: 300px;
+    max-width: 50%;
     min-height: 300px;
-    width: fit-content;
+    width: 100%;
     height: fit-content;
 
     border: solid 1px black;
 }
 
 #color-picker > #color-picker-hue {
-    width: 360px;
+    width: 100%;
     height: 20px;
 
     background-image: var(--gradient-rainbow-horizontal);
 }
 
 #color-picker > #color-picker-saturation {
-    width: 360px;
+    width: 100%;
     height: 20px;
 
     background-image: linear-gradient(90deg, hsl(0, 0%, 50%), hsl(0, 100%, 50%));
 }
 
 #color-picker > #color-picker-lightness {
-    width: 360px;
+    width: 100%;
     height: 20px;
 
     background-image: linear-gradient(90deg, hsl(0, 0%, 0%), hsl(0, 0%, 100%));
