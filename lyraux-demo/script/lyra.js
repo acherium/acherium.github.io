@@ -1,51 +1,41 @@
-// const set = (target) => {
-//     if (!target || target.constructor !== String) throw Error(1);
-//     if (!document.querySelector(target)) throw Error(2);
+const lyra = {
+    name: "Project Canaria",
+    author: "Acherium",
+    version: "0.0.240129.5",
+    date: "2024-01-29",
+    watermark: true,
+    listener: new EventTarget(),
+    link: {
+        "index": "./view/index.html",
+        "main": "./view/main.html",
+        "demo": "./view/demo.html",
+        "demo-main": "./view/demo/main.html",
+        "demo-buttons": "./view/demo/buttons.html",
+        "demo-loading": "./view/demo/loading.html",
+        "demo-theme": "./view/demo/theme.html",
+        "demo-modal": "./view/demo/modal.html",
+        "demo-palette": "./view/demo/palette.html"
+    },
+    start: {
+        area: "#main",
+        target: "demo"
+    }
+};
+Object.freeze(lyra);
+view(lyra.start.area, lyra.start.target);
 
-//     const area = document.querySelector(target);
+if (lyra.watermark) {
+    const wm = document.createElement("p");
+    wm.id = "watermark";
+    wm.innerText = `${lyra.name}\n${lyra.version}`;
 
-//     return 0;
-// };
-
-// set("#main");
-
-const errorPages = {
-    "default": "./view/error/default.html",
-    404: "./view/error/404.html"
+    document.querySelector("body").append(wm);
 };
 
-const set = (target, dir) => {
-    if (!target || target.constructor !== String) throw Error(1);
-    if (!document.querySelector(target)) throw Error(2);
-
-    const area = document.querySelector(target);
-    const filter = [ "#text", "#comment", "SCRIPT" ];
-    clearNode(target);
-    
-    fetch(dir).then((res) => {
-        if (!res.ok) {
-            console.log(res);
-            set(target, errorPages["default"]);
-
-            return 1;
-        };
-
-        res.text().then((html) => {
-            let dom = new DOMParser().parseFromString(html, "text/html");
-            dom = dom.body;
-
-            Array.from(dom.childNodes).filter((node) => !filter.includes(node.nodeName)).forEach((node) => {
-                area.append(node);
-            });
-        });
-    });
-
-    return 0;
-};
-
-const viewError = (target, origin) => {
-    if (!target || target.constructor !== String) throw Error(1);
-    if (!document.querySelector(target)) throw Error(2);
+function viewError(target, origin) {
+    if (!target) throw Error("대상이 지정되지 않았습니다.");
+    if (target.constructor !== String) throw Error("대상은 지정할 요소의 ID나 클래스 명칭으로 제공되어야 합니다.");
+    if (!document.querySelector(target)) throw Error("대상이 존재하지 않습니다.");
 
     const area = document.querySelector(target);
     clearNode(target);
@@ -65,22 +55,21 @@ const viewError = (target, origin) => {
     area.append(main);
 
     return 0;
-};
+}
 
-const view = (target, name) => {
-    if (!target || target.constructor !== String) throw Error(1);
-    if (!document.querySelector(target)) throw Error(2);
-    if (!viewList[name]) throw Error(3);
+function view(target, name) {
+    if (!target) throw Error("대상이 지정되지 않았습니다.");
+    if (target.constructor !== String) throw Error("대상은 지정할 요소의 ID나 클래스 명칭으로 제공되어야 합니다.");
+    if (!document.querySelector(target)) throw Error("대상이 존재하지 않습니다.");
 
     const area = document.querySelector(target);
-    const filter = [ "#text", "#comment", "SCRIPT" ];
+    const filter = ["#text", "#comment", "SCRIPT"];
     clearNode(target);
 
     let flag = 0;
-    
-    fetch(viewList[name]).then((res) => {
+
+    fetch(lyra.link[name]).then((res) => {
         if (!res.ok) {
-            // set(target, ( errorPages[res.status] || errorPages["default"] ));
             viewError(target, res);
 
             return 1;
@@ -128,7 +117,7 @@ const view = (target, name) => {
                     col.h = Math.round(click.layerX / pos.width * 360);
                     applyPicker();
                     document.onpointermove = (drag) => {
-                        col.h = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 360 : Math.round(( drag.clientX - pos.x ) / pos.width * 360) );
+                        col.h = drag.clientX < pos.x ? 0 : (drag.clientX > pos.x + pos.width ? 360 : Math.round((drag.clientX - pos.x) / pos.width * 360));
                         applyPicker();
                     };
                     document.onpointerup = () => {
@@ -141,7 +130,7 @@ const view = (target, name) => {
                     col.s = Math.round(click.layerX / pos.width * 100);
                     applyPicker();
                     document.onpointermove = (drag) => {
-                        col.s = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / pos.width * 100) );
+                        col.s = drag.clientX < pos.x ? 0 : (drag.clientX > pos.x + pos.width ? 100 : Math.round((drag.clientX - pos.x) / pos.width * 100));
                         applyPicker();
                     };
                     document.onpointerup = () => {
@@ -154,7 +143,7 @@ const view = (target, name) => {
                     col.l = Math.round(click.layerX / pos.width * 100);
                     applyPicker();
                     document.onpointermove = (drag) => {
-                        col.l = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / pos.width * 100) );
+                        col.l = drag.clientX < pos.x ? 0 : (drag.clientX > pos.x + pos.width ? 100 : Math.round((drag.clientX - pos.x) / pos.width * 100));
                         applyPicker();
                     };
                     document.onpointerup = () => {
@@ -194,7 +183,6 @@ const view = (target, name) => {
                 });
 
                 collapse.onclick = () => {
-                    
                 };
 
                 const first = Array.from(list.childNodes).filter((node) => node.nodeName !== "#text")[0];
@@ -207,30 +195,25 @@ const view = (target, name) => {
     });
 
     return 0;
-};
+}
 
-const clearNode = (target) => {
+function clearNode(target) {
     Array.from(document.querySelector(target).childNodes).forEach((node) => {
         node.remove();
     });
 
     return 0;
-};
+}
 
-const cycleTheme = () => {
+function cycleTheme() {
     const palette = document.querySelector("#palette");
     palette.href = palette.href.split(/\//g).pop() === "palette-light.css" ? "./stylesheets/palette-dark.css" : "./stylesheets/palette-light.css";
     return 0;
-};
+}
 
-const setTheme = (num) => {
-    const themes = [ "combined", "light", "dark" ];
+function setTheme(num) {
+    const themes = ["combined", "light", "dark"];
     const palette = document.querySelector("#palette");
     palette.href = `./stylesheets/palette-${themes[num]}.css`;
     return 0;
-};
-
-// const setThemeAlt = (num) => {
-//     console.log(document.documentElement.attributes["theme"]);
-//     return 0;
-// };
+}
