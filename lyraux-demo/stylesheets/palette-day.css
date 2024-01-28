@@ -1,0 +1,14 @@
+@charset "UTF-8";
+:root {
+    --color-white: rgb(255, 255, 255);
+    --color-black: rgb(0, 0, 0);
+    --color-light: rgb(240, 240, 240);
+    --color-dark: rgb(20, 20, 20);
+    --color-backdrop: var(--color-light);
+    --color-background: var(--color-white);
+    --color-default: var(--color-dark);
+    --color-default-font: var(--color-dark);
+    --color-default-button: var(--color-light);
+    --color-default-leftside-list-active: var(--color-dark);
+    --filter-default-leftside-list-active: brightness(0) invert(1);
+}

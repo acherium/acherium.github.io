@@ -44,8 +44,8 @@ body {
     font-family: "Spoqa Han Sans Neo";
 }
 
-h1, h2, h3, h4, h5, h6, span {
-    color: var(--color-font-default);
+h1, h2, h3, h4, h5, h6, span, p {
+    color: var(--color-default-font);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -126,7 +126,7 @@ h6 {
     right: 10px;
     bottom: 10px;
 
-    color: rgba(50, 50, 50, 0.5);
+    color: rgba(100, 100, 100, 0.5);
     text-align: right;
     pointer-events: none;
 }

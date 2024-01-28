@@ -10,7 +10,8 @@ const viewList = {
     "demo": "./view/demo.html",
     "demo-main": "./view/demo/main.html",
     "demo-buttons": "./view/demo/buttons.html",
-    "demo-loading": "./view/demo/loading.html"
+    "demo-loading": "./view/demo/loading.html",
+    "demo-theme": "./view/demo/theme.html"
 };
 
 Object.freeze(viewList);

@@ -78,3 +78,9 @@ const clearNode = (target) => {
 
     return 0;
 };
+
+const cycleTheme = () => {
+    const palette = document.querySelector("#palette");
+    palette.href = palette.href.split(/\//g).pop() === "palette-day.css" ? "./stylesheets/palette-night.css" : "./stylesheets/palette-day.css";
+    return 0;
+};

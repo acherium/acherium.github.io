@@ -1,0 +1,18 @@
+@charset "UTF-8";
+:root {
+    --color-white: rgb(255, 255, 255);
+    --color-black: rgb(0, 0, 0);
+    --color-light: rgb(240, 240, 240);
+    --color-dark: rgb(20, 20, 20);
+    --color-backdrop: var(--color-black);
+    --color-background: var(--color-dark);
+    --color-default: var(--color-light);
+    --color-default-font: var(--color-light);
+    --color-default-button: rgb(50, 50, 50);
+    --color-default-leftside-list-active: var(--color-light);
+    --filter-default-leftside-list-active: brightness(0) saturate(100%) invert(0%) sepia(15%) saturate(2126%) hue-rotate(41deg) brightness(99%) contrast(84%);
+}
+
+.icon, #logo > div {
+    filter: brightness(0) saturate(100%) invert(99%) sepia(2%) saturate(1133%) hue-rotate(207deg) brightness(117%) contrast(88%);
+}
