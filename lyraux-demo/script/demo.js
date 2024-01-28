@@ -11,7 +11,8 @@ const viewList = {
     "demo-main": "./view/demo/main.html",
     "demo-buttons": "./view/demo/buttons.html",
     "demo-loading": "./view/demo/loading.html",
-    "demo-theme": "./view/demo/theme.html"
+    "demo-theme": "./view/demo/theme.html",
+    "demo-modal": "./view/demo/modal.html"
 };
 
 Object.freeze(viewList);

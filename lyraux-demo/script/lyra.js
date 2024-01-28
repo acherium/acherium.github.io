@@ -9,6 +9,64 @@
 
 // set("#main");
 
+const errorPages = {
+    "default": "./view/error/default.html",
+    404: "./view/error/404.html"
+};
+
+const set = (target, dir) => {
+    if (!target || target.constructor !== String) throw Error(1);
+    if (!document.querySelector(target)) throw Error(2);
+
+    const area = document.querySelector(target);
+    const filter = [ "#text", "#comment", "SCRIPT" ];
+    clearNode(target);
+    
+    fetch(dir).then((res) => {
+        if (!res.ok) {
+            console.log(res);
+            set(target, errorPages["default"]);
+
+            return 1;
+        };
+
+        res.text().then((html) => {
+            let dom = new DOMParser().parseFromString(html, "text/html");
+            dom = dom.body;
+
+            Array.from(dom.childNodes).filter((node) => !filter.includes(node.nodeName)).forEach((node) => {
+                area.append(node);
+            });
+        });
+    });
+
+    return 0;
+};
+
+const viewError = (target, origin) => {
+    if (!target || target.constructor !== String) throw Error(1);
+    if (!document.querySelector(target)) throw Error(2);
+
+    const area = document.querySelector(target);
+    clearNode(target);
+
+    const main = document.createElement("div");
+    const title = document.createElement("span");
+    const subtitle = document.createElement("span");
+    const content = document.createElement("span");
+    main.id = "error";
+    title.innerText = origin.status;
+    subtitle.innerText = origin.statusText;
+    content.innerText = "오류가 발생했습니다";
+
+    main.append(title);
+    main.append(subtitle);
+    main.append(content);
+    area.append(main);
+
+    return 0;
+};
+
 const view = (target, name) => {
     if (!target || target.constructor !== String) throw Error(1);
     if (!document.querySelector(target)) throw Error(2);
@@ -21,6 +79,13 @@ const view = (target, name) => {
     let flag = 0;
     
     fetch(viewList[name]).then((res) => {
+        if (!res.ok) {
+            // set(target, ( errorPages[res.status] || errorPages["default"] ));
+            viewError(target, res);
+
+            return 1;
+        };
+
         res.text().then((html) => {
             let dom = new DOMParser().parseFromString(html, "text/html");
             dom = dom.body;
