@@ -92,6 +92,79 @@ const view = (target, name) => {
 
             if (dom.querySelector("#leftside-list-view")) flag = 1;
 
+            if (dom.querySelector("#color-picker")) {
+                const picker = dom.querySelector("#color-picker");
+                const viewer = picker.querySelector("#color-picker-viewer");
+                const col = {
+                    h: 0,
+                    s: 100,
+                    l: 50
+                };
+
+                const h = picker.querySelector("#color-picker-hue");
+                const s = picker.querySelector("#color-picker-saturation");
+                const l = picker.querySelector("#color-picker-lightness");
+                const vh = picker.querySelector("#color-picker-viewer-hue");
+                const vs = picker.querySelector("#color-picker-viewer-saturation");
+                const vl = picker.querySelector("#color-picker-viewer-lightness");
+
+                const applyPicker = () => {
+                    vh.innerText = col.h;
+                    vs.innerText = col.s;
+                    vl.innerText = col.l;
+
+                    picker.setAttribute("h", col.h);
+                    picker.setAttribute("s", col.s);
+                    picker.setAttribute("l", col.l);
+
+                    s.style["background-image"] = `linear-gradient(90deg, hsl(${col.h}, 0%, 50%), hsl(${col.h}, 100%, 50%))`;
+                    l.style["background-image"] = `linear-gradient(90deg, hsl(${col.h}, ${col.s}%, 0%), hsl(${col.h}, ${col.s}%, 50%), hsl(${col.h}, ${col.s}%, 100%))`;
+                    viewer.style["background-color"] = `hsl(${col.h}, ${col.s}%, ${col.l}%)`;
+                    return 0;
+                };
+
+                h.onpointerdown = (click) => {
+                    const pos = click.target.getBoundingClientRect();
+                    col.h = click.layerX;
+                    applyPicker();
+                    document.onpointermove = (drag) => {
+                        col.h = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 360 : drag.clientX - pos.x );
+                        applyPicker();
+                    };
+                    document.onpointerup = () => {
+                        document.onpointermove = null;
+                    };
+                };
+
+                s.onpointerdown = (click) => {
+                    const pos = click.target.getBoundingClientRect();
+                    col.s = Math.round(click.layerX / 360 * 100);
+                    applyPicker();
+                    document.onpointermove = (drag) => {
+                        col.s = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / 360 * 100) );
+                        applyPicker();
+                    };
+                    document.onpointerup = () => {
+                        document.onpointermove = null;
+                    };
+                };
+
+                l.onpointerdown = (click) => {
+                    const pos = click.target.getBoundingClientRect();
+                    col.l = Math.round(click.layerX / 360 * 100);
+                    applyPicker();
+                    document.onpointermove = (drag) => {
+                        col.l = drag.clientX < pos.x ? 0 : ( drag.clientX > pos.x + pos.width ? 100 : Math.round(( drag.clientX - pos.x ) / 360 * 100) );
+                        applyPicker();
+                    };
+                    document.onpointerup = () => {
+                        document.onpointermove = null;
+                    };
+                };
+
+                applyPicker();
+            };
+
             Array.from(dom.childNodes).filter((node) => !filter.includes(node.nodeName)).forEach((node) => {
                 area.append(node);
             });
@@ -156,3 +229,8 @@ const setTheme = (num) => {
     palette.href = `./stylesheets/palette-${themes[num]}.css`;
     return 0;
 };
+
+// const setThemeAlt = (num) => {
+//     console.log(document.documentElement.attributes["theme"]);
+//     return 0;
+// };
