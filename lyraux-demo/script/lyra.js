@@ -1,8 +1,8 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240129.5",
-    date: "2024-01-29",
+    version: "0.0.240201.1",
+    date: "2024-02-01",
     watermark: true,
     listener: new EventTarget(),
     link: {
@@ -19,9 +19,15 @@ const lyra = {
     start: {
         area: "#main",
         target: "demo"
+    },
+    ondisplay: {
+        modal: {}
     }
 };
 Object.freeze(lyra);
+Object.freeze(lyra.link);
+Object.freeze(lyra.start);
+Object.freeze(lyra.ondisplay);
 view(lyra.start.area, lyra.start.target);
 
 if (lyra.watermark) {
@@ -217,3 +223,110 @@ function setTheme(num) {
     palette.href = `./stylesheets/palette-${themes[num]}.css`;
     return 0;
 }
+
+function getUniqueCode(list) {
+    return Object.keys(list).length ? parseInt(Object.keys(list)[Object.keys(list).length - 1]) + 1 : 0;
+};
+
+function create(type, value = "") {
+    if (!type) throw Error(1);
+    if (type.constructor !== String) throw Error(2);
+    if (value.constructor !== String) throw Error(3);
+
+    const result = document.createElement(type);
+    value.split(/ +/g).forEach(x => {
+        if (x.startsWith("#")) {
+            result.id = x.substring(1);
+        } else if (x.startsWith(".")) {
+            result.classList.add(x.substring(1));
+        };
+    });
+
+    return result;
+};
+
+class Modal {
+    constructor(param = {}) {
+        if (param && param.constructor !== Object) throw Error(1);
+
+        this.uid = getUniqueCode(lyra.ondisplay.modal);
+        this.id = `${param["id"]}` || null;
+        this.class = `${param["class"]}` || null;
+        this.href = `${param["href"]}` || null;
+        this.node = {
+            "main": create("div", ".modal"),
+            "area-backdrop": create("div", ".absolute .w100 .h100 .grain"),
+            "window": create("div", ".window"),
+            "window-backdrop": create("div", ".absolute .w100 .h100 .grain"),
+            "window-main": create("div", ".window-main"),
+            "window-title": create("div", ".window-title"),
+            "window-buttons": create("div", ".window-buttons"),
+            "window-button-close": create("div", ".icon .icon-close"),
+            "window-button-maximize": create("div", ".icon .icon-maximize"),
+            "window-title-main": create("span"),
+            "window-content": create("div", ".window-content"),
+            "window-content-main": null
+        };
+
+        this.node["window-buttons"].append(this.node["window-button-close"]);
+        this.node["window-buttons"].append(this.node["window-button-maximize"]);
+        this.node["window-title"].append(this.node["window-buttons"]);
+        this.node["window-title"].append(this.node["window-title-main"]);
+        this.node["window-main"].append(this.node["window-title"]);
+        this.node["window-main"].append(this.node["window-content"]);
+        this.node["window"].append(this.node["window-backdrop"]);
+        this.node["window"].append(this.node["window-main"]);
+        this.node["main"].append(this.node["area-backdrop"]);
+        this.node["main"].append(this.node["window"]);
+
+        this.node["window-button-close"].onclick = () => {
+            this.close();
+        };
+        this.node["window-button-maximize"].onclick = () => {
+            this.maximize();
+        };
+
+        this.node["window-title-main"].innerText = "Modal Window Test";
+
+        lyra.ondisplay.modal[this.uid] = this;
+        return this;
+    };
+
+    async set() {
+        this.node["window-content-main"] = await fetch(this.href).then(async (res) => {
+            return await res.text().then((html) => {
+                let dom = new DOMParser().parseFromString(html, "text/html");
+                dom = dom.body.querySelector("div");
+                return dom;
+            });
+        });
+        this.node["window-content"].append(this.node["window-content-main"]);
+
+        return this;
+    };
+
+    show() {
+        document.querySelector("body").append(this.node["main"]);
+
+        return this;
+    };
+
+    close() {
+        this.node["main"].remove();
+        delete lyra.ondisplay.modal[this.uid];
+
+        return this;
+    };
+
+    maximize() {
+        this.node["window"].classList.add("window-maximize");
+
+        return this;
+    };
+};
+
+function closeModal(uid) {
+    lyra.ondisplay.modal[uid].close();
+
+    return 0;
+};

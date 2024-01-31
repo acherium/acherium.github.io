@@ -213,7 +213,7 @@ button > *:not(:nth-child(1)) {
 }
 
 #leftside-list > #leftside-list-collapse > .icon {
-    background-image: url("../assets/icon/collapse0.svg");
+    background-image: url("../assets/icons/collapse0.svg");
 }
 
 #leftside-list-collapse-on {
@@ -383,4 +383,124 @@ button > *:not(:nth-child(1)) {
     height: 100px;
 
     border: solid 1px black;
+}
+
+.modal {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.grain {
+    opacity: 0.03;
+    background-image: url("../assets/images/image-noise.png");
+}
+
+.window {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+    height: auto;
+
+    border-radius: var(--value-radius-main);
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 5px black;
+}
+
+.window-maximize {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+}
+
+.window-main {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4px;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--color-backdrop);
+}
+
+.window-title {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+
+    min-width: 200px;
+    min-height: 40px;
+    width: 100%;
+}
+
+.window-buttons {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    margin-left: auto;
+
+    width: auto;
+    height: 100%;
+
+}
+
+.window-buttons > div {
+    margin-right: 4px;
+    width: 40px;
+    height: 40px;
+
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.window-buttons > div:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.window-buttons > div:active {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.window-title > span {
+    margin: 0 6px;
+
+    font-family: "Spoqa Han Sans Neo Medium";
+    font-size: 16pt;
+}
+
+.window-content {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4px;
+
+    min-width: 200px;
+    min-height: 100px;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 5px;
+    background-color: var(--color-background);
 }

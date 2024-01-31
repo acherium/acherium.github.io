@@ -103,23 +103,27 @@ h6 {
 
     background-size: 18px;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
-.icon-lyra { background-image: url("../assets/icon/lyra.svg"); }
-.icon-menu { background-image: url("../assets/icon/menu.svg"); }
-.icon-back { background-image: url("../assets/icon/back.svg"); }
-.icon-search { background-image: url("../assets/icon/search.svg"); }
-.icon-button { background-image: url("../assets/icon/button.svg"); }
-.icon-loading { background-image: url("../assets/icon/loading.svg"); }
-.icon-outer { background-image: url("../assets/icon/outer.svg"); }
-.icon-arrow0 { background-image: url("../assets/icon/arrow0.svg"); }
-.icon-arrow1 { background-image: url("../assets/icon/arrow1.svg"); }
-.icon-arrow2 { background-image: url("../assets/icon/arrow2.svg"); }
-.icon-arrow3 { background-image: url("../assets/icon/arrow3.svg"); }
-.icon-collapse0 { background-image: url("../assets/icon/collapse0.svg"); }
-.icon-collapse1 { background-image: url("../assets/icon/collapse1.svg"); }
-.icon-collapse2 { background-image: url("../assets/icon/collapse2.svg"); }
-.icon-collapse3 { background-image: url("../assets/icon/collapse3.svg"); }
+.icon-lyra { background-image: url("../assets/icons/lyra.svg"); }
+.icon-menu { background-image: url("../assets/icons/menu.svg"); }
+.icon-back { background-image: url("../assets/icons/back.svg"); }
+.icon-search { background-image: url("../assets/icons/search.svg"); }
+.icon-button { background-image: url("../assets/icons/button.svg"); }
+.icon-loading { background-image: url("../assets/icons/loading.svg"); }
+.icon-outer { background-image: url("../assets/icons/outer.svg"); }
+.icon-arrow0 { background-image: url("../assets/icons/arrow0.svg"); }
+.icon-arrow1 { background-image: url("../assets/icons/arrow1.svg"); }
+.icon-arrow2 { background-image: url("../assets/icons/arrow2.svg"); }
+.icon-arrow3 { background-image: url("../assets/icons/arrow3.svg"); }
+.icon-collapse0 { background-image: url("../assets/icons/collapse0.svg"); }
+.icon-collapse1 { background-image: url("../assets/icons/collapse1.svg"); }
+.icon-collapse2 { background-image: url("../assets/icons/collapse2.svg"); }
+.icon-collapse3 { background-image: url("../assets/icons/collapse3.svg"); }
+.icon-close { background-image: url("../assets/icons/close.svg"); }
+.icon-maximize { background-image: url("../assets/icons/maximize.svg"); }
+.icon-minimize { background-image: url("../assets/icons/minimize.svg"); }
 
 #watermark {
     position: fixed;
@@ -130,3 +134,37 @@ h6 {
     text-align: right;
     pointer-events: none;
 }
+
+.w50p { width: 50px; }
+.w100p { width: 100px; }
+.w150p { width: 150px; }
+.w200p { width: 200px; }
+.w250p { width: 250px; }
+.w300p { width: 300px; }
+.w350p { width: 350px; }
+.w400p { width: 400px; }
+.w450p { width: 450px; }
+.w500p { width: 500px; }
+.w550p { width: 550px; }
+.w600p { width: 600px; }
+.w650p { width: 650px; }
+.w700p { width: 700px; }
+.w750p { width: 750px; }
+.w800p { width: 800px; }
+
+.h50p { height: 50px; }
+.h100p { height: 100px; }
+.h150p { height: 150px; }
+.h200p { height: 200px; }
+.h250p { height: 250px; }
+.h300p { height: 300px; }
+.h350p { height: 350px; }
+.h400p { height: 400px; }
+.h450p { height: 450px; }
+.h500p { height: 500px; }
+.h550p { height: 550px; }
+.h600p { height: 600px; }
+.h650p { height: 650px; }
+.h700p { height: 700px; }
+.h750p { height: 750px; }
+.h800p { height: 800px; }
