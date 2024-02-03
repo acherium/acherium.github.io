@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240203.3",
+    version: "0.0.240203.5",
     date: "2024-02-03",
     watermark: true,
     listener: new EventTarget(),

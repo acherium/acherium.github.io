@@ -17,12 +17,12 @@
     position: relative;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 50;
 
     width: 100%;
     height: 81px;
 
-    border-bottom: solid 1px rgb(200, 200, 200);
+    border-bottom: solid 1px var(--color-lightgray);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -53,8 +53,8 @@
     display: flex;
     position: relative;
     overflow: scroll;
-    margin-bottom: 8px;
-    padding: 16px;
+    /* margin-bottom: 8px; */
+    /* padding: 16px; */
 
     width: 100%;
     height: 100%;
@@ -103,8 +103,6 @@
 
     width: auto;
     height: 80px;
-
-    /* background-color: red; */
 }
 
 .menu-button {
@@ -228,11 +226,13 @@ button > *:not(:nth-child(1)) {
     justify-content: flex-start;
     flex-direction: column;
     margin-right: 20px;
+    padding: 16px;
     z-index: 1;
 
-    width: 250px;
+    width: 251px;
     height: 100%;
 
+    border-right: solid 1px var(--color-lightgray);
     background: var(--color-background);
 }
 
@@ -247,9 +247,12 @@ button > *:not(:nth-child(1)) {
     justify-content: flex-start;
     flex-direction: column;
     margin-right: 20px;
+    padding: 16px;
 
     width: auto;
     height: 100%;
+    
+    border-right: solid 1px var(--color-lightgray);
 }
 
 #leftside-list-collapse-on > #leftside-list-main, #leftside-list-collapse-on span {
@@ -324,6 +327,7 @@ button > *:not(:nth-child(1)) {
 
 #list-view-viewport {
     position: relative;
+    padding: 16px;
 
     flex: 1;
 }
@@ -373,7 +377,7 @@ button > *:not(:nth-child(1)) {
     position: relative;
     flex-direction: column;
 
-    max-width: 50%;
+    max-width: 400px;
     min-height: 300px;
     width: 100%;
     height: fit-content;
