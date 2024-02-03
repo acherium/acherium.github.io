@@ -1,12 +1,12 @@
 @charset "UTF-8";
 @media screen and (max-width: 1416px) {
-    #main {
+    #main-area {
         margin-bottom: 0;
 
         border-radius: var(--value-radius-main) var(--value-radius-main) 0 0;
     }
 
-    #menu {
+    #menu-area {
         padding: 0 10px 0 10px;
     }
 }
@@ -16,12 +16,12 @@
         --value-radius-main: 16px;
     }
 
-    #main {
-        padding: 20px;
+    #main-area {
+        padding: 10px;
     }
 
-    #menu {
-        height: 80px;
+    #menu-area {
+        height: 81px;
     }
 
     #logo {

@@ -36,11 +36,11 @@ body {
     position: relative;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 
     width: 100vw;
     height: 100vh;
 
-    background-color: var(--color-backdrop);
     font-family: "Spoqa Han Sans Neo";
 }
 

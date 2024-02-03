@@ -12,6 +12,20 @@
     height: 100%;
 }
 
+#menu-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    width: 100%;
+    height: 81px;
+
+    border-bottom: solid 1px rgb(200, 200, 200);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 #menu {
     display: flex;
     position: relative;
@@ -19,7 +33,20 @@
     justify-content: flex-start;
 
     width: 100%;
-    height: 100px;
+    height: 100%;
+    
+    background-color: var(--color-background);
+}
+
+#main-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    flex: 1;
 }
 
 #main {
@@ -29,15 +56,12 @@
     margin-bottom: 8px;
     padding: 16px;
 
-    flex: 1;
+    width: 100%;
+    height: 100%;
 
     background-color: var(--color-background);
     border-radius: var(--value-radius-main);
 }
-
-/* #main * {
-    overflow: visible;
-} */
 
 #logo {
     display: flex;
@@ -46,8 +70,8 @@
     justify-content: center;
     margin-right: auto;
 
-    width: 150px;
-    height: 80px;
+    width: 115px;
+    height: 60px;
 
     border-radius: var(--value-radius);
     cursor: pointer;
@@ -66,7 +90,7 @@
     height: 100%;
 
     background-image: url("../assets/logo/logo.svg");
-    background-size: 100px;
+    background-size: 80px;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -233,7 +257,7 @@ button > *:not(:nth-child(1)) {
 }
 
 #leftside-list-collapse-on > #leftside-list-collapse > .icon {
-    background-image: url("../assets/icon/collapse1.svg");
+    background-image: url("../assets/icons/collapse1.svg");
 }
 
 #leftside-list-collapse {
