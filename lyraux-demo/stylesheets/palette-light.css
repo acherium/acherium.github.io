@@ -3,6 +3,7 @@
     --color-white: rgb(255, 255, 255);
     --color-black: rgb(0, 0, 0);
     --color-light: rgb(240, 240, 240);
+    --color-lightgray: rgb(200, 200, 200);
     --color-dark: rgb(20, 20, 20);
     --color-backdrop: var(--color-light);
     --color-background: var(--color-white);
@@ -10,5 +11,10 @@
     --color-default-font: var(--color-dark);
     --color-default-button: var(--color-light);
     --color-default-leftside-list-active: var(--color-dark);
+    --color-default-backdrop-hover: rgba(0, 0, 0, 0.1);
+    --color-default-backdrop-active: rgba(0, 0, 0, 0.2);
+    --color-default-partition: var(--color-lightgray);
     --filter-default-leftside-list-active: brightness(0) invert(1);
+    --gradient-rainbow-horizontal: linear-gradient(90deg, hsl(0, 100%, 50%), hsl(30, 100%, 50%), hsl(60, 100%, 50%), hsl(90, 100%, 50%), hsl(120, 100%, 50%), hsl(150, 100%, 50%), hsl(180, 100%, 50%), hsl(210, 100%, 50%), hsl(240, 100%, 50%), hsl(270, 100%, 50%), hsl(300, 100%, 50%), hsl(330, 100%, 50%), hsl(360, 100%, 50%));
+    --gradient-rainbow-vertical: linear-gradient(hsl(0, 100%, 50%), hsl(30, 100%, 50%), hsl(60, 100%, 50%), hsl(90, 100%, 50%), hsl(120, 100%, 50%), hsl(150, 100%, 50%), hsl(180, 100%, 50%), hsl(210, 100%, 50%), hsl(240, 100%, 50%), hsl(270, 100%, 50%), hsl(300, 100%, 50%), hsl(330, 100%, 50%), hsl(360, 100%, 50%));
 }

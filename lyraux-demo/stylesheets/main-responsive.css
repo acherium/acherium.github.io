@@ -60,7 +60,7 @@
 
         /* border-radius: 0 0 var(--value-radius-main) var(--value-radius-main); */
         border-right: 0;
-        border-bottom: solid 1px var(--color-lightgray);
+        border-bottom: solid 1px var(--color-default-partition);
         background: var(--color-background);
     }
 
@@ -82,7 +82,7 @@
         height: auto;
     
         border-right: 0;
-        border-bottom: solid 1px var(--color-lightgray);
+        border-bottom: solid 1px var(--color-default-partition);
         background: var(--color-background);
     }
 

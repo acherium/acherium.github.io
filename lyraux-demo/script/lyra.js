@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240203.6",
+    version: "0.0.240203.7",
     date: "2024-02-03",
     watermark: true,
     listener: new EventTarget(),
@@ -258,7 +258,7 @@ class Modal {
             "area-backdrop": create("div", ".absolute .w100 .h100 .grain"),
             "window": create("div", ".window"),
             "window-backdrop": create("div", ".absolute .w100 .h100 .grain"),
-            "window-main": create("div", ".window-main"),
+            "window-main": create("div", ".window-main .window-active"),
             "window-title": create("div", ".window-title"),
             "window-buttons": create("div", ".window-buttons"),
             "window-button-close": create("div", ".icon .icon-close"),
@@ -286,21 +286,23 @@ class Modal {
             this.toggleSize();
         };
 
-        this.node["window-title-main"].innerText = "Modal Window Test";
-
         lyra.ondisplay.modal[this.uid] = this;
         return this;
     };
 
-    async set() {
-        this.node["window-content-main"] = await fetch(this.href).then(async (res) => {
-            return await res.text().then((html) => {
-                let dom = new DOMParser().parseFromString(html, "text/html");
-                dom = dom.body.querySelector("div");
-                return dom;
+    set() {
+        fetch(this.href).then((res) => {
+            res.text().then((html) => {
+                const raw = new DOMParser().parseFromString(html, "text/html");
+                const title = raw.body.querySelector(".window-title-main");
+                const main = raw.body.querySelector(".window-content-main");
+
+                this.node["window-title-main"].innerText = title.innerText;
+                this.node["window-content-main"] = main;
+                
+                this.node["window-content"].append(this.node["window-content-main"]);
             });
         });
-        this.node["window-content"].append(this.node["window-content-main"]);
 
         return this;
     };
