@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240203.5",
+    version: "0.0.240203.6",
     date: "2024-02-03",
     watermark: true,
     listener: new EventTarget(),
@@ -171,7 +171,7 @@ function view(target, name) {
                 const list = document.querySelector("#leftside-list-main");
                 if (!list) throw Error(5);
 
-                const collapse = document.querySelector("#leftside-list-collapse");
+                const collapse = document.querySelector("#leftside-list-toggle");
                 if (!collapse) throw Error(6);
 
                 collapse.addEventListener("click", () => {

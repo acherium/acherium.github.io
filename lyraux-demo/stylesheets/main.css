@@ -78,11 +78,11 @@
 }
 
 #logo:hover {
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: var(--color-default-backdrop-hover);
 }
 
 #logo:active {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--color-default-backdrop-active);
 }
 
 #logo > div {
@@ -120,11 +120,11 @@
 }
 
 .menu-button:hover {
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: var(--color-default-backdrop-hover);
 }
 
 .menu-button:active {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--color-default-backdrop-active);
 }
 
 .menu-button > .icon {
@@ -236,7 +236,7 @@ button > *:not(:nth-child(1)) {
     background: var(--color-background);
 }
 
-#leftside-list > #leftside-list-collapse > .icon {
+#leftside-list > #leftside-list-toggle > .icon {
     background-image: url("../assets/icons/collapse0.svg");
 }
 
@@ -259,29 +259,35 @@ button > *:not(:nth-child(1)) {
     display: none;
 }
 
-#leftside-list-collapse-on > #leftside-list-collapse > .icon {
+#leftside-list-collapse-on > #leftside-list-toggle > .icon {
     background-image: url("../assets/icons/collapse1.svg");
 }
 
-#leftside-list-collapse {
+#leftside-list-toggle {
     display: flex;
     position: relative;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 10px;
+    margin: 0 auto 10px 0;
     padding: 5px;
 
-    width: 100%;
-
-    /* background-color: yellow; */
+    border-radius: var(--value-radius);
     cursor: pointer;
 }
 
-#leftside-list-collapse > * {
+#leftside-list-toggle:hover {
+    background-color: var(--color-default-backdrop-hover);
+}
+
+#leftside-list-toggle:active {
+    background-color: var(--color-default-backdrop-active);
+}
+
+#leftside-list-toggle > * {
     margin: 5px;
 }
 
-#leftside-list-collapse > *:not(:nth-child(1)) {
+#leftside-list-toggle > *:not(:nth-child(1)) {
     margin-left: 0px;
 }
 

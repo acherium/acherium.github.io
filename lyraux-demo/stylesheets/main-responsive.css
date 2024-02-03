@@ -86,8 +86,9 @@
         background: var(--color-background);
     }
 
-    #leftside-list-collapse {
+    #leftside-list-toggle {
         justify-content: center;
+        margin-right: 0;
     }
 
     #leftside-list, #leftside-list-collapse-on {
@@ -98,7 +99,7 @@
         padding-top: 70px;
     }
 
-    #leftside-list > #leftside-list-collapse > .icon {
+    #leftside-list > #leftside-list-toggle > .icon {
         background-image: url("../assets/icons/collapse3.svg");
     }
 
@@ -110,11 +111,11 @@
         display: flex;
     }
 
-    #leftside-list-collapse-on > #leftside-list-collapse > span {
+    #leftside-list-collapse-on > #leftside-list-toggle > span {
         display: inline;
     }
 
-    #leftside-list-collapse-on > #leftside-list-collapse > .icon {
+    #leftside-list-collapse-on > #leftside-list-toggle > .icon {
         background-image: url("../assets/icons/collapse2.svg");
     }
 
