@@ -14,6 +14,7 @@
     --color-default-backdrop-hover: rgba(0, 0, 0, 0.1);
     --color-default-backdrop-active: rgba(0, 0, 0, 0.2);
     --color-default-partition: var(--color-lightgray);
+    --color-default-window-border: rgb(100, 100, 100);
     --color-default-window-active: var(--color-light);
     --color-default-window-inactive: rgb(150, 150, 150);
     --filter-default-leftside-list-active: brightness(0) invert(1);

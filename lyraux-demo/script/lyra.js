@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240203.7",
+    version: "0.0.240203.8",
     date: "2024-02-03",
     watermark: true,
     listener: new EventTarget(),
@@ -245,7 +245,7 @@ function create(type, value = "") {
     return result;
 };
 
-class Modal {
+class Window {
     constructor(param = {}) {
         if (param && param.constructor !== Object) throw Error(1);
 
@@ -254,9 +254,7 @@ class Modal {
         this.class = `${param["class"]}` || null;
         this.href = `${param["href"]}` || null;
         this.node = {
-            "main": create("div", ".modal"),
-            "area-backdrop": create("div", ".absolute .w100 .h100 .grain"),
-            "window": create("div", ".window"),
+            "main": create("div", ".window"),
             "window-backdrop": create("div", ".absolute .w100 .h100 .grain"),
             "window-main": create("div", ".window-main .window-active"),
             "window-title": create("div", ".window-title"),
@@ -274,10 +272,8 @@ class Modal {
         this.node["window-title"].append(this.node["window-title-main"]);
         this.node["window-main"].append(this.node["window-title"]);
         this.node["window-main"].append(this.node["window-content"]);
-        this.node["window"].append(this.node["window-backdrop"]);
-        this.node["window"].append(this.node["window-main"]);
-        this.node["main"].append(this.node["area-backdrop"]);
-        this.node["main"].append(this.node["window"]);
+        this.node["main"].append(this.node["window-backdrop"]);
+        this.node["main"].append(this.node["window-main"]);
 
         this.node["window-button-close"].onclick = () => {
             this.close();
@@ -296,11 +292,14 @@ class Modal {
                 const raw = new DOMParser().parseFromString(html, "text/html");
                 const title = raw.body.querySelector(".window-title-main");
                 const main = raw.body.querySelector(".window-content-main");
+                const script = raw.body.querySelector(".window-script");
 
                 this.node["window-title-main"].innerText = title.innerText;
                 this.node["window-content-main"] = main;
                 
                 this.node["window-content"].append(this.node["window-content-main"]);
+
+                if (script) eval(script.innerText);
             });
         });
 
@@ -321,12 +320,12 @@ class Modal {
     };
 
     toggleSize() {
-        if (this.node["window"].classList.contains("window-maximize")) {
-            this.node["window"].classList.remove("window-maximize");
+        if (this.node["main"].classList.contains("window-maximize")) {
+            this.node["main"].classList.remove("window-maximize");
             this.node["window-button-size"].classList.remove("icon-minimize");
             this.node["window-button-size"].classList.add("icon-maximize");
         } else {
-            this.node["window"].classList.add("window-maximize");
+            this.node["main"].classList.add("window-maximize");
             this.node["window-button-size"].classList.remove("icon-maximize");
             this.node["window-button-size"].classList.add("icon-minimize");
         };
