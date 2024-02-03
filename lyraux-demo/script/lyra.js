@@ -1,8 +1,8 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240201.1",
-    date: "2024-02-01",
+    version: "0.0.240203.1",
+    date: "2024-02-03",
     watermark: true,
     listener: new EventTarget(),
     link: {
@@ -262,14 +262,14 @@ class Modal {
             "window-title": create("div", ".window-title"),
             "window-buttons": create("div", ".window-buttons"),
             "window-button-close": create("div", ".icon .icon-close"),
-            "window-button-maximize": create("div", ".icon .icon-maximize"),
+            "window-button-size": create("div", ".icon .icon-maximize"),
             "window-title-main": create("span"),
             "window-content": create("div", ".window-content"),
             "window-content-main": null
         };
 
         this.node["window-buttons"].append(this.node["window-button-close"]);
-        this.node["window-buttons"].append(this.node["window-button-maximize"]);
+        this.node["window-buttons"].append(this.node["window-button-size"]);
         this.node["window-title"].append(this.node["window-buttons"]);
         this.node["window-title"].append(this.node["window-title-main"]);
         this.node["window-main"].append(this.node["window-title"]);
@@ -282,8 +282,8 @@ class Modal {
         this.node["window-button-close"].onclick = () => {
             this.close();
         };
-        this.node["window-button-maximize"].onclick = () => {
-            this.maximize();
+        this.node["window-button-size"].onclick = () => {
+            this.toggleSize();
         };
 
         this.node["window-title-main"].innerText = "Modal Window Test";
@@ -318,8 +318,16 @@ class Modal {
         return this;
     };
 
-    maximize() {
-        this.node["window"].classList.add("window-maximize");
+    toggleSize() {
+        if (this.node["window"].classList.contains("window-maximize")) {
+            this.node["window"].classList.remove("window-maximize");
+            this.node["window-button-size"].classList.remove("icon-minimize");
+            this.node["window-button-size"].classList.add("icon-maximize");
+        } else {
+            this.node["window"].classList.add("window-maximize");
+            this.node["window-button-size"].classList.remove("icon-maximize");
+            this.node["window-button-size"].classList.add("icon-minimize");
+        };
 
         return this;
     };
