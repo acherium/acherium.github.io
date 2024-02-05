@@ -8,6 +8,5 @@ const modaldemo = () => {
     const m = new Window({
         href: "./view/window/about.html"
     });
-    m.set();
     m.show();
 };

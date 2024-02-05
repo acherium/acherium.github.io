@@ -1,8 +1,8 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240203.8",
-    date: "2024-02-03",
+    version: "0.0.240205.1",
+    date: "2024-02-05",
     watermark: true,
     listener: new EventTarget(),
     link: {
@@ -256,7 +256,8 @@ class Window {
         this.node = {
             "main": create("div", ".window"),
             "window-backdrop": create("div", ".absolute .w100 .h100 .grain"),
-            "window-main": create("div", ".window-main .window-active"),
+            "window-toggle-resize-nwse": create("div", ".window-toggle-resize .window-toggle-resize-nwse"),
+            "window-main": create("div", ".window-main"),
             "window-title": create("div", ".window-title"),
             "window-buttons": create("div", ".window-buttons"),
             "window-button-close": create("div", ".icon .icon-close"),
@@ -264,6 +265,18 @@ class Window {
             "window-title-main": create("span"),
             "window-content": create("div", ".window-content"),
             "window-content-main": null
+        };
+        this.rect = {
+            x: null,
+            y: null,
+            width: null,
+            height: null,
+            initial: {
+                x: null,
+                y: null,
+                width: null,
+                height: null
+            }
         };
 
         this.node["window-buttons"].append(this.node["window-button-close"]);
@@ -274,6 +287,7 @@ class Window {
         this.node["window-main"].append(this.node["window-content"]);
         this.node["main"].append(this.node["window-backdrop"]);
         this.node["main"].append(this.node["window-main"]);
+        this.node["main"].append(this.node["window-toggle-resize-nwse"]);
 
         this.node["window-button-close"].onclick = () => {
             this.close();
@@ -281,22 +295,78 @@ class Window {
         this.node["window-button-size"].onclick = () => {
             this.toggleSize();
         };
+        
+        this.node["window-title"].ondblclick = () => {
+            this.toggleSize();
+        };
+
+        this.node["window-title"].onpointerdown = (e1) => {
+            this.active();
+            if (e1.target !== this.node["window-title"]) return;
+
+            this.node["window-title"].style["cursor"] = "move";
+            this.node["window-title"].setPointerCapture(e1.pointerId);
+
+            this.node["window-title"].onpointermove = (e2) => {
+                if (this.node["main"].classList.contains("window-maximize")) {
+                    this.toggleSize();
+                    this.rect.x = e2.clientX - this.node["main"].getBoundingClientRect().width / 2;
+                    this.rect.y = e2.clientY - this.node["window-title"].getBoundingClientRect().height / 2;
+                    this.setPos();
+                };
+
+                if (e2.pointerType === "touch" ) {
+                    this.rect.x = getValue(this.node["main"].style["left"]) - e2.movementX;
+                    this.rect.y = getValue(this.node["main"].style["top"]) - e2.movementY;
+                    this.setPos();
+                } else {
+                    this.rect.x = getValue(this.node["main"].style["left"]) + e2.movementX;
+                    this.rect.y = getValue(this.node["main"].style["top"]) + e2.movementY;
+                    this.setPos();
+                };
+            };
+
+            this.node["window-title"].onpointerup = () => {
+                this.node["window-title"].releasePointerCapture(e1.pointerId);
+                this.node["window-title"].style["cursor"] = null;
+
+                this.node["window-title"].onpointermove = null;
+            };
+        };
+
+        this.node["window-toggle-resize-nwse"].onmousedown = (e1) => {
+            this.active();
+            if (e1.target !== this.node["window-toggle-resize-nwse"]) return;
+            document.documentElement.style["cursor"] = "nwse-resize";
+        };
 
         lyra.ondisplay.modal[this.uid] = this;
+        this.node["main"].setAttribute("uid", this.uid);
+        this.init();
         return this;
     };
 
-    set() {
+    init() {
         fetch(this.href).then((res) => {
             res.text().then((html) => {
                 const raw = new DOMParser().parseFromString(html, "text/html");
+                const params = raw.body.querySelector(".window-parameters");
                 const title = raw.body.querySelector(".window-title-main");
                 const main = raw.body.querySelector(".window-content-main");
                 const script = raw.body.querySelector(".window-script");
 
+                if (params) {
+                    this.rect.initial.x = parseInt(params.getAttribute("x"));
+                    this.rect.initial.y = parseInt(params.getAttribute("y"));
+                    this.rect.initial.width = parseInt(params.getAttribute("width"));
+                    this.rect.initial.height = parseInt(params.getAttribute("height"));
+                };
+                this.initRect();
+
                 this.node["window-title-main"].innerText = title.innerText;
                 this.node["window-content-main"] = main;
                 
+                this.unset();
                 this.node["window-content"].append(this.node["window-content-main"]);
 
                 if (script) eval(script.innerText);
@@ -306,8 +376,49 @@ class Window {
         return this;
     };
 
+    initRect() {
+        this.rect.x = this.rect.initial.x;
+        this.rect.y = this.rect.initial.y;
+        this.rect.width = this.rect.initial.width;
+        this.rect.height = this.rect.initial.height;
+
+        this.setRect();
+
+        return this;
+    };
+
+    unset() {
+        Array.from(this.node["window-content"].childNodes).forEach((node) => {
+            node.remove();
+        });
+
+        return this;
+    };
+
+    setRect() {
+        this.setPos();
+        this.setSize();
+
+        return this;
+    };
+
+    setPos() {
+        this.node["main"].style["left"] = `${this.rect.x}px`;
+        this.node["main"].style["top"] = `${this.rect.y}px`;
+
+        return this;
+    };
+
+    setSize() {
+        this.node["main"].style["width"] = `${this.rect.width}px`;
+        this.node["main"].style["height"] = `${this.rect.height}px`;
+        
+        return this;
+    };
+
     show() {
         document.querySelector("body").append(this.node["main"]);
+        this.active();
 
         return this;
     };
@@ -332,10 +443,33 @@ class Window {
 
         return this;
     };
+
+    active() {
+        this.node["main"].classList.add("window-active");
+
+        return this;
+    };
 };
 
 function closeModal(uid) {
     lyra.ondisplay.modal[uid].close();
+
+    return 0;
+};
+
+function getValue(x) {
+    const r = x.length ? parseInt(x) : 0;
+    return r;
+};
+
+document.onkeydown = (e) => {
+    if (e.keyCode === 40 && e.ctrlKey) {
+        const activeWindow = document.querySelector(".window-active");
+        if (activeWindow) {
+            const window = lyra.ondisplay.modal[activeWindow.getAttribute("uid")];
+            window.initRect();
+        };
+    };
 
     return 0;
 };

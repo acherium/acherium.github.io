@@ -2,12 +2,13 @@
 <html lang="ko">
 <body>
     <span class="window-title-main">About Project Canaria</span>
-    <div class="window-content-main window-about w450p h300p">
-        <img src="../../assets/banner/banner.svg">
+    <span class="window-parameters" x="50" y="50" width="450" height="300"></span>
+    <div class="window-content-main window-about">
+        <img src="./assets/banner/banner.svg">
         <p></p>
     </div>
     <script class="window-script">
-        document.querySelector(".window-content-main").querySelector("p").innerText = `${lyra.name}\n${lyra.version}`;
+        main.querySelector("p").innerText = `${lyra.name}\n${lyra.version}`;
     </script>
 </body>
 </html>
