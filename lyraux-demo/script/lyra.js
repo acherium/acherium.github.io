@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240205.3",
+    version: "0.0.240205.4",
     date: "2024-02-05",
     watermark: true,
     listener: new EventTarget(),
@@ -439,7 +439,7 @@ class Window {
     };
 
     setPos() {
-        if (!this.option.movable) return;
+        // if (!this.option.movable) return;
 
         this.node["main"].style["left"] = `${this.rect.x}px`;
         this.node["main"].style["top"] = `${this.rect.y}px`;
@@ -448,7 +448,7 @@ class Window {
     };
 
     setSize() {
-        if (!this.option.resizable) return;
+        // if (!this.option.resizable) return;
 
         this.node["main"].style["width"] = `${this.rect.width}px`;
         this.node["main"].style["height"] = `${this.rect.height}px`;

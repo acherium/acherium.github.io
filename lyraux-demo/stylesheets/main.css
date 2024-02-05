@@ -156,6 +156,14 @@ button > *:not(:nth-child(1)) {
     margin-left: 0px;
 }
 
+button:hover {
+    filter: brightness(0.85);
+}
+
+button:active {
+    filter: brightness(0.7);
+}
+
 .loading {
     display: flex;
     position: relative;
@@ -625,4 +633,9 @@ button > *:not(:nth-child(1)) {
 
 .window-about > p {
     margin: 10px;
+}
+
+.window-about > button {
+    margin-right: 5px;
+    float: right;
 }
