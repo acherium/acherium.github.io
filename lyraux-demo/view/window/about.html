@@ -5,10 +5,10 @@
     <span class="window-parameters" x="50" y="50" width="450" height="300"></span>
     <div class="window-content-main window-about">
         <img src="./assets/banner/banner.svg">
-        <p></p>
+        <p id="window-about-version-tag"></p>
     </div>
     <script class="window-script">
-        main.querySelector("p").innerText = `${lyra.name}\n${lyra.version}`;
+        main.querySelector("#window-about-version-tag").innerText = `${lyra.name}\n${lyra.version}`;
     </script>
 </body>
 </html>

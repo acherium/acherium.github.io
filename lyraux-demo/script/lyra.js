@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240205.2",
+    version: "0.0.240205.3",
     date: "2024-02-05",
     watermark: true,
     listener: new EventTarget(),
@@ -465,6 +465,8 @@ class Window {
 
     close() {
         this.node["main"].classList.add("window-close");
+        Object.values(lyra.ondisplay.modal).sort((a, b) => b.zindex - a.zindex)[1]?.active();
+
         setTimeout(() => {
             this.node["main"].remove();
             delete lyra.ondisplay.modal[this.uid];
