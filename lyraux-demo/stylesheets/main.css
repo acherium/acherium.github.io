@@ -639,3 +639,25 @@ button:active {
     margin-right: 5px;
     float: right;
 }
+
+#main-search {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-center;
+    padding: 40px;
+
+    max-width: 800px;
+    width: 100vw;
+    height: 60px;
+
+    border-radius: 50px;
+    background-color: var(--color-light);
+}
+
+#main-search > span {
+    color: rgb(150, 150, 150);
+    font-family: "Spoqa Han Sans Neo Bold";
+    font-size: 24pt;
+    font-style: italic;
+}

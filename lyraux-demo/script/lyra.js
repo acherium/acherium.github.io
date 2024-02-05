@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240205.4",
+    version: "0.0.240205.5",
     date: "2024-02-05",
     watermark: true,
     listener: new EventTarget(),
@@ -272,10 +272,10 @@ class Window {
             width: null,
             height: null,
             initial: {
-                x: 0,
-                y: 0,
-                width: 100,
-                height: 100
+                x: "0px",
+                y: "0px",
+                width: "100px",
+                height: "50px"
             }
         };
         this.option = {
@@ -321,8 +321,8 @@ class Window {
                 this.node["window-toggle-resize-nwse"].setPointerCapture(e1.pointerId);
     
                 this.node["window-toggle-resize-nwse"].onpointermove = (e2) => {
-                    this.rect.width = this.rect.width + e2.movementX > 100 ? this.rect.width + e2.movementX : 100;
-                    this.rect.height = this.rect.height + e2.movementY > 100 ? this.rect.height + e2.movementY : 100;
+                    this.rect.width = getValue(this.rect.width) + e2.movementX > 100 ? `${getValue(this.rect.width) + e2.movementX}px` : 100;
+                    this.rect.height = getValue(this.rect.height) + e2.movementY > 50 ? `${getValue(this.rect.height) + e2.movementY}px` : 50;
                     this.setSize();
                 };
     
@@ -346,13 +346,13 @@ class Window {
                 this.node["window-title"].onpointermove = (e2) => {
                     if (this.node["main"].classList.contains("window-maximize")) {
                         this.toggleSize();
-                        this.rect.x = e2.clientX - this.node["main"].getBoundingClientRect().width / 2;
-                        this.rect.y = e2.clientY - this.node["window-title"].getBoundingClientRect().height / 2;
+                        this.rect.x = `${e2.clientX - this.node["main"].getBoundingClientRect().width / 2}px`;
+                        this.rect.y = `${e2.clientY - this.node["window-title"].getBoundingClientRect().height / 2}px`;
                         this.setPos();
                     };
     
-                    this.rect.x = getValue(this.node["main"].style["left"]) + e2.movementX;
-                    this.rect.y = getValue(this.node["main"].style["top"]) + e2.movementY;
+                    this.rect.x = `${getValue(this.node["main"].style["left"]) + e2.movementX}px`;
+                    this.rect.y = `${getValue(this.node["main"].style["top"]) + e2.movementY}px`;
                     this.setPos();
                 };
     
@@ -392,10 +392,10 @@ class Window {
                 const script = raw.body.querySelector(".window-script");
 
                 if (params) {
-                    this.rect.initial.x = parseInt(params.getAttribute("x")) || 0;
-                    this.rect.initial.y = parseInt(params.getAttribute("y")) || 0;
-                    this.rect.initial.width = parseInt(params.getAttribute("width")) || 100;
-                    this.rect.initial.height = parseInt(params.getAttribute("height")) || 100;
+                    this.rect.initial.x = params.getAttribute("x") || "0px";
+                    this.rect.initial.y = params.getAttribute("y") || "0px";
+                    this.rect.initial.width = params.getAttribute("width") || "100px";
+                    this.rect.initial.height = params.getAttribute("height") || "50px";
                 };
                 this.initRect();
 
@@ -441,8 +441,8 @@ class Window {
     setPos() {
         // if (!this.option.movable) return;
 
-        this.node["main"].style["left"] = `${this.rect.x}px`;
-        this.node["main"].style["top"] = `${this.rect.y}px`;
+        this.node["main"].style["left"] = this.rect.x;
+        this.node["main"].style["top"] = this.rect.y;
 
         return this;
     };
@@ -450,8 +450,8 @@ class Window {
     setSize() {
         // if (!this.option.resizable) return;
 
-        this.node["main"].style["width"] = `${this.rect.width}px`;
-        this.node["main"].style["height"] = `${this.rect.height}px`;
+        this.node["main"].style["width"] = this.rect.width;
+        this.node["main"].style["height"] = this.rect.height;
         
         return this;
     };
