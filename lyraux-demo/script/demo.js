@@ -4,9 +4,11 @@ const demo = () => {
     return 0;
 };
 
-const modaldemo = () => {
-    const m = new Window({
-        href: "./view/window/about.html"
-    });
+const modaldemo = (i) => {
+    const list = [
+        { href: "./view/window/about.html" },
+        { href: "./view/window/test.html", maximizable: false, resizable: false }
+    ];
+    const m = new Window(list[i]);
     m.show();
 };

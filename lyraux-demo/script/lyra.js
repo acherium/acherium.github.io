@@ -1,7 +1,7 @@
 const lyra = {
     name: "Project Canaria",
     author: "Acherium",
-    version: "0.0.240205.1",
+    version: "0.0.240205.2",
     date: "2024-02-05",
     watermark: true,
     listener: new EventTarget(),
@@ -27,7 +27,7 @@ const lyra = {
 Object.freeze(lyra);
 Object.freeze(lyra.link);
 Object.freeze(lyra.start);
-Object.freeze(lyra.ondisplay);
+// Object.freeze(lyra.ondisplay);
 view(lyra.start.area, lyra.start.target);
 
 if (lyra.watermark) {
@@ -249,6 +249,8 @@ class Window {
     constructor(param = {}) {
         if (param && param.constructor !== Object) throw Error(1);
 
+        // if (Object.keys(lyra.ondisplay.modal).length > 5) throw Error(9);
+
         this.uid = getUniqueCode(lyra.ondisplay.modal);
         this.id = `${param["id"]}` || null;
         this.class = `${param["class"]}` || null;
@@ -256,12 +258,10 @@ class Window {
         this.node = {
             "main": create("div", ".window"),
             "window-backdrop": create("div", ".absolute .w100 .h100 .grain"),
-            "window-toggle-resize-nwse": create("div", ".window-toggle-resize .window-toggle-resize-nwse"),
             "window-main": create("div", ".window-main"),
             "window-title": create("div", ".window-title"),
             "window-buttons": create("div", ".window-buttons"),
             "window-button-close": create("div", ".icon .icon-close"),
-            "window-button-size": create("div", ".icon .icon-maximize"),
             "window-title-main": create("span"),
             "window-content": create("div", ".window-content"),
             "window-content-main": null
@@ -272,77 +272,113 @@ class Window {
             width: null,
             height: null,
             initial: {
-                x: null,
-                y: null,
-                width: null,
-                height: null
+                x: 0,
+                y: 0,
+                width: 100,
+                height: 100
             }
         };
+        this.option = {
+            maximizable: typeof param["maximizable"] !== "undefined" ? param["maximizable"] : true,
+            resizable: typeof param["resizable"] !== "undefined" ? param["resizable"] : true,
+            movable: typeof param["movable"] !== "undefined" ? param["movable"] : true
+        };
+        this.zindex = -1;
 
         this.node["window-buttons"].append(this.node["window-button-close"]);
-        this.node["window-buttons"].append(this.node["window-button-size"]);
         this.node["window-title"].append(this.node["window-buttons"]);
         this.node["window-title"].append(this.node["window-title-main"]);
         this.node["window-main"].append(this.node["window-title"]);
         this.node["window-main"].append(this.node["window-content"]);
         this.node["main"].append(this.node["window-backdrop"]);
         this.node["main"].append(this.node["window-main"]);
-        this.node["main"].append(this.node["window-toggle-resize-nwse"]);
 
         this.node["window-button-close"].onclick = () => {
             this.close();
         };
-        this.node["window-button-size"].onclick = () => {
-            this.toggleSize();
+
+        if (this.option.maximizable) {
+            this.node["window-button-size"] = create("div", ".icon .icon-maximize");
+            this.node["window-buttons"].append(this.node["window-button-size"]);
+
+            this.node["window-button-size"].onclick = () => {
+                this.toggleSize();
+            };
+            this.node["window-title"].ondblclick = () => {
+                this.toggleSize();
+            };
         };
-        
-        this.node["window-title"].ondblclick = () => {
-            this.toggleSize();
-        };
 
-        this.node["window-title"].onpointerdown = (e1) => {
-            this.active();
-            if (e1.target !== this.node["window-title"]) return;
+        if (this.option.resizable) {
+            this.node["window-toggle-resize-nwse"] = create("div", ".window-toggle-resize .window-toggle-resize-nwse");
+            this.node["main"].append(this.node["window-toggle-resize-nwse"]);
 
-            this.node["window-title"].style["cursor"] = "move";
-            this.node["window-title"].setPointerCapture(e1.pointerId);
-
-            this.node["window-title"].onpointermove = (e2) => {
-                if (this.node["main"].classList.contains("window-maximize")) {
-                    this.toggleSize();
-                    this.rect.x = e2.clientX - this.node["main"].getBoundingClientRect().width / 2;
-                    this.rect.y = e2.clientY - this.node["window-title"].getBoundingClientRect().height / 2;
-                    this.setPos();
+            this.node["window-toggle-resize-nwse"].onmousedown = (e1) => {
+                this.active();
+                if (e1.target !== this.node["window-toggle-resize-nwse"]) return;
+    
+                this.node["window-toggle-resize-nwse"].style["cursor"] = "nwse-resize";
+                this.node["window-toggle-resize-nwse"].setPointerCapture(e1.pointerId);
+    
+                this.node["window-toggle-resize-nwse"].onpointermove = (e2) => {
+                    this.rect.width = this.rect.width + e2.movementX > 100 ? this.rect.width + e2.movementX : 100;
+                    this.rect.height = this.rect.height + e2.movementY > 100 ? this.rect.height + e2.movementY : 100;
+                    this.setSize();
                 };
+    
+                this.node["window-toggle-resize-nwse"].onpointerup = () => {
+                    this.node["window-toggle-resize-nwse"].releasePointerCapture(e1.pointerId);
+                    this.node["window-toggle-resize-nwse"].style["cursor"] = null;
+    
+                    this.node["window-toggle-resize-nwse"].onpointermove = null;
+                };
+            };
+        };
 
-                if (e2.pointerType === "touch" ) {
-                    this.rect.x = getValue(this.node["main"].style["left"]) - e2.movementX;
-                    this.rect.y = getValue(this.node["main"].style["top"]) - e2.movementY;
-                    this.setPos();
-                } else {
+        if (this.option.movable) {
+            this.node["window-title"].onpointerdown = (e1) => {
+                this.active();
+                if (e1.target !== this.node["window-title"]) return;
+    
+                this.node["window-title"].style["cursor"] = "move";
+                this.node["window-title"].setPointerCapture(e1.pointerId);
+    
+                this.node["window-title"].onpointermove = (e2) => {
+                    if (this.node["main"].classList.contains("window-maximize")) {
+                        this.toggleSize();
+                        this.rect.x = e2.clientX - this.node["main"].getBoundingClientRect().width / 2;
+                        this.rect.y = e2.clientY - this.node["window-title"].getBoundingClientRect().height / 2;
+                        this.setPos();
+                    };
+    
                     this.rect.x = getValue(this.node["main"].style["left"]) + e2.movementX;
                     this.rect.y = getValue(this.node["main"].style["top"]) + e2.movementY;
                     this.setPos();
                 };
-            };
-
-            this.node["window-title"].onpointerup = () => {
-                this.node["window-title"].releasePointerCapture(e1.pointerId);
-                this.node["window-title"].style["cursor"] = null;
-
-                this.node["window-title"].onpointermove = null;
+    
+                this.node["window-title"].onpointerup = () => {
+                    this.node["window-title"].releasePointerCapture(e1.pointerId);
+                    this.node["window-title"].style["cursor"] = null;
+    
+                    this.node["window-title"].onpointermove = null;
+                };
             };
         };
 
-        this.node["window-toggle-resize-nwse"].onmousedown = (e1) => {
+        this.node["main"].onpointerdown = () => {
+            if (this.node["main"] === document.querySelector(".window-active")) return;
             this.active();
-            if (e1.target !== this.node["window-toggle-resize-nwse"]) return;
-            document.documentElement.style["cursor"] = "nwse-resize";
         };
 
-        lyra.ondisplay.modal[this.uid] = this;
+        this.update();
         this.node["main"].setAttribute("uid", this.uid);
         this.init();
+        return this;
+    };
+
+    update() {
+        lyra.ondisplay.modal[this.uid] = this;
+
         return this;
     };
 
@@ -356,10 +392,10 @@ class Window {
                 const script = raw.body.querySelector(".window-script");
 
                 if (params) {
-                    this.rect.initial.x = parseInt(params.getAttribute("x"));
-                    this.rect.initial.y = parseInt(params.getAttribute("y"));
-                    this.rect.initial.width = parseInt(params.getAttribute("width"));
-                    this.rect.initial.height = parseInt(params.getAttribute("height"));
+                    this.rect.initial.x = parseInt(params.getAttribute("x")) || 0;
+                    this.rect.initial.y = parseInt(params.getAttribute("y")) || 0;
+                    this.rect.initial.width = parseInt(params.getAttribute("width")) || 100;
+                    this.rect.initial.height = parseInt(params.getAttribute("height")) || 100;
                 };
                 this.initRect();
 
@@ -403,6 +439,8 @@ class Window {
     };
 
     setPos() {
+        if (!this.option.movable) return;
+
         this.node["main"].style["left"] = `${this.rect.x}px`;
         this.node["main"].style["top"] = `${this.rect.y}px`;
 
@@ -410,6 +448,8 @@ class Window {
     };
 
     setSize() {
+        if (!this.option.resizable) return;
+
         this.node["main"].style["width"] = `${this.rect.width}px`;
         this.node["main"].style["height"] = `${this.rect.height}px`;
         
@@ -424,13 +464,18 @@ class Window {
     };
 
     close() {
-        this.node["main"].remove();
-        delete lyra.ondisplay.modal[this.uid];
+        this.node["main"].classList.add("window-close");
+        setTimeout(() => {
+            this.node["main"].remove();
+            delete lyra.ondisplay.modal[this.uid];
+        }, 100);
 
         return this;
     };
 
     toggleSize() {
+        if (!this.option.maximizable) return;
+
         if (this.node["main"].classList.contains("window-maximize")) {
             this.node["main"].classList.remove("window-maximize");
             this.node["window-button-size"].classList.remove("icon-minimize");
@@ -445,10 +490,23 @@ class Window {
     };
 
     active() {
+        if (document.querySelectorAll(".window-active").length) {
+            Array.from(document.querySelectorAll(".window-active")).forEach((node) => {
+                node.classList.remove("window-active");
+            });
+        };
         this.node["main"].classList.add("window-active");
+        
+        this.zindex = Object.values(lyra.ondisplay.modal).sort((a, b) => b.zindex - a.zindex)[0].zindex + 1;
+        this.node["main"].style["z-index"] = 100 + this.zindex;
+        this.update();
 
         return this;
     };
+};
+
+function t() {
+    return Object.values(lyra.ondisplay.modal).map(x => x.zindex);
 };
 
 function closeModal(uid) {
