@@ -1,9 +1,160 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Hello, world!</title>
-    </head>
-    <body>
-        <h1>Test</h1>
-    </body>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acherium</title>
+
+    <link rel="icon" href="./assets/favicon.svg">
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+
+    <style>
+        :root {
+            --color-background: white;
+            --color-text: black;
+            --color-list-item: rgb(240, 240, 240);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background: black;
+                --color-text: white;
+                --color-list-item: rgb(40, 40, 40);
+            }
+
+            #logo {
+                filter: invert(1);
+            }
+
+            .icon > img {
+                filter: brightness(0) invert(1);
+            }
+        }
+
+        * {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            
+            box-sizing: border-box;
+
+            color: var(--color-text);
+            font-family: 'Spoqa Han Sans Neo', sans-serif;
+            user-select: none;
+            transition: all 0.1s;
+        }
+
+        body {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-color: var(--color-background);
+        }
+
+        body > *:not(:last-child) {
+            margin-bottom: 50px;
+        }
+
+        #logo {
+            height: 50px;
+        }
+
+        #list {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 10px;
+
+            max-width: 500px;
+            width: 100vw;
+            height: auto;
+        }
+
+        .item {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 11px;
+
+            width: 100%;
+            height: 70px;
+
+            border-radius: 6px;
+            background-color: var(--color-list-item);
+            cursor: pointer;
+        }
+
+        .item:hover {
+            filter: brightness(0.9);
+        }
+
+        .item:active {
+            filter: brightness(0.8);
+        }
+
+        #list > .item:not(:last-child) {
+            margin-bottom: 6px;
+        }
+
+        #list > .item:first-child {
+            border-radius: 16px 16px 6px 6px;
+        }
+
+        #list > .item:last-child {
+            border-radius: 6px 6px 16px 16px;
+        }
+
+        .icon {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            margin-right: 11px;
+
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+            background-color: var(--color-background);
+        }
+
+        .icon > img {
+            max-width: 24px;
+            max-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <img id="logo" src="./assets/logo.svg" alt="로고">
+    <div id="list">
+        <div class="item" onclick="location.href='/lyraux-demo/index.html'">
+            <div class="icon">
+                <img src="./assets/icon-lyra.svg" alt="LyraUX 로고">
+            </div>
+            <p>LyraUX 데모</p>
+        </div>
+        <div class="item" onclick="location.href='/keikenchi-kr/index.html'">
+            <div class="icon">
+                <img src="./assets/icon-city.svg" alt="도시·지리 채널 로고">
+            </div>
+            <p>대한민국 경현치 지도</p>
+        </div>
+        <div class="item" onclick="location.href='https://github.com/acherium'">
+            <div class="icon">
+                <img src="./assets/github-mark.svg" alt="깃허브 로고">
+            </div>
+            <p>GitHub</p>
+        </div>
+    </div>
+    <p>클릭하면 해당 페이지로 이동합니다</p
+</body>
 </html>
