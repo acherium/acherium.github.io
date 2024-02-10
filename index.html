@@ -31,6 +31,18 @@
             }
         }
 
+        @media screen and (min-width: 700px) {
+            #gradient {
+                background-image: linear-gradient(90deg, transparent, white, white, white, transparent);
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            #gradient {
+                background-image: linear-gradient(0deg, transparent, white, white, white, transparent);
+            }
+        }
+
         * {
             overflow: hidden;
             margin: 0;
@@ -41,7 +53,6 @@
             color: var(--color-text);
             font-family: 'Spoqa Han Sans Neo', sans-serif;
             user-select: none;
-            transition: all 0.1s;
         }
 
         body {
@@ -59,6 +70,34 @@
 
         body > *:not(:last-child) {
             margin-bottom: 50px;
+        }
+
+        #backdrop {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+            z-index: -2;
+
+            width: 100vw;
+            height: 100vh;
+
+            opacity: 0.02;
+            background-image: url("./assets/backdrop.svg");
+            background-repeat: repeat;
+            background-size: 80px;
+            background-position: center;
+        }
+
+        #gradient {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+            z-index: -1;
+
+            width: 100vw;
+            height: 100vh;
         }
 
         #logo {
@@ -134,6 +173,8 @@
     </style>
 </head>
 <body>
+    <div id="backdrop"></div>
+    <div id="gradient"></div>
     <img id="logo" src="./assets/logo.svg" alt="로고">
     <div id="list">
         <div class="item" onclick="location.href='/lyraux-demo/index.html'">
@@ -155,6 +196,6 @@
             <p>GitHub</p>
         </div>
     </div>
-    <p>클릭하면 해당 페이지로 이동합니다</p
+    <p>클릭하면 해당 페이지로 이동합니다</p>
 </body>
 </html>
