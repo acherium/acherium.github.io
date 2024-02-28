@@ -80,6 +80,27 @@ const modeFunctions = {
         koreamap.onmouseup = () => {
             koreamap.onmousemove = null;
         };
+        koreamap.ontouchstart = (touchesOrigin) => {
+            const xo = touchesOrigin.changedTouches[0].pageX;
+            const yo = touchesOrigin.changedTouches[0].pageY;
+            let xl = xo;
+            let yl = yo;
+            koreamap.ontouchmove = (touches) => {
+                const x = touches.changedTouches[0].pageX;
+                const y = touches.changedTouches[0].pageY;
+                const movementX = x - xl;
+                const movementY = y - yl;
+                xl = x;
+                yl = y;
+                pos.x += movementX;
+                pos.y += movementY;
+                positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+            };
+        };
+        koreamap.ontouchmove = null;
+        koreamap.ontouchend = () => {
+            koreamap.ontouchmove = null;
+        };
     },
     1: () => {
         koreamap.onmousedown = (mouse) => {
@@ -88,6 +109,12 @@ const modeFunctions = {
         };
         koreamap.onmousemove = null;
         koreamap.onmouseup = null;
+        koreamap.ontouchstart = (touch) => {
+            if (!touch.target.classList.contains("map-area")) return;
+            touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
+        };
+        koreamap.ontouchmove = null;
+        koreamap.ontouchend = null;
     },
     2: () => {
         koreamap.onmousedown = (mouse) => {
@@ -103,6 +130,14 @@ const modeFunctions = {
         koreamap.onmouseup = () => {
             koreamap.onmousemove = null;
         };
+        koreamap.ontouchstart = (touch) => {
+            if (!touch.target.classList.contains("map-area")) return;
+            touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
+        };
+        koreamap.ontouchmove = null;
+        koreamap.ontouchend = () => {
+            koreamap.ontouchmove = null;
+        };
     },
     3: () => {
         koreamap.onmousedown = (mouse) => {
@@ -116,6 +151,14 @@ const modeFunctions = {
         };
         koreamap.onmouseup = () => {
             koreamap.onmousemove = null;
+        };
+        koreamap.ontouchstart = (touch) => {
+            if (!touch.target.classList.contains("map-area")) return;
+            touch.target.style["fill"] = null;
+        };
+        koreamap.ontouchmove = null;
+        koreamap.ontouchend = () => {
+            koreamap.ontouchmove = null;
         };
     }
 };
@@ -172,10 +215,10 @@ const applyColorPicker = () => {
     });
 };
 Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
-    node.onpointerdown = (pointer) => {
-        node.setPointerCapture(pointer.pointerId);
+    node.onmousedown = (mouse) => {
+        node.setPointerCapture(mouse.pointerId);
 
-        node.onpointermove = (drag) => {
+        node.onmousemove = (drag) => {
             let i = color[node.getAttribute("target")];
             i += drag.movementX;
             i = i < 0 ? 0 : ( i > 255 ? 255 : i );
@@ -183,10 +226,31 @@ Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => 
             color[node.getAttribute("target")] = i;
             applyColorPicker();
         };
+        node.onmouseup = () => {
+            node.onmousemove = null;
+            node.releasePointerCapture(mouse.pointerId);
+        };
+    };
 
-        node.onpointerup = () => {
-            node.onpointermove = null;
-            node.releasePointerCapture(pointer.pointerId);
+    node.ontouchstart = (touchesOrigin) => {
+        const xo = touchesOrigin.changedTouches[0].pageX;
+        let xl = xo;
+
+        node.ontouchmove = (touches) => {
+            const x = touches.changedTouches[0].pageX;
+            const movementX = x - xl;
+            xl = x;
+            
+            let i = color[node.getAttribute("target")];
+            i += movementX;
+            i = i < 0 ? 0 : ( i > 255 ? 255 : i );
+            node.style["left"] = `${i}px`;
+            color[node.getAttribute("target")] = i;
+            applyColorPicker();
+        };
+
+        node.ontouchend = () => {
+            node.ontouchmove = null;
         };
     };
 });
