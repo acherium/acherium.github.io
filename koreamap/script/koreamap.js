@@ -242,7 +242,7 @@ Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => 
             xl = x;
             
             let i = color[node.getAttribute("target")];
-            i += movementX;
+            i += Math.round(movementX);
             i = i < 0 ? 0 : ( i > 255 ? 255 : i );
             node.style["left"] = `${i}px`;
             color[node.getAttribute("target")] = i;
