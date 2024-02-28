@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<body>
+    <span class="window-title-main">Lyra</span>
+    <div class="window-content-main w100">
+        <p>정말 지도를 초기화합니까?</p>
+        <div class="button-area">
+            <button id="window-reset-button-accept">
+                <div class="icon icon-accept"></div>
+                <span>예</span>
+            </button>
+            <button id="window-reset-button-deny">
+                <div class="icon icon-deny"></div>
+                <span>아니오</span>
+            </button>
+        </div>
+    </div>
+    <script class="window-script">
+        main.querySelector("#window-reset-button-accept").onclick = () => {
+            mapReset();
+            this.close();
+        };
+        main.querySelector("#window-reset-button-deny").onclick = () => {
+            this.close();
+        };
+    </script>
+</body>
+</html>
