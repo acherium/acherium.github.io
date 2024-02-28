@@ -73,33 +73,34 @@ const pos = {
     x: 400,
     y: 400
 };
+const koreamap = document.querySelector("#map-viewport");
 const positionLayer = document.querySelector("#map-position");
 positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
 const modeFunctions = {
     0: () => {
-        document.onmousedown = () => {
-            document.onmousemove = (mousemove) => {
+        koreamap.onmousedown = () => {
+            koreamap.onmousemove = (mousemove) => {
                 pos.x += mousemove.movementX;
                 pos.y += mousemove.movementY;
                 positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
             };
         };
-        document.onmousemove = null;
-        document.onmouseup = () => {
-            document.onmousemove = null;
+        koreamap.onmousemove = null;
+        koreamap.onmouseup = () => {
+            koreamap.onmousemove = null;
         };
     },
     1: () => {
-        document.onmousedown = (mouse) => {
+        koreamap.onmousedown = (mouse) => {
             if (!mouse.target.classList.contains("map-area")) return;
             mouse.target.style["fill"] = `#${HSLtoHEX(col)}`;
         };
-        document.onmousemove = null;
-        document.onmouseup = null;
+        koreamap.onmousemove = null;
+        koreamap.onmouseup = null;
     },
     2: () => {
-        document.onmousedown = (mouse) => {
-            document.onmousemove = (mousemove) => {
+        koreamap.onmousedown = (mouse) => {
+            koreamap.onmousemove = (mousemove) => {
                 if (!mousemove.target.classList.contains("map-area")) return;
                 mousemove.target.style["fill"] = `#${HSLtoHEX(col)}`;
             };
@@ -107,14 +108,14 @@ const modeFunctions = {
             if (!mouse.target.classList.contains("map-area")) return;
             mouse.target.style["fill"] = `#${HSLtoHEX(col)}`;
         };
-        document.onmousemove = null;
-        document.onmouseup = () => {
-            document.onmousemove = null;
+        koreamap.onmousemove = null;
+        koreamap.onmouseup = () => {
+            koreamap.onmousemove = null;
         };
     },
     3: () => {
-        document.onmousedown = (mouse) => {
-            document.onmousemove = (mousemove) => {
+        koreamap.onmousedown = (mouse) => {
+            koreamap.onmousemove = (mousemove) => {
                 if (!mousemove.target.classList.contains("map-area")) return;
                 mousemove.target.style["fill"] = null;
             };
@@ -122,8 +123,8 @@ const modeFunctions = {
             if (!mouse.target.classList.contains("map-area")) return;
             mouse.target.style["fill"] = null;
         };
-        document.onmouseup = () => {
-            document.onmousemove = null;
+        koreamap.onmouseup = () => {
+            koreamap.onmousemove = null;
         };
     }
 };
