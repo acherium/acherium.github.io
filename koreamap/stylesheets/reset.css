@@ -114,6 +114,7 @@ h6 {
 .icon-eraser { background-image: url("../assets/icons/eraser.svg"); }
 .icon-accept { background-image: url("../assets/icons/accept.svg"); }
 .icon-deny { background-image: url("../assets/icons/deny.svg"); }
+.icon-drag { background-image: url("../assets/icons/drag.svg"); }
 
 #watermark {
     position: fixed;

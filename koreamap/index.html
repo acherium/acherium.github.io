@@ -233,22 +233,21 @@
         </svg>
     </div>
     <div id="toolbar">
-        <div id="color-preview"></div>
-        <button id="button-colorpicker" onclick="showWindow(`COLORPICKER`)">
-            <div class="icon icon-palette"></div>
-        </button>
+        <div id="color-preview" onclick="showWindow(`COLORPICKER`)">
+            <div class="icon-alt icon-palette"></div>
+        </div>
         <div class="toolbar-partition"></div>
         <button id="button-fillmode-none">
-            <div class="icon icon-fill-none"></div>
+            <div class="icon-alt icon-drag"></div>
         </button>
         <button id="button-fillmode-single">
-            <div class="icon icon-fill-single"></div>
+            <div class="icon-alt icon-paint"></div>
         </button>
         <button id="button-fillmode-multiple">
-            <div class="icon icon-fill-multiple"></div>
+            <div class="icon-alt icon-fill-multiple"></div>
         </button>
         <button id="button-fillmode-erase">
-            <div class="icon icon-eraser"></div>
+            <div class="icon-alt icon-eraser"></div>
         </button>
         <div class="toolbar-partition"></div>
         <button id="button-reset" onclick="showWindow(`RESET`)">
