@@ -115,6 +115,8 @@ h6 {
 .icon-accept { background-image: url("../assets/icons/accept.svg"); }
 .icon-deny { background-image: url("../assets/icons/deny.svg"); }
 .icon-drag { background-image: url("../assets/icons/drag.svg"); }
+.icon-export { background-image: url("../assets/icons/export.svg"); }
+.icon-import { background-image: url("../assets/icons/import.svg"); }
 
 #watermark {
     position: fixed;

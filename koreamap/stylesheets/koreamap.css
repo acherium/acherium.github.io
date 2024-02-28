@@ -132,26 +132,44 @@
     background-position: center;
 }
 
-#toolbar-color-picker {
+#toolbar-window-area {
+    display: block;
+    position: relative;
+    overflow: scroll;
+
+    width: 100vw;
+    height: auto;
+
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#toolbar-window-area-main {
+    display: flex;
+    position: relative;
+    margin: 0 auto;
+
+    width: max-content;
+    height: auto;
+}
+
+#toolbar-window-area-main > div {
     display: flex;
     position: relative;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     margin: 10px;
     padding: 20px;
 
-    max-width: 100vw;
-    min-width: 305px;
-    width: auto;
-    height: auto;
+    width: 305px;
+    height: 238px;
 
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
 }
 
-#toolbar-color-picker > *:not(:last-child) {
+#toolbar-color-picker > *:not(:last-child,:first-child) {
     margin-bottom: 8px;
 }
 
@@ -215,4 +233,35 @@
     border-radius: 2px;
     border: solid 1px lightgray;
     background-color: red;
+}
+
+#toolbar-export > button, #toolbar-import > button {
+    margin: auto 0 0 auto;
+    order: 100;
+}
+
+#export-string-preview {
+    margin: 8px 0;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    word-wrap: break-word;
+    border-radius: 2px;
+    border: solid 1px lightgray;
+    overflow-y: scroll;
+}
+
+#import-string-area {
+    display: block;
+
+    margin: 8px 0;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    font-family: "Spoqa Han Sans Neo";
+    border-radius: 2px;
+    border: solid 1px lightgray;
+    resize: none;
 }

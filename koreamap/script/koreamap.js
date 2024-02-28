@@ -14,6 +14,50 @@ const showWindow = (name) => {
     return w.show();
 };
 
+const list = {};
+const exportList = () => {
+    return btoa(JSON.stringify(list));
+};
+const importList = (string) => {
+    return JSON.parse(atob(string));
+};
+const copyExportCode = () => {
+    window.navigator.clipboard.writeText(exportList());
+    return 0;
+};
+const importCodeFromInput = () => {
+    const string = document.querySelector("#import-string-area").value;
+    try {
+        const origin = atob(string);
+        const newList = JSON.parse(origin);
+        Object.keys(list).forEach((x) => {
+            document.querySelector(`#${x}`).style["fill"] = null;
+            removeList(x);
+        });
+        Object.keys(newList).forEach((x) => {
+            document.querySelector(`#${x}`).style["fill"] = newList[x];
+            addList(x, newList[x]);
+        });
+    } catch(error) {
+        alert("가져오기에 실패했습니다!\n입력한 값이 올바르지 않습니다.");
+    };
+    return 0;
+};
+const refreshExportCodePreview = () => {
+    const codePreview = document.querySelector("#export-string-preview");
+    codePreview.innerText = exportList();
+    return 0;
+};
+refreshExportCodePreview();
+const addList = (name, color) => {
+    list[name] = color;
+    refreshExportCodePreview();
+};
+const removeList = (name) => {
+    delete list[name];
+    refreshExportCodePreview();
+};
+
 const HSLtoHEX = (col) => {
     const h = col.h;
     const s = col.s / 100;
@@ -106,12 +150,14 @@ const modeFunctions = {
         koreamap.onmousedown = (mouse) => {
             if (!mouse.target.classList.contains("map-area")) return;
             mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
+            addList(mouse.target.id, `#${RGBtoHEX(color)}`);
         };
         koreamap.onmousemove = null;
         koreamap.onmouseup = null;
         koreamap.ontouchstart = (touch) => {
             if (!touch.target.classList.contains("map-area")) return;
             touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
+            addList(touch.target.id, `#${RGBtoHEX(color)}`);
         };
         koreamap.ontouchmove = null;
         koreamap.ontouchend = null;
@@ -121,10 +167,12 @@ const modeFunctions = {
             koreamap.onmousemove = (mousemove) => {
                 if (!mousemove.target.classList.contains("map-area")) return;
                 mousemove.target.style["fill"] = `#${RGBtoHEX(color)}`;
+                addList(mousemove.target.id, `#${RGBtoHEX(color)}`);
             };
 
             if (!mouse.target.classList.contains("map-area")) return;
             mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
+            addList(mouse.target.id, `#${RGBtoHEX(color)}`);
         };
         koreamap.onmousemove = null;
         koreamap.onmouseup = () => {
@@ -133,6 +181,7 @@ const modeFunctions = {
         koreamap.ontouchstart = (touch) => {
             if (!touch.target.classList.contains("map-area")) return;
             touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
+            addList(touch.target.id, `#${RGBtoHEX(color)}`);
         };
         koreamap.ontouchmove = null;
         koreamap.ontouchend = () => {
@@ -144,10 +193,12 @@ const modeFunctions = {
             koreamap.onmousemove = (mousemove) => {
                 if (!mousemove.target.classList.contains("map-area")) return;
                 mousemove.target.style["fill"] = null;
+                removeList(mousemove.target.id);
             };
 
             if (!mouse.target.classList.contains("map-area")) return;
             mouse.target.style["fill"] = null;
+            removeList(mouse.target.id);
         };
         koreamap.onmouseup = () => {
             koreamap.onmousemove = null;
@@ -155,6 +206,7 @@ const modeFunctions = {
         koreamap.ontouchstart = (touch) => {
             if (!touch.target.classList.contains("map-area")) return;
             touch.target.style["fill"] = null;
+            removeList(touch.target.id);
         };
         koreamap.ontouchmove = null;
         koreamap.ontouchend = () => {
@@ -256,7 +308,17 @@ Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => 
 });
 applyColorPicker();
 const toggleColorPicker = () => {
-    const colorPicker = document.querySelector("#toolbar-color-picker");
-    colorPicker.style["display"] = colorPicker.style["display"] === "none" ? "flex" : "none";
+    const targetWindow = document.querySelector("#toolbar-color-picker");
+    targetWindow.style["display"] = targetWindow.style["display"] === "none" ? "flex" : "none";
+    return 0;
+};
+const toggleExport = () => {
+    const targetWindow = document.querySelector("#toolbar-export");
+    targetWindow.style["display"] = targetWindow.style["display"] === "none" ? "flex" : "none";
+    return 0;
+};
+const toggleImport = () => {
+    const targetWindow = document.querySelector("#toolbar-import");
+    targetWindow.style["display"] = targetWindow.style["display"] === "none" ? "flex" : "none";
     return 0;
 };
