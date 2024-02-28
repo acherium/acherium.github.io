@@ -232,30 +232,51 @@
             </g>
         </svg>
     </div>
-    <div id="toolbar">
-        <div id="color-preview" onclick="showWindow(`COLORPICKER`)">
-            <div class="icon-alt icon-palette"></div>
+    <div id="toolbar-area">
+        <div id="toolbar">
+            <div id="color-preview" onclick="toggleColorPicker();">
+                <div class="icon-alt icon-palette"></div>
+            </div>
+            <div class="toolbar-partition"></div>
+            <button id="button-fillmode-none">
+                <div class="icon-alt icon-drag"></div>
+            </button>
+            <button id="button-fillmode-single">
+                <div class="icon-alt icon-paint"></div>
+            </button>
+            <button id="button-fillmode-multiple">
+                <div class="icon-alt icon-fill-multiple"></div>
+            </button>
+            <button id="button-fillmode-erase">
+                <div class="icon-alt icon-eraser"></div>
+            </button>
+            <div class="toolbar-partition"></div>
+            <button id="button-reset" onclick="showWindow(`RESET`)">
+                <div class="icon icon-close"></div>
+            </button>
+            <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
+                <div class="icon icon-outer"></div>
+            </button>
         </div>
-        <div class="toolbar-partition"></div>
-        <button id="button-fillmode-none">
-            <div class="icon-alt icon-drag"></div>
-        </button>
-        <button id="button-fillmode-single">
-            <div class="icon-alt icon-paint"></div>
-        </button>
-        <button id="button-fillmode-multiple">
-            <div class="icon-alt icon-fill-multiple"></div>
-        </button>
-        <button id="button-fillmode-erase">
-            <div class="icon-alt icon-eraser"></div>
-        </button>
-        <div class="toolbar-partition"></div>
-        <button id="button-reset" onclick="showWindow(`RESET`)">
-            <div class="icon icon-close"></div>
-        </button>
-        <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
-            <div class="icon icon-outer"></div>
-        </button>
+        <div id="toolbar-color-picker" style="display: none;">
+            <p>색상 선택기</p>
+            <div id="color-picker-r" class="color-picker-bar-area">
+                <div class="color-picker-cursor" target="r" style="left:0px;"></div>
+                <div class="color-picker-bar"></div>
+            </div>
+            <div id="color-picker-g" class="color-picker-bar-area">
+                <div class="color-picker-cursor" target="g" style="left:0px;"></div>
+                <div class="color-picker-bar"></div>
+            </div>
+            <div id="color-picker-b" class="color-picker-bar-area">
+                <div class="color-picker-cursor" target="b" style="left:0px;"></div>
+                <div class="color-picker-bar"></div>
+            </div>
+            <div id="toolbar-color-picker-preview">
+                <p class="hex">#FFFFFF</p>
+                <p class="rgb">255, 255, 255</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

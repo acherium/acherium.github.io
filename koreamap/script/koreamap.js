@@ -1,12 +1,3 @@
-const col = {
-    h: 0,
-    s: 100,
-    l: 50
-};
-const colorPreview = document.querySelector("#color-preview");
-colorPreview.style["background-color"] = `hsl(${col.h},${col.s}%,${col.l}%)`;
-
-
 const windowList = {
     "COLORPICKER": {
         href: "./view/colorpicker.html",
@@ -93,7 +84,7 @@ const modeFunctions = {
     1: () => {
         koreamap.onmousedown = (mouse) => {
             if (!mouse.target.classList.contains("map-area")) return;
-            mouse.target.style["fill"] = `#${HSLtoHEX(col)}`;
+            mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
         };
         koreamap.onmousemove = null;
         koreamap.onmouseup = null;
@@ -102,11 +93,11 @@ const modeFunctions = {
         koreamap.onmousedown = (mouse) => {
             koreamap.onmousemove = (mousemove) => {
                 if (!mousemove.target.classList.contains("map-area")) return;
-                mousemove.target.style["fill"] = `#${HSLtoHEX(col)}`;
+                mousemove.target.style["fill"] = `#${RGBtoHEX(color)}`;
             };
 
             if (!mouse.target.classList.contains("map-area")) return;
-            mouse.target.style["fill"] = `#${HSLtoHEX(col)}`;
+            mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
         };
         koreamap.onmousemove = null;
         koreamap.onmouseup = () => {
@@ -146,4 +137,62 @@ const mapReset = () => {
     Array.from(document.querySelectorAll(".map-area")).forEach((node) => {
         node.style["fill"] = null;
     });
+};
+
+const color = {
+    r: 255,
+    g: 100,
+    b: 100
+};
+const RGBtoHEX = (rgb) => {
+    let r = rgb.r.toString(16).toUpperCase();
+    let g = rgb.g.toString(16).toUpperCase();
+    let b = rgb.b.toString(16).toUpperCase();
+    r = r.length === 1 ? `0${r}` : r;
+    g = g.length === 1 ? `0${g}` : g;
+    b = b.length === 1 ? `0${b}` : b;
+
+    return `${r}${g}${b}`;
+};
+const applyColorPicker = () => {
+    const colorPreview = document.querySelector("#color-preview");
+    const colorPickerPreview = document.querySelector("#toolbar-color-picker-preview");
+    const pHEX = colorPickerPreview.querySelector(".hex");
+    const pRGB = colorPickerPreview.querySelector(".rgb");
+
+    const HEX = RGBtoHEX(color);
+    colorPreview.style["background-color"] = `#${HEX}`;
+    colorPickerPreview.style["background-color"] = `#${HEX}`;
+    pHEX.innerText = `#${HEX}`;
+    pRGB.innerText = `${color.r}, ${color.g}, ${color.b}`;
+
+    Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
+        const i = color[node.getAttribute("target")];
+        node.style["left"] = `${i}px`;
+    });
+};
+Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
+    node.onpointerdown = (pointer) => {
+        node.setPointerCapture(pointer.pointerId);
+
+        node.onpointermove = (drag) => {
+            let i = color[node.getAttribute("target")];
+            i += drag.movementX;
+            i = i < 0 ? 0 : ( i > 255 ? 255 : i );
+            node.style["left"] = `${i}px`;
+            color[node.getAttribute("target")] = i;
+            applyColorPicker();
+        };
+
+        node.onpointerup = () => {
+            node.onpointermove = null;
+            node.releasePointerCapture(pointer.pointerId);
+        };
+    };
+});
+applyColorPicker();
+const toggleColorPicker = () => {
+    const colorPicker = document.querySelector("#toolbar-color-picker");
+    colorPicker.style["display"] = colorPicker.style["display"] === "none" ? "flex" : "none";
+    return 0;
 };
