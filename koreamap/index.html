@@ -13,12 +13,11 @@
     <link rel="stylesheet" href="./stylesheets/main-responsive.css">
     <link rel="stylesheet" href="./stylesheets/koreamap.css">
 
-    <script src="./script/lyra.js" defer></script>
     <script src="./script/regions.js" defer></script>
     <script src="./script/koreamap.js" defer></script>
 </head>
 <body>
-    <div id="map-viewport">
+    <div id="map-viewport" style="background-color:rgb(119,194,245)">
         <svg 
             id="map"
             xmlns="http://www.w3.org/2000/svg"
@@ -235,30 +234,33 @@
     <div id="bottom-area">
         <div id="toolbar-area">
             <div id="toolbar">
-                <div id="color-preview" onclick="toggleColorPicker();">
-                    <div class="icon-alt icon-palette"></div>
+                <div id="color-preview" onclick="toggleWindow('COLORPICKER');">
+                    <div class="icon icon-palette"></div>
                 </div>
+                <button onclick="toggleBackgroundColor();">
+                    <div class="icon icon-maximize"></div>
+                </button>
                 <div class="toolbar-partition"></div>
                 <button id="button-fillmode-none">
-                    <div class="icon-alt icon-drag"></div>
+                    <div class="icon icon-drag"></div>
                 </button>
                 <button id="button-fillmode-single">
-                    <div class="icon-alt icon-paint"></div>
+                    <div class="icon icon-paint"></div>
                 </button>
                 <button id="button-fillmode-multiple">
-                    <div class="icon-alt icon-fill-multiple"></div>
+                    <div class="icon icon-fill-multiple"></div>
                 </button>
                 <button id="button-fillmode-erase">
-                    <div class="icon-alt icon-eraser"></div>
+                    <div class="icon icon-eraser"></div>
                 </button>
                 <div class="toolbar-partition"></div>
                 <button id="button-export">
-                    <div class="icon-alt icon-export" onclick="toggleExport();"></div>
+                    <div class="icon icon-export" onclick="toggleWindow('EXPORT');"></div>
                 </button>
                 <button id="button-import">
-                    <div class="icon-alt icon-import" onclick="toggleImport();"></div>
+                    <div class="icon icon-import" onclick="toggleWindow('IMPORT');"></div>
                 </button>
-                <button id="button-reset" onclick="showWindow(`RESET`)">
+                <button id="button-reset" onclick="toggleWindow('RESET');">
                     <div class="icon icon-close"></div>
                 </button>
                 <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
@@ -284,8 +286,8 @@
                         <div class="color-picker-bar"></div>
                     </div>
                     <div id="toolbar-color-picker-preview">
-                        <p class="hex">#FFFFFF</p>
-                        <p class="rgb">255, 255, 255</p>
+                        <p>#<input id="input-hex" type="text" size="6" maxlength="6" value=""></p>
+                        <p><input id="input-rgb-r" type="text" size="2" maxlength="6" value="">, <input id="input-rgb-g" type="text" size="2" maxlength="6" value="">, <input id="input-rgb-b" type="text" size="2" maxlength="6" value=""></p>
                     </div>
                 </div>
                 <div id="toolbar-export" style="display:none;">
@@ -302,6 +304,13 @@
                     <textarea id="import-string-area"></textarea>
                     <button onclick="importCodeFromInput();">
                         <span>가져오기</span>
+                    </button>
+                </div>
+                <div id="toolbar-reset" style="display:none;">
+                    <h3>지도 초기화</h3>
+                    <p>작성한 내용을 모두 지우고 초기화합니다.</p>
+                    <button onclick="mapReset();">
+                        <span>초기화</span>
                     </button>
                 </div>
             </div>

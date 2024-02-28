@@ -232,6 +232,8 @@ const mapReset = () => {
     Array.from(document.querySelectorAll(".map-area")).forEach((node) => {
         node.style["fill"] = null;
     });
+    refreshExportCodePreview();
+    toggleReset();
 };
 
 const color = {
@@ -252,20 +254,56 @@ const RGBtoHEX = (rgb) => {
 const applyColorPicker = () => {
     const colorPreview = document.querySelector("#color-preview");
     const colorPickerPreview = document.querySelector("#toolbar-color-picker-preview");
-    const pHEX = colorPickerPreview.querySelector(".hex");
-    const pRGB = colorPickerPreview.querySelector(".rgb");
+    const iHEX = colorPickerPreview.querySelector("#input-hex");
+    const iRGBr = colorPickerPreview.querySelector("#input-rgb-r");
+    const iRGBg = colorPickerPreview.querySelector("#input-rgb-g");
+    const iRGBb = colorPickerPreview.querySelector("#input-rgb-b");
 
     const HEX = RGBtoHEX(color);
     colorPreview.style["background-color"] = `#${HEX}`;
     colorPickerPreview.style["background-color"] = `#${HEX}`;
-    pHEX.innerText = `#${HEX}`;
-    pRGB.innerText = `${color.r}, ${color.g}, ${color.b}`;
+    iHEX.value = HEX;
+    iRGBr.value = color.r;
+    iRGBg.value = color.g;
+    iRGBb.value = color.b;
 
     Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
         const i = color[node.getAttribute("target")];
         node.style["left"] = `${i}px`;
     });
 };
+(() => {
+    const colorPickerPreview = document.querySelector("#toolbar-color-picker-preview");
+    const iHEX = colorPickerPreview.querySelector("#input-hex");
+    const iRGBr = colorPickerPreview.querySelector("#input-rgb-r");
+    const iRGBg = colorPickerPreview.querySelector("#input-rgb-g");
+    const iRGBb = colorPickerPreview.querySelector("#input-rgb-b");
+    iHEX.oninput = () => {
+        const r = parseInt(iHEX.value.substring(0, 2), 16);
+        const g = parseInt(iHEX.value.substring(2, 4), 16);
+        const b = parseInt(iHEX.value.substring(4, 6), 16);
+        if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) {
+            color.r = 255;
+            color.g = 255;
+            color.b = 255;
+        } else {
+            color.r = r;
+            color.g = g;
+            color.b = b;
+        };
+        applyColorPicker();
+    };
+    [ iRGBr, iRGBg, iRGBb ].forEach((x, i) => {
+        x.oninput = () => {
+            if (Number.isNaN(parseInt(x.value)) || parseInt(x.value) < 0 || parseInt(x.value) > 255) {
+                color[Object.keys(color)[i]] = 0;
+            } else {
+                color[Object.keys(color)[i]] = parseInt(x.value);
+            };
+            applyColorPicker();
+        };
+    });
+})();
 Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
     node.onmousedown = (mouse) => {
         node.setPointerCapture(mouse.pointerId);
@@ -307,18 +345,16 @@ Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => 
     };
 });
 applyColorPicker();
-const toggleColorPicker = () => {
-    const targetWindow = document.querySelector("#toolbar-color-picker");
-    targetWindow.style["display"] = targetWindow.style["display"] === "none" ? "flex" : "none";
+const toggleWindow = (name) => {
+    const windowList = {
+        "COLORPICKER": document.querySelector("#toolbar-color-picker"),
+        "EXPORT": document.querySelector("#toolbar-export"),
+        "IMPORT": document.querySelector("#toolbar-import"),
+        "RESET": document.querySelector("#toolbar-reset")
+    };
+    windowList[name].style["display"] = windowList[name].style["display"] === "flex" ? "none" : "flex";
     return 0;
 };
-const toggleExport = () => {
-    const targetWindow = document.querySelector("#toolbar-export");
-    targetWindow.style["display"] = targetWindow.style["display"] === "none" ? "flex" : "none";
-    return 0;
-};
-const toggleImport = () => {
-    const targetWindow = document.querySelector("#toolbar-import");
-    targetWindow.style["display"] = targetWindow.style["display"] === "none" ? "flex" : "none";
-    return 0;
+const toggleBackgroundColor = () => {
+    koreamap.style["background-color"] = koreamap.style["background-color"] === "white" ? "rgb(119,194,245)" : "white";
 };
