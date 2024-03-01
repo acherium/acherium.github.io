@@ -1,19 +1,3 @@
-const windowList = {
-    "COLORPICKER": {
-        href: "./view/colorpicker.html",
-        width: "400px",
-        height: "400px"
-    },
-    "RESET": {
-        href: "./view/reset.html",
-        width: "200px"
-    }
-};
-const showWindow = (name) => {
-    const w = new Window(windowList[name]);
-    return w.show();
-};
-
 const list = {};
 const exportList = () => {
     return btoa(JSON.stringify(list));
@@ -105,7 +89,7 @@ const modeButtons = {
     3: document.querySelector("#button-fillmode-erase"),
 };
 const pos = {
-    x: 400,
+    x: document.documentElement.getBoundingClientRect().width/2.5,
     y: 400
 };
 const koreamap = document.querySelector("#map-viewport");
@@ -278,7 +262,7 @@ const applyColorPicker = () => {
     const iRGBr = colorPickerPreview.querySelector("#input-rgb-r");
     const iRGBg = colorPickerPreview.querySelector("#input-rgb-g");
     const iRGBb = colorPickerPreview.querySelector("#input-rgb-b");
-    iHEX.oninput = () => {
+    iHEX.onchange = () => {
         const r = parseInt(iHEX.value.substring(0, 2), 16);
         const g = parseInt(iHEX.value.substring(2, 4), 16);
         const b = parseInt(iHEX.value.substring(4, 6), 16);
@@ -294,7 +278,7 @@ const applyColorPicker = () => {
         applyColorPicker();
     };
     [ iRGBr, iRGBg, iRGBb ].forEach((x, i) => {
-        x.oninput = () => {
+        x.onchange = () => {
             if (Number.isNaN(parseInt(x.value)) || parseInt(x.value) < 0 || parseInt(x.value) > 255) {
                 color[Object.keys(color)[i]] = 0;
             } else {
@@ -303,6 +287,56 @@ const applyColorPicker = () => {
             applyColorPicker();
         };
     });
+    
+    const $areaName = document.querySelector("#area-name-preview");
+    const displayAreaName = (pointer) => {
+        if (!pointer.target.classList.contains("map-area")) {
+            $areaName.innerText = null;
+            $areaName.style["display"] = "none";
+        } else {
+            $areaName.innerText = ( REGIONS[pointer.target.id] || pointer.target.id);
+            $areaName.style["display"] = "flex";
+        };
+        return 0;
+    };
+    document.addEventListener("pointermove", displayAreaName);
+
+    let scale = 0.05;
+    const $layerScale = document.querySelector("#map-scale");
+    const $layerPosition = document.querySelector("#map-position");
+    const setScale = (i) => {
+        if (Number.isNaN(parseInt(i))) return;
+        if (scale + i < 0 || scale + i > 0.15) return;
+        scale += i;
+        $layerScale.style["transform"] = `scale(${scale})`;
+        // const rect = document.body.getBoundingClientRect();
+        // const j = 1;
+        // if (i > 0) {
+        //     pos.x -= rect.width/j;
+        //     pos.y -= rect.height/j;
+        // } else {
+        //     pos.x += rect.width/j;
+        //     pos.y += rect.height/j;
+        // };
+        // $layerPosition.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+        return 0;
+    };
+    const $buttonZoomin = document.querySelector("#button-scale-zoomin");
+    const $buttonZoomout = document.querySelector("#button-scale-zoomout");
+    $buttonZoomin.onclick = () => setScale(0.01);
+    $buttonZoomout.onclick = () => setScale(-0.01);
+    const setScaleOnWheel = (wheel) => {
+        setScale(wheel.deltaY < 0 ? 0.01 : -0.01);
+        return 0;
+    };
+    document.addEventListener("wheel", setScaleOnWheel);
+
+    const $bottom = document.querySelector("#bottom-area");
+    const $buttonToggleToolbar1 = document.querySelector("#button-toggle-toolbar-toolbar");
+    const $buttonToggleToolbar2 = document.querySelector("#button-toggle-toolbar-viewport");
+    $buttonToggleToolbar1.onclick = () => $bottom.style["display"] = "none";
+    $buttonToggleToolbar2.onclick = () => $bottom.style["display"] = "flex";
+
 })();
 Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
     node.onmousedown = (mouse) => {

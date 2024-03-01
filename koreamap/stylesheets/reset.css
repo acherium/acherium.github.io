@@ -117,6 +117,8 @@ h6 {
 .icon-drag { background-image: url("../assets/icons/drag.svg"); }
 .icon-export { background-image: url("../assets/icons/export.svg"); }
 .icon-import { background-image: url("../assets/icons/import.svg"); }
+.icon-plus { background-image: url("../assets/icons/plus.svg"); }
+.icon-minus { background-image: url("../assets/icons/minus.svg"); }
 
 #watermark {
     position: fixed;

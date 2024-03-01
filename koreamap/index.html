@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyra</title>
+    <title>한국지도 그림판</title>
 
     <link rel="icon" href="./assets/favicon/favicon.svg">
     <link rel="stylesheet" id="palette" href="./stylesheets/palette-combined.css">
@@ -17,6 +17,7 @@
     <script src="./script/koreamap.js" defer></script>
 </head>
 <body>
+    <div id="area-name-preview" style="display:none;"></div>
     <div id="map-viewport" style="background-color:rgb(119,194,245)">
         <svg 
             id="map"
@@ -230,42 +231,59 @@
                 </g>
             </g>
         </svg>
+        <div id="map-viewport-button-area">
+            <button id="button-toggle-toolbar-viewport">
+                <div class="icon icon-menu"></div>
+            </button>
+        </div>
     </div>
-    <div id="bottom-area">
+    <div id="bottom-area" style="display:flex;">
         <div id="toolbar-area">
-            <div id="toolbar">
-                <div id="color-preview" onclick="toggleWindow('COLORPICKER');">
-                    <div class="icon icon-palette"></div>
+            <div id="toolbar-area-inner">
+                <button id="button-toggle-toolbar-toolbar">
+                    <div class="icon icon-menu"></div>
+                </button>
+                <div id="toolbar">
+                    <button id="button-scale-zoomin">
+                        <div class="icon icon-plus"></div>
+                    </button>
+                    <button id="button-scale-zoomout">
+                        <div class="icon icon-minus"></div>
+                    </button>
+                    <div class="toolbar-partition"></div>
+                    <div id="color-preview" onclick="toggleWindow('COLORPICKER');">
+                        <div class="icon icon-palette"></div>
+                    </div>
+                    <button onclick="toggleBackgroundColor();">
+                        <div class="icon icon-maximize"></div>
+                    </button>
+                    <div class="toolbar-partition"></div>
+                    <button id="button-fillmode-none">
+                        <div class="icon icon-drag"></div>
+                    </button>
+                    <button id="button-fillmode-single">
+                        <div class="icon icon-paint"></div>
+                    </button>
+                    <button id="button-fillmode-multiple">
+                        <div class="icon icon-fill-multiple"></div>
+                    </button>
+                    <button id="button-fillmode-erase">
+                        <div class="icon icon-eraser"></div>
+                    </button>
+                    <div class="toolbar-partition"></div>
+                    <button id="button-export">
+                        <div class="icon icon-export" onclick="toggleWindow('EXPORT');"></div>
+                    </button>
+                    <button id="button-import">
+                        <div class="icon icon-import" onclick="toggleWindow('IMPORT');"></div>
+                    </button>
+                    <button id="button-reset" onclick="toggleWindow('RESET');">
+                        <div class="icon icon-close"></div>
+                    </button>
+                    <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
+                        <div class="icon icon-outer"></div>
+                    </button>
                 </div>
-                <button onclick="toggleBackgroundColor();">
-                    <div class="icon icon-maximize"></div>
-                </button>
-                <div class="toolbar-partition"></div>
-                <button id="button-fillmode-none">
-                    <div class="icon icon-drag"></div>
-                </button>
-                <button id="button-fillmode-single">
-                    <div class="icon icon-paint"></div>
-                </button>
-                <button id="button-fillmode-multiple">
-                    <div class="icon icon-fill-multiple"></div>
-                </button>
-                <button id="button-fillmode-erase">
-                    <div class="icon icon-eraser"></div>
-                </button>
-                <div class="toolbar-partition"></div>
-                <button id="button-export">
-                    <div class="icon icon-export" onclick="toggleWindow('EXPORT');"></div>
-                </button>
-                <button id="button-import">
-                    <div class="icon icon-import" onclick="toggleWindow('IMPORT');"></div>
-                </button>
-                <button id="button-reset" onclick="toggleWindow('RESET');">
-                    <div class="icon icon-close"></div>
-                </button>
-                <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
-                    <div class="icon icon-outer"></div>
-                </button>
             </div>
         </div>
         <div id="toolbar-window-area">
