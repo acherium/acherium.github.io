@@ -295,7 +295,14 @@ const applyColorPicker = () => {
             $areaName.style["display"] = "none";
         } else {
             const regionCode = pointer.target.id.split("-");
-            const regionData = regionCode.map((x, i, a) => i <= 0 ? REGIONSALT[x] : ( REGIONSALT[a[i-1]] ? REGIONSALT[a[i-1]].sub[x] : x ));
+            const regionData = [];
+            regionCode.forEach((x, i) => {
+                if (i <= 0) {
+                    regionData.push(REGIONSALT[x] ? REGIONSALT[x] : x);
+                } else {
+                    regionData.push(regionData[i - 1].name ? ( regionData[i - 1].sub[x] ? regionData[i-1].sub[x] : x) : x);
+                };
+            });
             $areaName.innerText = regionData.filter((x) => x).map((x) => x.name ? x.name[0] : x).filter((x) => x).join(" ").trim();
             $areaName.style["display"] = "flex";
         };
@@ -308,7 +315,7 @@ const applyColorPicker = () => {
     const $layerPosition = document.querySelector("#map-position");
     const setScale = (i) => {
         if (Number.isNaN(parseInt(i))) return;
-        if (scale + i < 0 || scale + i > 0.15) return;
+        if (scale + i < 0 || scale + i > 0.25) return;
         scale += i;
         $layerScale.style["transform"] = `scale(${scale})`;
         // const rect = document.body.getBoundingClientRect();
@@ -393,4 +400,33 @@ const toggleWindow = (name) => {
 };
 const toggleBackgroundColor = () => {
     koreamap.style["background-color"] = koreamap.style["background-color"] === "white" ? "rgb(119,194,245)" : "white";
+};
+
+const layerList = {
+    "BUS": {
+        group: document.querySelector("#GROUP-BUS"),
+        layers: [
+            document.querySelector("#GROUP-BUS-LAYER0"),
+            document.querySelector("#GROUP-BUS-LAYER1"),
+            document.querySelector("#GROUP-BUS-LAYER2"),
+            document.querySelector("#GROUP-BUS-LAYER3"),
+            document.querySelector("#GROUP-BUS-LAYER4")
+        ],
+        options: {
+            0: [ 1, 0, 0, 0, 0 ],
+            1: [ 0, 1, 0, 1, 0 ],
+            2: [ 0, 0, 1, 1, 0 ],
+            3: [ 0, 1, 0, 0, 1 ],
+            4: [ 0, 0, 1, 0, 1 ]
+        }
+    }
+};
+const setLayer = (name, number) => {
+    const target = layerList[name];
+    const option = target.options[number];
+    if (option.length !== target.layers.length) return;
+    option.forEach((x, i) => {
+        target.layers[i].style["display"] = x ? "block" : "none";
+    });
+    return 0;
 };
