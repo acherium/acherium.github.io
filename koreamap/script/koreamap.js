@@ -317,7 +317,7 @@ const applyColorPicker = () => {
     const $layerPosition = document.querySelector("#map-position");
     const setScale = (i) => {
         if (Number.isNaN(parseInt(i))) return;
-        if (scale + i < 0 || scale + i > 10) return;
+        if (scale + i <= 0 || scale + i > 10) return;
         scale += i;
         $layerScale.style["transform"] = `scale(${scale})`;
         // const rect = document.body.getBoundingClientRect();
