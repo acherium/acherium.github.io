@@ -294,13 +294,9 @@ const applyColorPicker = () => {
             $areaName.innerText = null;
             $areaName.style["display"] = "none";
         } else {
-            const p1 = pointer.target.getAttribute("p1");
-            const p2 = pointer.target.getAttribute("p2");
-            const p3 = pointer.target.getAttribute("p3");
-            const p1o = REGIONSALT[p1];
-            const p2o = p1o ? REGIONSALT[p1].sub[p2] : null;
-            const p3o = p2o ? REGIONSALT[p1].sub[p2].sub[p3] : null;
-            $areaName.innerText = [ p1o?.name[0] || p1, p2o?.name[0] || p2, p3o?.name[0] || p3 ].join(" ").trim();
+            const regionCode = pointer.target.id.split("-");
+            const regionData = regionCode.map((x, i, a) => i <= 0 ? REGIONSALT[x] : ( REGIONSALT[a[i-1]] ? REGIONSALT[a[i-1]].sub[x] : x ));
+            $areaName.innerText = regionData.filter((x) => x).map((x) => x.name ? x.name[0] : x).filter((x) => x).join(" ").trim();
             $areaName.style["display"] = "flex";
         };
         return 0;
