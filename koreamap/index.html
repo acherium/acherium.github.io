@@ -17,7 +17,9 @@
     <script src="./script/koreamap.js" defer></script>
 </head>
 <body>
-    <div id="area-name-preview" style="display:none;"></div>
+    <div id="area-name-preview-area">
+        <div id="area-name-preview" style="display:none;"></div>
+    </div>
     <div id="map-viewport" style="background-color:rgb(119,194,245)">
         <svg 
             id="map"
@@ -458,13 +460,14 @@
             </g>
         </svg>
         <div id="map-viewport-button-area">
-            <button id="button-toggle-toolbar-viewport">
+            <button id="button-toggle-toolbar-viewport" style="display:none;">
                 <div class="icon icon-menu"></div>
             </button>
         </div>
     </div>
     <div id="bottom-area" style="display:flex;">
         <div id="toolbar-area">
+            <div class="backdrop-effect"></div>
             <div id="toolbar-area-inner">
                 <button id="button-toggle-toolbar-toolbar">
                     <div class="icon icon-menu"></div>
@@ -516,6 +519,7 @@
             </div>
         </div>
         <div id="toolbar-window-area">
+            <div class="backdrop-effect"></div>
             <div id="toolbar-window-area-main">
                 <div id="toolbar-map-config" style="display:none;">
                     <h3>지도 설정</h3>

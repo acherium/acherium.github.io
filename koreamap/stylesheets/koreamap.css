@@ -1,4 +1,16 @@
 @charset "UTF-8";
+.backdrop-effect {
+    position: absolute;
+    left: 0;
+    height: 0;
+    z-index: -100;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0.02;
+    background-image: url("../assets/images/image-noise.png");
+}
 
 #map-viewport {
     display: flex;
@@ -40,9 +52,26 @@
     overflow: scroll;
 
     width: 100vw;
-    height: auto;
+    height: 54px;
 
-    background-color: white;
+    border-radius: 27px 27px 0 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(30px);
+
+    animation-name: toolbar-open;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes toolbar-open {
+    from {
+        opacity: 0;
+        transform: scale(0.98) translateY(10px);
+    }
+    
+    to {
+        opacity: 1;
+    }
 }
 
 #toolbar {
@@ -55,8 +84,6 @@
 
     width: max-content;
     height: auto;
-
-    background-color: white;
 }
 
 #toolbar > * {
@@ -84,8 +111,7 @@
     width: 38px;
     height: 38px;
 
-    border-radius: 4px;
-    border: solid 1px lightgray;
+    border-radius: 50%;
     cursor: pointer;
 }
 
@@ -126,12 +152,15 @@
 #toolbar-window-area {
     display: block;
     position: relative;
+    margin: 8px;
     overflow: scroll;
 
-    width: 100vw;
+    width: calc(100vw - 16px);
     height: auto;
 
-    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(30px);
 }
 
 #toolbar-window-area-main {
@@ -283,21 +312,34 @@
     resize: none;
 }
 
-#area-name-preview {
+#area-name-preview-area {
     display: flex;
     position: absolute;
     align-items: center;
     justify-content: center;
     left: 0;
     top: 0;
+    margin: 8px 0;
     z-index: 1;
+    overflow: visible;
 
     width: 100vw;
-    height: 50px;
+    height: auto;
+    pointer-events: none;
+}
+
+#area-name-preview {
+    position: relative;
+    padding: 8px;
+
+    width: auto;
+    height: auto;
 
     font-size: 16pt;
     font-weight: 800;
+    border-radius: 4px;
     background-color: white;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 #map-viewport-button-area {
@@ -419,4 +461,17 @@
 
 .map-config-page-content-active {
     filter: invert(1);
+}
+
+#toolbar-area button {
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#toolbar-area button > * {
+    filter: invert(1);
+}
+
+#button-toggle-toolbar-viewport {
+    background-color: rgba(180, 180, 180, 0.8);
 }

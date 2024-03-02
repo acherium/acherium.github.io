@@ -346,8 +346,14 @@ const applyColorPicker = () => {
     const $bottom = document.querySelector("#bottom-area");
     const $buttonToggleToolbar1 = document.querySelector("#button-toggle-toolbar-toolbar");
     const $buttonToggleToolbar2 = document.querySelector("#button-toggle-toolbar-viewport");
-    $buttonToggleToolbar1.onclick = () => $bottom.style["display"] = "none";
-    $buttonToggleToolbar2.onclick = () => $bottom.style["display"] = "flex";
+    $buttonToggleToolbar1.onclick = () => {
+        $bottom.style["display"] = "none"
+        $buttonToggleToolbar2.style["display"] = "flex";
+    };
+    $buttonToggleToolbar2.onclick = () => {
+        $bottom.style["display"] = "flex";
+        $buttonToggleToolbar2.style["display"] = "none";
+    };
 
     const layerList = {
         "SEO": {
