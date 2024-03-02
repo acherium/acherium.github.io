@@ -91,8 +91,8 @@ const modeButtons = {
     3: document.querySelector("#button-fillmode-erase"),
 };
 const pos = {
-    x: document.documentElement.getBoundingClientRect().width/2.5,
-    y: 400
+    x: -150,
+    y: -50
 };
 const koreamap = document.querySelector("#map-viewport");
 const positionLayer = document.querySelector("#map-position");
@@ -312,12 +312,12 @@ const applyColorPicker = () => {
     };
     document.addEventListener("pointermove", displayAreaName);
 
-    let scale = 0.05;
+    let scale = 1;
     const $layerScale = document.querySelector("#map-scale");
     const $layerPosition = document.querySelector("#map-position");
     const setScale = (i) => {
         if (Number.isNaN(parseInt(i))) return;
-        if (scale + i < 0 || scale + i > 0.25) return;
+        if (scale + i < 0 || scale + i > 10) return;
         scale += i;
         $layerScale.style["transform"] = `scale(${scale})`;
         // const rect = document.body.getBoundingClientRect();
@@ -334,10 +334,10 @@ const applyColorPicker = () => {
     };
     const $buttonZoomin = document.querySelector("#button-scale-zoomin");
     const $buttonZoomout = document.querySelector("#button-scale-zoomout");
-    $buttonZoomin.onclick = () => setScale(0.01);
-    $buttonZoomout.onclick = () => setScale(-0.01);
+    $buttonZoomin.onclick = () => setScale(0.5);
+    $buttonZoomout.onclick = () => setScale(-0.5);
     const setScaleOnWheel = (wheel) => {
-        setScale(wheel.deltaY < 0 ? 0.01 : -0.01);
+        setScale(wheel.deltaY < 0 ? 0.5 : -0.5);
         return 0;
     };
     const $mapview = document.querySelector("#map-viewport");

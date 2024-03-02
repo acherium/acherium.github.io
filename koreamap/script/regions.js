@@ -1038,7 +1038,7 @@ const REGIONSALT = {
                 sub: {}
             },
             "GIM": {
-                name: [ "김해시", "김해", "시" ],
+                name: [ "김천시", "김천", "시" ],
                 sub: {}
             },
             "JMC": {

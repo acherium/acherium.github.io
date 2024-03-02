@@ -31,13 +31,31 @@
     height: 100vh;
 }
 
+#map-viewport * {
+    overflow: visible;
+}
+
 #map {
     width: inherit;
     height: inherit;
+
+    transform: scale(0.05);
+}
+
+#map-position {
+    display: flex;
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
 }
 
 #map-scale {
-    transform: scale(0.05);
+    display: flex;
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
 }
 
 #bottom-area {
