@@ -257,7 +257,7 @@ const applyColorPicker = () => {
                 addList(touch.target.id, `#${RGBtoHEX(color)}`);
                 addPalette(color);
             };
-            koreamap.ontouchmove = null;
+            $koreamap.ontouchmove = null;
             $koreamap.ontouchend = () => {
                 $koreamap.ontouchmove = null;
             };
