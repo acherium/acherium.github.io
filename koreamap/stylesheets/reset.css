@@ -120,6 +120,9 @@ h6 {
 .icon-plus { background-image: url("../assets/icons/plus.svg"); }
 .icon-minus { background-image: url("../assets/icons/minus.svg"); }
 .icon-config { background-image: url("../assets/icons/config.svg"); }
+.icon-other0 { background-image: url("../assets/icons/other0.svg"); }
+.icon-other1 { background-image: url("../assets/icons/other1.svg"); }
+.icon-other2 { background-image: url("../assets/icons/other2.svg"); }
 
 #watermark {
     position: fixed;

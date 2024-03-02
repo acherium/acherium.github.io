@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./stylesheets/main-responsive.css">
     <link rel="stylesheet" href="./stylesheets/koreamap.css">
 
+    <script src="./script/lyra.js" defer></script>
     <script src="./script/regions.js" defer></script>
     <script src="./script/koreamap.js" defer></script>
 </head>
@@ -512,8 +513,12 @@
                     <button id="button-reset" onclick="toggleWindow('RESET');">
                         <div class="icon icon-close"></div>
                     </button>
+                    <div class="toolbar-partition"></div>
                     <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
-                        <div class="icon icon-outer"></div>
+                        <div class="icon icon-other0"></div>
+                    </button>
+                    <button id="button-about" onclick="aboutLyra();">
+                        <div class="icon icon-other2"></div>
                     </button>
                 </div>
             </div>
