@@ -137,6 +137,7 @@
 #toolbar-window-area-main {
     display: flex;
     position: relative;
+    align-items: flex-end;
     margin: 0 auto;
 
     width: max-content;
@@ -152,8 +153,9 @@
     margin: 10px;
     padding: 20px;
 
-    width: 305px;
-    height: 238px;
+    min-width: 305px;
+    width: max-content;
+    height: max-content;
 
     border-radius: 8px;
     background-color: white;
@@ -255,8 +257,10 @@
 #export-string-preview {
     margin: 8px 0;
     flex: 1;
+    
+    max-height: 400px;
     width: 100%;
-    height: 100%;
+    height: max-content;
 
     word-wrap: break-word;
     border-radius: 2px;
@@ -266,9 +270,10 @@
 
 #import-string-area {
     display: block;
-
     margin: 8px 0;
     flex: 1;
+    
+    max-height: 400px;
     width: 100%;
     height: 100%;
 
@@ -326,4 +331,92 @@
 
 #toolbar-area-inner > *:not(:last-child) {
     margin-right: 8px;
+}
+
+#map-config-area {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 8px;
+
+    width: 400px;
+    height: 300px;
+}
+
+#map-config-left, #map-config-right {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    height: 100%;
+}
+
+#map-config-left {
+    margin-right: 8px;
+
+    width: 30%;
+}
+
+#map-config-right {
+    flex: 1;
+    width: 100%;
+}
+
+.block-list {
+    display: block;
+    overflow: scroll;
+
+    width: 100%;
+    height: 100%;
+}
+
+.map-config-tab, .config-page-main > div {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px;
+
+    width: 100%;
+
+    border-radius: 4px;
+    background-color: var(--color-default-button);
+    cursor: pointer;
+}
+
+.list-main, .config-page-main {
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    width: 100%;
+    height: max-content;
+}
+
+.list-main {
+    display: flex;
+}
+
+.config-page-main {
+    display: none;
+}
+
+.list-main > *:not(:last-child), .config-page-main > *:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+.map-config-tab-active {
+    filter: invert(1);
+}
+
+.map-config-page-active {
+    display: flex;
+}
+
+.map-config-page-content-active {
+    filter: invert(1);
 }

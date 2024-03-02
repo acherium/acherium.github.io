@@ -7,6 +7,7 @@ const importList = (string) => {
 };
 const copyExportCode = () => {
     window.navigator.clipboard.writeText(exportList());
+    toggleWindow("EXPORT");
     return 0;
 };
 const importCodeFromInput = () => {
@@ -25,6 +26,7 @@ const importCodeFromInput = () => {
     } catch(error) {
         alert("가져오기에 실패했습니다!\n입력한 값이 올바르지 않습니다.");
     };
+    toggleWindow("IMPORT");
     return 0;
 };
 const refreshExportCodePreview = () => {
@@ -217,7 +219,7 @@ const mapReset = () => {
         node.style["fill"] = null;
     });
     refreshExportCodePreview();
-    toggleReset();
+    toggleWindow("RESET");
 };
 
 const color = {
@@ -338,7 +340,8 @@ const applyColorPicker = () => {
         setScale(wheel.deltaY < 0 ? 0.01 : -0.01);
         return 0;
     };
-    document.addEventListener("wheel", setScaleOnWheel);
+    const $mapview = document.querySelector("#map-viewport");
+    $mapview.addEventListener("wheel", setScaleOnWheel);
 
     const $bottom = document.querySelector("#bottom-area");
     const $buttonToggleToolbar1 = document.querySelector("#button-toggle-toolbar-toolbar");
@@ -346,6 +349,347 @@ const applyColorPicker = () => {
     $buttonToggleToolbar1.onclick = () => $bottom.style["display"] = "none";
     $buttonToggleToolbar2.onclick = () => $bottom.style["display"] = "flex";
 
+    const layerList = {
+        "SEO": {
+            group: document.querySelector("#GROUP-SEO"),
+            layers: [
+                document.querySelector("#GROUP-SEO-LAYER0"),
+                document.querySelector("#GROUP-SEO-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "BUS": {
+            group: document.querySelector("#GROUP-BUS"),
+            layers: [
+                document.querySelector("#GROUP-BUS-LAYER0"),
+                document.querySelector("#GROUP-BUS-LAYER1"),
+                document.querySelector("#GROUP-BUS-LAYER2"),
+                document.querySelector("#GROUP-BUS-LAYER3"),
+                document.querySelector("#GROUP-BUS-LAYER4")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체 (구 제외)",
+                    value: [ 0, 1, 0, 1, 0 ]
+                },
+                2: {
+                    name: "기초자치단체",
+                    value: [ 0, 0, 1, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 0, 1 ]
+                },
+                4: {
+                    name: "구읍면",
+                    value: [ 0, 0, 1, 0, 1 ]
+                },
+                5: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "DAE": {
+            group: document.querySelector("#GROUP-DAE"),
+            layers: [
+                document.querySelector("#GROUP-DAE-LAYER0"),
+                document.querySelector("#GROUP-DAE-LAYER1"),
+                document.querySelector("#GROUP-DAE-LAYER2"),
+                document.querySelector("#GROUP-DAE-LAYER3"),
+                document.querySelector("#GROUP-DAE-LAYER4")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체 (구 제외)",
+                    value: [ 0, 1, 0, 1, 0 ]
+                },
+                2: {
+                    name: "기초자치단체",
+                    value: [ 0, 0, 1, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 0, 1 ]
+                },
+                4: {
+                    name: "구읍면",
+                    value: [ 0, 0, 1, 0, 1 ]
+                },
+                5: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "INC": {
+            group: document.querySelector("#GROUP-INC"),
+            layers: [
+                document.querySelector("#GROUP-INC-LAYER0"),
+                document.querySelector("#GROUP-INC-LAYER1"),
+                document.querySelector("#GROUP-INC-LAYER2"),
+                document.querySelector("#GROUP-INC-LAYER3"),
+                document.querySelector("#GROUP-INC-LAYER4")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체 (구 제외)",
+                    value: [ 0, 1, 0, 1, 0 ]
+                },
+                2: {
+                    name: "기초자치단체",
+                    value: [ 0, 0, 1, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 0, 1 ]
+                },
+                4: {
+                    name: "구읍면",
+                    value: [ 0, 0, 1, 0, 1 ]
+                },
+                5: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "GWJ": {
+            group: document.querySelector("#GROUP-GWJ"),
+            layers: [
+                document.querySelector("#GROUP-GWJ-LAYER0"),
+                document.querySelector("#GROUP-GWJ-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "DJN": {
+            group: document.querySelector("#GROUP-DJN"),
+            layers: [
+                document.querySelector("#GROUP-DJN-LAYER0"),
+                document.querySelector("#GROUP-DJN-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "ULS": {
+            group: document.querySelector("#GROUP-ULS"),
+            layers: [
+                document.querySelector("#GROUP-ULS-LAYER0"),
+                document.querySelector("#GROUP-ULS-LAYER1"),
+                document.querySelector("#GROUP-ULS-LAYER2"),
+                document.querySelector("#GROUP-ULS-LAYER3"),
+                document.querySelector("#GROUP-ULS-LAYER4")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체 (구 제외)",
+                    value: [ 0, 1, 0, 1, 0 ]
+                },
+                2: {
+                    name: "기초자치단체",
+                    value: [ 0, 0, 1, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 0, 1 ]
+                },
+                4: {
+                    name: "구읍면",
+                    value: [ 0, 0, 1, 0, 1 ]
+                },
+                5: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "SEJ": {
+            group: document.querySelector("#GROUP-SEJ"),
+            layers: [
+                document.querySelector("#GROUP-SEJ-LAYER0"),
+                document.querySelector("#GROUP-SEJ-LAYER1"),
+                document.querySelector("#GROUP-SEJ-LAYER2"),
+                document.querySelector("#GROUP-SEJ-LAYER3")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0 ]
+                },
+                1: {
+                    name: "시내지구 및 시외지구",
+                    value: [ 0, 1, 1, 0 ]
+                },
+                2: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 1 ]
+                },
+                3: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0 ]
+                },
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        },
+        "JJU": {
+            group: document.querySelector("#GROUP-JJU"),
+            layers: [
+                document.querySelector("#GROUP-JJU-LAYER0"),
+                document.querySelector("#GROUP-JJU-LAYER1"),
+                document.querySelector("#GROUP-JJU-LAYER2"),
+                document.querySelector("#GROUP-JJU-LAYER3"),
+                document.querySelector("#GROUP-JJU-LAYER4")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "행정시",
+                    value: [ 0, 1, 0, 0, 0 ]
+                },
+                2: {
+                    name: "시내지구 및 시외지구",
+                    value: [ 0, 0, 1, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 0, 1, 0, 1 ]
+                },
+                4: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 0,
+            tabNode: null,
+            pageNode: null
+        }
+    };
+    const setLayer = (name, number) => {
+        layerList[name].active = number;
+        layerList[name].options[number].value.forEach((x, i) => {
+            layerList[name].layers[i].style["display"] = x ? "block" : "none";
+        });
+        return 0;
+    };
+
+    const $mapConfigTabArea = document.querySelector(".map-config-tab-area");
+    const $mapConfigPageArea = document.querySelector(".map-config-page-area");
+    Object.keys(layerList).forEach((x) => {
+        const $tab = document.createElement("div");
+        $tab.classList.add("map-config-tab");
+        $tab.setAttribute("target", x);
+        $tab.innerText = REGIONSALT[x] ? REGIONSALT[x].name[0] : x;
+        $mapConfigTabArea.append($tab);
+
+        const $page = document.createElement("div");
+        $page.id = `map-config-${x}`;
+        $page.classList.add("config-page-main");
+        Object.values(layerList[x].options).forEach((option, i) => {
+            const $content = document.createElement("div");
+            $content.innerText = option.name;
+            $content.onclick = () => {
+                setLayer(x, i);
+
+                const $oldContent = $page.querySelector(".map-config-page-content-active");
+                if ($oldContent) $oldContent.classList.remove("map-config-page-content-active");
+                $content.classList.add("map-config-page-content-active");
+            };
+            $page.append($content);
+        });
+        Array.from($page.childNodes)[0]?.classList?.add("map-config-page-content-active");
+
+        $tab.onclick = () => {
+            const $old = document.querySelector(".map-config-tab-active");
+            if ($old) $old.classList.remove("map-config-tab-active");
+            $tab.classList.add("map-config-tab-active");
+
+            const $oldPage = document.querySelector(".map-config-page-active");
+            if ($oldPage) $oldPage.classList.remove("map-config-page-active");
+            $page.classList.add("map-config-page-active");
+        };
+        $mapConfigPageArea.append($page);
+    });
+    Array.from($mapConfigTabArea.childNodes)[0]?.click();
 })();
 Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
     node.onmousedown = (mouse) => {
@@ -393,40 +737,12 @@ const toggleWindow = (name) => {
         "COLORPICKER": document.querySelector("#toolbar-color-picker"),
         "EXPORT": document.querySelector("#toolbar-export"),
         "IMPORT": document.querySelector("#toolbar-import"),
-        "RESET": document.querySelector("#toolbar-reset")
+        "RESET": document.querySelector("#toolbar-reset"),
+        "CONFIG": document.querySelector("#toolbar-map-config")
     };
     windowList[name].style["display"] = windowList[name].style["display"] === "flex" ? "none" : "flex";
     return 0;
 };
 const toggleBackgroundColor = () => {
     koreamap.style["background-color"] = koreamap.style["background-color"] === "white" ? "rgb(119,194,245)" : "white";
-};
-
-const layerList = {
-    "BUS": {
-        group: document.querySelector("#GROUP-BUS"),
-        layers: [
-            document.querySelector("#GROUP-BUS-LAYER0"),
-            document.querySelector("#GROUP-BUS-LAYER1"),
-            document.querySelector("#GROUP-BUS-LAYER2"),
-            document.querySelector("#GROUP-BUS-LAYER3"),
-            document.querySelector("#GROUP-BUS-LAYER4")
-        ],
-        options: {
-            0: [ 1, 0, 0, 0, 0 ],
-            1: [ 0, 1, 0, 1, 0 ],
-            2: [ 0, 0, 1, 1, 0 ],
-            3: [ 0, 1, 0, 0, 1 ],
-            4: [ 0, 0, 1, 0, 1 ]
-        }
-    }
-};
-const setLayer = (name, number) => {
-    const target = layerList[name];
-    const option = target.options[number];
-    if (option.length !== target.layers.length) return;
-    option.forEach((x, i) => {
-        target.layers[i].style["display"] = x ? "block" : "none";
-    });
-    return 0;
 };

@@ -119,6 +119,7 @@ h6 {
 .icon-import { background-image: url("../assets/icons/import.svg"); }
 .icon-plus { background-image: url("../assets/icons/plus.svg"); }
 .icon-minus { background-image: url("../assets/icons/minus.svg"); }
+.icon-config { background-image: url("../assets/icons/config.svg"); }
 
 #watermark {
     position: fixed;
