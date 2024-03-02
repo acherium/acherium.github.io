@@ -77,142 +77,6 @@ const changeShapeColor = (click) => {
     return 0;
 };
 
-let mode = 0;
-const modeList = {
-    0: "이동",
-    1: "단일 채움",
-    2: "연속 채움",
-    3: "지움"
-};
-const modeButtons = {
-    0: document.querySelector("#button-fillmode-none"),
-    1: document.querySelector("#button-fillmode-single"),
-    2: document.querySelector("#button-fillmode-multiple"),
-    3: document.querySelector("#button-fillmode-erase"),
-};
-const pos = {
-    x: -150,
-    y: -50
-};
-const koreamap = document.querySelector("#map-viewport");
-const positionLayer = document.querySelector("#map-position");
-positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
-const modeFunctions = {
-    0: () => {
-        koreamap.onmousedown = () => {
-            koreamap.onmousemove = (mousemove) => {
-                pos.x += mousemove.movementX;
-                pos.y += mousemove.movementY;
-                positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
-            };
-        };
-        koreamap.onmousemove = null;
-        koreamap.onmouseup = () => {
-            koreamap.onmousemove = null;
-        };
-        koreamap.ontouchstart = (touchesOrigin) => {
-            const xo = touchesOrigin.changedTouches[0].pageX;
-            const yo = touchesOrigin.changedTouches[0].pageY;
-            let xl = xo;
-            let yl = yo;
-            koreamap.ontouchmove = (touches) => {
-                const x = touches.changedTouches[0].pageX;
-                const y = touches.changedTouches[0].pageY;
-                const movementX = x - xl;
-                const movementY = y - yl;
-                xl = x;
-                yl = y;
-                pos.x += movementX;
-                pos.y += movementY;
-                positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
-            };
-        };
-        koreamap.ontouchmove = null;
-        koreamap.ontouchend = () => {
-            koreamap.ontouchmove = null;
-        };
-    },
-    1: () => {
-        koreamap.onmousedown = (mouse) => {
-            if (!mouse.target.classList.contains("map-area")) return;
-            mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
-            addList(mouse.target.id, `#${RGBtoHEX(color)}`);
-        };
-        koreamap.onmousemove = null;
-        koreamap.onmouseup = null;
-        koreamap.ontouchstart = (touch) => {
-            if (!touch.target.classList.contains("map-area")) return;
-            touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
-            addList(touch.target.id, `#${RGBtoHEX(color)}`);
-        };
-        koreamap.ontouchmove = null;
-        koreamap.ontouchend = null;
-    },
-    2: () => {
-        koreamap.onmousedown = (mouse) => {
-            koreamap.onmousemove = (mousemove) => {
-                if (!mousemove.target.classList.contains("map-area")) return;
-                mousemove.target.style["fill"] = `#${RGBtoHEX(color)}`;
-                addList(mousemove.target.id, `#${RGBtoHEX(color)}`);
-            };
-
-            if (!mouse.target.classList.contains("map-area")) return;
-            mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
-            addList(mouse.target.id, `#${RGBtoHEX(color)}`);
-        };
-        koreamap.onmousemove = null;
-        koreamap.onmouseup = () => {
-            koreamap.onmousemove = null;
-        };
-        koreamap.ontouchstart = (touch) => {
-            if (!touch.target.classList.contains("map-area")) return;
-            touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
-            addList(touch.target.id, `#${RGBtoHEX(color)}`);
-        };
-        koreamap.ontouchmove = null;
-        koreamap.ontouchend = () => {
-            koreamap.ontouchmove = null;
-        };
-    },
-    3: () => {
-        koreamap.onmousedown = (mouse) => {
-            koreamap.onmousemove = (mousemove) => {
-                if (!mousemove.target.classList.contains("map-area")) return;
-                mousemove.target.style["fill"] = null;
-                removeList(mousemove.target.id);
-            };
-
-            if (!mouse.target.classList.contains("map-area")) return;
-            mouse.target.style["fill"] = null;
-            removeList(mouse.target.id);
-        };
-        koreamap.onmouseup = () => {
-            koreamap.onmousemove = null;
-        };
-        koreamap.ontouchstart = (touch) => {
-            if (!touch.target.classList.contains("map-area")) return;
-            touch.target.style["fill"] = null;
-            removeList(touch.target.id);
-        };
-        koreamap.ontouchmove = null;
-        koreamap.ontouchend = () => {
-            koreamap.ontouchmove = null;
-        };
-    }
-};
-const applyMode = (id) => {
-    modeFunctions[id]();
-    Object.values(modeButtons).forEach((button) => {
-        button.classList.remove("toolbar-button-active");
-    });
-    modeButtons[id].classList.add("toolbar-button-active");
-};
-Object.keys(modeButtons).forEach((id) => {
-    modeButtons[id].onclick = () => {
-        applyMode(id);
-    };
-});
-applyMode(0);
 
 const mapReset = () => {
     Array.from(document.querySelectorAll(".map-area")).forEach((node) => {
@@ -259,6 +123,185 @@ const applyColorPicker = () => {
     });
 };
 (() => {
+    const palette = [];
+    const $recentColorPalette = document.querySelector("#recent-color").querySelectorAll("div");
+    Array.from($recentColorPalette).forEach(($box) => {
+        $box.onclick = () => {
+            const raw = $box.getAttribute("value");
+            if (!raw) {
+                color.r = 0;
+                color.g = 0;
+                color.b = 0;
+                applyColorPicker();
+                return;
+            };
+            const col = raw.split(",").map((x) => parseInt(x));
+            color.r = col[0];
+            color.g = col[1];
+            color.b = col[2];
+            applyColorPicker();
+            return;
+        };
+    });
+    const refreshRecentColorPalette = () => {
+        Array.from($recentColorPalette).forEach(($box, i) => {
+            if (!palette[i]) return;
+            $box.style["background-color"] = `#${palette[i].hex}`;
+            $box.setAttribute("value", Object.values(palette[i].rgb).join(","));
+        });
+        return 0;
+    };
+    const addPalette = (col) => {
+        const hex = RGBtoHEX(col);
+        if (palette.filter((x) => x.hex === hex).length) return;
+        if (palette.length >= 20) palette.pop();
+        palette.unshift({ rgb: { r: col.r, g: col.g, b: col.b }, hex: hex });
+        refreshRecentColorPalette();
+        return 0;
+    };
+
+    let mode = 0;
+    const modeList = {
+        0: "이동",
+        1: "단일 채움",
+        2: "연속 채움",
+        3: "지움"
+    };
+    const modeButtons = {
+        0: document.querySelector("#button-fillmode-none"),
+        1: document.querySelector("#button-fillmode-single"),
+        2: document.querySelector("#button-fillmode-multiple"),
+        3: document.querySelector("#button-fillmode-erase"),
+    };
+    const pos = {
+        x: -150,
+        y: -50
+    };
+    const $koreamap = document.querySelector("#map-viewport");
+    const positionLayer = document.querySelector("#map-position");
+    positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+    const modeFunctions = {
+        0: () => {
+            $koreamap.onmousedown = () => {
+                $koreamap.onmousemove = (mousemove) => {
+                    pos.x += mousemove.movementX;
+                    pos.y += mousemove.movementY;
+                    positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+                };
+            };
+            $koreamap.onmousemove = null;
+            $koreamap.onmouseup = () => {
+                $koreamap.onmousemove = null;
+            };
+            $koreamap.ontouchstart = (touchesOrigin) => {
+                const xo = touchesOrigin.changedTouches[0].pageX;
+                const yo = touchesOrigin.changedTouches[0].pageY;
+                let xl = xo;
+                let yl = yo;
+                $koreamap.ontouchmove = (touches) => {
+                    const x = touches.changedTouches[0].pageX;
+                    const y = touches.changedTouches[0].pageY;
+                    const movementX = x - xl;
+                    const movementY = y - yl;
+                    xl = x;
+                    yl = y;
+                    pos.x += movementX;
+                    pos.y += movementY;
+                    positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+                };
+            };
+            $koreamap.ontouchmove = null;
+            $koreamap.ontouchend = () => {
+                $koreamap.ontouchmove = null;
+            };
+        },
+        1: () => {
+            $koreamap.onmousedown = (mouse) => {
+                if (!mouse.target.classList.contains("map-area")) return;
+                mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
+                addList(mouse.target.id, `#${RGBtoHEX(color)}`);
+                addPalette(color);
+            };
+            $koreamap.onmousemove = null;
+            $koreamap.onmouseup = null;
+            $koreamap.ontouchstart = (touch) => {
+                if (!touch.target.classList.contains("map-area")) return;
+                touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
+                addList(touch.target.id, `#${RGBtoHEX(color)}`);
+                addPalette(color);
+            };
+            $koreamap.ontouchmove = null;
+            $koreamap.ontouchend = null;
+        },
+        2: () => {
+            $koreamap.onmousedown = (mouse) => {
+                $koreamap.onmousemove = (mousemove) => {
+                    if (!mousemove.target.classList.contains("map-area")) return;
+                    mousemove.target.style["fill"] = `#${RGBtoHEX(color)}`;
+                    addList(mousemove.target.id, `#${RGBtoHEX(color)}`);
+                    addPalette(color);
+                };
+    
+                if (!mouse.target.classList.contains("map-area")) return;
+                mouse.target.style["fill"] = `#${RGBtoHEX(color)}`;
+                addList(mouse.target.id, `#${RGBtoHEX(color)}`);
+                addPalette(color);
+            };
+            $koreamap.onmousemove = null;
+            $koreamap.onmouseup = () => {
+                $koreamap.onmousemove = null;
+            };
+            $koreamap.ontouchstart = (touch) => {
+                if (!touch.target.classList.contains("map-area")) return;
+                touch.target.style["fill"] = `#${RGBtoHEX(color)}`;
+                addList(touch.target.id, `#${RGBtoHEX(color)}`);
+                addPalette(color);
+            };
+            koreamap.ontouchmove = null;
+            $koreamap.ontouchend = () => {
+                $koreamap.ontouchmove = null;
+            };
+        },
+        3: () => {
+            $koreamap.onmousedown = (mouse) => {
+                $koreamap.onmousemove = (mousemove) => {
+                    if (!mousemove.target.classList.contains("map-area")) return;
+                    mousemove.target.style["fill"] = null;
+                    removeList(mousemove.target.id);
+                };
+    
+                if (!mouse.target.classList.contains("map-area")) return;
+                mouse.target.style["fill"] = null;
+                removeList(mouse.target.id);
+            };
+            $koreamap.onmouseup = () => {
+                $koreamap.onmousemove = null;
+            };
+            $koreamap.ontouchstart = (touch) => {
+                if (!touch.target.classList.contains("map-area")) return;
+                touch.target.style["fill"] = null;
+                removeList(touch.target.id);
+            };
+            $koreamap.ontouchmove = null;
+            $koreamap.ontouchend = () => {
+                $koreamap.ontouchmove = null;
+            };
+        }
+    };
+    const applyMode = (id) => {
+        modeFunctions[id]();
+        Object.values(modeButtons).forEach((button) => {
+            button.classList.remove("toolbar-button-active");
+        });
+        modeButtons[id].classList.add("toolbar-button-active");
+    };
+    Object.keys(modeButtons).forEach((id) => {
+        modeButtons[id].onclick = () => {
+            applyMode(id);
+        };
+    });
+    applyMode(0);
+
     const colorPickerPreview = document.querySelector("#toolbar-color-picker-preview");
     const iHEX = colorPickerPreview.querySelector("#input-hex");
     const iRGBr = colorPickerPreview.querySelector("#input-rgb-r");
@@ -340,8 +383,7 @@ const applyColorPicker = () => {
         setScale(wheel.deltaY < 0 ? 0.5 : -0.5);
         return 0;
     };
-    const $mapview = document.querySelector("#map-viewport");
-    $mapview.addEventListener("wheel", setScaleOnWheel);
+    $koreamap.addEventListener("wheel", setScaleOnWheel);
 
     const $bottom = document.querySelector("#bottom-area");
     const $buttonToggleToolbar1 = document.querySelector("#button-toggle-toolbar-toolbar");

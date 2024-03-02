@@ -310,6 +310,30 @@
     background-color: transparent;
 }
 
+#recent-color {
+    display: grid;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: auto;
+
+    grid-template-columns: repeat(10, 10%);
+    grid-template-rows: repeat(2, 26px);
+}
+
+#recent-color > div {
+    position: relative;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 2px;
+    background-color: black;
+    cursor: pointer;
+}
+
 #toolbar-export > button, #toolbar-import > button, #toolbar-reset > button {
     margin: auto 0 0 auto;
     order: 100;
@@ -435,6 +459,10 @@
     margin-right: 8px;
 
     width: 30%;
+}
+
+#map-config-left > .block-list {
+    border-radius: 4px;
 }
 
 #map-config-right {
