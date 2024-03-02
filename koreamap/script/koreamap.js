@@ -690,6 +690,54 @@ const applyColorPicker = () => {
             active: 1,
             tabNode: null,
             pageNode: null
+        },
+        "XNG": {
+            group: document.querySelector("#GROUP-XNG"),
+            layers: [
+                document.querySelector("#GROUP-XNG-LAYER0"),
+                document.querySelector("#GROUP-XNG-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
+        },
+        "XGW": {
+            group: document.querySelector("#GROUP-XGW"),
+            layers: [
+                document.querySelector("#GROUP-XGW-LAYER0"),
+                document.querySelector("#GROUP-XGW-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
         }
     };
     const setLayer = (name, number) => {
@@ -724,7 +772,7 @@ const applyColorPicker = () => {
             };
             $page.append($content);
         });
-        Array.from($page.childNodes)[0]?.classList?.add("map-config-page-content-active");
+        // Array.from($page.childNodes)[0]?.classList?.add("map-config-page-content-active");
 
         $tab.onclick = () => {
             const $old = document.querySelector(".map-config-tab-active");
@@ -736,9 +784,13 @@ const applyColorPicker = () => {
             $page.classList.add("map-config-page-active");
         };
         $mapConfigPageArea.append($page);
+
+        layerList[x].tabNode = $tab;
+        layerList[x].pageNode = $page;
     });
     Object.keys(layerList).forEach((x) => {
         setLayer(x, layerList[x].active);
+        Array.from(layerList[x].pageNode.querySelectorAll("div"))[layerList[x].active].classList.add("map-config-page-content-active");
     });
     Array.from($mapConfigTabArea.childNodes)[0]?.click();
 
