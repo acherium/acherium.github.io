@@ -418,7 +418,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 0,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -457,7 +457,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0, 0, 0, 0 ]
                 }
             },
-            active: 0,
+            active: 2,
             tabNode: null,
             pageNode: null
         },
@@ -496,7 +496,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0, 0, 0, 0 ]
                 }
             },
-            active: 0,
+            active: 2,
             tabNode: null,
             pageNode: null
         },
@@ -535,7 +535,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0, 0, 0, 0 ]
                 }
             },
-            active: 0,
+            active: 2,
             tabNode: null,
             pageNode: null
         },
@@ -559,7 +559,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 0,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -583,7 +583,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 0,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -622,7 +622,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0, 0, 0, 0 ]
                 }
             },
-            active: 0,
+            active: 2,
             tabNode: null,
             pageNode: null
         },
@@ -687,7 +687,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0, 0, 0, 0 ]
                 }
             },
-            active: 0,
+            active: 1,
             tabNode: null,
             pageNode: null
         }
@@ -736,6 +736,9 @@ const applyColorPicker = () => {
             $page.classList.add("map-config-page-active");
         };
         $mapConfigPageArea.append($page);
+    });
+    Object.keys(layerList).forEach((x) => {
+        setLayer(x, layerList[x].active);
     });
     Array.from($mapConfigTabArea.childNodes)[0]?.click();
 
