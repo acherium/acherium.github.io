@@ -696,6 +696,13 @@ const applyColorPicker = () => {
         $mapConfigPageArea.append($page);
     });
     Array.from($mapConfigTabArea.childNodes)[0]?.click();
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.body.style["animation-name"] = "document-ready";
+        document.body.style["animation-duration"] = "0.5s";
+        document.body.style["animation-timing-function"] = "ease-out";
+        document.body.style["animation-fill-mode"] = "forwards";
+    });
 })();
 Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
     node.onmousedown = (mouse) => {
