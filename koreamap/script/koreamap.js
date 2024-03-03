@@ -776,6 +776,126 @@ const applyColorPicker = () => {
             active: 2,
             tabNode: null,
             pageNode: null
+        },
+        "XHW": {
+            group: document.querySelector("#GROUP-XHW"),
+            layers: [
+                document.querySelector("#GROUP-XHW-LAYER0"),
+                document.querySelector("#GROUP-XHW-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
+        },
+        "XNP": {
+            group: document.querySelector("#GROUP-XNP"),
+            layers: [
+                document.querySelector("#GROUP-XNP-LAYER0"),
+                document.querySelector("#GROUP-XNP-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
+        },
+        "XSP": {
+            group: document.querySelector("#GROUP-XSP"),
+            layers: [
+                document.querySelector("#GROUP-XSP-LAYER0"),
+                document.querySelector("#GROUP-XSP-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
+        },
+        "XNH": {
+            group: document.querySelector("#GROUP-XNH"),
+            layers: [
+                document.querySelector("#GROUP-XNH-LAYER0"),
+                document.querySelector("#GROUP-XNH-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
+        },
+        "XSH": {
+            group: document.querySelector("#GROUP-XSH"),
+            layers: [
+                document.querySelector("#GROUP-XSH-LAYER0"),
+                document.querySelector("#GROUP-XSH-LAYER1")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0 ]
+                },
+                1: {
+                    name: "하위행정구역",
+                    value: [ 0, 1 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0 ]
+                }
+            },
+            active: 2,
+            tabNode: null,
+            pageNode: null
         }
     };
     const setLayer = (name, number) => {
