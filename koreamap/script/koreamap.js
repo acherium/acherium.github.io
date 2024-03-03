@@ -640,7 +640,7 @@ const applyColorPicker = () => {
                     value: [ 1, 0, 0, 0 ]
                 },
                 1: {
-                    name: "시내지구 및 시외지구",
+                    name: "시내지역 및 시외지역",
                     value: [ 0, 1, 1, 0 ]
                 },
                 2: {
@@ -678,7 +678,7 @@ const applyColorPicker = () => {
                     value: [ 0, 1, 1, 0, 0, 0, 1, 0 ]
                 },
                 2: {
-                    name: "기초자치단체 및 동지역",
+                    name: "기초자치단체 및 시내지역",
                     value: [ 0, 1, 0, 1, 1, 0, 1, 0 ]
                 },
                 3: {
@@ -713,7 +713,7 @@ const applyColorPicker = () => {
                     value: [ 0, 1, 0, 0, 0 ]
                 },
                 2: {
-                    name: "시내지구 및 시외지구",
+                    name: "시내지역 및 시외지역",
                     value: [ 0, 0, 1, 1, 0 ]
                 },
                 3: {
