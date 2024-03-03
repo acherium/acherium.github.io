@@ -656,6 +656,44 @@ const applyColorPicker = () => {
             tabNode: null,
             pageNode: null
         },
+        "GWN": {
+            group: document.querySelector("#GROUP-GWN"),
+            layers: [
+                document.querySelector("#GROUP-GWN-LAYER0"),
+                document.querySelector("#GROUP-GWN-LAYER1"),
+                document.querySelector("#GROUP-GWN-LAYER2"),
+                document.querySelector("#GROUP-GWN-LAYER3"),
+                document.querySelector("#GROUP-GWN-LAYER4"),
+                document.querySelector("#GROUP-GWN-LAYER5"),
+                document.querySelector("#GROUP-GWN-LAYER6"),
+                document.querySelector("#GROUP-GWN-LAYER7")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "기초자치단체 및 동지역",
+                    value: [ 0, 1, 0, 1, 1, 0, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                4: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
         "JJU": {
             group: document.querySelector("#GROUP-JJU"),
             layers: [
