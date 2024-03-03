@@ -1269,10 +1269,13 @@ const toggleBackgroundColor = () => {
 
 const saveMap = () => {
     let svg = btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""));
-    svg = "data:image/svg+xml;base64" + svg + "";
-    const target = window.open("export.html", "exportImage");
-    const img = target.document.createElement("img");
-    img.src = svg;
-    target.document.body.append(img);
+    svg = "data:image/svg+xml;base64," + svg + "";
+
+    const anchor = document.createElement("a");
+    anchor.download = `KOREAMAP-${Date.now()}.svg`;
+    anchor.href = svg;
+    anchor.target = "_blank";
+    anchor.click();
+    anchor.remove();
     return 0;
 };
