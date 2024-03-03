@@ -123,7 +123,7 @@ const applyColorPicker = () => {
     });
 };
 (() => {
-    let scale = 1;
+    let scale = 20;
     const palette = [];
     const $recentColorPalette = document.querySelector("#recent-color").querySelectorAll("div");
     Array.from($recentColorPalette).forEach(($box) => {
@@ -175,8 +175,8 @@ const applyColorPicker = () => {
         3: document.querySelector("#button-fillmode-erase"),
     };
     const pos = {
-        x: -150,
-        y: -50
+        x: 0,
+        y: -18
     };
     const $koreamap = document.querySelector("#map-viewport");
     const positionLayer = document.querySelector("#map-position");
@@ -360,7 +360,7 @@ const applyColorPicker = () => {
     const $layerPosition = document.querySelector("#map-position");
     const setScale = (i) => {
         if (Number.isNaN(parseInt(i))) return;
-        if (scale + i <= 0 || scale + i > 10) return;
+        if (scale + i <= 0 || scale + i > 100) return;
         scale += i;
         $layerScale.style["transform"] = `scale(${scale})`;
         // const rect = document.body.getBoundingClientRect();
@@ -377,10 +377,10 @@ const applyColorPicker = () => {
     };
     const $buttonZoomin = document.querySelector("#button-scale-zoomin");
     const $buttonZoomout = document.querySelector("#button-scale-zoomout");
-    $buttonZoomin.onclick = () => setScale(0.5);
-    $buttonZoomout.onclick = () => setScale(-0.5);
+    $buttonZoomin.onclick = () => setScale(5);
+    $buttonZoomout.onclick = () => setScale(-5);
     const setScaleOnWheel = (wheel) => {
-        setScale(wheel.deltaY < 0 ? 0.5 : -0.5);
+        setScale(wheel.deltaY < 0 ? 5 : -5);
         return 0;
     };
     $koreamap.addEventListener("wheel", setScaleOnWheel);
@@ -1266,6 +1266,19 @@ const toggleWindow = (name) => {
 const toggleBackgroundColor = () => {
     koreamap.style["background-color"] = koreamap.style["background-color"] === "white" ? "rgb(119,194,245)" : "white";
 };
+
+const getMapData = () => {
+    return `data:image/svg+xml;base64,${btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""))}`;
+};
+
+// const saveMapPNG = () => {
+//     const data = getMapData();
+//     // const $canvas = document.createElement("canvas");
+//     // document.body.append($canvas);
+//     // const ctx = $canvas.getContext("2d");
+//     // const v = Canvg
+//     return 0;
+// };
 
 const saveMap = () => {
     let svg = btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""));

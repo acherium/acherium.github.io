@@ -22,7 +22,7 @@
         <div id="area-name-preview" style="display:none;"></div>
     </div>
     <div id="map-viewport" style="background-color:rgb(119,194,245)">
-        <div id="map-scale">
+        <div id="map-scale" style="transform:scale(20);">
             <div id="map-position">
                 <svg 
                     id="map"
@@ -30,6 +30,9 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                     xml:space="preserve"
                     overflow="hidden"
+                    viewBox="-4150 -14500 18000 18000"
+                    width="3560px"
+                    height="5900px"
                 >
                     <!-- 서울 --><g id="GROUP-SEO">
                         <!-- 서울 전역 --><g id="GROUP-SEO-LAYER0" style="display:none;">
@@ -966,6 +969,9 @@
                     <button id="button-about" onclick="aboutLyra();">
                         <div class="icon icon-other2"></div>
                     </button>
+                    <button id="button-debug">
+                        <div class="icon icon-accept"></div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1054,5 +1060,30 @@
             </div>
         </div>
     </div>
+    <script type="module" defer>
+        import { Canvg } from 'https://cdn.skypack.dev/canvg@^4.0.0';
+        (() => {
+            const saveMapPNG = () => {
+                const $canvas = document.createElement("canvas");
+                $canvas.style["width"] = "max-content";
+                $canvas.style["height"] = "max-content";
+                const ctx = $canvas.getContext("2d");
+                const v = Canvg.fromString(ctx, document.querySelector("#map").outerHTML);
+                v.start();
+                v.stop();
+
+                const data = $canvas.toDataURL("image/png");
+                const anchor = document.createElement("a");
+                anchor.download = `KOREAMAP-${Date.now()}.png`;
+                anchor.href = data;
+                anchor.target = "_blank";
+                anchor.click();
+                anchor.remove();
+                return 0;
+            };
+            const $saveButton = document.querySelector("#button-debug");
+            $saveButton.onclick = saveMapPNG;
+        })();
+    </script>
 </body>
 </html>
