@@ -1266,3 +1266,13 @@ const toggleWindow = (name) => {
 const toggleBackgroundColor = () => {
     koreamap.style["background-color"] = koreamap.style["background-color"] === "white" ? "rgb(119,194,245)" : "white";
 };
+
+const saveMap = () => {
+    let svg = btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""));
+    svg = "data:image/svg+xml;base64" + svg + "";
+    const target = window.open("export.html", "exportImage");
+    const img = target.document.createElement("img");
+    img.src = svg;
+    target.document.body.append(img);
+    return 0;
+};
