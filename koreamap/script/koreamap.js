@@ -656,6 +656,258 @@ const applyColorPicker = () => {
             tabNode: null,
             pageNode: null
         },
+        "SGG": {
+            group: document.querySelector("#GROUP-SGG"),
+            layers: [
+                document.querySelector("#GROUP-SGG-LAYER0"),
+                document.querySelector("#GROUP-SGG-LAYER1"),
+                document.querySelector("#GROUP-SGG-LAYER2"),
+                document.querySelector("#GROUP-SGG-LAYER3"),
+                document.querySelector("#GROUP-SGG-LAYER4"),
+                document.querySelector("#GROUP-SGG-LAYER5"),
+                document.querySelector("#GROUP-SGG-LAYER6"),
+                document.querySelector("#GROUP-SGG-LAYER7"),
+                document.querySelector("#GROUP-SGG-LAYER8"),
+                document.querySelector("#GROUP-SGG-LAYER9"),
+                document.querySelector("#GROUP-SGG-LAYER10"),
+                document.querySelector("#GROUP-SGG-LAYER11"),
+                document.querySelector("#GROUP-SGG-LAYER12"),
+                document.querySelector("#GROUP-SGG-LAYER13"),
+                document.querySelector("#GROUP-SGG-LAYER14"),
+                document.querySelector("#GROUP-SGG-LAYER15"),
+                document.querySelector("#GROUP-SGG-LAYER16")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
+        "NCC": {
+            group: document.querySelector("#GROUP-NCC"),
+            layers: [
+                document.querySelector("#GROUP-NCC-LAYER0"),
+                document.querySelector("#GROUP-NCC-LAYER1"),
+                document.querySelector("#GROUP-NCC-LAYER2"),
+                document.querySelector("#GROUP-NCC-LAYER3"),
+                document.querySelector("#GROUP-NCC-LAYER4"),
+                document.querySelector("#GROUP-NCC-LAYER5"),
+                document.querySelector("#GROUP-NCC-LAYER6"),
+                document.querySelector("#GROUP-NCC-LAYER7"),
+                document.querySelector("#GROUP-NCC-LAYER8"),
+                document.querySelector("#GROUP-NCC-LAYER9"),
+                document.querySelector("#GROUP-NCC-LAYER10"),
+                document.querySelector("#GROUP-NCC-LAYER11"),
+                document.querySelector("#GROUP-NCC-LAYER12"),
+                document.querySelector("#GROUP-NCC-LAYER13")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
+        "SCC": {
+            group: document.querySelector("#GROUP-SCC"),
+            layers: [
+                document.querySelector("#GROUP-SCC-LAYER0"),
+                document.querySelector("#GROUP-SCC-LAYER1"),
+                document.querySelector("#GROUP-SCC-LAYER2"),
+                document.querySelector("#GROUP-SCC-LAYER3"),
+                document.querySelector("#GROUP-SCC-LAYER4"),
+                document.querySelector("#GROUP-SCC-LAYER5"),
+                document.querySelector("#GROUP-SCC-LAYER6"),
+                document.querySelector("#GROUP-SCC-LAYER7"),
+                document.querySelector("#GROUP-SCC-LAYER8"),
+                document.querySelector("#GROUP-SCC-LAYER9"),
+                document.querySelector("#GROUP-SCC-LAYER10"),
+                document.querySelector("#GROUP-SCC-LAYER11"),
+                document.querySelector("#GROUP-SCC-LAYER12"),
+                document.querySelector("#GROUP-SCC-LAYER13")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
+        "NJE": {
+            group: document.querySelector("#GROUP-NJE"),
+            layers: [
+                document.querySelector("#GROUP-NJE-LAYER0"),
+                document.querySelector("#GROUP-NJE-LAYER1"),
+                document.querySelector("#GROUP-NJE-LAYER2"),
+                document.querySelector("#GROUP-NJE-LAYER3"),
+                document.querySelector("#GROUP-NJE-LAYER4"),
+                document.querySelector("#GROUP-NJE-LAYER5"),
+                document.querySelector("#GROUP-NJE-LAYER6"),
+                document.querySelector("#GROUP-NJE-LAYER7"),
+                document.querySelector("#GROUP-NJE-LAYER8")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
+        "SJE": {
+            group: document.querySelector("#GROUP-SJE"),
+            layers: [
+                document.querySelector("#GROUP-SJE-LAYER0"),
+                document.querySelector("#GROUP-SJE-LAYER1"),
+                document.querySelector("#GROUP-SJE-LAYER2"),
+                document.querySelector("#GROUP-SJE-LAYER3"),
+                document.querySelector("#GROUP-SJE-LAYER4"),
+                document.querySelector("#GROUP-SJE-LAYER5"),
+                document.querySelector("#GROUP-SJE-LAYER6"),
+                document.querySelector("#GROUP-SJE-LAYER7")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "기초자치단체 및 시내지역",
+                    value: [ 0, 1, 0, 1, 1, 0, 1, 0 ]
+                },
+                3: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                4: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
+        "NGS": {
+            group: document.querySelector("#GROUP-NGS"),
+            layers: [
+                document.querySelector("#GROUP-NGS-LAYER0"),
+                document.querySelector("#GROUP-NGS-LAYER1"),
+                document.querySelector("#GROUP-NGS-LAYER2"),
+                document.querySelector("#GROUP-NGS-LAYER3"),
+                document.querySelector("#GROUP-NGS-LAYER4"),
+                document.querySelector("#GROUP-NGS-LAYER5"),
+                document.querySelector("#GROUP-NGS-LAYER6"),
+                document.querySelector("#GROUP-NGS-LAYER7"),
+                document.querySelector("#GROUP-NGS-LAYER8"),
+                document.querySelector("#GROUP-NGS-LAYER9"),
+                document.querySelector("#GROUP-NGS-LAYER10"),
+                document.querySelector("#GROUP-NGS-LAYER11"),
+                document.querySelector("#GROUP-NGS-LAYER12"),
+                document.querySelector("#GROUP-NGS-LAYER13")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
+        "SGS": {
+            group: document.querySelector("#GROUP-SGS"),
+            layers: [
+                document.querySelector("#GROUP-SGS-LAYER0"),
+                document.querySelector("#GROUP-SGS-LAYER1"),
+                document.querySelector("#GROUP-SGS-LAYER2"),
+                document.querySelector("#GROUP-SGS-LAYER3"),
+                document.querySelector("#GROUP-SGS-LAYER4"),
+                document.querySelector("#GROUP-SGS-LAYER5"),
+                document.querySelector("#GROUP-SGS-LAYER6"),
+                document.querySelector("#GROUP-SGS-LAYER7"),
+                document.querySelector("#GROUP-SGS-LAYER8"),
+                document.querySelector("#GROUP-SGS-LAYER9"),
+                document.querySelector("#GROUP-SGS-LAYER10"),
+                document.querySelector("#GROUP-SGS-LAYER11"),
+                document.querySelector("#GROUP-SGS-LAYER12"),
+                document.querySelector("#GROUP-SGS-LAYER13")
+            ],
+            options: {
+                0: {
+                    name: "전역",
+                    value: [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                },
+                1: {
+                    name: "기초자치단체",
+                    value: [ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                2: {
+                    name: "숨김",
+                    value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                }
+            },
+            active: 1,
+            tabNode: null,
+            pageNode: null
+        },
         "GWN": {
             group: document.querySelector("#GROUP-GWN"),
             layers: [
