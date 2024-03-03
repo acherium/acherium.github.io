@@ -123,7 +123,7 @@ const applyColorPicker = () => {
     });
 };
 (() => {
-    let scale = 20;
+    let scale = 11;
     const palette = [];
     const $recentColorPalette = document.querySelector("#recent-color").querySelectorAll("div");
     Array.from($recentColorPalette).forEach(($box) => {
@@ -176,9 +176,10 @@ const applyColorPicker = () => {
     };
     const pos = {
         x: 0,
-        y: -18
+        y: 0
     };
     const $koreamap = document.querySelector("#map-viewport");
+    const $backdrop = document.querySelector("#map-backdrop");
     const positionLayer = document.querySelector("#map-position");
     positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
     const modeFunctions = {
@@ -1001,7 +1002,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -1025,7 +1026,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -1049,7 +1050,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -1073,7 +1074,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -1097,7 +1098,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -1121,7 +1122,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         },
@@ -1145,7 +1146,7 @@ const applyColorPicker = () => {
                     value: [ 0, 0 ]
                 }
             },
-            active: 2,
+            active: 1,
             tabNode: null,
             pageNode: null
         }
@@ -1210,6 +1211,40 @@ const applyColorPicker = () => {
         document.body.style["animation-timing-function"] = "ease-out";
         document.body.style["animation-fill-mode"] = "forwards";
     });
+
+    const backdropColor = {
+        r: 119,
+        g: 194,
+        b: 245
+    };
+    const $backdropColorPalette = document.querySelector("#backdrop-color-palette");
+    const $backdropColorPreview = document.querySelector("#backdrop-color-preview");
+    const applyBackdropColor = () => {
+        const hex = `#${RGBtoHEX(backdropColor)}`;
+        $koreamap.style["background-color"] = hex;
+        $backdrop.style["fill"] = hex;
+        $backdropColorPreview.style["background-color"] = hex;
+        return 0;
+    };
+    Array.from($backdropColorPalette.querySelectorAll(".palette-item")).forEach(($node) => {
+        $node.onclick = () => {
+            const raw = $node.getAttribute("value");
+            if (!raw) {
+                backdropColor.r = 0;
+                backdropColor.g = 0;
+                backdropColor.b = 0;
+                applyBackdropColor();
+                return;
+            };
+            const col = raw.split(",").map((x) => parseInt(x));
+            backdropColor.r = col[0];
+            backdropColor.g = col[1];
+            backdropColor.b = col[2];
+            applyBackdropColor();
+            return;
+        };
+    });
+    applyBackdropColor();
 })();
 Array.from(document.querySelectorAll(".color-picker-cursor")).forEach((node) => {
     node.onmousedown = (mouse) => {
@@ -1255,6 +1290,7 @@ applyColorPicker();
 const toggleWindow = (name) => {
     const windowList = {
         "COLORPICKER": document.querySelector("#toolbar-color-picker"),
+        "BACKDROPCOLORPICKER": document.querySelector("#toolbar-backdrop-color-picker"),
         "EXPORT": document.querySelector("#toolbar-export"),
         "IMPORT": document.querySelector("#toolbar-import"),
         "RESET": document.querySelector("#toolbar-reset"),
@@ -1267,28 +1303,6 @@ const toggleBackgroundColor = () => {
     koreamap.style["background-color"] = koreamap.style["background-color"] === "white" ? "rgb(119,194,245)" : "white";
 };
 
-const getMapData = () => {
-    return `data:image/svg+xml;base64,${btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""))}`;
-};
-
-// const saveMapPNG = () => {
-//     const data = getMapData();
-//     // const $canvas = document.createElement("canvas");
-//     // document.body.append($canvas);
-//     // const ctx = $canvas.getContext("2d");
-//     // const v = Canvg
-//     return 0;
+// const getMapData = () => {
+//     return `data:image/svg+xml;base64,${btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""))}`;
 // };
-
-const saveMap = () => {
-    let svg = btoa(document.querySelector("#map").outerHTML.replace(/[가-힣]/gi, ""));
-    svg = "data:image/svg+xml;base64," + svg + "";
-
-    const anchor = document.createElement("a");
-    anchor.download = `KOREAMAP-${Date.now()}.svg`;
-    anchor.href = svg;
-    anchor.target = "_blank";
-    anchor.click();
-    anchor.remove();
-    return 0;
-};
