@@ -123,6 +123,7 @@ const applyColorPicker = () => {
     });
 };
 (() => {
+    let scale = 1;
     const palette = [];
     const $recentColorPalette = document.querySelector("#recent-color").querySelectorAll("div");
     Array.from($recentColorPalette).forEach(($box) => {
@@ -184,8 +185,8 @@ const applyColorPicker = () => {
         0: () => {
             $koreamap.onmousedown = () => {
                 $koreamap.onmousemove = (mousemove) => {
-                    pos.x += mousemove.movementX;
-                    pos.y += mousemove.movementY;
+                    pos.x += mousemove.movementX / scale;
+                    pos.y += mousemove.movementY / scale;
                     positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
                 };
             };
@@ -205,8 +206,8 @@ const applyColorPicker = () => {
                     const movementY = y - yl;
                     xl = x;
                     yl = y;
-                    pos.x += movementX;
-                    pos.y += movementY;
+                    pos.x += movementX / scale;
+                    pos.y += movementY / scale;
                     positionLayer.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
                 };
             };
@@ -355,7 +356,6 @@ const applyColorPicker = () => {
     };
     document.addEventListener("pointermove", displayAreaName);
 
-    let scale = 1;
     const $layerScale = document.querySelector("#map-scale");
     const $layerPosition = document.querySelector("#map-position");
     const setScale = (i) => {
