@@ -123,6 +123,8 @@ h6 {
 .icon-other0 { background-image: url("../assets/icons/other0.svg"); }
 .icon-other1 { background-image: url("../assets/icons/other1.svg"); }
 .icon-other2 { background-image: url("../assets/icons/other2.svg"); }
+.icon-reset { background-image: url("../assets/icons/reset.svg"); }
+.icon-download { background-image: url("../assets/icons/download.svg"); }
 
 #watermark {
     position: fixed;

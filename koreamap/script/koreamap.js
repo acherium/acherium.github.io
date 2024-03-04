@@ -1291,6 +1291,7 @@ const toggleWindow = (name) => {
     const windowList = {
         "COLORPICKER": document.querySelector("#toolbar-color-picker"),
         "BACKDROPCOLORPICKER": document.querySelector("#toolbar-backdrop-color-picker"),
+        "DOWNLOAD": document.querySelector("#toolbar-download"),
         "EXPORT": document.querySelector("#toolbar-export"),
         "IMPORT": document.querySelector("#toolbar-import"),
         "RESET": document.querySelector("#toolbar-reset"),

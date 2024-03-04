@@ -358,7 +358,7 @@
     cursor: pointer;
 }
 
-#toolbar-export > button, #toolbar-import > button, #toolbar-reset > button {
+#toolbar-download > button, #toolbar-export > button, #toolbar-import > button, #toolbar-reset > button {
     margin: auto 0 0 auto;
     order: 100;
 }
@@ -551,7 +551,7 @@
 }
 
 #toolbar-area button {
-    border-radius: 50%;
+    border-radius: 19px;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
