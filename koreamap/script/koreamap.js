@@ -999,7 +999,7 @@
     };
     const setScale = (i) => {
         if (Number.isNaN(parseInt(i))) return;
-        if (scale + i <= 0 || scale + i > 100) return;
+        if (i <= 0 || i > 100) return;
         scale = i;
         $layerScale.style["transform"] = `scale(${scale})`;
         setHash();
