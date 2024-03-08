@@ -848,6 +848,20 @@
     };
 
     // 함수 정의
+    const setHash = () => {
+        location.hash = `pos=${pos.x},${pos.y}&scale=${scale}`;
+    };
+    const getHash = () => {
+        const filter = [ "pos", "scale" ];
+        const hash = location.hash.substring(1).split("&");
+        const res = {};
+        hash.forEach((x, i) => {
+            const data = x.split("=");
+            if (!filter.includes(data[0])) return;
+            res[data[0]] = data[1];
+        });
+        return res;
+    };
     const refreshRecentColorPalette = () => {
         Array.from($recentColorPalette).forEach(($box, i) => {
             if (!palette[i]) return;
@@ -867,6 +881,7 @@
     const fillmodeFunctions = {
         0: () => {
             $koreamap.onmousedown = () => {
+                setHash();
                 $koreamap.onmousemove = (mousemove) => {
                     pos.x += mousemove.movementX / scale;
                     pos.y += mousemove.movementY / scale;
@@ -876,8 +891,10 @@
             $koreamap.onmousemove = null;
             $koreamap.onmouseup = () => {
                 $koreamap.onmousemove = null;
+                setHash();
             };
             $koreamap.ontouchstart = (touchesOrigin) => {
+                setHash();
                 const xo = touchesOrigin.changedTouches[0].pageX;
                 const yo = touchesOrigin.changedTouches[0].pageY;
                 let xl = xo;
@@ -897,6 +914,7 @@
             $koreamap.ontouchmove = null;
             $koreamap.ontouchend = () => {
                 $koreamap.ontouchmove = null;
+                setHash();
             };
         },
         1: () => {
@@ -982,8 +1000,17 @@
     const setScale = (i) => {
         if (Number.isNaN(parseInt(i))) return;
         if (scale + i <= 0 || scale + i > 100) return;
+        scale = i;
+        $layerScale.style["transform"] = `scale(${scale})`;
+        setHash();
+        return 0;
+    };
+    const addScale = (i) => {
+        if (Number.isNaN(parseInt(i))) return;
+        if (scale + i <= 0 || scale + i > 100) return;
         scale += i;
         $layerScale.style["transform"] = `scale(${scale})`;
+        setHash();
         return 0;
     };
     const setLayer = (name, number) => {
@@ -1057,6 +1084,7 @@
                 document.querySelector(`#${x}`).style["fill"] = newList[x];
                 addList(x, newList[x]);
             });
+            alert("데이터를 가져왔습니다.");
         } catch(error) {
             alert("가져오기에 실패했습니다!\n입력한 값이 올바르지 않습니다.");
         };
@@ -1075,7 +1103,19 @@
             $node.style["fill"] = null;
         });
         refreshExportCodePreview();
-        toggleWindow("RESET");
+    };
+    const initFromHash = () => {
+        const hash = getHash();
+        if (hash.pos) {
+            const hashPos = hash.pos.split(",")
+            if (hashPos.length !== 2) return;
+            if (Number.isNaN(Number(hashPos[0])) || Number.isNaN(Number(hashPos[1]))) return;
+            pos.x = Number(hashPos[0]);
+            pos.y = Number(hashPos[1]);
+        };
+        if (hash.scale) {
+            setScale(parseInt(hash.scale));
+        };
     };
 
     // 초기화
@@ -1105,10 +1145,13 @@
         };
     };
     $koreamap.onwheel = (wheel) => {
-        setScale(wheel.deltaY < 0 ? 5 : -5);
+        addScale(wheel.deltaY < 0 ? 5 : -5);
     };
 
+    initFromHash();
     $layerPosition.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+    setHash();
+
     applyMode(0);
     applyBackdropColor();
     applyColorPicker();
@@ -1192,11 +1235,22 @@
         $bottom.style["display"] = "flex";
         $buttonToggleToolbar2.style["display"] = "none";
     };
-    $buttonZoomin.onclick = () => setScale(5);
-    $buttonZoomout.onclick = () => setScale(-5);
-    $buttonExport.onclick = copyExportCode;
-    $buttonImport.onclick = importCode;
-    $buttonReset.onclick = mapReset;
+    $buttonZoomin.onclick = () => addScale(5);
+    $buttonZoomout.onclick = () => addScale(-5);
+    $buttonExport.onclick = () => {
+        copyExportCode();
+        alert("데이터를 클립보드에 복사했습니다.");
+    };
+    $buttonImport.onclick = () => {
+        importCode();
+    };
+    $buttonReset.onclick = () => {
+        const res = confirm("정말 지도를 초기화합니까?");
+        if (res) {
+            mapReset();
+            alert("지도를 초기화했습니다.");
+        };
+    };
 
     Array.from($recentColorPalette).forEach(($box) => {
         $box.onclick = () => {
