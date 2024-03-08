@@ -1,5 +1,10 @@
 (() => {
     // 변수, 상수 정의
+    const info = {
+        name: "Project Pyxis",
+        author: "Acherium",
+        version: "1.0.candi.1@240308",
+    }
     const list = {};
     const pos = {
         x: 0,
@@ -1339,4 +1344,9 @@
         Array.from(layerList[x].pageNode.querySelectorAll("div"))[layerList[x].active].classList.add("map-config-page-content-active");
     });
     Array.from($mapConfigTabArea.childNodes)[0]?.click();
+
+    const watermark = document.querySelector("p");
+    watermark.id = "watermark";
+    watermark.innerText = `${info.name}\nv${info.version}`;
+    document.body.append(watermark);
 })();

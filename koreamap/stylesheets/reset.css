@@ -111,10 +111,14 @@ h6 {
     position: fixed;
     right: 10px;
     bottom: 10px;
+    padding: 6px;
     z-index: 9999;
 
-    color: rgba(100, 100, 100, 0.5);
+    color: white;
+    border-radius: 4px;
+    background-color: black;
     text-align: right;
+    opacity: 0.2;
     pointer-events: none;
 }
 
