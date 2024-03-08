@@ -314,6 +314,26 @@
                     value: [ 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
                 },
                 2: {
+                    name: "기초자치단체 및 구",
+                    value: [ 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                3: {
+                    name: "시내지역 및 시외지역",
+                    value: [ 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0 ]
+                },
+                4: {
+                    name: "시내지역, 구 및 시외지역",
+                    value: [ 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0 ]
+                },
+                5: {
+                    name: "시읍면",
+                    value: [ 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                6: {
+                    name: "구읍면",
+                    value: [ 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                7: {
                     name: "숨김",
                     value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
                 }
@@ -967,6 +987,7 @@
         return 0;
     };
     const setLayer = (name, number) => {
+        if (typeof number === "undefined") return;
         layerList[name].active = number;
         layerList[name].options[number].value.forEach((x, i) => {
             layerList[name].layers[i].style["display"] = x ? "block" : "none";
