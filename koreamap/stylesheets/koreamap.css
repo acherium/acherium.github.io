@@ -6,6 +6,27 @@
         transform: scale(1);
     }
 }
+.icon-paint { background-image: url("../assets/icons/paint.svg"); }
+.icon-palette { background-image: url("../assets/icons/palette.svg"); }
+.icon-fill-none { background-image: url("../assets/icons/cursor.svg"); }
+.icon-fill-single { background-image: url("../assets/icons/fill-single.svg"); }
+.icon-fill-multiple { background-image: url("../assets/icons/fill-multiple.svg"); }
+.icon-eraser { background-image: url("../assets/icons/eraser.svg"); }
+.icon-accept { background-image: url("../assets/icons/accept.svg"); }
+.icon-deny { background-image: url("../assets/icons/deny.svg"); }
+.icon-drag { background-image: url("../assets/icons/drag.svg"); }
+.icon-export { background-image: url("../assets/icons/export.svg"); }
+.icon-import { background-image: url("../assets/icons/import.svg"); }
+.icon-plus { background-image: url("../assets/icons/plus.svg"); }
+.icon-minus { background-image: url("../assets/icons/minus.svg"); }
+.icon-config { background-image: url("../assets/icons/config.svg"); }
+.icon-other0 { background-image: url("../assets/icons/other0.svg"); }
+.icon-other1 { background-image: url("../assets/icons/other1.svg"); }
+.icon-other2 { background-image: url("../assets/icons/other2.svg"); }
+.icon-reset { background-image: url("../assets/icons/reset.svg"); }
+.icon-download { background-image: url("../assets/icons/download.svg"); }
+.icon-color-inner { background-image: url("../assets/icons/color-inner.svg"); }
+.icon-color-outer { background-image: url("../assets/icons/color-outer.svg"); }
 
 .backdrop-effect {
     position: absolute;

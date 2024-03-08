@@ -924,7 +924,7 @@
                     <div class="icon icon-menu"></div>
                 </button>
                 <div id="toolbar">
-                    <button id="button-map-config" onclick="toggleWindow('CONFIG');"">
+                    <button id="button-window-config">
                         <div class="icon icon-config"></div>
                     </button>
                     <button id="button-scale-zoomin">
@@ -934,11 +934,11 @@
                         <div class="icon icon-minus"></div>
                     </button>
                     <div class="toolbar-partition"></div>
-                    <div id="color-preview" class="color-preview" onclick="toggleWindow('COLORPICKER');">
-                        <div class="icon icon-palette"></div>
+                    <div id="color-preview" class="color-preview">
+                        <div class="icon icon-color-inner"></div>
                     </div>
-                    <div id="backdrop-color-preview" class="color-preview" onclick="toggleWindow('BACKDROPCOLORPICKER')">
-                        <div class="icon icon-maximize"></div>
+                    <div id="backdrop-color-preview" class="color-preview">
+                        <div class="icon icon-color-outer"></div>
                     </div>
                     <div class="toolbar-partition"></div>
                     <button id="button-fillmode-none">
@@ -954,23 +954,20 @@
                         <div class="icon icon-eraser"></div>
                     </button>
                     <div class="toolbar-partition"></div>
-                    <button id="button-download-window" onclick="toggleWindow('DOWNLOAD');">
+                    <button id="button-window-download">
                         <div class="icon icon-download"></div>
                     </button>
-                    <button id="button-export">
-                        <div class="icon icon-export" onclick="toggleWindow('EXPORT');"></div>
+                    <button id="button-window-export">
+                        <div class="icon icon-export"></div>
                     </button>
-                    <button id="button-import">
-                        <div class="icon icon-import" onclick="toggleWindow('IMPORT');"></div>
+                    <button id="button-window-import">
+                        <div class="icon icon-import"></div>
                     </button>
-                    <button id="button-reset" onclick="toggleWindow('RESET');">
+                    <button id="button-window-reset">
                         <div class="icon icon-reset"></div>
                     </button>
                     <div class="toolbar-partition"></div>
-                    <button id="button-channel" onclick="window.open('https://arca.live/b/city')">
-                        <div class="icon icon-other0"></div>
-                    </button>
-                    <button id="button-about" onclick="aboutLyra();">
+                    <button id="button-window-about">
                         <div class="icon icon-other2"></div>
                     </button>
                 </div>
@@ -1066,7 +1063,7 @@
                     <h3>내보내기</h3>
                     <p>현재 지도의 데이터를 내보냅니다.</p>
                     <div id="export-string-preview"></div>
-                    <button onclick="copyExportCode();">
+                    <button id="button-export">
                         <span>복사</span>
                     </button>
                 </div>
@@ -1074,14 +1071,14 @@
                     <h3>가져오기</h3>
                     <p>외부에서 지도의 데이터를 가져옵니다.</p>
                     <textarea id="import-string-area"></textarea>
-                    <button onclick="importCodeFromInput();">
+                    <button id="button-import">
                         <span>가져오기</span>
                     </button>
                 </div>
                 <div id="toolbar-reset" style="display:none;">
                     <h3>지도 초기화</h3>
                     <p>작성한 내용을 모두 지우고 초기화합니다.</p>
-                    <button onclick="mapReset();">
+                    <button id="button-reset">
                         <span>초기화</span>
                     </button>
                 </div>
