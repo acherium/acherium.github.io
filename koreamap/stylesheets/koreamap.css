@@ -585,14 +585,18 @@
     background-color: rgba(180, 180, 180, 0.8);
 }
 
-#keikenchi-button-list {
+.keikenchi-button-list {
     display: flex;
     position: relative;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
 
     width: 100%;
     height: 100%;
+}
+
+.keikenchi-button-list > button:not(:first-child) {
+    margin-left: 8px;
 }
 
 .icon-keikenchi-0, .icon-keikenchi-1, .icon-keikenchi-2, .icon-keikenchi-3, .icon-keikenchi-4, .icon-keikenchi-5 {

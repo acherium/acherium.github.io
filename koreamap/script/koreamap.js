@@ -802,6 +802,44 @@
             pageNode: null
         }
     };
+    const keikenchiMapInitList = [
+        [
+            0,
+            0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            2, 2, 2, 2, 2, 2, 2
+        ],
+        [
+            1,
+            2, 2, 2, 1, 1, 2, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 2, 2, 2, 2, 2
+        ],
+        [
+            1,
+            4, 4, 4, 1, 1, 4, 2,
+            6, 0, 0, 0, 0, 0, 0, 3, 3,
+            2, 2, 2, 2, 2, 2, 2
+        ],
+        [
+            0,
+            0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0
+        ],
+        [
+            1,
+            2, 2, 2, 1, 1, 2, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1
+        ],
+        [
+            1,
+            4, 4, 4, 1, 1, 4, 2,
+            6, 0, 0, 0, 0, 0, 0, 3, 3,
+            1, 1, 1, 1, 1, 1, 1
+        ]
+    ];
     const keikenchiList = {};
 
     // 노드 정의
@@ -834,6 +872,14 @@
     const $buttonExport = document.querySelector("#button-export");
     const $buttonImport = document.querySelector("#button-import");
     const $buttonReset = document.querySelector("#button-reset");
+    const $buttonsKeikenchiMapInit = [
+        document.querySelector("#button-initialize-keikenchi-map0"),
+        document.querySelector("#button-initialize-keikenchi-map1"),
+        document.querySelector("#button-initialize-keikenchi-map2"),
+        document.querySelector("#button-initialize-keikenchi-map3"),
+        document.querySelector("#button-initialize-keikenchi-map4"),
+        document.querySelector("#button-initialize-keikenchi-map5")
+    ]
     const $buttonsWindowToggle = {
         "CONFIG": document.querySelector("#button-window-config"),
         "KEIKENCHI": document.querySelector("#button-window-keikenchi"),
@@ -1133,6 +1179,12 @@
             setScale(parseInt(hash.scale));
         };
     };
+    const setLayerAll = (array) => {
+        if (!array || array.constructor !== Array || array.length !== Object.keys(layerList).length) return;
+        array.forEach((x, i) => {
+            setLayer(Object.keys(layerList)[i], x);
+        });
+    };
 
     // 초기화
     document.addEventListener("DOMContentLoaded", () => {
@@ -1267,6 +1319,11 @@
             alert("지도를 초기화했습니다.");
         };
     };
+    $buttonsKeikenchiMapInit.forEach(($node, i) => {
+        $node.onclick = () => {
+            setLayerAll(keikenchiMapInitList[i]);
+        };
+    });
 
     Array.from($recentColorPalette).forEach(($box) => {
         $box.onclick = () => {
