@@ -802,6 +802,7 @@
             pageNode: null
         }
     };
+    const keikenchiList = {};
 
     // 노드 정의
     const $bottom = document.querySelector("#bottom-area");
@@ -835,6 +836,7 @@
     const $buttonReset = document.querySelector("#button-reset");
     const $buttonsWindowToggle = {
         "CONFIG": document.querySelector("#button-window-config"),
+        "KEIKENCHI": document.querySelector("#button-window-keikenchi"),
         "COLORPICKER": document.querySelector("#color-preview"),
         "BACKDROPCOLORPICKER": document.querySelector("#backdrop-color-preview"),
         "DOWNLOAD": document.querySelector("#button-window-download"),
@@ -844,6 +846,7 @@
     };
     const $windows = {
         "CONFIG": document.querySelector("#toolbar-map-config"),
+        "KEIKENCHI": document.querySelector("#toolbar-keikenchi"),
         "COLORPICKER": document.querySelector("#toolbar-color-picker"),
         "BACKDROPCOLORPICKER": document.querySelector("#toolbar-backdrop-color-picker"),
         "DOWNLOAD": document.querySelector("#toolbar-download"),
@@ -1020,9 +1023,17 @@
     };
     const setLayer = (name, number) => {
         if (typeof number === "undefined") return;
+        keikenchiList[name] = {};
         layerList[name].active = number;
         layerList[name].options[number].value.forEach((x, i) => {
-            layerList[name].layers[i].style["display"] = x ? "block" : "none";
+            if (x) {
+                Array.from(layerList[name].layers[i].querySelectorAll(".map-area")).forEach((y) => {
+                    keikenchiList[name][y.id] = 0;
+                });
+                layerList[name].layers[i].style["display"] = "block";
+            } else {
+                layerList[name].layers[i].style["display"] = "none";
+            };
         });
         return 0;
     };
