@@ -1203,7 +1203,7 @@
             const regionData = [];
             regionCode.forEach((x, i) => {
                 if (i <= 0) {
-                    regionData.push(REGIONSALT[x] ? REGIONSALT[x] : x);
+                    regionData.push(REGIONS[x] ? REGIONS[x] : x);
                 } else {
                     regionData.push(regionData[i - 1].name ? ( regionData[i - 1].sub[x] ? regionData[i-1].sub[x] : x) : x);
                 };
@@ -1374,7 +1374,7 @@
         const $tab = document.createElement("div");
         $tab.classList.add("map-config-tab");
         $tab.setAttribute("target", x);
-        $tab.innerText = REGIONSALT[x] ? REGIONSALT[x].name[0] : x;
+        $tab.innerText = REGIONS[x] ? REGIONS[x].name[0] : x;
         $mapConfigTabArea.append($tab);
 
         const $page = document.createElement("div");
