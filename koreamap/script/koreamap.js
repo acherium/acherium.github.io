@@ -3,7 +3,8 @@
     const info = {
         name: "Project Pyxis",
         author: "Acherium",
-        version: "1.0.candi.2@240309",
+        version: "1.0.4",
+        description: "테스트용 버전입니다",
         watermark: true
     };
     const list = {};
@@ -803,7 +804,7 @@
             pageNode: null
         }
     };
-    const keikenchiMapInitList = [
+    const mapTemplateList = [
         [
             0,
             0, 0, 0, 0, 0, 0, 0,
@@ -8886,16 +8887,17 @@
     const $buttonExport = document.querySelector("#button-export");
     const $buttonImport = document.querySelector("#button-import");
     const $buttonReset = document.querySelector("#button-reset");
-    const $buttonsKeikenchiMapInit = [
-        document.querySelector("#button-initialize-keikenchi-map0"),
-        document.querySelector("#button-initialize-keikenchi-map1"),
-        document.querySelector("#button-initialize-keikenchi-map2"),
-        document.querySelector("#button-initialize-keikenchi-map3"),
-        document.querySelector("#button-initialize-keikenchi-map4"),
-        document.querySelector("#button-initialize-keikenchi-map5")
+    const $buttonsMapPresetInit = [
+        document.querySelector("#button-map-preset-map0"),
+        document.querySelector("#button-map-preset-map1"),
+        document.querySelector("#button-map-preset-map2"),
+        document.querySelector("#button-map-preset-map3"),
+        document.querySelector("#button-map-preset-map4"),
+        document.querySelector("#button-map-preset-map5")
     ]
     const $buttonsWindowToggle = {
         "CONFIG": document.querySelector("#button-window-config"),
+        "PRESET": document.querySelector("#button-window-map-preset"),
         "KEIKENCHI": document.querySelector("#button-window-keikenchi"),
         "COLORPICKER": document.querySelector("#color-preview"),
         "BACKDROPCOLORPICKER": document.querySelector("#backdrop-color-preview"),
@@ -8906,6 +8908,7 @@
     };
     const $windows = {
         "CONFIG": document.querySelector("#toolbar-map-config"),
+        "PRESET": document.querySelector("#toolbar-map-preset"),
         "KEIKENCHI": document.querySelector("#toolbar-keikenchi"),
         "COLORPICKER": document.querySelector("#toolbar-color-picker"),
         "BACKDROPCOLORPICKER": document.querySelector("#toolbar-backdrop-color-picker"),
@@ -9333,9 +9336,9 @@
             alert("지도를 초기화했습니다.");
         };
     };
-    $buttonsKeikenchiMapInit.forEach(($node, i) => {
+    $buttonsMapPresetInit.forEach(($node, i) => {
         $node.onclick = () => {
-            setLayerAll(keikenchiMapInitList[i]);
+            setLayerAll(mapTemplateList[i]);
         };
     });
 
@@ -9430,7 +9433,7 @@
     if (info.watermark) {
         const watermark = document.querySelector("p");
         watermark.id = "watermark";
-        watermark.innerText = `${info.name}\nv${info.version}`;
+        watermark.innerText = `${info.name}\nv${info.version}${info.description ? `\n${info.description}` : ""}`;
         document.body.append(watermark);
     };
 })();

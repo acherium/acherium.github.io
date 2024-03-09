@@ -27,6 +27,7 @@
 .icon-download { background-image: url("../assets/icons/download.svg"); }
 .icon-color-inner { background-image: url("../assets/icons/color-inner.svg"); }
 .icon-color-outer { background-image: url("../assets/icons/color-outer.svg"); }
+.icon-preset { background-image: url("../assets/icons/preset.svg"); }
 
 .backdrop-effect {
     position: absolute;
@@ -149,7 +150,7 @@
     width: 2px;
     height: 30px;
 
-    background-color: lightgray;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .color-preview {
@@ -246,7 +247,7 @@
     animation-timing-function: ease-in-out;
 }
 
-#toolbar-window-area-main h3, #toolbar-window-area-main p {
+#toolbar-window-area-main h3, #toolbar-window-area-main h4, #toolbar-window-area-main p {
     display: inline;
     color: white;
 }
