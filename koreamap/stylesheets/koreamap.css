@@ -28,6 +28,7 @@
 .icon-color-inner { background-image: url("../assets/icons/color-inner.svg"); }
 .icon-color-outer { background-image: url("../assets/icons/color-outer.svg"); }
 .icon-preset { background-image: url("../assets/icons/preset.svg"); }
+.icon-keikenchi { background-image: url("../assets/icons/keikenchi.svg"); }
 
 .backdrop-effect {
     position: absolute;
