@@ -3,8 +3,9 @@
     const info = {
         name: "Project Pyxis",
         author: "Acherium",
-        version: "1.0.candi.1@240308",
-    }
+        version: "1.0.candi.2@240309",
+        watermark: true
+    };
     const list = {};
     const pos = {
         x: 0,
@@ -9426,8 +9427,10 @@
     });
     Array.from($mapConfigTabArea.childNodes)[0]?.click();
 
-    const watermark = document.querySelector("p");
-    watermark.id = "watermark";
-    watermark.innerText = `${info.name}\nv${info.version}`;
-    document.body.append(watermark);
+    if (info.watermark) {
+        const watermark = document.querySelector("p");
+        watermark.id = "watermark";
+        watermark.innerText = `${info.name}\nv${info.version}`;
+        document.body.append(watermark);
+    };
 })();
