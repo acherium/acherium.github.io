@@ -2407,11 +2407,11 @@
                     <button id="button-window-reset">
                         <div class="icon icon-reset"></div>
                     </button>
-                    <div class="toolbar-partition" style="display:none;"></div>
+                    <div class="toolbar-partition"></div>
                     <button id="button-window-keikenchi" style="display:none;">
                         <div class="icon icon-keikenchi"></div>
                     </button>
-                    <button id="button-window-search" style="display:none;">
+                    <button id="button-window-search">
                         <div class="icon icon-search2"></div>
                     </button>
                 </div>
@@ -2629,13 +2629,23 @@
         </div>
     </div>
     <div id="search-area" style="display: none;">
+        <div id="search-area-backdrop"></div>
         <div id="search-area-wrap">
             <div id="search-box-area">
                 <div id="search-box-icon" class="icon-search2"></div>
                 <input type="text" id="search-input" placeholder="여기에 검색어 입력">
                 <div id="button-search" class="icon-search3"></div>
             </div>
-            <div id="search-result-area"></div>
+            <div id="search-result-area">
+                <div class="toolbar-window-button-area">
+                    <button id="button-search-list-fill">
+                        <span>검색된 지역 모두 칠하기</span>
+                    </button>
+                </div>
+                <div id="search-result-list-area">
+                    <div id="search-result-list"></div>
+                </div>
+            </div>
         </div>
     </div>
     <script type="module" defer>

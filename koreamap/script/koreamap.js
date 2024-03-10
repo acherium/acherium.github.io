@@ -3,9 +3,9 @@
     const info = {
         name: "Project Pyxis",
         author: "Acherium",
-        version: "1.0.1000",
-        description: "",
-        watermark: false
+        version: "1.1.1",
+        description: "테스트용 버전입니다.",
+        watermark: true
     };
     const list = {};
     const pos = {
@@ -8979,6 +8979,7 @@
     const $koreamap = document.querySelector("#map-viewport");
     const $backdrop = document.querySelector("#map-backdrop");
     const $layerScale = document.querySelector("#map-scale");
+    const $svg = document.querySelector("#map");
     const $layerPosition = document.querySelector("#map-position");
     const $mapConfigTabArea = document.querySelector(".map-config-tab-area");
     const $mapConfigPageArea = document.querySelector(".map-config-page-area");
@@ -9022,7 +9023,8 @@
         "DOWNLOAD": document.querySelector("#button-window-download"),
         "EXPORT": document.querySelector("#button-window-export"),
         "IMPORT": document.querySelector("#button-window-import"),
-        "RESET": document.querySelector("#button-window-reset")
+        "RESET": document.querySelector("#button-window-reset"),
+        "SEARCH": document.querySelector("#button-window-search")
     };
     const $windows = {
         "CONFIG": document.querySelector("#toolbar-map-config"),
@@ -9033,8 +9035,16 @@
         "DOWNLOAD": document.querySelector("#toolbar-download"),
         "EXPORT": document.querySelector("#toolbar-export"),
         "IMPORT": document.querySelector("#toolbar-import"),
-        "RESET": document.querySelector("#toolbar-reset")
+        "RESET": document.querySelector("#toolbar-reset"),
+        "SEARCH": document.querySelector("#search-area")
     };
+    const $search = document.querySelector("#search-area");
+    const $searchBackdrop = $search.querySelector("#search-area-backdrop");
+    const $searchButton = $search.querySelector("#button-search");
+    const $searchBar = $search.querySelector("#search-input");
+    const $searchResultArea = $search.querySelector("#search-result-area");
+    const $searchResultList = $search.querySelector("#search-result-list");
+    const $buttonFillAll = document.querySelector("#button-search-list-fill");
 
     // 함수 정의
     const setHash = () => {
@@ -9320,6 +9330,23 @@
             setLayer(Object.keys(layerList)[i], x);
         });
     };
+    const getRegionName = (raw) => {
+        const code = raw.split("-");
+        const data = [];
+        code.forEach((x, i) => {
+            if (i <= 0) {
+                data.push(REGIONS[x] ? REGIONS[x] : x);
+            } else {
+                data.push(data[i - 1].name ? ( data[i - 1].sub[x] ? data[i-1].sub[x] : x) : x);
+            };
+        });
+        return data;
+    };
+    const fillArea = (id, hex) => {
+        const $target = document.querySelector(`#${id}`);
+        $target.style["fill"] = hex;
+        addList(id, hex);
+    };
 
     // 초기화
     document.addEventListener("DOMContentLoaded", () => {
@@ -9327,26 +9354,27 @@
         document.body.style["animation-duration"] = "0.5s";
         document.body.style["animation-timing-function"] = "ease-out";
         document.body.style["animation-fill-mode"] = "forwards";
+
+        document.onpointermove = (pointer) => {
+            if (!pointer.target.classList.contains("map-area")) {
+                $areaName.innerText = null;
+                $areaName.style["display"] = "none";
+            } else {
+                const regionCode = pointer.target.id.split("-");
+                const regionData = [];
+                regionCode.forEach((x, i) => {
+                    if (i <= 0) {
+                        regionData.push(REGIONS[x] ? REGIONS[x] : x);
+                    } else {
+                        regionData.push(regionData[i - 1].name ? ( regionData[i - 1].sub[x] ? regionData[i-1].sub[x] : x) : x);
+                    };
+                });
+                $areaName.innerText = regionData.filter((x) => x).map((x) => x.name ? x.name[0] : x).filter((x) => x).join(" ").trim();
+                $areaName.style["display"] = "flex";
+            };
+        };
     });
 
-    document.onpointermove = (pointer) => {
-        if (!pointer.target.classList.contains("map-area")) {
-            $areaName.innerText = null;
-            $areaName.style["display"] = "none";
-        } else {
-            const regionCode = pointer.target.id.split("-");
-            const regionData = [];
-            regionCode.forEach((x, i) => {
-                if (i <= 0) {
-                    regionData.push(REGIONS[x] ? REGIONS[x] : x);
-                } else {
-                    regionData.push(regionData[i - 1].name ? ( regionData[i - 1].sub[x] ? regionData[i-1].sub[x] : x) : x);
-                };
-            });
-            $areaName.innerText = regionData.filter((x) => x).map((x) => x.name ? x.name[0] : x).filter((x) => x).join(" ").trim();
-            $areaName.style["display"] = "flex";
-        };
-    };
     $koreamap.onwheel = (wheel) => {
         addScale(wheel.deltaY < 0 ? 5 : -5);
     };
@@ -9559,5 +9587,78 @@
         watermark.id = "watermark";
         watermark.innerText = `${info.name}\nv${info.version}${info.description ? `\n${info.description}` : ""}`;
         document.body.append(watermark);
+    };
+
+    $searchBackdrop.onclick = () => {
+        $windows["SEARCH"].style["display"] = "none";
+        $buttonsWindowToggle["SEARCH"].classList.remove("toolbar-button-active");
+        $buttonFillAll.onclick = null;
+    };
+    $searchButton.onclick = () => {
+        const _index = Array.from(document.querySelectorAll(".map-area")).filter((x) => x.checkVisibility()).map((x) => {
+            const _res = getRegionName(x.id);
+            const _data = {
+                name: _res.map((y) => y.name[0]).join(" "),
+                id: x.id
+            };
+            return _data;
+        });
+
+        const _input = $searchBar.value;
+        const _list = _input.length ? _index.filter((x) => new RegExp(_input, "gi").exec(x.name)) : [];
+
+        Array.from($searchResultList.childNodes).forEach(($node) => $node.remove());
+        _list.forEach((x) => {
+            const $res = document.createElement("div");
+            const $left = document.createElement("div");
+            const $right = document.createElement("div");
+            const $resName = document.createElement("p");
+            const $resCode = document.createElement("p");
+            $resName.innerText = x.name;
+            $resCode.innerText = x.id;
+            $right.append($resName);
+            $right.append($resCode);
+            $res.append($left);
+            $res.append($right);
+            $searchResultList.append($res);
+
+            $res.onclick = () => {
+                const $targetRegionNode = document.querySelector(`#${x.id}`);
+                $searchBackdrop.click();
+                if ($targetRegionNode.style["animation-name"]) $targetRegionNode.style["animation-name"] = "none";
+
+                pos.x = 0;
+                pos.y = 0;
+                $layerPosition.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+                setTimeout(() => {
+                    $targetRegionNode.style["animation-name"] = "regionSearchResultCheck";
+                    setTimeout(() => {
+                        $targetRegionNode.style["animation-name"] = "regionSearchResultCheck";
+                    }, 2500);
+
+                    const _mapRect = $svg.getBoundingClientRect();
+                    const _displayRect = document.body.getBoundingClientRect();
+                    const _rect = $targetRegionNode.getBoundingClientRect();
+                    const _centerX = _displayRect.width / scale / 2;
+                    const _centerY = _displayRect.height / scale / 2;
+                    const _x = _rect.x / scale * -1 + _centerX - _rect.width / scale / 2;
+                    const _y = _rect.y / scale * -1 + _centerY - _rect.height / scale / 2;
+                    pos.x = _x;
+                    pos.y = _y;
+                    $layerPosition.style["transform"] = `translate(${pos.x}px, ${pos.y}px)`;
+                    setHash();
+                }, 30);
+            };
+        });
+
+        $buttonFillAll.onclick = () => {
+            _list.forEach((x) => {
+                fillArea(x.id, `#${RGBtoHEX(color)}`);
+                // $searchBackdrop.click();
+            });
+        };
+    };
+    $searchBar.onkeydown = (keydown) => {
+        if (keydown.keyCode === 13) $searchButton.click();
     };
 })();
