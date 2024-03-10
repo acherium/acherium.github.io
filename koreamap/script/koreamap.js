@@ -3,9 +3,9 @@
     const info = {
         name: "Project Pyxis",
         author: "Acherium",
-        version: "1.0.7",
-        description: "테스트용 버전입니다",
-        watermark: true
+        version: "1.0.1000",
+        description: "",
+        watermark: false
     };
     const list = {};
     const pos = {
@@ -578,6 +578,26 @@
                     value: [ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
                 },
                 2: {
+                    name: "기초자치단체 및 구",
+                    value: [ 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                3: {
+                    name: "시내지역 및 시외지역",
+                    value: [ 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0 ]
+                },
+                4: {
+                    name: "시내지역, 구 및 시외지역",
+                    value: [ 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0 ]
+                },
+                5: {
+                    name: "시읍면",
+                    value: [ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                6: {
+                    name: "구읍면",
+                    value: [ 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                7: {
                     name: "숨김",
                     value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
                 }
@@ -614,6 +634,26 @@
                     value: [ 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
                 },
                 2: {
+                    name: "기초자치단체 및 구",
+                    value: [ 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 ]
+                },
+                3: {
+                    name: "시내지역 및 시외지역",
+                    value: [ 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0 ]
+                },
+                4: {
+                    name: "시내지역, 구 및 시외지역",
+                    value: [ 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0 ]
+                },
+                5: {
+                    name: "시읍면",
+                    value: [ 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                6: {
+                    name: "구읍면",
+                    value: [ 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1 ]
+                },
+                7: {
                     name: "숨김",
                     value: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
                 }
@@ -878,9 +918,15 @@
             2, 2, 2, 2, 2, 2, 2
         ],
         [
+            0,
+            3, 3, 3, 0, 0, 3, 2,
+            5, 5, 5, 5, 3, 5, 5, 3, 3,
+            2, 2, 2, 2, 2, 2, 2
+        ],
+        [
             1,
             4, 4, 4, 1, 1, 4, 2,
-            6, 6, 6, 6, 3, 0, 0, 3, 3,
+            6, 6, 6, 6, 3, 6, 6, 3, 3,
             2, 2, 2, 2, 2, 2, 2
         ],
         [
@@ -896,9 +942,15 @@
             1, 1, 1, 1, 1, 1, 1
         ],
         [
+            0,
+            3, 3, 3, 0, 0, 3, 2,
+            5, 5, 5, 5, 3, 5, 5, 3, 3,
+            1, 1, 1, 1, 1, 1, 1
+        ],
+        [
             1,
             4, 4, 4, 1, 1, 4, 2,
-            6, 6, 6, 6, 3, 0, 0, 3, 3,
+            6, 6, 6, 6, 3, 6, 6, 3, 3,
             1, 1, 1, 1, 1, 1, 1
         ]
     ];
@@ -8957,7 +9009,9 @@
         document.querySelector("#button-map-preset-map2"),
         document.querySelector("#button-map-preset-map3"),
         document.querySelector("#button-map-preset-map4"),
-        document.querySelector("#button-map-preset-map5")
+        document.querySelector("#button-map-preset-map5"),
+        document.querySelector("#button-map-preset-map6"),
+        document.querySelector("#button-map-preset-map7")
     ]
     const $buttonsWindowToggle = {
         "CONFIG": document.querySelector("#button-window-config"),
@@ -9368,7 +9422,13 @@
     Object.values($buttonsWindowToggle).forEach(($node, i) => {
         const $target = Object.values($windows)[i];
         $node.addEventListener("click", () => {
-            $target.style["display"] = $target.style["display"] === "flex" ? "none" : "flex";
+            if ($target.style["display"] === "flex") {
+                $target.style["display"] = "none";
+                $node.classList.remove("toolbar-button-active");
+            } else {
+                $target.style["display"] = "flex";
+                $node.classList.add("toolbar-button-active");
+            };
         });
     });
     Object.keys($buttonsFillmode).forEach((id) => {
