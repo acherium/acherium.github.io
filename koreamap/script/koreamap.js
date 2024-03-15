@@ -3,9 +3,9 @@
     const info = {
         name: "Project Pyxis",
         author: "Acherium",
-        version: "1.1.1",
-        description: "테스트용 버전입니다.",
-        watermark: true
+        version: "1.1.2",
+        description: "",
+        watermark: false
     };
     const list = {};
     const pos = {
