@@ -534,6 +534,7 @@ button:hover > .tag, label:hover > .tag {
     width: max-content;
     height: 392px;
 
+    color: var(--c-main-font);
     background-color: var(--c-main);
     pointer-events: all;
 }
@@ -632,6 +633,7 @@ button:hover > .tag, label:hover > .tag {
     padding: 6px;
 
     font-family: "Spoqa Han Sans Neo";
+    color: var(--c-main-font);
     border: none;
     background-color: var(--c-main);
 }
@@ -804,6 +806,7 @@ button:hover > .tag, label:hover > .tag {
     justify-content: flex-start;
     padding: 12px;
 
+    color: var(--c-main-font);
     border: 0;
     border-bottom: solid 1px var(--c-main-border);
     background-color: var(--c-main);
