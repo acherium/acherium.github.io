@@ -23,11 +23,11 @@ body {
     height: 100vh;
 
     font-family: "Spoqa Han Sans Neo";
-    background-color: var(--color-background);
+    background-color: var(--c-main);
 }
 
 h1, h2, h3, h4, h5, h6, span, p {
-    color: var(--color-default-font);
+    color: var(--c-main-cont);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -79,38 +79,50 @@ h6 {
     height: 100%;
 }
 
-.icon {
-    width: 18px;
-    height: 18px;
+.i {
+    width: 20px;
+    height: 20px;
 
-    background-size: 18px;
+    background-size: 20px;
     background-repeat: no-repeat;
     background-position: center;
+    filter: var(--c-icon-filter);
 }
 
-.icon-lyra { background-image: url("../assets/icons/lyra.svg"); }
-.icon-menu { background-image: url("../assets/icons/menu.svg"); }
-.icon-back { background-image: url("../assets/icons/back.svg"); }
-.icon-search { background-image: url("../assets/icons/search.svg"); }
-.icon-button { background-image: url("../assets/icons/button.svg"); }
-.icon-loading { background-image: url("../assets/icons/loading.svg"); }
-.icon-outer { background-image: url("../assets/icons/outer.svg"); }
-.icon-arrow0 { background-image: url("../assets/icons/arrow0.svg"); }
-.icon-arrow1 { background-image: url("../assets/icons/arrow1.svg"); }
-.icon-arrow2 { background-image: url("../assets/icons/arrow2.svg"); }
-.icon-arrow3 { background-image: url("../assets/icons/arrow3.svg"); }
-.icon-collapse0 { background-image: url("../assets/icons/collapse0.svg"); }
-.icon-collapse1 { background-image: url("../assets/icons/collapse1.svg"); }
-.icon-collapse2 { background-image: url("../assets/icons/collapse2.svg"); }
-.icon-collapse3 { background-image: url("../assets/icons/collapse3.svg"); }
-.icon-close { background-image: url("../assets/icons/close.svg"); }
-.icon-maximize { background-image: url("../assets/icons/maximize.svg"); }
-.icon-minimize { background-image: url("../assets/icons/minimize.svg"); }
+.i-search { background-image: url("../assets/icons/1-search.svg"); }
+.i-search-go { background-image: url("../assets/icons/2-search-go.svg"); }
+.i-place { background-image: url("../assets/icons/3-place.svg"); }
+.i-download { background-image: url("../assets/icons/4-download.svg"); }
+.i-export { background-image: url("../assets/icons/5-export.svg"); }
+.i-trash { background-image: url("../assets/icons/7-trash.svg"); }
+.i-move { background-image: url("../assets/icons/8-move.svg"); }
+.i-paint { background-image: url("../assets/icons/9-paint.svg"); }
+.i-sweep { background-image: url("../assets/icons/10-sweep.svg"); }
+.i-clear { background-image: url("../assets/icons/11-clear.svg"); }
+.i-palette-item { background-image: url("../assets/icons/12-palette-item.svg"); }
+.i-palette-background { background-image: url("../assets/icons/13-palette-background.svg"); }
+.i-config { background-image: url("../assets/icons/14-config.svg"); }
+.i-preset { background-image: url("../assets/icons/15-preset.svg"); }
+.i-menu { background-image: url("../assets/icons/16-menu.svg"); }
+.i-deny { background-image: url("../assets/icons/17-deny.svg"); }
+.i-accept { background-image: url("../assets/icons/18-accept.svg"); }
+.i-arrow0 { background-image: url("../assets/icons/19-arrow0.svg"); }
+.i-arrow1 { background-image: url("../assets/icons/20-arrow1.svg"); }
+.i-arrow2 { background-image: url("../assets/icons/21-arrow2.svg"); }
+.i-arrow3 { background-image: url("../assets/icons/22-arrow3.svg"); }
+
+.void {
+    position: relative;
+
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
 
 #watermark {
     position: fixed;
     right: 10px;
-    top: 10px;
+    bottom: 10px;
     padding: 6px;
     z-index: 9999;
 
@@ -118,40 +130,6 @@ h6 {
     border-radius: 4px;
     background-color: black;
     text-align: right;
-    opacity: 0.2;
+    opacity: 1;
     pointer-events: none;
 }
-
-.w50p { width: 50px; }
-.w100p { width: 100px; }
-.w150p { width: 150px; }
-.w200p { width: 200px; }
-.w250p { width: 250px; }
-.w300p { width: 300px; }
-.w350p { width: 350px; }
-.w400p { width: 400px; }
-.w450p { width: 450px; }
-.w500p { width: 500px; }
-.w550p { width: 550px; }
-.w600p { width: 600px; }
-.w650p { width: 650px; }
-.w700p { width: 700px; }
-.w750p { width: 750px; }
-.w800p { width: 800px; }
-
-.h50p { height: 50px; }
-.h100p { height: 100px; }
-.h150p { height: 150px; }
-.h200p { height: 200px; }
-.h250p { height: 250px; }
-.h300p { height: 300px; }
-.h350p { height: 350px; }
-.h400p { height: 400px; }
-.h450p { height: 450px; }
-.h500p { height: 500px; }
-.h550p { height: 550px; }
-.h600p { height: 600px; }
-.h650p { height: 650px; }
-.h700p { height: 700px; }
-.h750p { height: 750px; }
-.h800p { height: 800px; }

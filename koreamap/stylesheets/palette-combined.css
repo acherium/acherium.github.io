@@ -1,56 +1,20 @@
 @charset "UTF-8";
 :root {
-    --color-white: rgb(255, 255, 255);
-    --color-black: rgb(0, 0, 0);
-    --color-light: rgb(240, 240, 240);
-    --color-lightgray: rgb(200, 200, 200);
-    --color-dark: rgb(20, 20, 20);
-    --color-backdrop: var(--color-light);
-    --color-background: var(--color-white);
-    --color-default: var(--color-dark);
-    --color-default-font: var(--color-dark);
-    --color-default-button: var(--color-light);
-    --color-default-leftside-list-active: var(--color-dark);
-    --color-default-backdrop-hover: rgba(0, 0, 0, 0.1);
-    --color-default-backdrop-active: rgba(0, 0, 0, 0.2);
-    --color-default-partition: var(--color-lightgray);
-    --color-default-window-active: var(--color-light);
-    --color-default-window-inactive: rgb(150, 150, 150);
-    --color-default-window-border: rgb(100, 100, 100);
-    --color-default-window-border-active: rgba(0, 0, 0, 1);
-    --color-default-window-border-inactive: rgba(150, 150, 150, 1);
-    --filter-default-leftside-list-active: brightness(0) invert(1);
-    --gradient-rainbow-horizontal: linear-gradient(90deg, hsl(0, 100%, 50%), hsl(30, 100%, 50%), hsl(60, 100%, 50%), hsl(90, 100%, 50%), hsl(120, 100%, 50%), hsl(150, 100%, 50%), hsl(180, 100%, 50%), hsl(210, 100%, 50%), hsl(240, 100%, 50%), hsl(270, 100%, 50%), hsl(300, 100%, 50%), hsl(330, 100%, 50%), hsl(360, 100%, 50%));
-    --gradient-rainbow-vertical: linear-gradient(hsl(0, 100%, 50%), hsl(30, 100%, 50%), hsl(60, 100%, 50%), hsl(90, 100%, 50%), hsl(120, 100%, 50%), hsl(150, 100%, 50%), hsl(180, 100%, 50%), hsl(210, 100%, 50%), hsl(240, 100%, 50%), hsl(270, 100%, 50%), hsl(300, 100%, 50%), hsl(330, 100%, 50%), hsl(360, 100%, 50%));
+    --c-white: rgb(255, 255, 255);
+    --c-black: rgb(0, 0, 0);
+    --c-gray: rgb(140, 140, 140);
+    --c-lyra: rgb(177, 0, 255);
+    --c-main: var(--c-white);
+    --c-main-border: var(--c-black);
+    --c-main-font: var(--c-black);
+    --c-icon-filter: brightness(0);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --color-white: rgb(255, 255, 255);
-        --color-black: rgb(0, 0, 0);
-        --color-light: rgb(240, 240, 240);
-        --color-lightgray: rgb(200, 200, 200);
-        --color-dark: rgb(20, 20, 20);
-        --color-backdrop: var(--color-black);
-        --color-background: var(--color-dark);
-        --color-default: var(--color-light);
-        --color-default-font: var(--color-light);
-        --color-default-button: rgb(50, 50, 50);
-        --color-default-leftside-list-active: var(--color-light);
-        --color-default-backdrop-hover: rgba(255, 255, 255, 0.1);
-        --color-default-backdrop-active: rgba(255, 255, 255, 0.2);
-        --color-default-partition: rgb(50, 50, 50);
-        --color-default-window-active: var(--color-black);
-        --color-default-window-inactive: rgb(50, 50, 50);
-        --color-default-window-border: rgb(50, 50, 50);
-        --color-default-window-border-active: rgba(30, 30, 30, 1);
-        --color-default-window-border-inactive: rgba(50, 50, 50, 1);
-        --filter-default-leftside-list-active: brightness(0) saturate(100%) invert(0%) sepia(15%) saturate(2126%) hue-rotate(41deg) brightness(99%) contrast(84%);
-        --gradient-rainbow-horizontal: linear-gradient(90deg, hsl(0, 100%, 50%), hsl(30, 100%, 50%), hsl(60, 100%, 50%), hsl(90, 100%, 50%), hsl(120, 100%, 50%), hsl(150, 100%, 50%), hsl(180, 100%, 50%), hsl(210, 100%, 50%), hsl(240, 100%, 50%), hsl(270, 100%, 50%), hsl(300, 100%, 50%), hsl(330, 100%, 50%), hsl(360, 100%, 50%));
-        --gradient-rainbow-vertical: linear-gradient(hsl(0, 100%, 50%), hsl(30, 100%, 50%), hsl(60, 100%, 50%), hsl(90, 100%, 50%), hsl(120, 100%, 50%), hsl(150, 100%, 50%), hsl(180, 100%, 50%), hsl(210, 100%, 50%), hsl(240, 100%, 50%), hsl(270, 100%, 50%), hsl(300, 100%, 50%), hsl(330, 100%, 50%), hsl(360, 100%, 50%));
-    }
-    
-    .icon, #logo > div {
-        filter: brightness(0) saturate(100%) invert(99%) sepia(2%) saturate(1133%) hue-rotate(207deg) brightness(117%) contrast(88%);
+        --c-main: var(--c-black);
+        --c-main-border: var(--c-white);
+        --c-main-font: var(--c-white);
+        --c-icon-filter: brightness(0) invert(1);
     }
 }
