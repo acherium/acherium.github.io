@@ -1,4 +1,15 @@
 @charset "UTF-8";
+@keyframes ani-common-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 button, label {
     overflow: visible;
 
@@ -21,6 +32,9 @@ button:hover > .tag, label:hover > .tag {
 
     color: var(--c-main-font);
     pointer-events: none;
+
+    animation-name: ani-common-fade-in;
+    animation-duration: 0.25s;
 }
 
 .rtag {
@@ -41,7 +55,7 @@ button:hover > .tag, label:hover > .tag {
 }
 .rtag::before {
     position: absolute;
-    left: -19px;
+    left: -20px;
     top: 4px;
 
     border: solid 10px;
@@ -67,7 +81,7 @@ button:hover > .tag, label:hover > .tag {
 }
 .ltag::before {
     position: absolute;
-    right: -19px;
+    right: -20px;
     top: 4px;
 
     border: solid 10px;
