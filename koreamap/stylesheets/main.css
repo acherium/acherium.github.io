@@ -28,7 +28,7 @@ button:hover > .tag, label:hover > .tag {
     align-items: center;
     justify-content: flex-start;
     left: 62px;
-    top: 8px;
+    top: 9px;
     padding: 0 8px;
     overflow: visible;
     z-index: 2;
@@ -41,7 +41,7 @@ button:hover > .tag, label:hover > .tag {
 }
 .rtag::before {
     position: absolute;
-    left: -20px;
+    left: -19px;
     top: 4px;
 
     border: solid 10px;
@@ -54,7 +54,7 @@ button:hover > .tag, label:hover > .tag {
     align-items: center;
     justify-content: flex-start;
     right: 62px;
-    top: 8px;
+    top: 9px;
     padding: 0 8px;
     overflow: visible;
     z-index: 2;
@@ -67,7 +67,7 @@ button:hover > .tag, label:hover > .tag {
 }
 .ltag::before {
     position: absolute;
-    right: -20px;
+    right: -19px;
     top: 4px;
 
     border: solid 10px;
@@ -393,6 +393,10 @@ button:hover > .tag, label:hover > .tag {
 #left > *:not(:last-child) {
     border-bottom: solid 1px var(--c-main-border);
 }
+#left > button, #left > label {
+    width: 48px;
+    height: 48px;
+}
 #left > button {
     display: flex;
     position: relative;
@@ -403,7 +407,7 @@ button:hover > .tag, label:hover > .tag {
     border: 0;
     background-color: var(--c-main);
 }
-#left > label:hover, #left > #button-config:hover, #left > #button-preset:hover {
+#left > label:hover, #left > button:hover, #left > #button-config:hover, #left > #button-preset:hover {
     background-color: var(--c-lyra);
 }
 
@@ -428,6 +432,11 @@ button:hover > .tag, label:hover > .tag {
     height: 24px;
 
     background-size: 24px;
+}
+
+#button-zoom-reset > p {
+    text-align: center;
+    font-weight: 300;
 }
 
 #right {

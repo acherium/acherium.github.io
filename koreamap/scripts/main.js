@@ -9107,6 +9107,10 @@
     const $mPreset = $("#map-preset");
     const $btnMPreset = $("#checkbox-label-preset");
     const $chkMPreset = $("#checkbox-toggle-preset");
+    const $zoomLevel = $("#button-zoom-reset>p");
+    const $btnZoomReset = $("#button-zoom-reset");
+    const $btnZoomIn = $("#button-zoom-in");
+    const $btnZoomOut = $("#button-zoom-out");
 
     const clearChild = ($t, a = []) => {
         Array.from($t.childNodes).forEach(($n) => {
@@ -9169,6 +9173,7 @@
     const applyScale = () => {
         op.rs = SCALEINIT * op.s;
         $mlScale.style["transform"] = `scale(${op.rs})`;
+        $zoomLevel.innerText = op.s;
     };
     const applyOp = () => {
         applyPos();
@@ -9605,11 +9610,24 @@
         $chkMPreset.onchange = (c) => {
             $mPreset.style["display"] = c.target.checked ? "flex" : "none";
         };
-
         $chkCpFill.checked = false;
         $chkCpBg.checked = false;
         $chkMConf.checked = false;
         $chkMPreset.checked = false;
+
+        $btnZoomReset.onclick = () => {
+            setScale(1);
+            setPos(0, 0);
+            initHash();
+        };
+        $btnZoomIn.onclick = () => {
+            addScale(SCALELEVEL);
+            initHash();
+        };
+        $btnZoomOut.onclick = () => {
+            addScale(SCALELEVEL*-1);
+            initHash();
+        };
 
         applyOp();
         readHash();

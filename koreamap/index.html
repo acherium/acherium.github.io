@@ -51,6 +51,10 @@
             <div class="i i-export"></div>
             <div class="tag ltag">내보내기</div>
         </button>
+        <button id="button-import">
+            <div class="i i-import"></div>
+            <div class="tag ltag">가져오기</div>
+        </button>
         <button id="button-download">
             <div class="i i-download"></div>
             <div class="tag ltag">이미지로 저장</div>
@@ -94,6 +98,18 @@
                 <div class="tag rtag">연속 지우기</div>
             </label>
             <div class="void"></div>
+            <button id="button-zoom-in">
+                <div class="i i-plus"></div>
+                <div class="tag rtag">확대</div>
+            </button>
+            <button id="button-zoom-reset">
+                <p>1</p>
+                <div class="tag rtag">뷰포트 초기화</div>
+            </button>
+            <button id="button-zoom-out">
+                <div class="i i-minus"></div>
+                <div class="tag rtag">축소</div>
+            </button>
             <input type="checkbox" name="toggle-config" id="checkbox-toggle-config">
             <label id="checkbox-label-config" class="toolbar-item" for="checkbox-toggle-config">
                 <div class="i i-config"></div>
@@ -2630,7 +2646,7 @@
     <div id="watermark">
         VectorMap Editor<br>
         Acherium 제작<br>
-        v2.0.b2@24-04-28<br>
+        v2.0.b3@24-04-30<br>
         테스트용 버전입니다
     </div>
 </body>
