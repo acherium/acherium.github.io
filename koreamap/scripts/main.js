@@ -9394,30 +9394,35 @@
             };
         });
         document.addEventListener("keydown", (k) => {
-            if (k.keyCode === 70) {
+            if (k.keyCode === 90) {
                 $btnCpFill.click();
-            } else if (k.keyCode === 66) {
+            } else if (k.keyCode === 88) {
                 $btnCpBg.click();
             } else if (k.keyCode === 67) {
                 $btnMConf.click();
-            } else if (k.keyCode === 80) {
+            } else if (k.keyCode === 86) {
                 $btnMPreset.click();
             } else if (k.keyCode === 16) {
                 $inpSearch.focus();
             } else if (k.keyCode === 77) {
                 $btnToolbar.click();
-            } else if (k.keyCode === 49) {
+            } else if (k.keyCode === 81) {
                 $btnsMode[0].click();
-            } else if (k.keyCode === 50) {
+            } else if (k.keyCode === 87) {
                 $btnsMode[1].click();
-            } else if (k.keyCode === 51) {
+            } else if (k.keyCode === 69) {
                 $btnsMode[2].click();
-            } else if (k.keyCode === 52) {
+            } else if (k.keyCode === 82) {
                 $btnsMode[3].click();
+            } else if (k.keyCode === 48) {
+                $btnZoomReset.click();
+            } else if (k.keyCode === 173) {
+                $btnZoomOut.click();
+            } else if (k.keyCode === 61) {
+                $btnZoomIn.click();
+            } else {
+                console.log(k.keyCode);
             };
-            // } else {
-            //     console.log(k.keyCode);
-            // };
         });
         $mArea.addEventListener("wheel", (w) => {
             w.deltaY < 0 ? addScale(SCALELEVEL) : addScale(SCALELEVEL*-1);
