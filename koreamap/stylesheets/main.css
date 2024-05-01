@@ -156,20 +156,29 @@ button:hover > .tag, label:hover > .tag {
 #top > *:not(:last-child) {
     border-right: solid 1px var(--c-main-border);
 }
-#top button {
+#top input[type=checkbox] {
+    display: none;
+}
+#top button, #top label {
     display: flex;
     position: relative;
     align-items: center;
     justify-content: center;
     padding: 14px;
 
+    width: 49px;
+    height: 48px;
+
     border: none;
     background-color: var(--c-main);
 }
-#top button:not(:disabled):hover {
+#top button:not(:disabled):hover, #top input[type=checkbox]:not(:disabled):hover+label {
     background-color: var(--c-lyra);
 }
-#top button:not(:disabled):hover > .i {
+#top input[type=checkbox]:checked+label {
+    background-color: var(--c-lyra);
+}
+#top input[type=checkbox]:checked+label > .i {
     filter: brightness(0) invert(1);
 }
 
@@ -449,6 +458,7 @@ button:hover > .tag, label:hover > .tag {
 }
 
 #button-zoom-reset > p {
+    color: var(--c-main-font);
     text-align: center;
     font-weight: 300;
 }
@@ -564,7 +574,7 @@ button:hover > .tag, label:hover > .tag {
 .menu > *:not(:last-child) {
     border-bottom: solid 1px var(--c-main-border);
 }
-.menu:not(#map-config) > *:last-child {
+:not(#viewport-top-menu-area) > .menu:not(#map-config) > *:last-child {
     border-bottom: solid 1px var(--c-main-border);
 }
 .menu > h1 {
@@ -579,6 +589,63 @@ button:hover > .tag, label:hover > .tag {
     padding: 10px 10px 3px 10px;
 
     width: 100%;
+}
+
+#export, #import, #download {
+    width: 350px;
+}
+#export > .buttons, #import > .buttons {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 10px;
+
+    width: 100%;
+    
+    background-color: var(--c-main);
+}
+
+#export-code-preview {
+    padding: 10px;
+    overflow-y: scroll;
+
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    word-break:break-all;
+    background-color: var(--c-main);
+    user-select: text;
+}
+
+#textarea-import-code {
+    padding: 10px;
+    overflow-y: scroll;
+
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    font-family: inherit;
+    color: var(--c-main-font);
+    border: 0;
+    border-bottom: solid 1px var(--c-main-border);
+    outline: none;
+    background-color: var(--c-main);
+}
+
+#download > div {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+
+    width: 100%;
+    height: max-content;
+
+    background-color: var(--c-main);
 }
 
 .colorpicker-preview {
@@ -822,7 +889,7 @@ button:hover > .tag, label:hover > .tag {
 
     background-color: var(--c-main);
 }
-#map-preset > div > button {
+.menu button {
     display: flex;
     position: relative;
     align-items: center;
@@ -834,17 +901,17 @@ button:hover > .tag, label:hover > .tag {
     border-bottom: solid 1px var(--c-main-border);
     background-color: var(--c-main);
 }
-#map-preset > div > button:hover {
+.menu button:hover {
     color: var(--c-white);
     background-color: var(--c-lyra);
 }
-#map-preset > div > button:hover > * {
+.menu button:hover > * {
     filter: brightness(0) invert(1);
 }
-#map-preset > div > button:not(:last-child) {
+.menu button:not(:last-child) {
     margin-right: 6px;
 }
-#map-preset > div > button > .i {
+.menu button > .i {
     margin-right: 6px;
 }
 
@@ -857,6 +924,7 @@ button:hover > .tag, label:hover > .tag {
 
     height: 100%;
 
+    color: var(--c-main-font);
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -902,6 +970,7 @@ button:hover > .tag, label:hover > .tag {
     justify-content: flex-start;
     padding: 14px;
 
+    color: var(--c-main-font);
     border: 0;
     border-bottom: solid 1px var(--c-main-border);
     background-color: var(--c-main);

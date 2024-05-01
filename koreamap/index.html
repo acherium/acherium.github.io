@@ -47,18 +47,21 @@
             <div class="i i-trash"></div>
             <div class="tag ltag">지도 초기화</div>
         </button>
-        <button id="button-export">
+        <input type="checkbox" name="toggle-export" id="checkbox-toggle-export">
+        <label id="button-export" for="checkbox-toggle-export">
             <div class="i i-export"></div>
             <div class="tag ltag">내보내기</div>
-        </button>
-        <button id="button-import">
+        </label>
+        <input type="checkbox" name="toggle-import" id="checkbox-toggle-import">
+        <label id="button-import" for="checkbox-toggle-import">
             <div class="i i-import"></div>
             <div class="tag ltag">가져오기</div>
-        </button>
-        <button id="button-download">
+        </label>
+        <input type="checkbox" name="toggle-download" id="checkbox-toggle-download">
+        <label id="button-download" for="checkbox-toggle-download">
             <div class="i i-download"></div>
             <div class="tag ltag">이미지로 저장</div>
-        </button>
+        </label>
     </div>
     <div id="search-result-box" style="display:none;">
         <div id="search-result-placeholder">
@@ -2623,6 +2626,48 @@
                     </div> -->
                 </div>
             </div>
+            <div id="viewport-top-menu-area">
+                <div id="export" class="menu" style="display:none;">
+                    <h1>내보내기</h1>
+                    <p>아래 코드를 복사하여 현재 데이터를 내보냅니다</p>
+                    <div id="export-code-preview"></div>
+                    <div class="buttons">
+                        <button id="button-export-copy">
+                            <div class="i i-export"></div>
+                            복사하기
+                        </button>
+                    </div>
+                </div>
+                <div id="import" class="menu" style="display:none;">
+                    <h1>가져오기</h1>
+                    <p>아래에 코드를 붙여넣어 외부에서 데이터를 불러옵니다</p>
+                    <textarea id="textarea-import-code"></textarea>
+                    <div class="buttons">
+                        <button id="button-import-paste">
+                            <div class="i i-import"></div>
+                            가져오기
+                        </button>
+                    </div>
+                </div>
+                <div id="download" class="menu" style="display:none;">
+                    <h1>이미지로 저장</h1>
+                    <p>지도를 PNG형식의 이미지로 저장합니다</p>
+                    <div>
+                        <button id="button-download-png0">
+                            <div class="i i-download"></div>
+                            한반도 전역
+                        </button>
+                        <button id="button-download-png1">
+                            <div class="i i-download"></div>
+                            남부
+                        </button>
+                        <button id="button-download-png2">
+                            <div class="i i-download"></div>
+                            북부
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="modal-area">
@@ -2643,9 +2688,82 @@
             </div>
         </div>
     </div>
+    <script type="module" defer>
+        import { Canvg } from 'https://cdn.skypack.dev/canvg@^4.0.0';
+        (() => {
+            document.querySelector("#button-download-png0").onclick = () => {
+                const $canvas = document.createElement("canvas");
+                $canvas.style["width"] = "max-content";
+                $canvas.style["height"] = "max-content";
+                const ctx = $canvas.getContext("2d");
+                const v = Canvg.fromString(ctx, document.querySelector("#map").outerHTML);
+                v.start();
+                v.stop();
+
+                const data = $canvas.toDataURL("image/png");
+                const anchor = document.createElement("a");
+                anchor.download = `KOREAMAP-${Date.now()}.png`;
+                anchor.href = data;
+                anchor.target = "_blank";
+                anchor.click();
+                anchor.remove();
+
+                $canvas.remove();
+                return 0;
+            };
+
+            document.querySelector("#button-download-png1").onclick = () => {
+                const $canvas = document.createElement("canvas");
+                $canvas.style["width"] = "max-content";
+                $canvas.style["height"] = "max-content";
+                const ctx = $canvas.getContext("2d");
+                const svg = document.querySelector("#map").outerHTML
+                    .replace(`height="5900px"`, `height="3358px"`)
+                    .replace(`viewBox="-4150 -14500 18000 18000"`, `viewBox="-2750 -7250 16000 16000"`);
+                const v = Canvg.fromString(ctx, svg);
+                v.start();
+                v.stop();
+
+                const data = $canvas.toDataURL("image/png");
+                const anchor = document.createElement("a");
+                anchor.download = `KOREAMAP-${Date.now()}-SOUTH.png`;
+                anchor.href = data;
+                anchor.target = "_blank";
+                anchor.click();
+                anchor.remove();
+
+                $canvas.remove();
+                return 0;
+            };
+
+            document.querySelector("#button-download-png2").onclick = () => {
+                const $canvas = document.createElement("canvas");
+                $canvas.style["width"] = "max-content";
+                $canvas.style["height"] = "max-content";
+                const ctx = $canvas.getContext("2d");
+                const svg = document.querySelector("#map").outerHTML
+                    .replace(`height="5900px"`, `height="3214px"`)
+                    .replace(`viewBox="-4150 -14500 18000 18000"`, `viewBox="-4500 -20150 16000 16000"`);
+                const v = Canvg.fromString(ctx, svg);
+                v.start();
+                v.stop();
+
+                const data = $canvas.toDataURL("image/png");
+                const anchor = document.createElement("a");
+                anchor.download = `KOREAMAP-${Date.now()}-NORTH.png`;
+                anchor.href = data;
+                anchor.target = "_blank";
+                anchor.click();
+                anchor.remove();
+
+                $canvas.remove();
+                return 0;
+            };
+        })();
+    </script>
     <div id="watermark">
-        Pyxis<br>
-        v2.0.b5@24-04-30<br>
+        Pyxis R2<br>
+        v2.0.rc1@24-05-01<br>
     </div>
 </body>
 </html>

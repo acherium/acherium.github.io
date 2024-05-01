@@ -5,6 +5,18 @@
     const SCALEMAX = 10;
     const SCALEMIN = 1;
     const SCALELEVEL = 1;
+    const COLINIT = {
+        fill: {
+            r: 177,
+            g: 0,
+            b: 255
+        },
+        bg: {
+            r: 96,
+            g: 146,
+            b: 246
+        }
+    };
 
     const op = {
         x: 0,
@@ -974,6 +986,8 @@
             pageNode: null
         }
     };
+    const areas = {};
+    let exportCode = "";
 
     const REGIONS = {
         "SEO": {
@@ -9111,6 +9125,23 @@
     const $btnZoomReset = $("#button-zoom-reset");
     const $btnZoomIn = $("#button-zoom-in");
     const $btnZoomOut = $("#button-zoom-out");
+    const $winReset = $("#modal-reset");
+    const $btnReset = $("#button-reset");
+    const $btnResetAccept = $("#modal-reset-button-accept");
+    const $btnResetDeny = $("#modal-reset-button-deny");
+    const $mExport = $("#export");
+    const $mExportCodePreview = $("#export-code-preview");
+    const $btnExport = $("#button-export-copy");
+    const $btnWinExport = $("#button-export");
+    const $chkExport = $("#checkbox-toggle-export");
+    const $mImport = $("#import");
+    const $mImportCodeArea = $("#textarea-import-code");
+    const $btnImport = $("#button-import-paste");
+    const $btnWinImport = $("#button-import");
+    const $chkImport = $("#checkbox-toggle-import");
+    const $mDownload = $("#download");
+    const $btnDownload = $("#button-download");
+    const $chkDownload = $("#checkbox-toggle-download");
 
     const clearChild = ($t, a = []) => {
         Array.from($t.childNodes).forEach(($n) => {
@@ -9157,6 +9188,7 @@
     };
     const applyPos = () => {
         $mlPos.style["transform"] = `translate(${op.x}px,${op.y}px)`;
+        genExportCode();
     };
     const addScale = (i) => {
         if (i > 0 && op.s+i > SCALEMAX) op.s = SCALEMAX;
@@ -9174,6 +9206,7 @@
         op.rs = SCALEINIT * op.s;
         $mlScale.style["transform"] = `scale(${op.rs})`;
         $zoomLevel.innerText = op.s;
+        genExportCode();
     };
     const applyOp = () => {
         applyPos();
@@ -9248,6 +9281,7 @@
         $cpFillInputs.forEach(($n, i) => {
             $n.value = `${Object.values(col.fill)[i]}`;
         });
+        genExportCode();
     };
     const applyColorFill = () => {
         setColorFill(col.fill);
@@ -9273,6 +9307,7 @@
         $cpBgInputs.forEach(($n, i) => {
             $n.value = `${Object.values(col.bg)[i]}`;
         });
+        genExportCode();
     };
     const applyColorBg = () => {
         setColorBg(col.bg);
@@ -9281,14 +9316,24 @@
         if (t.constructor === String) t = $(`#${t}`);
         const hex = `#${RGBtoHEX(col.fill)}`;
         t.style["fill"] = hex;
+        areas[t.id] = hex;
         addRecentColorFill({
             rgb: Object.assign({}, col.fill),
             hex: RGBtoHEX(col.fill)
         });
+        genExportCode();
+    };
+    const fillAlt = (t, hex) => {
+        if (t.constructor === String) t = $(`#${t}`);
+        t.style["fill"] = hex;
+        areas[t.id] = hex;
+        genExportCode();
     };
     const unfill = (t) => {
-        if (t.constructor === String) $t = $(`#${t}`);
+        if (t.constructor === String) t = $(`#${t}`);
         t.style["fill"] = null;
+        delete areas[t.id];
+        genExportCode();
     };
     const addRecentColorFill = (d) => {
         if (colRecents.fill.filter((x) => RGBtoHEX(x) === d.hex).length) return;
@@ -9366,7 +9411,7 @@
     };
     const setLayer = (t, i) => {
         if (!typeof i === "undefined") return;
-        layers[t] = {};
+        layers[t] = i;
         layerOps[t].active = i;
         layerOps[t].options[i].value.forEach((x, i) => {
             if (x) {
@@ -9375,11 +9420,37 @@
                 layerOps[t].layers[i].style["display"] = "none";
             };
         });
+        genExportCode();
     };
     const setLayerAll = (a) => {
         a.forEach((x, i) => {
             setLayer(Object.keys(layerOps)[i], x);
         });
+    };
+    const doReset = () => {
+        Array.from($a(".map-shape")).forEach(($n) => {
+            unfill($n.id);
+        });
+        setPos(0, 0);
+        setScale(1);
+        setColorFill(Object.assign({}, COLINIT.fill));
+        setColorBg(Object.assign({}, COLINIT.bg));
+        initHash();
+    };
+    const genExportCode = () => {
+        const data = {
+            col: {
+                fill: Object.assign({}, col.fill),
+                bg: Object.assign({}, col.bg)
+            },
+            activeLayers: Object.assign({}, layers),
+            ops: Object.assign({}, areas)
+        };
+        exportCode = btoa(JSON.stringify(data));
+        applyExportCode(exportCode);
+    };
+    const applyExportCode = (s) => {
+        $mExportCodePreview.innerText = s;
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -9394,13 +9465,15 @@
             };
         });
         document.addEventListener("keydown", (k) => {
-            if (k.keyCode === 90) {
+            if (k.ctrlKey) return;
+
+            if (k.keyCode === 67) {
                 $btnCpFill.click();
-            } else if (k.keyCode === 88) {
-                $btnCpBg.click();
-            } else if (k.keyCode === 67) {
-                $btnMConf.click();
             } else if (k.keyCode === 86) {
+                $btnCpBg.click();
+            } else if (k.keyCode === 90) {
+                $btnMConf.click();
+            } else if (k.keyCode === 88) {
                 $btnMPreset.click();
             } else if (k.keyCode === 16) {
                 $inpSearch.focus();
@@ -9420,8 +9493,14 @@
                 $btnZoomOut.click();
             } else if (k.keyCode === 61) {
                 $btnZoomIn.click();
-            } else {
-                console.log(k.keyCode);
+            } else if (k.keyCode === 79) {
+                $btnReset.click();
+            } else if (k.keyCode === 80) {
+                $btnWinExport.click();
+            } else if (k.keyCode === 219) {
+                $btnWinImport.click();
+            } else if (k.keyCode === 221) {
+                $btnDownload.click();
             };
         });
         $mArea.addEventListener("wheel", (w) => {
@@ -9633,6 +9712,52 @@
             addScale(SCALELEVEL*-1);
             initHash();
         };
+
+        $btnReset.onclick = () => {
+            $winReset.style["display"] = "flex";
+        };
+        $btnResetAccept.onclick = () => {
+            doReset();
+            $winReset.style["display"] = "none";
+        };
+        $btnResetDeny.onclick = () => {
+            $winReset.style["display"] = "none";
+        };
+
+        $btnExport.onclick = () => {
+            window.navigator.clipboard.writeText(exportCode);
+            alert("데이터를 클립보드에 복사했습니다.");
+        };
+        $mImportCodeArea.value = "";
+        $btnImport.onclick = () => {
+            try {
+                const data = JSON.parse(atob($mImportCodeArea.value.trim()));
+                setColorFill(data.col.fill);
+                setColorBg(data.col.bg);
+                Object.keys(data.activeLayers).forEach((x) => {
+                    setLayer(x, data.activeLayers[x]);
+                });
+                Object.keys(data.ops).forEach((x) => {
+                    fillAlt(x, data.ops[x]);
+                });
+            } catch(err) {
+                console.error(err);
+                alert("데이터를 가져오는 과정에서 오류가 발생했습니다.\n데이터가 손상되었거나 규격이 올바르지 않습니다.\n\n자세한 내용은 콘솔을 확인해주세요.");
+            };
+        };
+        $chkExport.onchange = (c) => {
+            $mExport.style["display"] = c.target.checked ? "flex" : "none";
+        };
+        $chkImport.onchange = (c) => {
+            $mImport.style["display"] = c.target.checked ? "flex" : "none";
+        };
+        $chkExport.checked = false;
+        $chkImport.checked = false;
+
+        $chkDownload.onchange = (c) => {
+            $mDownload.style["display"] = c.target.checked ? "flex" : "none";
+        };
+        $chkDownload.checked = false;
 
         applyOp();
         readHash();
