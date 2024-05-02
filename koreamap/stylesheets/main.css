@@ -193,6 +193,7 @@ button:hover > .tag, label:hover > .tag {
     height: 100%;
 
     background-color: var(--c-lyra);
+    cursor: pointer;
 }
 #logo > img {
     filter: brightness(0) invert(1);
@@ -986,4 +987,9 @@ button:hover > .tag, label:hover > .tag {
 }
 .modal-button-area > button:not(:last-child) {
     margin-right: 14px;
+}
+
+#modal-about img {
+    max-width: 100%;
+    max-height: 100%;
 }

@@ -2666,6 +2666,7 @@
                             북부
                         </button>
                     </div>
+                    <p>Powered by <a href="https://canvg.js.org/" target="__blank">canvg</a></p>
                 </div>
             </div>
         </div>
@@ -2683,6 +2684,21 @@
                     <button id="modal-reset-button-deny">
                         <div class="i i-deny"></div>
                         <p>취소</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="modal-about" class="modal" style="display:none;">
+            <div>
+                <h1>Pyxis 정보</h1>
+                <img src="./assets/essentials/banner.svg" alt="Project Pyxis">
+                <p id="about-name"></p>
+                <p id="about-author"></p>
+                <p id="about-version"></p>
+                <div class="modal-button-area">
+                    <button id="modal-about-button-accept">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
                     </button>
                 </div>
             </div>
@@ -2761,9 +2777,5 @@
             };
         })();
     </script>
-    <div id="watermark">
-        Pyxis R2<br>
-        v2.0.rc1@24-05-02<br>
-    </div>
 </body>
 </html>

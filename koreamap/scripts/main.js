@@ -1,4 +1,13 @@
 (() => {
+    const LYRA = {
+        name: "Project Pyxis",
+        author: "Acherium",
+        contact: "acherium@pm.me",
+        version: "2.0.1000",
+        date: "24-05-02",
+        watermark: false
+    };
+
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
     const SCALEINIT = 10;
@@ -9142,6 +9151,12 @@
     const $mDownload = $("#download");
     const $btnDownload = $("#button-download");
     const $chkDownload = $("#checkbox-toggle-download");
+    const $winAbout = $("#modal-about");
+    const $btnAbout = $("#logo");
+    const $btnAboutAccept = $("#modal-about-button-accept");
+    const $pAboutName = $("#about-name");
+    const $pAboutAuthor = $("#about-author");
+    const $pAboutVer = $("#about-version");
 
     const clearChild = ($t, a = []) => {
         Array.from($t.childNodes).forEach(($n) => {
@@ -9758,6 +9773,23 @@
             $mDownload.style["display"] = c.target.checked ? "flex" : "none";
         };
         $chkDownload.checked = false;
+
+        $btnAbout.onclick = () => {
+            $winAbout.style["display"] = "flex";
+        };
+        $btnAboutAccept.onclick = () => {
+            $winAbout.style["display"] = "none";
+        };
+        $pAboutName.innerText = LYRA.name;
+        $pAboutAuthor.innerText = `${LYRA.author} 제작 (${LYRA.contact})`;
+        $pAboutVer.innerText = `버전 v${LYRA.version}@${LYRA.date}`;
+
+        if (LYRA.watermark) {
+            $wm = document.createElement("div");
+            $wm.id = "watermark";
+            $wm.innerText = `${LYRA.name}\nv${LYRA.version}@${LYRA.date}`;
+            document.body.append($wm);
+        };
 
         applyOp();
         readHash();
