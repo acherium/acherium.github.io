@@ -3,9 +3,9 @@
         name: "Project Pyxis",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "2.0.1000",
-        date: "24-05-02",
-        watermark: false
+        version: "2.0.1001",
+        date: "24-05-12",
+        watermark: true
     };
 
     const $ = (x) => document.querySelector(x);
@@ -997,6 +997,7 @@
     };
     const areas = {};
     let exportCode = "";
+    const history = [];
 
     const REGIONS = {
         "SEO": {
@@ -9154,6 +9155,7 @@
     const $winAbout = $("#modal-about");
     const $btnAbout = $("#logo");
     const $btnAboutAccept = $("#modal-about-button-accept");
+    const $hAboutTitle = $("#modal-about>div>h1");
     const $pAboutName = $("#about-name");
     const $pAboutAuthor = $("#about-author");
     const $pAboutVer = $("#about-version");
@@ -9454,6 +9456,7 @@
     };
     const genExportCode = () => {
         const data = {
+            version: LYRA.version,
             col: {
                 fill: Object.assign({}, col.fill),
                 bg: Object.assign({}, col.bg)
@@ -9747,6 +9750,10 @@
         $btnImport.onclick = () => {
             try {
                 const data = JSON.parse(atob($mImportCodeArea.value.trim()));
+                const ver = data.version;
+                if (!ver || ver !== LYRA.version) {
+                    alert("데이터가 작성된 버전이 현재 버전과 일치하지 않습니다.\n데이터 일부가 적용되지 않거나 오류가 발생할 수 있습니다.");
+                };
                 setColorFill(data.col.fill);
                 setColorBg(data.col.bg);
                 Object.keys(data.activeLayers).forEach((x) => {
@@ -9780,6 +9787,7 @@
         $btnAboutAccept.onclick = () => {
             $winAbout.style["display"] = "none";
         };
+        $hAboutTitle.innerText = `${LYRA.name} 정보`;
         $pAboutName.innerText = LYRA.name;
         $pAboutAuthor.innerText = `${LYRA.author} 제작 (${LYRA.contact})`;
         $pAboutVer.innerText = `버전 v${LYRA.version}@${LYRA.date}`;
