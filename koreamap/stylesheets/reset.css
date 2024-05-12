@@ -117,6 +117,8 @@ p, a, span {
 .i-arrow3 { background-image: url("../assets/icons/22-arrow3.svg"); }
 .i-plus { background-image: url("../assets/icons/23-plus.svg"); }
 .i-minus { background-image: url("../assets/icons/24-minus.svg"); }
+.i-undo { background-image: url("../assets/icons/25-undo.svg"); }
+.i-redo { background-image: url("../assets/icons/26-redo.svg"); }
 
 .void {
     position: relative;
