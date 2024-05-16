@@ -3,8 +3,8 @@
         name: "Project Pyxis",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "2.0.1002",
-        date: "24-05-12",
+        version: "2.0.1003",
+        date: "24-05-16",
         watermark: true
     };
 

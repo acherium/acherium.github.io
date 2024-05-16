@@ -464,7 +464,7 @@ button:hover > .tag, label:hover > .tag {
     font-weight: 300;
 }
 
-#right {
+#middle {
     display: flex;
     position: relative;
     align-items: center;
