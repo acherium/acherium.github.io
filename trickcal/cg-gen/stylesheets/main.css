@@ -246,12 +246,17 @@ button:active {
     font-size: 16pt;
     text-align: center;
     text-overflow: ellipsis;
-    color: var(--c-trickcal-font);
     border-radius: 4px;
     cursor: pointer;
 }
 #script-content:hover {
     outline: solid 3px var(--c-lyra);
+}
+.script-content-font-dark {
+    color: var(--c-trickcal-font);
+}
+.script-content-font-light {
+    color: white;
 }
 
 .modal-area {

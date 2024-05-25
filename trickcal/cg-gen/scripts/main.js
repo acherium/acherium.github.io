@@ -86,23 +86,28 @@
     const BOXES = {
         0: {
             src: "./assets/images/scriptbox-0.png",
-            vignetting: false
+            vignetting: false,
+            color: "dark"
         },
         1: {
             src: "./assets/images/scriptbox-1.png",
-            vignetting: false
+            vignetting: false,
+            color: "dark"
         },
         2: {
             src: "./assets/images/scriptbox-2.png",
-            vignetting: true
+            vignetting: true,
+            color: "light"
         },
         3: {
             src: "./assets/images/scriptbox-3.png",
-            vignetting: false
+            vignetting: false,
+            color: "dark"
         },
         4: {
             src: "./assets/images/scriptbox-4.png",
-            vignetting: false
+            vignetting: false,
+            color: "dark"
         }
     }
 
@@ -149,6 +154,9 @@
     const setBoxStyle = (i) => {
         const d = BOXES[i];
         if (!d) return;
+        $content.classList.remove("script-content-font-dark");
+        $content.classList.remove("script-content-font-light");
+        $content.classList.add(`script-content-font-${d.color}`);
         $box.src = d.src;
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
     };
