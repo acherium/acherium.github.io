@@ -1,0 +1,381 @@
+@charset "UTF-8";
+@font-face {
+    font-family: "ONE Mobile POP";
+    src: url("../assets/fonts/ONE Mobile POP.ttf");
+}
+:root {
+    --c-lyra: rgb(177, 0, 255);
+    --c-main: rgb(255, 255, 255);
+    --c-font: rgb(0, 0, 0);
+    --c-font-sub: rgb(150, 150, 150);
+    --c-border: rgb(230, 230, 230);
+    --c-button: rgb(230, 230, 230);
+    --c-button-hover-main: var(--c-lyra);
+    --c-button-hover-font: rgb(255, 255, 255);
+    --c-button-active-main: rgb(150, 150, 150);
+    --c-button-active-font: var(--c-lyra);
+    --c-shadow: rgba(0, 0, 0, 0.2);
+    --c-trickcal-font: rgb(52, 51, 52);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    color: var(--c-font);
+    font-family: "ONE Mobile POP";
+    user-select: none;
+}
+p, span, a, button, input, textarea {
+    font-size: 12pt;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+.wf {
+    width: 100%;
+}
+
+input[type=file] {
+    display: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--c-main);
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 20px 0;
+
+    min-height: 100vh;
+    width: 100vw;
+    height: max-content;
+    
+    background-color: var(--c-main);
+}
+main > *:not(:last-child) {
+    margin-bottom: 20px;
+}
+main > span, main > span > a {
+    font-size: 8pt;
+    color: var(--c-font-sub);
+}
+
+.button-list {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+
+    width: max-content;
+    height: 70px;
+    
+    border: solid 1px var(--c-border);
+    border-radius: 8px;
+    background-color: var(--c-main);
+}
+.button-list > *:not(:last-child) {
+    margin-right: 10px;
+}
+
+.partition {
+    width: 1px;
+    height: 100%;
+
+    background-color: var(--c-button);
+}
+
+.view {
+    overflow-x: scroll;
+
+    max-width: inherit;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+button, label {
+    padding: 16px;
+
+    border: 0;
+    border-radius: 4px;
+    background-color: var(--c-button);
+    cursor: pointer;
+
+    transition: all 0.05s;
+}
+button:hover, label:hover, input[type=checkbox]:checked+label {
+    color: var(--c-button-hover-font);
+    background-color: var(--c-button-hover-main);
+    box-shadow: 2px 0 5px var(--c-shadow);
+}
+button:active {
+    color: var(--c-button-active-font);
+    background-color: var(--c-button-active-main);
+    box-shadow: 2px 0 2px var(--c-shadow);
+}
+
+#photo-zone {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    overflow: hidden;
+
+    width: 1280px;
+    height: 720px;
+
+    background-color: rgb(0, 0, 0);
+}
+
+#photo {
+    position: absolute;
+
+    width: 100%;
+}
+
+.photo-button {
+    position: absolute;
+    top: 10px;
+
+    width: 60px;
+    height: 60px;
+
+    opacity: 0.8;
+}
+.photo-button:nth-child(3) {
+    right: 80px;
+}
+.photo-button:nth-child(4) {
+    right: 10px;
+}
+
+#photo-vignetting {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+
+#photo-script-box-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    width: 1000px;
+    height: 224px;
+}
+
+#photo-script-box-backdrop {
+    position: absolute;
+
+    width: 1000px;
+
+    opacity: 0.95;
+}
+
+#photo-script-box-namearea {
+    display: flex;
+    position: absolute;
+    align-items: flex-end;
+    justify-content: center;
+    top: 17px;
+    left: 0;
+
+    width: 100%;
+    height: 25px;
+}
+
+#photo-script-box-name-backdrop {
+    width: 270px;
+    height: 100%;
+
+    border-radius: 8px;
+}
+
+#photo-script-box-namebox {
+    position: absolute;
+    top: -10px;
+
+    width: 100%;
+}
+#photo-script-box-namebox > span {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    font-size: 18pt;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#photo-script-box-namebox > span:nth-child(1) {
+    -webkit-text-stroke: 5px white;
+}
+#photo-script-box-namebox > span:nth-child(2) {
+    color: var(--c-trickcal-font);
+}
+#photo-script-box-namebox > span:last-child:hover {
+    outline: solid 3px var(--c-lyra);
+}
+
+#script-content {
+    position: relative;
+    overflow: hidden;
+
+    max-width: 800px;
+    max-height: 130px;
+
+    font-size: 16pt;
+    text-align: center;
+    text-overflow: ellipsis;
+    color: var(--c-trickcal-font);
+    border-radius: 4px;
+    cursor: pointer;
+}
+#script-content:hover {
+    outline: solid 3px var(--c-lyra);
+}
+
+.modal-area {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 5px;
+    padding: 16px;
+
+    max-width: 100vw;
+    max-height: 100vh;
+
+    border: solid 1px var(--c-border);
+    border-radius: 8px;
+    background-color: var(--c-main);
+    box-shadow: 2px 0 5px var(--c-shadow);
+}
+.modal > *:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.modal-button-list {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 100%;
+    
+    background-color: var(--c-main);
+}
+.modal-button-list > *:not(:last-child) {
+    margin-right: 10px;
+}
+
+#name, #content {
+    padding: 10px;
+
+    max-width: 400px;
+    width: 100%;
+
+    font-size: 14pt;
+    border: solid 1px var(--c-border);
+    border-radius: 4px;
+}
+#name:focus, #content:focus {
+    outline: solid 3px var(--c-lyra);
+}
+
+#content {
+    overflow-y: scroll;
+
+    height: 300px;
+
+    resize: none;
+}
+
+#content-box-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    width: 100%;
+
+    background-color: var(--c-main);
+}
+#content-box-list > *:not(:last-child) {
+    margin-right: 4px;
+}
+#content-box-list > input[type=radio] {
+    display: none;
+}
+#content-box-list > label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+    flex: 1;
+    width: 100%;
+
+    border-radius: 4px;
+    background-color: var(--c-button);
+    cursor: pointer;
+
+    transition: all 0.05s;
+}
+#content-box-list > label:hover {
+    color: var(--c-button-hover-font);
+    background-color: var(--c-button-hover-main);
+}
+#content-box-list > input[type=radio]:checked+label {
+    color: var(--c-button-active-font);
+    background-color: var(--c-button-active-main);
+}
+
+.modal > select {
+    padding: 10px;
+
+    width: 100%;
+
+    font-size: 12pt;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--c-button);
+    cursor: pointer;
+}
+.modal > select:focus {
+    outline: solid 3px var(--c-lyra);
+}
