@@ -231,7 +231,7 @@
 
     setName(PALETTE[data.init][1]);
     setContent(data.content);
-    $selNameBgCol.options[0].selected = true;
+    $selNameBgCol.options[16].selected = true;
     setColor(PALETTE[data.init][2]);
     $btnBoxStyle[data.box].click();
     $btnPhotoRemove.click();
