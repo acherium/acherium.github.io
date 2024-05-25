@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1002",
+        version: "1.0.1003",
         date: "24-05-26",
         watermark: true,
         isBeta: true
@@ -119,7 +119,7 @@
             vignetting: false,
             color: "dark"
         }
-    }
+    };
 
     const $namearea = $("#photo-script-box-namearea");
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
@@ -213,7 +213,7 @@
         $modalName.style["display"] = "none";
     };
     $inputName.onkeydown = (k) => {
-        if (k.keyCode === 13) $modalNameBtnClose.click();
+        if (k.keyCode === 13 && k.ctrlKey) $modalNameBtnClose.click();
     };
     $inputName.oninput = (x) => {
         setName(x.target.value);
@@ -230,7 +230,7 @@
         $modalContent.style["display"] = "none";
     };
     $inputContent.onkeydown = (k) => {
-        if (k.keyCode === 13) $modalContentBtnClose.click();
+        if (k.keyCode === 13 && k.ctrlKey) $modalContentBtnClose.click();
     };
     $inputContent.oninput = (x) => {
         setContent(x.target.value);
