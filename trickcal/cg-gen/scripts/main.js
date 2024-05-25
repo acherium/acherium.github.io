@@ -1,10 +1,10 @@
 (() => {
     const LYRA = {
-        name: "Trickcal CG Scene Auto-Gen",
+        name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1000",
-        date: "24-05-25",
+        version: "1.0.1001",
+        date: "24-05-26",
         watermark: true,
         isBeta: true
     };
@@ -126,6 +126,7 @@
     const $nameBg = $("#photo-script-box-name-backdrop");
     const $inputName = $("#name");
     const $selNameBgCol = $("#name-color");
+    const $chkAutoName = $("#checkbox-toggle-auto-change-name");
     const $modalName = $("#modal-name");
     const $modalNameBtnClose = $("#modal-name button");
     const $btnName = $("#photo-script-box-namebox > span:last-child");
@@ -144,7 +145,8 @@
     const $btnOutput = $("#button-output");
     const $photoBtns = $a(".photo-button");
     const $chkPhotoBtns = $("#checkbox-toggle-photo-button");
-    const $btnPhotoBtns = $("#toggle-photo-button");
+    const $tglPhotoBtns = $("#toggle-photo-button");
+    const $chkKeyShortcut = $("#checkbox-toggle-shortcut");
 
     const setName = (x) => {
         data.name = x;
@@ -171,8 +173,39 @@
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
     };
 
+    document.addEventListener("keydown", (k) => {
+        if (!$chkKeyShortcut.checked) return;
+        if (k.target !== document.body) return;
+        if (k.keyCode === 49) {
+            $btnBoxStyle[0].click();
+        } else if (k.keyCode === 50) {
+            $btnBoxStyle[1].click();
+        } else if (k.keyCode === 51) {
+            $btnBoxStyle[2].click();
+        } else if (k.keyCode === 52) {
+            $btnBoxStyle[3].click();
+        } else if (k.keyCode === 53) {
+            $btnBoxStyle[4].click();
+        } else if (k.keyCode === 65) {
+            $modalName.style["display"] = "flex";
+            setTimeout(() => {
+                $inputName.focus();
+            }, 30);
+        } else if (k.keyCode === 83) {
+            $modalContent.style["display"] = "flex";
+            setTimeout(() => {
+                $inputContent.focus();
+            }, 30);
+        } else if (k.keyCode === 68) {
+            $inputPhoto.click();
+        } else if (k.keyCode === 70) {
+            $btnOutput.click();
+        }
+    });
+
     $name.onclick = () => {
         $modalName.style["display"] = "flex";
+        $inputName.focus();
     };
     $modalNameBtnClose.onclick = () => {
         $modalName.style["display"] = "none";
@@ -186,6 +219,7 @@
 
     $content.onclick = () => {
         $modalContent.style["display"] = "flex";
+        $inputContent.focus();
     };
     $modalContentBtnClose.onclick = () => {
         $modalContent.style["display"] = "none";
@@ -221,9 +255,11 @@
     $btnOutput.onclick = () => {
         html2canvas($photozone).then((c) => {
             const l = document.createElement("a");
+            const d = Date.now();
+            const filename = `TCAG-${d}-OUTPUT.png`;
             document.body.append(l);
             l.href = c.toDataURL("image/png");
-            l.download = `IMAGE.png`;
+            l.download = filename;
             l.click();
             l.remove();
         });
@@ -237,8 +273,8 @@
     });
     $selNameBgCol.onchange = (c) => {
         const d = c.target.value.split("::");
-        setName(d[0]);
         setColor(d[1]);
+        if ($chkAutoName.checked) setName(d[0]);
     };
 
     $chkPhotoBtns.onchange = (c) => {
@@ -254,6 +290,8 @@
     $btnBoxStyle[data.box].click();
     $btnPhotoRemove.click();
     $chkPhotoBtns.checked = true;
+    $chkAutoName.checked = true;
+    $chkKeyShortcut.checked = true;
     
     if (LYRA.watermark) {
         $wm = document.createElement("div");

@@ -136,12 +136,12 @@ button, label {
 
     transition: all 0.05s;
 }
-button:hover, label:hover, input[type=checkbox]:checked+label {
+button:hover, label:hover {
     color: var(--c-button-hover-font);
     background-color: var(--c-button-hover-main);
     box-shadow: 2px 0 5px var(--c-shadow);
 }
-button:active {
+button:active, input[type=checkbox]:checked+label {
     color: var(--c-button-active-font);
     background-color: var(--c-button-active-main);
     box-shadow: 2px 0 2px var(--c-shadow);
