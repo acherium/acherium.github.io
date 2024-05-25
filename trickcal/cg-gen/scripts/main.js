@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1001",
+        version: "1.0.1002",
         date: "24-05-26",
         watermark: true,
         isBeta: true
@@ -121,12 +121,14 @@
         }
     }
 
+    const $namearea = $("#photo-script-box-namearea");
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
     const $name = $("#photo-script-box-namebox > span:nth-child(2)");
     const $nameBg = $("#photo-script-box-name-backdrop");
     const $inputName = $("#name");
     const $selNameBgCol = $("#name-color");
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
+    const $chkTglName = $("#checkbox-toggle-namearea");
     const $modalName = $("#modal-name");
     const $modalNameBtnClose = $("#modal-name button");
     const $btnName = $("#photo-script-box-namebox > span:last-child");
@@ -216,6 +218,9 @@
     $inputName.oninput = (x) => {
         setName(x.target.value);
     };
+    $chkTglName.onchange = (c) => {
+        $namearea.style["display"] = c.target.checked ? "flex" : "none";
+    };
 
     $content.onclick = () => {
         $modalContent.style["display"] = "flex";
@@ -292,6 +297,7 @@
     $chkPhotoBtns.checked = true;
     $chkAutoName.checked = true;
     $chkKeyShortcut.checked = true;
+    $chkTglName.checked = true;
     
     if (LYRA.watermark) {
         $wm = document.createElement("div");
