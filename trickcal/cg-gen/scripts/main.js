@@ -1,4 +1,14 @@
 (() => {
+    const LYRA = {
+        name: "Trickcal CG Scene Auto-Gen",
+        author: "Acherium",
+        contact: "acherium@pm.me",
+        version: "1.0.1000",
+        date: "24-05-25",
+        watermark: true,
+        isBeta: true
+    };
+
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
 
@@ -244,4 +254,11 @@
     $btnBoxStyle[data.box].click();
     $btnPhotoRemove.click();
     $chkPhotoBtns.checked = true;
+    
+    if (LYRA.watermark) {
+        $wm = document.createElement("div");
+        $wm.id = "watermark";
+        $wm.innerText = `${LYRA.name}\nv${LYRA.version}@${LYRA.date}${LYRA.isBeta ? "\n테스트용 빌드입니다" : ""}`;
+        document.body.append($wm);
+    };
 })();
