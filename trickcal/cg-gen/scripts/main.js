@@ -23,7 +23,7 @@
     const PALETTE = {
         "player": [ "player", "교주", "FBAC26" ],
         "youngchun": [ "youngchun", "영춘", "768964" ],
-        "sub": [ "sub", "찬조출연자", "A1AD88" ],
+        "sub": [ "sub", "게스트", "A1AD88" ],
     
         "chloe": [ "chloe", "클로에", "BB3626" ],
         "erpin": [ "erpin", "에르핀", "F09D7D" ],
