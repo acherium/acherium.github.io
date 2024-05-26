@@ -3,11 +3,12 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1018",
+        version: "1.0.1030",
         date: "24-05-26",
         watermark: false,
         isBeta: true
     };
+    const SIZEMIN = 32;
 
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
@@ -20,12 +21,21 @@
             "선택 2",
             "선택 3"
         ],
+        images: [],
+        selectedImageItem: null,
+        controllerRect: {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+        },
         box: 0,
         buttonVisibility: true,
         color: "",
         init: "butter",
         initSize: 0
     };
+    let imageItemIdInt = 0;
     const PALETTE = {
         "player": [ "player", "교주", "FBAC26" ],
         "youngchun": [ "youngchun", "영춘", "768964" ],
@@ -181,6 +191,20 @@
     const $modalSelboxBtnClose = $("#modal-select button.close");
     const $chkSelbox = $("#checkbox-toggle-select");
     const $modalBgs = $a(".modal-area");
+    const $imageLayer = $("#photo-layer");
+    const $btnAddImage = $("#button-add-image");
+    const $imageList = $("#image-item-list");
+    const $controller = $("#photo-item-controller");
+    const $controllerLayer = $("#photo-item-controller-area");
+    const $resizePoints = $a("#photo-item-controller > .resize-point");
+    const $btnBottommost = $("#button-controller-bottommost");
+    const $btnBottom = $("#button-controller-bottom");
+    const $btnFront = $("#button-controller-front");
+    const $btnFrontmost = $("#button-controller-frontmost");
+    const $btnFlipHorizontal = $("#button-controller-flip-horizontal");
+    const $btnFlipVertical = $("#button-controller-flip-vertical");
+    const $btnControllerReset = $("#button-controller-reset");
+    const $btnControllerRemove = $("#button-controller-remove");
 
     const setName = (x) => {
         data.name = x;
@@ -212,8 +236,89 @@
         });
         $photozone.classList.add(`photo-zone-size-${i}`);
     };
+    const selectItem = (i) => {
+        const t = data.images.find((x) => x.id === i);
+        if (!t) return;
+        data.selectedImageItem = i;
+
+        setControllerPos(t.rect.x, t.rect.y);
+        setControllerSize(0, 0, t.rect.width, t.rect.height);
+
+        $controller.style["display"] = "flex";
+    };
+    const unselectItem = () => {
+        data.selectedImageItem = null;
+        $controller.style["display"] = "none";
+    };
+    const addImagePos = (n, x, y) => {
+        const d = data.images.find((x) => x.id === n);
+        const $img = d.nodes.img;
+        d.rect.x += x;
+        d.rect.y += y;
+        $img.style["top"] = `${d.rect.y + y}px`;
+        $img.style["left"] = `${d.rect.x + x}px`;
+        data.images[data.images.findIndex((x) => x.id === n)] = d;
+    };
+    const setImagePos = (n, x, y) => {
+        const d = data.images.find((x) => x.id === n);
+        const $img = d.nodes.img;
+        d.rect.x = x;
+        d.rect.y = y;
+        $img.style["top"] = `${d.rect.y}px`;
+        $img.style["left"] = `${d.rect.x}px`;
+        data.images[data.images.findIndex((x) => x.id === n)] = d;
+    };
+    const addControllerPos = (x, y) => {
+        const originX = parseInt($controller.style["left"]);
+        const originY = parseInt($controller.style["top"]);
+        $controller.style["top"] = `${originY + y}px`;
+        $controller.style["left"] = `${originX + x}px`;
+    };
+    const setControllerPos = (x, y) => {
+        data.controllerRect.x = x;
+        data.controllerRect.y = y;
+        $controller.style["top"] = `${y}px`;
+        $controller.style["left"] = `${x}px`;
+    };
+    const addImageSize = (n, x, y, w, h) => {
+        const d = data.images.find((x) => x.id === n);
+        const $img = d.nodes.img;
+        d.rect.width += w;
+        d.rect.height += h;
+        addImagePos(n, x, y);
+        $img.style["width"] = `${d.rect.width}px`;
+        $img.style["height"] = `${d.rect.height}px`;
+        data.images[data.images.findIndex((x) => x.id === n)] = d;
+    };
+    const setImageSize = (n, x, y, w, h) => {
+        const d = data.images.find((x) => x.id === n);
+        const $img = d.nodes.img;
+        addImagePos(n, x, y);
+        d.rect.width = w;
+        d.rect.height = h;
+        $img.style["width"] = `${w}px`;
+        $img.style["height"] = `${h}px`;
+        data.images[data.images.findIndex((x) => x.id === n)] = d;
+    };
+    const addControllerSize = (x, y, w, h) => {
+        data.controllerRect.width += w;
+        data.controllerRect.height += h;
+        addControllerPos(x, y);
+        $controller.style["width"] = `${data.controllerRect.width}px`;
+        $controller.style["height"] = `${data.controllerRect.height}px`;
+    };
+    const setControllerSize = (x, y, w, h) => {
+        data.controllerRect.width = w;
+        data.controllerRect.height = h;
+        addControllerPos(x, y);
+        $controller.style["width"] = `${w}px`;
+        $controller.style["height"] = `${h}px`;
+    };
 
     document.addEventListener("keydown", (k) => {
+        if (!Number.isNaN(parseInt(data.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
+            $btnControllerReset.click();
+        };
         if (!$chkKeyShortcut.checked) return;
         if (k.target !== document.body) return;
         if (k.keyCode === 49) {
@@ -244,6 +349,145 @@
             $btnOutput.click();
         }
     });
+
+    $controller.onpointerdown = (p) => {
+        if (p.target !== $controller) return;
+        $controller.setPointerCapture(p.pointerId);
+        $controller.onpointermove = (m) => {
+            const d = data.images.find((x) => x.id === data.selectedImageItem);
+            if (!d) return;
+            d.rect.x += m.movementX;
+            d.rect.y += m.movementY;
+            setImagePos(d.id, d.rect.x, d.rect.y);
+            setControllerPos(d.rect.x, d.rect.y);
+        };
+        $controller.onpointerup = () => {
+            $controller.releasePointerCapture(p.pointerId);
+            $controller.onpointermove = null;
+            $controller.onpointerup = null;
+        };
+    };
+    Array.from($resizePoints).forEach(($n, i) => {
+        $n.onpointerdown = (p) => {
+            $n.setPointerCapture(p.pointerId);
+            $n.onpointermove = (m) => {
+                const d = data.images.find((x) => x.id === data.selectedImageItem);
+                if (!d) return;
+                const mx = m.movementX;
+                const my = m.movementY;
+                if (i === 0) {
+                    if (d.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                        addControllerSize(mx, 0, mx*-1, 0);
+                    };
+                    if (d.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(d.id, 0, my, 0, my*-1);
+                        addControllerSize(0, my, 0, my*-1);
+                    };
+                } else if (i === 1) {
+                    if (d.rect.width + mx >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, mx, 0);
+                        addControllerSize(0, 0, mx, 0);
+                    };
+                    if (d.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(d.id, 0, my, 0, my*-1);
+                        addControllerSize(0, my, 0, my*-1);
+                    };
+                } else if (i === 2) {
+                    if (d.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                        addControllerSize(mx, 0, mx*-1, 0);
+                    };
+                    if (d.rect.height + m.movementY >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, 0, my);
+                        addControllerSize(0, 0, 0, my);
+                    };
+                } else if (i === 3) {
+                    if (d.rect.width + mx >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, mx, 0);
+                        addControllerSize(0, 0, mx, 0);
+                    };
+                    if (d.rect.height + m.movementY >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, 0, my);
+                        addControllerSize(0, 0, 0, my);
+                    };
+                } else if (i === 4) {
+                    if (d.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(d.id, 0, my, 0, my*-1);
+                        addControllerSize(0, my, 0, my*-1);
+                    };
+                } else if (i === 5) {
+                    if (d.rect.width + mx >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, mx, 0);
+                        addControllerSize(0, 0, mx, 0);
+                    };
+                } else if (i === 6) {
+                    if (d.rect.height + m.movementY >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, 0, my);
+                        addControllerSize(0, 0, 0, my);
+                    };
+                } else if (i === 7) {
+                    if (d.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                        addControllerSize(mx, 0, mx*-1, 0);
+                    };
+                };
+            };
+            $n.onpointerup = () => {
+                $n.releasePointerCapture(p.pointerId);
+                $n.onpointermove = null;
+                $n.onpointerup = null;
+            };
+        };
+    });
+    $btnBottommost.onclick = () => {
+        const $img = data.images.find((x) => x.id === data.selectedImageItem).nodes.img;
+        $imageLayer.insertAdjacentElement("afterbegin", $img);
+    };
+    $btnBottom.onclick = () => {
+        const $img = data.images.find((x) => x.id === data.selectedImageItem).nodes.img;
+        const $target = $img.previousSibling;
+        if (!$target) return;
+        $imageLayer.insertBefore($img, $target);
+    };
+    $btnFront.onclick = () => {
+        const $img = data.images.find((x) => x.id === data.selectedImageItem).nodes.img;
+        const $target1 = $img.nextSibling;
+        const $target2 = $target1?.nextSibling;
+        if ($target1 && !$target2) {
+            $imageLayer.insertAdjacentElement("beforeend", $img);
+        } else if ($target2) {
+            $imageLayer.insertBefore($img, $target2);
+        };
+    };
+    $btnFrontmost.onclick = () => {
+        const $img = data.images.find((x) => x.id === data.selectedImageItem).nodes.img;
+        $imageLayer.insertAdjacentElement("beforeend", $img);
+    };
+    $btnFlipHorizontal.onclick = () => {
+        const d = data.images.find((x) => x.id === data.selectedImageItem);
+        const $img = d.nodes.img;
+        d.flip.horizontal = !d.flip.horizontal;
+        data.images[data.images.findIndex((x) => x.id === data.selectedImageItem)].flip = d.flip;
+        $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
+    };
+    $btnFlipVertical.onclick = () => {
+        const d = data.images.find((x) => x.id === data.selectedImageItem);
+        const $img = d.nodes.img;
+        d.flip.vertical = !d.flip.vertical;
+        data.images[data.images.findIndex((x) => x.id === data.selectedImageItem)].flip = d.flip;
+        $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
+    };
+    $btnControllerReset.onclick = () => {
+        const rect = data.images.find((x) => x.id === data.selectedImageItem).rectOrigin;
+        setImagePos(data.selectedImageItem, rect.x, rect.y);
+        setImageSize(data.selectedImageItem, 0, 0, rect.width, rect.height);
+        setControllerPos(rect.x, rect.y);
+        setControllerSize(0, 0, rect.width, rect.height);
+    };
+    $btnControllerRemove.onclick = () => {
+        data.images.find((x) => x.id === data.selectedImageItem).nodes.lab.querySelector("button.remove").click();
+    };
 
     $name.onclick = () => {
         $modalName.style["display"] = "flex";
@@ -381,6 +625,92 @@
             };
         };
     });
+
+    $btnAddImage.onclick = () => {
+        $uploader.onchange = (f) => {
+            const file = f.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                const id = imageItemIdInt++;
+
+                const $main = document.createElement("div");
+
+                const $img = new Image();
+                $img.src = reader.result;
+                $img.style["top"] = "0px";
+                $img.style["left"] = "0px";
+                $img.dataset.id = `${id}`;
+
+                const $chk = document.createElement("input");
+                $chk.type = "checkbox";
+                $chk.id = `image-item-${id}`;
+                $chk.classList.add("checkbox-image-item");
+                $chk.onchange = (c) => {
+                    unselectItem();
+                    Array.from($a(".checkbox-image-item")).filter(($n) => $n !== c.target).forEach(($n) => $n.checked = false);
+                    if (c.target.checked) {
+                        selectItem(id);
+                    };
+                };
+
+                const $lab = document.createElement("label");
+                $lab.setAttribute("for", `image-item-${id}`);
+                $lab.classList.add("image-item");
+                $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
+                    `<p>${file.name}</p>` +
+                    `<button class="remove"><div class="i i-deny"></div></button>`;
+                $lab.querySelector("button.remove").onclick = () => {
+                    unselectItem();
+                    $main.remove();
+                    $img.remove();
+                    $chk.remove();
+                    $lab.remove();
+                    delete data.images[data.images.findIndex((x) => x.id === id)];
+                    data.images = data.images.filter((x) => x);
+                };
+
+                setTimeout(() => {
+                    const d = {
+                        id: id,
+                        name: file.name,
+                        visible: true,
+                        data: reader.result,
+                        nodes: {
+                            main: $main,
+                            img: $img,
+                            chk: $chk,
+                            lab: $lab
+                        },
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            width: $img.width,
+                            height: $img.height
+                        },
+                        rectOrigin: {
+                            x: 0,
+                            y: 0,
+                            width: parseInt($img.width),
+                            height: parseInt($img.height)
+                        },
+                        flip: {
+                            horizontal: false,
+                            vertical: false
+                        },
+                        rotate: 0
+                    };
+                    data.images.push(d);
+
+                    d.nodes.main.append(d.nodes.chk);
+                    d.nodes.main.append(d.nodes.lab);
+                    $imageList.append(d.nodes.main);
+                    $imageLayer.append(d.nodes.img);
+                }, 30);
+            };
+        };
+        $uploader.click();
+    };
 
     Array.from($btnSlideSize)[data.initSize].click();
     setName(PALETTE[data.init][1]);
