@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1032",
+        version: "1.0.1033",
         date: "24-05-26",
         watermark: false,
         isBeta: true
@@ -205,6 +205,7 @@
     const $btnFlipVertical = $("#button-controller-flip-vertical");
     const $btnControllerReset = $("#button-controller-reset");
     const $btnControllerRemove = $("#button-controller-remove");
+    const $btnResetImage = $("#button-reset-image");
 
     const setName = (x) => {
         data.name = x;
@@ -488,6 +489,11 @@
     $btnControllerRemove.onclick = () => {
         data.images.find((x) => x.id === data.selectedImageItem).nodes.lab.querySelector("button.remove").click();
     };
+    $btnResetImage.onclick = () => {
+        data.images.forEach((x) => {
+            x.nodes.main.querySelector("button.remove").click();
+        });
+    };
 
     $name.onclick = () => {
         $modalName.style["display"] = "flex";
@@ -591,7 +597,7 @@
         };
     });
 
-    $selbox.onclick = () => {
+    $selbox.onpointerdown = () => {
         $modalSelbox.style["display"] = "flex";
     };
     $modalSelboxBtnClose.onclick = () => {
@@ -615,7 +621,7 @@
         };
     });
     $chkSelbox.onchange = (c) => {
-        $selboxInner.style["display"] = c.target.checked ? "block" : "none";
+        $selboxInner.style["display"] = c.target.checked ? "flex" : "none";
     };
 
     Array.from($modalBgs).forEach(($n) => {
