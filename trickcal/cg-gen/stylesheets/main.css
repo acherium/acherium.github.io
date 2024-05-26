@@ -530,6 +530,8 @@ button > *:not(:last-child), label > *:not(:last-child) {
 
     width: 100%;
     height: calc(100% - 224px);
+    
+    pointer-events: none;
 }
 
 #photo-select {
@@ -545,6 +547,7 @@ button > *:not(:last-child), label > *:not(:last-child) {
 
     border-radius: 4px;
     cursor: pointer;
+    pointer-events: all;
 }
 #photo-select:hover {
     outline: solid 3px var(--c-lyra);
