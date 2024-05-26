@@ -27,27 +27,43 @@
     <div id="bottom">
         <div id="left">
             <h4>슬라이드</h4>
+            <button id="button-slide-size">
+                <div class="i i-config"></div>
+                <p>크기 설정</p>
+            </button>
+            <button id="button-add-slide">
+                <div class="i i-set-bg"></div>
+                <p>빈 슬라이드 추가</p>
+            </button>
+            <button id="button-duplicate-slide">
+                <div class="i i-set-bg"></div>
+                <p>현재 슬라이드 복제</p>
+            </button>
+            <div class="partition-horizontal"></div>
+            <div class="scroll-box">
+                <div class="toolbar"></div>
+            </div>
         </div>
         <div id="middle">
             <main>
-                <div class="view">
-                    <div id="photo-zone">
-                        <img src="" id="photo-bg">
-                        <div id="photo-layer"></div>
-                        <img src="./assets/images/vignetting.png" id="photo-vignetting">
+                <div id="photo-zone">
+                    <img src="" id="photo-bg">
+                    <div id="photo-layer"></div>
+                    <img src="./assets/images/vignetting.png" id="photo-vignetting">
+                    <div id="photo-button-area">
                         <img src="./assets/images/button-auto.png" class="photo-button">
                         <img src="./assets/images/button-menu.png" class="photo-button">
-                        <div id="photo-script-box-area">
-                            <img src="./assets/images/scriptbox-0.png" id="photo-script-box-backdrop">
-                            <div id="photo-script-box-namearea">
-                                <div id="photo-script-box-name-backdrop"></div>
-                                <div id="photo-script-box-namebox">
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                    </div>
+                    <div id="photo-script-box-area">
+                        <img src="./assets/images/scriptbox-0.png" id="photo-script-box-backdrop">
+                        <div id="photo-script-box-namearea">
+                            <div id="photo-script-box-name-backdrop"></div>
+                            <div id="photo-script-box-namebox">
+                                <span></span>
+                                <span></span>
                             </div>
-                            <span id="script-content">Lorem ipsum dolor sit amet.<br>Hello, world!</span>
                         </div>
+                        <span id="script-content">Lorem ipsum dolor sit amet.<br>Hello, world!</span>
                     </div>
                 </div>
             </main>
@@ -110,7 +126,7 @@
         <div class="modal">
             <h1>내용</h1>
             <textarea id="content"></textarea>
-            <div id="content-box-list">
+            <div id="content-box-list" class="modal-radio-list">
                 <input type="radio" name="box-style" id="box-style-0" value="0">
                 <label class="content-box-label" for="box-style-0">1</label>
                 <input type="radio" name="box-style" id="box-style-1" value="1">
@@ -130,21 +146,21 @@
             </div>
         </div>
     </div>
-    <!-- <main>
-        <h1>트릭컬 스토리 대화창 생성기</h1>
-        <div class="button-list">
-            <p>배경 설정</p>
-            <button id="button-photo-set">설정</button>
-            <button id="button-photo-remove">제거</button>
-            <div class="partition"></div>
-            <input type="checkbox" id="checkbox-toggle-photo-button">
-            <label for="checkbox-toggle-photo-button" id="toggle-photo-button">조작기 표시</label>
-            <input type="checkbox" id="checkbox-toggle-shortcut">
-            <label for="checkbox-toggle-shortcut" id="toggle-shortcut">단축키</label>
-            <div class="partition"></div>
-            <button id="button-output">출력</button>
+    <div id="modal-slide-size" class="modal-area" style="display: none;">
+        <div class="modal">
+            <h1>크기</h1>
+            <div id="slide-size-list" class="modal-radio-list">
+                <input type="radio" name="slide-size" id="slide-size-0" value="0">
+                <label class="slide-size-label" for="slide-size-0">1280×720 (16:9)</label>
+                <input type="radio" name="slide-size" id="slide-size-1" value="1">
+                <label class="slide-size-label" for="slide-size-1">1788×700 (23:9)</label>
+                <input type="radio" name="slide-size" id="slide-size-2" value="2">
+                <label class="slide-size-label" for="slide-size-2">1280×1066 (6:5)</label>
+            </div>
+            <div class="modal-button-list">
+                <button>확인</button>
+            </div>
         </div>
-        <span>Powered by <a href="https://html2canvas.hertzen.com/">html2canvas</a></span>
-    </main> -->
+    </div>
 </body>
 </html>

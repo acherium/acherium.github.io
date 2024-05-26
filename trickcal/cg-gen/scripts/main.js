@@ -18,7 +18,8 @@
         box: 0,
         buttonVisibility: true,
         color: "",
-        init: "butter"
+        init: "butter",
+        initSize: 0
     };
     const PALETTE = {
         "player": [ "player", "교주", "FBAC26" ],
@@ -152,10 +153,14 @@
     const $btnPhotoSet = $("#button-set-bg");
     const $btnPhotoRemove = $("#button-remove-bg");
     const $btnOutput = $("#button-download");
-    const $photoBtns = $a(".photo-button");
-    const $chkPhotoBtns = $("#checkbox-toggle-photo-button");
-    const $tglPhotoBtns = $("#toggle-photo-button");
+    const $photoBtn = $("#photo-button-area");
+    const $chkphotoBtn = $("#checkbox-toggle-photo-button");
+    const $tglphotoBtn = $("#toggle-photo-button");
     const $chkKeyShortcut = $("#checkbox-toggle-shortcut");
+    const $btnModalSlideSize = $("#button-slide-size");
+    const $modalSlideSize = $("#modal-slide-size");
+    const $modalSlideSizeBtnClose = $("#modal-slide-size button");
+    const $btnSlideSize = $a(".slide-size-label");
 
     const setName = (x) => {
         data.name = x;
@@ -180,6 +185,12 @@
         $content.classList.add(`script-content-font-${d.color}`);
         $box.src = d.src;
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
+    };
+    const setAreaSize = (i) => {
+        $photozone.classList.forEach((x) => {
+            $photozone.classList.remove(x);
+        });
+        $photozone.classList.add(`photo-zone-size-${i}`);
     };
 
     document.addEventListener("keydown", (k) => {
@@ -294,19 +305,30 @@
         if ($chkAutoName.checked) setName(d[0]);
     };
 
-    $chkPhotoBtns.onchange = (c) => {
-        Array.from($photoBtns).forEach(($n) => {
-            $n.style["display"] = c.target.checked ? "block" : "none";
-        });
+    $chkphotoBtn.onchange = (c) => {
+        $photoBtn.style["display"] = c.target.checked ? "block" : "none";
     };
 
+    $btnModalSlideSize.onclick = () => {
+        $modalSlideSize.style["display"] = "flex";
+    };
+    $modalSlideSizeBtnClose.onclick = () => {
+        $modalSlideSize.style["display"] = "none";
+    };
+    Array.from($btnSlideSize).forEach(($n, i) => {
+        $n.onclick = () => {
+            setAreaSize(i);
+        };
+    });
+
+    setAreaSize(data.initSize);
     setName(PALETTE[data.init][1]);
     setContent(data.content);
     $selNameBgCol.options[16].selected = true;
     setColor(PALETTE[data.init][2]);
     $btnBoxStyle[data.box].click();
     $btnPhotoRemove.click();
-    $chkPhotoBtns.checked = true;
+    $chkphotoBtn.checked = true;
     $chkAutoName.checked = true;
     $chkKeyShortcut.checked = true;
     $chkTglName.checked = true;
