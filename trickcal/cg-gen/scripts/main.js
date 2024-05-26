@@ -3,8 +3,8 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1045",
-        date: "24-05-26",
+        version: "1047",
+        date: "24-05-27",
         watermark: true,
         isBeta: true
     };
@@ -168,6 +168,7 @@
     };
 
     const $ver = $("#ver");
+    const $namearea = $("#photo-script-box-namearea");
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
     const $name = $("#photo-script-box-namebox > span:nth-child(2)");
     const $nameBg = $("#photo-script-box-name-backdrop");
@@ -226,6 +227,8 @@
     const $btnAddSlide = $("#button-add-slide");
     const $btnDuplicateSlide = $("#button-duplicate-slide");
     const $thumbQueueArea = $("#thumbnail-queue-area");
+    const $alertDownload = $("#alert-downloading");
+    const $btnOutputAll = $("#button-download-all");
 
     const setAreaSize = (i) => {
         slide[current].values.size = i;
@@ -654,7 +657,7 @@
         });
     };
 
-    $name.onclick = () => {
+    $namearea.onclick = () => {
         $modalName.style["display"] = "flex";
         $inputName.focus();
     };
@@ -709,6 +712,7 @@
     };
 
     $btnOutput.onclick = () => {
+        $alertDownload.style["display"] = "flex";
         html2canvas($photozone, { logging: false }).then((c) => {
             const l = document.createElement("a");
             const d = Date.now();
@@ -718,6 +722,7 @@
             l.download = filename;
             l.click();
             l.remove();
+            $alertDownload.style["display"] = "none";
         });
     };
 
@@ -886,6 +891,35 @@
             delete thumbnailQueue[k];
         });
     }, THUMBNAIL_QUEUE_INTERVAL);
+
+    $btnOutputAll.onclick = () => {
+        let i = 0;
+        $alertDownload.style["display"] = "flex";
+        const l = document.createElement("a");
+        document.body.append(l);
+        const cb = () => {
+            if (slide[i]) {
+                setSlide(i);
+                setTimeout(() => {
+                    html2canvas($photozone, { logging: false }).then((c) => {
+                        l.href = c.toDataURL("image/png");
+                        const d = Date.now();
+                        const filename = `TCAG-${d}-OUTPUT.png`;
+                        l.download = filename;
+                        l.click();
+                        setTimeout(() => {
+                            i++;
+                            cb();
+                        }, 2000);
+                    });
+                }, 2000);
+            } else {
+                l.remove();
+                $alertDownload.style["display"] = "none";
+            };
+        };
+        cb();
+    };
     
     $ver.innerText = `${LYRA.name} - Build ${LYRA.version}@${LYRA.date} :: `;
     if (LYRA.watermark) {
