@@ -10,11 +10,11 @@
     --c-font: rgb(0, 0, 0);
     --c-font-sub: rgb(150, 150, 150);
     --c-border: rgb(230, 230, 230);
-    --c-button: rgb(230, 230, 230);
-    --c-button-hover-main: var(--c-lyra);
-    --c-button-hover-font: rgb(255, 255, 255);
-    --c-button-active-main: rgb(150, 150, 150);
-    --c-button-active-font: var(--c-lyra);
+    --c-button: rgb(255, 255, 255);
+    --c-button-hover-main: rgb(230, 230, 230);
+    --c-button-hover-font: rgb(177, 0, 255);
+    --c-button-active-main: rgb(177, 0, 255);
+    --c-button-active-font: rgb(255, 255, 255);
     --c-shadow: rgba(0, 0, 0, 0.2);
     --c-trickcal-font: rgb(52, 51, 52);
 }
@@ -25,14 +25,12 @@
     box-sizing: border-box;
 
     color: var(--c-font);
-    font-family: "ONE Mobile POP";
+    font-family: "Spoqa Han Sans Neo";
     user-select: none;
 }
+
 p, span, a, button, input, textarea {
     font-size: 12pt;
-}
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
 }
 
 .wf {
@@ -48,14 +46,57 @@ input[type=file] {
     display: none;
 }
 
+
+.i {
+    width: 20px;
+    height: 20px;
+
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--c-icon-filter);
+}
+
+.i-search { background-image: url("../assets/icons/1-search.svg"); }
+.i-search-go { background-image: url("../assets/icons/2-search-go.svg"); }
+.i-place { background-image: url("../assets/icons/3-place.svg"); }
+.i-download { background-image: url("../assets/icons/4-download.svg"); }
+.i-export { background-image: url("../assets/icons/5-export.svg"); }
+.i-import { background-image: url("../assets/icons/6-import.svg"); }
+.i-trash { background-image: url("../assets/icons/7-trash.svg"); }
+.i-move { background-image: url("../assets/icons/8-move.svg"); }
+.i-paint { background-image: url("../assets/icons/9-paint.svg"); }
+.i-sweep { background-image: url("../assets/icons/10-sweep.svg"); }
+.i-clear { background-image: url("../assets/icons/11-clear.svg"); }
+.i-palette-item { background-image: url("../assets/icons/12-palette-item.svg"); }
+.i-palette-background { background-image: url("../assets/icons/13-palette-background.svg"); }
+.i-config { background-image: url("../assets/icons/14-config.svg"); }
+.i-preset { background-image: url("../assets/icons/15-preset.svg"); }
+.i-menu { background-image: url("../assets/icons/16-menu.svg"); }
+.i-deny { background-image: url("../assets/icons/17-deny.svg"); }
+.i-accept { background-image: url("../assets/icons/18-accept.svg"); }
+.i-arrow0 { background-image: url("../assets/icons/19-arrow0.svg"); }
+.i-arrow1 { background-image: url("../assets/icons/20-arrow1.svg"); }
+.i-arrow2 { background-image: url("../assets/icons/21-arrow2.svg"); }
+.i-arrow3 { background-image: url("../assets/icons/22-arrow3.svg"); }
+.i-plus { background-image: url("../assets/icons/23-plus.svg"); }
+.i-minus { background-image: url("../assets/icons/24-minus.svg"); }
+.i-undo { background-image: url("../assets/icons/25-undo.svg"); }
+.i-redo { background-image: url("../assets/icons/26-redo.svg"); }
+.i-set-bg { background-image: url("../assets/icons/1001-setbg.svg"); }
+.i-remove-bg { background-image: url("../assets/icons/1002-removebg.svg"); }
+
 body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    overflow: hidden;
     
     width: 100vw;
     height: 100vh;
 
     background-color: var(--c-main);
-    overflow: hidden;
-    overflow-y: scroll;
 }
 
 #watermark {
@@ -65,7 +106,6 @@ body {
     padding: 6px;
     z-index: 9999;
 
-    font-family: "Spoqa Han Sans Neo";
     font-size: 10pt;
     color: white;
     border-radius: 4px;
@@ -75,25 +115,154 @@ body {
     pointer-events: none;
 }
 
-main {
+#top {
     display: flex;
+    position: relative;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    padding: 20px 0;
+    justify-content: space-between;
+    z-index: 2;
 
-    min-height: 100vh;
-    width: 100vw;
-    height: max-content;
-    
+    width: 100%;
+    height: 49px;
+
+    border-bottom: solid 1px var(--c-border);
+    background-color: var(--c-main);
+    box-shadow: 0 0 5px var(--c-shadow);
+}
+#top > div {
+    display: flex;
+}
+
+#bottom {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 0;
+
+    flex: 1;
+    max-height: calc(100vh - 68px);
+    width: 100%;
+
     background-color: var(--c-main);
 }
-main > *:not(:last-child) {
-    margin-bottom: 20px;
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+
+    width: 100%;
+    height: 19px;
+
+    border-top: solid 1px var(--c-border);
+    background-color: var(--c-main);
+    box-shadow: 0 0 5px var(--c-shadow);
 }
-main > span, main > span > a {
+footer span, footer  a {
     font-size: 8pt;
     color: var(--c-font-sub);
+}
+footer a {
+    color: var(--c-lyra);
+}
+
+#left, #right {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 8px;
+    z-index: 1;
+
+    width: max-content;
+    height: 100%;
+
+    background-color: var(--c-main);
+    box-shadow: 0 0 5px var(--c-shadow);
+}
+#left > *:not(:last-child), #right > *:not(:last-child) {
+    margin-bottom: 8px;
+}
+#left > h4, #left > p, #right > h4, #right > p {
+    width: 100%;
+
+    text-align: left;
+}
+
+#left {
+    border-right: solid 1px var(--c-border);
+}
+
+#middle {
+    position: relative;
+    z-index: 0;
+    overflow: scroll;
+
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--c-main);
+}
+
+main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+#right {
+    border-left: solid 1px var(--c-border);
+}
+
+.scroll-box {
+    display: block;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    flex: 1;
+    width: min-content;
+}
+
+.toolbar {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    height: inherit;
+}
+.toolbar > *:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.toolbar > button, .toolbar > label {
+    width: 100%;
+}
+
+#preview-bg {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    max-height: 202px;
+    min-height: 48px;
+    width: 202px;
+
+    border: solid 1px var(--c-border);
+    border-radius: 4px;
+    background-color: black;
+}
+#preview-bg > img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .button-list {
@@ -101,24 +270,27 @@ main > span, main > span > a {
     position: relative;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px;
 
     width: max-content;
     height: 70px;
     
-    border: solid 1px var(--c-border);
-    border-radius: 8px;
     background-color: var(--c-main);
 }
 .button-list > *:not(:last-child) {
     margin-right: 10px;
 }
 
-.partition {
+.partition-vertical {
     width: 1px;
     height: 100%;
 
-    background-color: var(--c-button);
+    background-color: var(--c-border);
+}
+.partition-horizontal {
+    width: 100%;
+    height: 1px;
+
+    background-color: var(--c-border);
 }
 
 .view {
@@ -130,33 +302,52 @@ main > span, main > span > a {
 input[type=checkbox] {
     display: none;
 }
+input[type=checkbox]:empty+label::before{
+    margin-right: 4px;
+
+    content: "✖"
+}
+input[type=checkbox]:checked+label::before {
+    margin-right: 4px;
+
+    content: "✔";
+}
 
 button, label {
-    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 14px;
 
-    border: 0;
+    min-width: 48px;
+    min-height: 48px;
+
+    border: solid 1px var(--c-border);
     border-radius: 4px;
     background-color: var(--c-button);
     cursor: pointer;
-
-    transition: all 0.05s;
 }
 button:hover, label:hover {
     color: var(--c-button-hover-font);
     background-color: var(--c-button-hover-main);
-    box-shadow: 2px 0 5px var(--c-shadow);
 }
 button:active, input[type=checkbox]:checked+label {
     color: var(--c-button-active-font);
     background-color: var(--c-button-active-main);
-    box-shadow: 2px 0 2px var(--c-shadow);
+}
+button > *:not(:last-child), label > *:not(:last-child) {
+    margin-right: 8px;
+}
+#top button, #top label {
+    border: 0;
+    border-radius: 0;
 }
 
 #photo-zone {
     display: flex;
     position: relative;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     flex-direction: column;
     overflow: hidden;
 
@@ -165,11 +356,15 @@ button:active, input[type=checkbox]:checked+label {
 
     background-color: rgb(0, 0, 0);
 }
+#photo-zone * {
+    font-family: "ONE Mobile POP";
+}
 
-#photo {
-    position: absolute;
+#photo-bg {
+    position: rel;
 
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .photo-button {
@@ -181,10 +376,10 @@ button:active, input[type=checkbox]:checked+label {
 
     opacity: 0.8;
 }
-.photo-button:nth-child(3) {
+.photo-button:nth-child(4) {
     right: 80px;
 }
-.photo-button:nth-child(4) {
+.photo-button:nth-child(5) {
     right: 10px;
 }
 
@@ -197,11 +392,12 @@ button:active, input[type=checkbox]:checked+label {
 
 #photo-script-box-area {
     display: flex;
-    position: relative;
+    position: absolute;
     align-items: center;
     justify-content: center;
+    bottom: 0;
 
-    width: 1000px;
+    width: 100%;
     height: 224px;
 }
 
@@ -339,6 +535,7 @@ button:active, input[type=checkbox]:checked+label {
     max-width: 400px;
     width: 100%;
 
+    font-family: "ONE Mobile POP";
     font-size: 14pt;
     border: solid 1px var(--c-border);
     border-radius: 4px;
@@ -394,17 +591,17 @@ button:active, input[type=checkbox]:checked+label {
     background-color: var(--c-button-active-main);
 }
 
-.modal > select {
+.modal select {
     padding: 10px;
 
     width: 100%;
 
     font-size: 12pt;
-    border: none;
+    border: solid 1px var(--c-border);
     border-radius: 4px;
     background-color: var(--c-button);
     cursor: pointer;
 }
-.modal > select:focus {
+.modal select:focus {
     outline: solid 3px var(--c-lyra);
 }

@@ -3,9 +3,9 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1003",
+        version: "1.0.1010",
         date: "24-05-26",
-        watermark: true,
+        watermark: false,
         isBeta: true
     };
 
@@ -118,9 +118,15 @@
             src: "./assets/images/scriptbox-4.png",
             vignetting: false,
             color: "dark"
+        },
+        5: {
+            src: "./assets/images/scriptbox-5.png",
+            vignetting: false,
+            color: "dark"
         }
     };
 
+    const $ver = $("#ver");
     const $namearea = $("#photo-script-box-namearea");
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
     const $name = $("#photo-script-box-namebox > span:nth-child(2)");
@@ -140,11 +146,12 @@
     const $vignetting = $("#photo-vignetting");
     const $btnBoxStyle = $a(".content-box-label");
     const $photozone = $("#photo-zone");
-    const $photo = $("#photo");
-    const $inputPhoto = $("#file-photo");
-    const $btnPhotoSet = $("#button-photo-set");
-    const $btnPhotoRemove = $("#button-photo-remove");
-    const $btnOutput = $("#button-output");
+    const $bg = $("#photo-bg");
+    const $prevBg = $("#preview-bg > img");
+    const $uploader = $("#uploader");
+    const $btnPhotoSet = $("#button-set-bg");
+    const $btnPhotoRemove = $("#button-remove-bg");
+    const $btnOutput = $("#button-download");
     const $photoBtns = $a(".photo-button");
     const $chkPhotoBtns = $("#checkbox-toggle-photo-button");
     const $tglPhotoBtns = $("#toggle-photo-button");
@@ -188,6 +195,8 @@
             $btnBoxStyle[3].click();
         } else if (k.keyCode === 53) {
             $btnBoxStyle[4].click();
+        } else if (k.keyCode === 54) {
+            $btnBoxStyle[5].click();
         } else if (k.keyCode === 65) {
             $modalName.style["display"] = "flex";
             setTimeout(() => {
@@ -199,7 +208,7 @@
                 $inputContent.focus();
             }, 30);
         } else if (k.keyCode === 68) {
-            $inputPhoto.click();
+            $uploader.click();
         } else if (k.keyCode === 70) {
             $btnOutput.click();
         }
@@ -213,7 +222,7 @@
         $modalName.style["display"] = "none";
     };
     $inputName.onkeydown = (k) => {
-        if (k.keyCode === 13 && k.ctrlKey) $modalNameBtnClose.click();
+        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) $modalNameBtnClose.click();
     };
     $inputName.oninput = (x) => {
         setName(x.target.value);
@@ -230,7 +239,7 @@
         $modalContent.style["display"] = "none";
     };
     $inputContent.onkeydown = (k) => {
-        if (k.keyCode === 13 && k.ctrlKey) $modalContentBtnClose.click();
+        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) $modalContentBtnClose.click();
     };
     $inputContent.oninput = (x) => {
         setContent(x.target.value);
@@ -241,20 +250,23 @@
         };
     });
 
-    $inputPhoto.onchange = (f) => {
-        const file = f.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            $photo.src = reader.result;
-        };
-    };
     $btnPhotoSet.onclick = () => {
-        $inputPhoto.click();
+        $uploader.onchange = (f) => {
+            const file = f.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                $bg.src = reader.result;
+                $prevBg.src = reader.result;
+                $uploader.onchange = null;
+            };
+        };
+        $uploader.click();
     };
     $btnPhotoRemove.onclick = () => {
-        $inputPhoto.value = null;
-        $photo.src = "";
+        $uploader.value = null;
+        $bg.src = "";
+        $prevBg.src = "";
     };
 
     $btnOutput.onclick = () => {
@@ -299,6 +311,7 @@
     $chkKeyShortcut.checked = true;
     $chkTglName.checked = true;
     
+    $ver.innerText = `${LYRA.name} v${LYRA.version}@${LYRA.date} :: `;
     if (LYRA.watermark) {
         $wm = document.createElement("div");
         $wm.id = "watermark";

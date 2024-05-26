@@ -10,11 +10,130 @@
     <script src="./scripts/main.js" defer></script>
 </head>
 <body>
-    <main>
+    <input type="file" id="uploader">
+    <div id="top">
+        <button id="button-menu">
+            <div class="i i-menu"></div>
+        </button>
+        <h2>트릭컬 스토리 대화창 생성기</h1>
+        <div>
+            <input type="checkbox" id="checkbox-toggle-shortcut">
+            <label for="checkbox-toggle-shortcut" id="toggle-shortcut">단축키</label>
+            <button id="button-download">
+                <div class="i i-download"></div>
+            </button>
+        </div>
+    </div>
+    <div id="bottom">
+        <div id="left">
+            <h4>슬라이드</h4>
+        </div>
+        <div id="middle">
+            <main>
+                <div class="view">
+                    <div id="photo-zone">
+                        <img src="" id="photo-bg">
+                        <div id="photo-layer"></div>
+                        <img src="./assets/images/vignetting.png" id="photo-vignetting">
+                        <img src="./assets/images/button-auto.png" class="photo-button">
+                        <img src="./assets/images/button-menu.png" class="photo-button">
+                        <div id="photo-script-box-area">
+                            <img src="./assets/images/scriptbox-0.png" id="photo-script-box-backdrop">
+                            <div id="photo-script-box-namearea">
+                                <div id="photo-script-box-name-backdrop"></div>
+                                <div id="photo-script-box-namebox">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <span id="script-content">Lorem ipsum dolor sit amet.<br>Hello, world!</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="right">
+            <h4>레이어</h4>
+            <div class="partition-horizontal"></div>
+            <div class="scroll-box">
+                <div class="toolbar">
+                    <p>배경</p>
+                    <button id="button-set-bg">
+                        <div class="i i-set-bg"></div>
+                        <p>설정</p>
+                    </button>
+                    <button id="button-remove-bg">
+                        <div class="i i-remove-bg"></div>
+                        <p>제거</p>
+                    </button>
+                    <div id="preview-bg">
+                        <img src="">
+                    </div>
+                    <div class="partition-horizontal"></div>
+                    <input type="checkbox" id="checkbox-toggle-photo-button">
+                    <label for="checkbox-toggle-photo-button" id="toggle-photo-button">조작기 표시</label>
+                    <div class="partition-horizontal"></div>
+                    <p>이미지</p>
+                    <button id="button-add-image">
+                        <div class="i i-set-bg"></div>
+                        <p>추가</p>
+                    </button>
+                    <button id="button-reset-image">
+                        <div class="i i-trash"></div>
+                        <p>전체 삭제</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <span><span id="ver"></span>Powered by <a href="https://html2canvas.hertzen.com/">html2canvas</a></span>
+    </footer>
+    <div id="modal-name" class="modal-area" style="display: none;">
+        <div class="modal">
+            <h1>이름</h1>
+            <input type="text" id="name">
+            <select id="name-color"></select>
+            <div class="button-list">
+                <input type="checkbox" id="checkbox-toggle-namearea">
+                <label for="checkbox-toggle-namearea">이름 표시</label>
+                <input type="checkbox" id="checkbox-toggle-auto-change-name">
+                <label for="checkbox-toggle-auto-change-name">이름도 같이 변경</label>
+            </div>
+            <div class="modal-button-list">
+                <span class="desc">Ctrl+Enter를 눌러 확인</span>
+                <button>확인</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-content" class="modal-area" style="display: none;">
+        <div class="modal">
+            <h1>내용</h1>
+            <textarea id="content"></textarea>
+            <div id="content-box-list">
+                <input type="radio" name="box-style" id="box-style-0" value="0">
+                <label class="content-box-label" for="box-style-0">1</label>
+                <input type="radio" name="box-style" id="box-style-1" value="1">
+                <label class="content-box-label" for="box-style-1">2</label>
+                <input type="radio" name="box-style" id="box-style-2" value="2">
+                <label class="content-box-label" for="box-style-2">3</label>
+                <input type="radio" name="box-style" id="box-style-3" value="3">
+                <label class="content-box-label" for="box-style-3">4</label>
+                <input type="radio" name="box-style" id="box-style-4" value="4">
+                <label class="content-box-label" for="box-style-4">5</label>
+                <input type="radio" name="box-style" id="box-style-5" value="5">
+                <label class="content-box-label" for="box-style-4">6</label>
+            </div>
+            <div class="modal-button-list">
+                <span class="desc">Ctrl+Enter를 눌러 확인</span>
+                <button>확인</button>
+            </div>
+        </div>
+    </div>
+    <!-- <main>
         <h1>트릭컬 스토리 대화창 생성기</h1>
         <div class="button-list">
             <p>배경 설정</p>
-            <input type="file" id="file-photo">
             <button id="button-photo-set">설정</button>
             <button id="button-photo-remove">제거</button>
             <div class="partition"></div>
@@ -26,64 +145,6 @@
             <button id="button-output">출력</button>
         </div>
         <span>Powered by <a href="https://html2canvas.hertzen.com/">html2canvas</a></span>
-        <div class="view">
-            <div id="photo-zone">
-                <img src="" id="photo">
-                <img src="./assets/images/vignetting.png" id="photo-vignetting">
-                <img src="./assets/images/button-auto.png" class="photo-button">
-                <img src="./assets/images/button-menu.png" class="photo-button">
-                <div id="photo-script-box-area">
-                    <img src="./assets/images/scriptbox-0.png" id="photo-script-box-backdrop">
-                    <div id="photo-script-box-namearea">
-                        <div id="photo-script-box-name-backdrop"></div>
-                        <div id="photo-script-box-namebox">
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                    <span id="script-content">Lorem ipsum dolor sit amet.<br>Hello, world!</span>
-                </div>
-            </div>
-        </div>
-        <div id="modal-name" class="modal-area" style="display: none;">
-            <div class="modal">
-                <h1>이름</h1>
-                <input type="text" id="name">
-                <select id="name-color"></select>
-                <div class="button-list">
-                    <input type="checkbox" id="checkbox-toggle-namearea">
-                    <label for="checkbox-toggle-namearea">이름 표시</label>
-                    <input type="checkbox" id="checkbox-toggle-auto-change-name">
-                    <label for="checkbox-toggle-auto-change-name">이름도 같이 변경</label>
-                </div>
-                <div class="modal-button-list">
-                    <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                    <button>확인</button>
-                </div>
-            </div>
-        </div>
-        <div id="modal-content" class="modal-area" style="display: none;">
-            <div class="modal">
-                <h1>내용</h1>
-                <textarea id="content"></textarea>
-                <div id="content-box-list">
-                    <input type="radio" name="box-style" id="box-style-0" value="0">
-                    <label class="content-box-label" for="box-style-0">1</label>
-                    <input type="radio" name="box-style" id="box-style-1" value="1">
-                    <label class="content-box-label" for="box-style-1">2</label>
-                    <input type="radio" name="box-style" id="box-style-2" value="2">
-                    <label class="content-box-label" for="box-style-2">3</label>
-                    <input type="radio" name="box-style" id="box-style-3" value="3">
-                    <label class="content-box-label" for="box-style-3">4</label>
-                    <input type="radio" name="box-style" id="box-style-4" value="4">
-                    <label class="content-box-label" for="box-style-4">5</label>
-                </div>
-                <div class="modal-button-list">
-                    <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                    <button>확인</button>
-                </div>
-            </div>
-        </div>
-    </main>
+    </main> -->
 </body>
 </html>
