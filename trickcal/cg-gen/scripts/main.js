@@ -244,7 +244,7 @@
         $nameOutline.innerText = x;
         $name.innerText = x;
         $inputName.value = x;
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        // addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setColor = (hex) => {
         slide[current].values.color = hex;
@@ -255,7 +255,7 @@
         slide[current].strings.content = x;
         $content.innerText = x;
         $inputContent.value = x;
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        // addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setBoxStyle = (i) => {
         const d = BOXES[i];
@@ -670,6 +670,9 @@
     $inputName.oninput = (x) => {
         setName(x.target.value);
     };
+    $inputName.onchange = () => {
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+    };
     $chkTglName.onchange = (c) => {
         toggleNamearea(c.target.checked);
     };
@@ -686,6 +689,9 @@
     };
     $inputContent.oninput = (x) => {
         setContent(x.target.value);
+    };
+    $inputContent.onchange = () => {
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     Array.from($btnBoxStyle).forEach(($n, i) => {
         $n.onclick = () => {
