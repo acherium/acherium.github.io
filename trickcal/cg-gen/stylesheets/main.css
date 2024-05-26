@@ -526,6 +526,7 @@ button > *:not(:last-child), label > *:not(:last-child) {
     justify-content: center;
     top: 0;
     left: 0;
+    z-index: 4;
 
     width: 100%;
     height: calc(100% - 224px);
