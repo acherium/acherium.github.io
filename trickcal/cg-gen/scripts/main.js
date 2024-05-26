@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1017",
+        version: "1.0.1018",
         date: "24-05-26",
         watermark: false,
         isBeta: true
@@ -30,7 +30,8 @@
         "player": [ "player", "교주", "FBAC26" ],
         "youngchun": [ "youngchun", "영춘", "768964" ],
         "sub": [ "sub", "게스트", "A1AD88" ],
-    
+        
+        "partition0": [ "partition", "요정" ],
         "chloe": [ "chloe", "클로에", "BB3626" ],
         "erpin": [ "erpin", "에르핀", "F09D7D" ],
         "ner": [ "ner", "네르", "847592" ],
@@ -40,6 +41,7 @@
         "marie": [ "marie", "마리", "E7BBBB" ],
         "mayo": [ "mayo", "마요", "A0B5D5" ],
     
+        "partition1": [ "partition", "수인" ],
         "epica": [ "epica", "에피카", "BDD2F0" ],
         "diana": [ "diana", "디아나", "C19079" ],
         "tig": [ "tig", "티그", "9AAABF" ],
@@ -50,6 +52,7 @@
         "mago": [ "mago", "마고", "B6BBCB" ],
         "bana": [ "bana", "바나", "EDB983" ],
     
+        "partition2": [ "partition", "엘프" ],
         "ed": [ "ed", "이드", "808191" ],
         "llels": [ "llels", "나타", "635966" ],
         "elena": ["elena",  "엘레나", "DA9798" ],
@@ -63,6 +66,7 @@
         "festa": [ "festa", "페스타", "EC7A84" ],
         "renewa": [ "renewa", "리뉴아", "E8D7B7" ],
         
+        "partition3": [ "partition", "정령" ],
         "ui": [ "ui", "우이", "FFDB5B" ],
         "sylla": [ "sylla", "실라", "C9DBBA" ],
         "naia": [ "naia", "나이아", "91D2EB" ],
@@ -73,6 +77,7 @@
         "jubee": [ "jubee", "쥬비", "D89E5A" ],
         "bigwood": [ "bigwood", "빅우드", "97A262" ],
     
+        "partition4": [ "partition", "유령" ],
         "xion": [ "xion", "시온 더 다크불릿", "4C76AD" ],
         "shady": [ "shady", "셰이디", "9DBAC1" ],
         "rim": [ "rim", "림", "AB474A" ],
@@ -81,6 +86,7 @@
         "speaki": [ "speaki", "스피키", "71566C" ],
         "espi": [ "espi",  "에스피", "D4B9BA" ],
     
+        "partition5": [ "partition", "용족" ],
         "vivi": [ "vivi", "비비", "B8AFB1" ],
         "daya": [ "daya", "다야", "A8BBC8" ],
         "rude": [ "rude", "루드", "C75B5C" ],
@@ -90,6 +96,7 @@
         "jade": [ "jade", "제이드", "85A491" ],
         "silphir": [ "silphir", "실피르", "8AA9CF" ],
     
+        "partition6": [ "partition", "마녀" ],
         "aya": [ "aya", "아야", "F1F8FF" ],
         "belita": [ "belita", "벨리타", "D3A9A9" ],
         "fricle": [ "fricle", "프리클", "675359" ],
@@ -173,6 +180,7 @@
     const $modalSelbox = $("#modal-select");
     const $modalSelboxBtnClose = $("#modal-select button.close");
     const $chkSelbox = $("#checkbox-toggle-select");
+    const $modalBgs = $a(".modal-area");
 
     const setName = (x) => {
         data.name = x;
@@ -307,9 +315,14 @@
 
     Object.values(PALETTE).forEach((x) => {
         const $op = document.createElement("option");
-        $op.value = `${x[1]}::${x[2]}`;
-        $op.innerText = `${x[1]} :: #${x[2]}`;
-        $op.style["background-color"] = `#${x[2]}`;
+        if (x[0] === "partition") {
+            $op.innerText = `===== ${x[1]} ====`;
+            $op.setAttribute("disabled", "true");
+        } else {
+            $op.value = `${x[1]}::${x[2]}`;
+            $op.innerText = `${x[1]} :: #${x[2]}`;
+            $op.style["background-color"] = `#${x[2]}`;
+        };
         $selNameBgCol.append($op);
     });
     $selNameBgCol.onchange = (c) => {
@@ -360,6 +373,14 @@
     $chkSelbox.onchange = (c) => {
         $selboxInner.style["display"] = c.target.checked ? "block" : "none";
     };
+
+    Array.from($modalBgs).forEach(($n) => {
+        $n.onclick = (c) => {
+            if (c.target.classList[0] === "modal-area") {
+                $n.querySelector("button.close").click();
+            };
+        };
+    });
 
     Array.from($btnSlideSize)[data.initSize].click();
     setName(PALETTE[data.init][1]);
