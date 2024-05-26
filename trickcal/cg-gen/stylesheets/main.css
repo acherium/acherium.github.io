@@ -126,7 +126,7 @@ body {
 }
 
 #watermark {
-    position: fixed;
+    position: absolute;
     right: 10px;
     bottom: 10px;
     padding: 6px;
@@ -223,8 +223,11 @@ footer a {
 
     text-align: left;
 }
-#left button, #left label {
+#left > button, #left > label {
     width: 202px;
+}
+#left input[type=radio] {
+    display: none;
 }
 
 #left {
@@ -375,7 +378,7 @@ button:active, input[type=checkbox]:checked+label {
     color: var(--c-button-active-font);
     background-color: var(--c-button-active-main);
 }
-button > *:not(:last-child), label > *:not(:last-child) {
+button > *:not(:last-child), label:not(.slide-item-body) > *:not(:last-child) {
     margin-right: 8px;
 }
 #top button, #top label {
@@ -901,5 +904,62 @@ button > *:not(:last-child), label > *:not(:last-child) {
     background-color: transparent;
 }
 .image-item > button:hover {
+    outline: solid 3px black;
+}
+
+.slide-item > input[type=radio]:checked+label {
+    background-color: var(--c-button-active-main);
+}
+
+.slide-item-body {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0;
+
+    width: 202px;
+    height: max-content;
+
+    border: solid 1px var(--c-border);
+    border-radius: 0;
+    background-color: var(--c-main);
+}
+.slide-item-body > .thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 45px;
+    width: 100%;
+    height: max-content;
+
+    background-color: black;
+}
+.slide-item-body > .thumb > img {
+    max-width: 100%;
+}
+
+.slide-item-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 8px;
+
+    width: 100%;
+}
+.slide-item-menu > button {
+    justify-content: center;
+    margin-right: 2px;
+    padding: 0px;
+
+    min-width: 30px;
+    min-height: 30px;
+
+    border: 0;
+    background-color: transparent;
+}
+.slide-item-menu > button:hover {
     outline: solid 3px black;
 }
