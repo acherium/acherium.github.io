@@ -18,6 +18,20 @@
     --c-shadow: rgba(0, 0, 0, 0.2);
     --c-trickcal-font: rgb(52, 51, 52);
 }
+@media (prefers-color-scheme: dark) {
+    :root {
+        --c-main: rgb(0, 0, 0);
+        --c-font: rgb(255, 255, 255);
+        --c-border: rgb(30, 30, 30);
+        --c-button: rgb(0, 0, 0);
+        --c-button-hover-main: rgb(30, 30, 30);
+        --c-shadow: rgba(255, 255, 255, 0.2);
+    }
+
+    .i {
+        filter: invert(1) !important;
+    }
+}
 
 * {
     margin: 0;
@@ -31,6 +45,14 @@
 
 p, span, a, button, input, textarea {
     font-size: 12pt;
+}
+
+input[type=text], textarea {
+    color: var(--c-font);
+    background-color: var(--c-main);
+}
+option:not(:disabled) {
+    color: black;
 }
 
 .wf {
