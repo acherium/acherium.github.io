@@ -530,6 +530,9 @@ button > *:not(:last-child), label > *:not(:last-child) {
     cursor: pointer;
 }
 #photo-select:hover {
+    width: 656px;
+    height: 290px;
+    
     border: solid 3px var(--c-lyra);
 }
 #photo-select > .inner {
