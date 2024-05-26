@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1016",
+        version: "1.0.1017",
         date: "24-05-26",
         watermark: false,
         isBeta: true
@@ -309,6 +309,7 @@
         const $op = document.createElement("option");
         $op.value = `${x[1]}::${x[2]}`;
         $op.innerText = `${x[1]} :: #${x[2]}`;
+        $op.style["background-color"] = `#${x[2]}`;
         $selNameBgCol.append($op);
     });
     $selNameBgCol.onchange = (c) => {
