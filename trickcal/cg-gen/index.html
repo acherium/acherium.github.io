@@ -32,7 +32,7 @@
             <h4>슬라이드</h4>
             <button id="button-slide-size">
                 <div class="i i-config"></div>
-                <p>크기 설정</p>
+                <p>슬라이드 크기</p>
             </button>
             <button id="button-add-slide">
                 <div class="i i-set-bg"></div>
@@ -67,6 +67,24 @@
                             </div>
                         </div>
                         <span id="script-content">Lorem ipsum dolor sit amet.<br>Hello, world!</span>
+                    </div>
+                    <div id="photo-select-area">
+                        <div id="photo-select">
+                            <div class="inner" style="display: none;">
+                                <div class="photo-select-option">
+                                    <img src="./assets/images/select-option.png" alt="">
+                                    <p></p>
+                                </div>
+                                <div class="photo-select-option">
+                                    <img src="./assets/images/select-option.png" alt="">
+                                    <p></p>
+                                </div>
+                                <div class="photo-select-option">
+                                    <img src="./assets/images/select-option.png" alt="">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -111,7 +129,7 @@
     <div id="modal-name" class="modal-area" style="display: none;">
         <div class="modal">
             <h1>이름</h1>
-            <input type="text" id="name">
+            <input type="text" id="name" class="modal-input-text">
             <select id="name-color"></select>
             <div class="button-list">
                 <input type="checkbox" id="checkbox-toggle-namearea">
@@ -121,7 +139,7 @@
             </div>
             <div class="modal-button-list">
                 <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                <button>확인</button>
+                <button class="close">확인</button>
             </div>
         </div>
     </div>
@@ -145,13 +163,13 @@
             </div>
             <div class="modal-button-list">
                 <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                <button>확인</button>
+                <button class="close">확인</button>
             </div>
         </div>
     </div>
     <div id="modal-slide-size" class="modal-area" style="display: none;">
         <div class="modal">
-            <h1>크기</h1>
+            <h1>슬라이드 크기</h1>
             <div id="slide-size-list" class="modal-radio-list">
                 <input type="radio" name="slide-size" id="slide-size-0" value="0">
                 <label class="slide-size-label" for="slide-size-0">1280×720 (16:9)</label>
@@ -161,7 +179,23 @@
                 <label class="slide-size-label" for="slide-size-2">1280×1066 (6:5)</label>
             </div>
             <div class="modal-button-list">
-                <button>확인</button>
+                <button class="close">확인</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-select" class="modal-area" style="display: none;">
+        <div class="modal">
+            <h1>선택 목록</h1>
+            <input type="text" id="select-option-0" class="select-option modal-input-text">
+            <input type="text" id="select-option-1" class="select-option modal-input-text">
+            <input type="text" id="select-option-2" class="select-option modal-input-text">
+            <div class="button-list">
+                <input type="checkbox" id="checkbox-toggle-select">
+                <label for="checkbox-toggle-select">선택 목록 표시</label>
+            </div>
+            <div class="modal-button-list">
+                <span class="desc">Ctrl+Enter를 눌러 확인</span>
+                <button class="close">확인</button>
             </div>
         </div>
     </div>

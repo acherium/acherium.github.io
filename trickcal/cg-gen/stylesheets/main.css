@@ -286,7 +286,7 @@ main {
     justify-content: flex-start;
 
     width: max-content;
-    height: 70px;
+    height: 48px;
     
     background-color: var(--c-main);
 }
@@ -503,6 +503,71 @@ button > *:not(:last-child), label > *:not(:last-child) {
     color: white;
 }
 
+#photo-select-area {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: calc(100% - 224px);
+}
+
+#photo-select {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+
+    width: 650px;
+    height: 284px;
+
+    border-radius: 4px;
+    cursor: pointer;
+}
+#photo-select:hover {
+    border: solid 3px var(--c-lyra);
+}
+#photo-select > .inner {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+}
+
+.photo-select-option {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    width: 650px;
+    height: 58px;
+}
+.photo-select-option > img {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+.photo-select-option > p {
+    position: absolute;
+
+    width: 100%;
+    
+    font-size: 14pt;
+    text-align: center;
+}
+
 .modal-area {
     display: flex;
     position: fixed;
@@ -553,7 +618,7 @@ button > *:not(:last-child), label > *:not(:last-child) {
     margin-right: 10px;
 }
 
-#name, #content {
+.modal-input-text, #content {
     padding: 10px;
 
     max-width: 400px;
@@ -564,7 +629,7 @@ button > *:not(:last-child), label > *:not(:last-child) {
     border: solid 1px var(--c-border);
     border-radius: 4px;
 }
-#name:focus, #content:focus {
+.modal-input-text:focus, #content:focus {
     outline: solid 3px var(--c-lyra);
 }
 

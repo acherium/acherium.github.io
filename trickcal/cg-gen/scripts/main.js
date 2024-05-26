@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1014",
+        version: "1.0.1015",
         date: "24-05-26",
         watermark: false,
         isBeta: true
@@ -15,6 +15,11 @@
     const data = {
         name: "",
         content: "나오라고.",
+        select: [
+            "선택 1",
+            "선택 2",
+            "선택 3"
+        ],
         box: 0,
         buttonVisibility: true,
         color: "",
@@ -137,12 +142,12 @@
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
     const $chkTglName = $("#checkbox-toggle-namearea");
     const $modalName = $("#modal-name");
-    const $modalNameBtnClose = $("#modal-name button");
+    const $modalNameBtnClose = $("#modal-name button.close");
     const $btnName = $("#photo-script-box-namebox > span:last-child");
     const $content = $("#script-content");
     const $inputContent = $("#content");
     const $modalContent = $("#modal-content");
-    const $modalContentBtnClose = $("#modal-content button");
+    const $modalContentBtnClose = $("#modal-content button.close");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
     const $btnBoxStyle = $a(".content-box-label");
@@ -159,8 +164,15 @@
     const $chkKeyShortcut = $("#checkbox-toggle-shortcut");
     const $btnModalSlideSize = $("#button-slide-size");
     const $modalSlideSize = $("#modal-slide-size");
-    const $modalSlideSizeBtnClose = $("#modal-slide-size button");
+    const $modalSlideSizeBtnClose = $("#modal-slide-size button.close");
     const $btnSlideSize = $a(".slide-size-label");
+    const $selboxOption = $a(".photo-select-option");
+    const $inputSelboxOption = $a(".select-option");
+    const $selbox = $("#photo-select");
+    const $selboxInner = $("#photo-select > .inner");
+    const $modalSelbox = $("#modal-select");
+    const $modalSelboxBtnClose = $("#modal-select button.close");
+    const $chkSelbox = $("#checkbox-toggle-select");
 
     const setName = (x) => {
         data.name = x;
@@ -321,6 +333,33 @@
         };
     });
 
+    $selbox.onclick = () => {
+        $modalSelbox.style["display"] = "flex";
+    };
+    $modalSelboxBtnClose.onclick = () => {
+        $modalSelbox.style["display"] = "none";
+    };
+    Array.from($inputSelboxOption).forEach(($n, i) => {
+        const $t = $selboxOption[i];
+        const $p = $t.querySelector("p");
+        $n.value = data.select[i];
+        $p.innerText = data.select[i];
+        $n.oninput = (c) => {
+            if (!c.target.value.length) {
+                $t.style["display"] = "none";
+            } else {
+                $t.style["display"] = "flex";
+                $p.innerText = c.target.value;
+            };
+        };
+        $n.onkeydown = (k) => {
+            if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) $modalSelboxBtnClose.click();
+        };
+    });
+    $chkSelbox.onchange = (c) => {
+        $selboxInner.style["display"] = c.target.checked ? "block" : "none";
+    };
+
     Array.from($btnSlideSize)[data.initSize].click();
     setName(PALETTE[data.init][1]);
     setContent(data.content);
@@ -332,6 +371,7 @@
     $chkAutoName.checked = true;
     $chkKeyShortcut.checked = true;
     $chkTglName.checked = true;
+    $chkSelbox.checked = false;
     
     $ver.innerText = `${LYRA.name} v${LYRA.version}@${LYRA.date} :: `;
     if (LYRA.watermark) {
