@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1.0.1033",
+        version: "1034",
         date: "24-05-26",
         watermark: false,
         isBeta: true
@@ -731,11 +731,11 @@
     $chkTglName.checked = true;
     $chkSelbox.checked = false;
     
-    $ver.innerText = `${LYRA.name} v${LYRA.version}@${LYRA.date} :: `;
+    $ver.innerText = `${LYRA.name} - Build ${LYRA.version}@${LYRA.date} :: `;
     if (LYRA.watermark) {
         $wm = document.createElement("div");
         $wm.id = "watermark";
-        $wm.innerText = `${LYRA.name}\nv${LYRA.version}@${LYRA.date}${LYRA.isBeta ? "\n테스트용 빌드입니다" : ""}`;
+        $wm.innerText = `${LYRA.name}\nBuild ${LYRA.version}@${LYRA.date}${LYRA.isBeta ? "\n테스트용 빌드입니다" : ""}`;
         document.body.append($wm);
     };
 })();
