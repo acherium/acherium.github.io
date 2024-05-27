@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1049",
+        version: "1050",
         date: "24-05-27",
         watermark: false,
         isBeta: true
@@ -167,9 +167,14 @@
         },
         selected: null
     };
+    const touchManager = {
+        x: 0,
+        y: 0
+    };
 
     const $ver = $("#ver");
     const $left = $("#left");
+    const $middle = $("#middle");
     const $right = $("#right");
     const $mBtnTglLeft = $("#m-button-toggle-slide");
     const $mBtnTglRight = $("#m-button-toggle-layer");
@@ -227,6 +232,7 @@
     const $btnFlipVertical = $("#button-controller-flip-vertical");
     const $btnControllerReset = $("#button-controller-reset");
     const $btnControllerRemove = $("#button-controller-remove");
+    const $btnControllerUnselect = $("#button-controller-unselect");
     const $btnResetImage = $("#button-reset-image");
     const $slideList = $("#left > .scroll-box > .toolbar");
     const $btnAddSlide = $("#button-add-slide");
@@ -522,10 +528,12 @@
         duplicateSlide();
     };
 
-    $controller.onpointerdown = (p) => {
+    $controller.onmousedown = (p) => {
         if (p.target !== $controller) return;
         $controller.setPointerCapture(p.pointerId);
-        $controller.onpointermove = (m) => {
+        let flag = true;
+        $controller.onmousemove = (m) => {
+            flag = false;
             const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
             if (!d) return;
             d.rect.x += m.movementX;
@@ -533,17 +541,46 @@
             setImagePos(d.id, d.rect.x, d.rect.y);
             setControllerPos(d.rect.x, d.rect.y);
         };
-        $controller.onpointerup = () => {
+        $controller.onmouseup = () => {
+            if (flag) unselectItem();
             $controller.releasePointerCapture(p.pointerId);
-            $controller.onpointermove = null;
-            $controller.onpointerup = null;
+            $controller.onmousemove = null;
+            $controller.onmouseup = null;
             addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
         };
     };
+    $controller.ontouchstart = (t) => {
+        if (t.touches[0].target !== $controller) return;
+        $middle.classList.add("oh");
+        // let flag = true;
+        let ox = t.touches[0].clientX;
+        let oy = t.touches[0].clientY;
+        $controller.ontouchmove = (m) => {
+            // flag = false;
+            const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
+            if (!d) return;
+            const x = m.touches[0].clientX;
+            const y = m.touches[0].clientY;
+            const mx = x - ox;
+            const my = y - oy;
+            ox = x;
+            oy = y;
+            d.rect.x += mx;
+            d.rect.y += my;
+            setImagePos(d.id, d.rect.x, d.rect.y);
+            setControllerPos(d.rect.x, d.rect.y);
+        };
+        $controller.ontouchend = () => {
+            // if (flag) unselectItem();
+            $middle.classList.remove("oh");
+            $controller.ontouchmove = null;
+            $controller.ontouchend = null;
+        };
+    };
     Array.from($resizePoints).forEach(($n, i) => {
-        $n.onpointerdown = (p) => {
+        $n.onmousedown = (p) => {
             $n.setPointerCapture(p.pointerId);
-            $n.onpointermove = (m) => {
+            $n.onmousemove = (m) => {
                 const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
                 if (!d) return;
                 const mx = m.movementX;
@@ -571,7 +608,7 @@
                         addImageSize(d.id, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
-                    if (d.rect.height + m.movementY >= SIZEMIN) {
+                    if (d.rect.height + my >= SIZEMIN) {
                         addImageSize(d.id, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
@@ -580,7 +617,7 @@
                         addImageSize(d.id, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
-                    if (d.rect.height + m.movementY >= SIZEMIN) {
+                    if (d.rect.height + my >= SIZEMIN) {
                         addImageSize(d.id, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
@@ -595,7 +632,7 @@
                         addControllerSize(0, 0, mx, 0);
                     };
                 } else if (i === 6) {
-                    if (d.rect.height + m.movementY >= SIZEMIN) {
+                    if (d.rect.height + my >= SIZEMIN) {
                         addImageSize(d.id, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
@@ -606,11 +643,88 @@
                     };
                 };
             };
-            $n.onpointerup = () => {
+            $n.onmouseup = () => {
                 $n.releasePointerCapture(p.pointerId);
-                $n.onpointermove = null;
-                $n.onpointerup = null;
+                $n.onmousemove = null;
+                $n.onmouseup = null;
                 addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+            };
+        };
+        $n.ontouchstart = (t) => {
+            $middle.classList.add("oh");
+            let ox = t.touches[0].clientX;
+            let oy = t.touches[0].clientY;
+            $n.ontouchmove = (m) => {
+                const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
+                if (!d) return;
+                const x = m.touches[0].clientX;
+                const y = m.touches[0].clientY;
+                const mx = x - ox;
+                const my = y - oy;
+                ox = x;
+                oy = y;
+                if (i === 0) {
+                    if (d.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                        addControllerSize(mx, 0, mx*-1, 0);
+                    };
+                    if (d.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(d.id, 0, my, 0, my*-1);
+                        addControllerSize(0, my, 0, my*-1);
+                    };
+                } else if (i === 1) {
+                    if (d.rect.width + mx >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, mx, 0);
+                        addControllerSize(0, 0, mx, 0);
+                    };
+                    if (d.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(d.id, 0, my, 0, my*-1);
+                        addControllerSize(0, my, 0, my*-1);
+                    };
+                } else if (i === 2) {
+                    if (d.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                        addControllerSize(mx, 0, mx*-1, 0);
+                    };
+                    if (d.rect.height + my >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, 0, my);
+                        addControllerSize(0, 0, 0, my);
+                    };
+                } else if (i === 3) {
+                    if (d.rect.width + mx >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, mx, 0);
+                        addControllerSize(0, 0, mx, 0);
+                    };
+                    if (d.rect.height + my >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, 0, my);
+                        addControllerSize(0, 0, 0, my);
+                    };
+                } else if (i === 4) {
+                    if (d.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(d.id, 0, my, 0, my*-1);
+                        addControllerSize(0, my, 0, my*-1);
+                    };
+                } else if (i === 5) {
+                    if (d.rect.width + mx >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, mx, 0);
+                        addControllerSize(0, 0, mx, 0);
+                    };
+                } else if (i === 6) {
+                    if (d.rect.height + my >= SIZEMIN) {
+                        addImageSize(d.id, 0, 0, 0, my);
+                        addControllerSize(0, 0, 0, my);
+                    };
+                } else if (i === 7) {
+                    if (d.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                        addControllerSize(mx, 0, mx*-1, 0);
+                    };
+                };
+            };
+            $n.ontouchend = () => {
+                $middle.classList.remove("oh");
+                $n.ontouchmove = null;
+                $n.ontouchend = null;
             };
         };
     });
@@ -661,6 +775,9 @@
     };
     $btnControllerRemove.onclick = () => {
         slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.lab.querySelector("button.remove").click();
+    };
+    $btnControllerUnselect.onclick = () => {
+        unselectItem();
     };
     $btnResetImage.onclick = () => {
         slide[current].imageLayer.attachments.forEach((x) => {
@@ -827,6 +944,9 @@
                 $img.style["top"] = "0px";
                 $img.style["left"] = "0px";
                 $img.dataset.id = `${id}`;
+                $img.onclick = () => {
+                    selectItem(id);
+                };
 
                 const $lab = document.createElement("div");
                 $lab.classList.add("image-item");
