@@ -857,6 +857,9 @@ input[type=checkbox] {
     .slide-item > .thumb {
         max-height: 202px;
     }
+    .slide-item > .thumb > img {
+        max-height: 202px;
+    }
 
     .modal {
         width: 100vw;
