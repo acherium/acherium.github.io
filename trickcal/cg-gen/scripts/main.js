@@ -3,9 +3,9 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1047",
+        version: "1048",
         date: "24-05-27",
-        watermark: true,
+        watermark: false,
         isBeta: true
     };
     const SIZEMIN = 32;
@@ -37,23 +37,6 @@
         thumbnail: ""
     };
     THUMBNAIL_QUEUE_INTERVAL = 3000;
-
-    const $ = (x) => document.querySelector(x);
-    const $a = (x) => document.querySelectorAll(x);
-
-    let slide = [];
-    let thumbnailQueue = {};
-    let current = 0;
-    let imageItemIdInt = 0;
-    const imageController = {
-        rect: {
-            x: 0,
-            y: 0,
-            width: 0,
-            height: 0
-        },
-        selected: null
-    };
     const PALETTE = {
         "player": [ "player", "교주", "FBAC26" ],
         "youngchun": [ "youngchun", "영춘", "768964" ],
@@ -167,7 +150,29 @@
         }
     };
 
+    const $ = (x) => document.querySelector(x);
+    const $a = (x) => document.querySelectorAll(x);
+
+    let slide = [];
+    let thumbnailQueue = {};
+    let current = 0;
+    let imageItemIdInt = 0;
+    let flagMobileMenu = null;
+    const imageController = {
+        rect: {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+        },
+        selected: null
+    };
+
     const $ver = $("#ver");
+    const $left = $("#left");
+    const $right = $("#right");
+    const $mBtnTglLeft = $("#m-button-toggle-slide");
+    const $mBtnTglRight = $("#m-button-toggle-layer");
     const $namearea = $("#photo-script-box-namearea");
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
     const $name = $("#photo-script-box-namebox > span:nth-child(2)");
@@ -237,25 +242,25 @@
             $photozone.classList.remove(x);
         });
         $photozone.classList.add(`photo-zone-size-${i}`);
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setName = (x) => {
         slide[current].strings.name = x;
         $nameOutline.innerText = x;
         $name.innerText = x;
         $inputName.value = x;
-        // addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        // //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setColor = (hex) => {
         slide[current].values.color = hex;
         $nameBg.style["background-color"] = `#${hex}`;
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setContent = (x) => {
         slide[current].strings.content = x;
         $content.innerText = x;
         $inputContent.value = x;
-        // addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        // //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setBoxStyle = (i) => {
         const d = BOXES[i];
@@ -265,7 +270,7 @@
         $content.classList.add(`script-content-font-${d.color}`);
         $box.src = d.src;
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const toggleNamearea = (b) => {
         slide[current].toggles.namearea = b;
@@ -273,30 +278,30 @@
         $name.style["display"] = b ? "inline" : "none";
         $nameOutline.style["display"] = b ? "inline" : "none";
         $nameBg.style["display"] = b ? "block" : "none";
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const toggleSelectBox = (b) => {
         slide[current].toggles.select = b;
         $chkSelbox.checked = b;
         $selboxInner.style["display"] = b ? "flex" : "none";
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const togglePhotoButtons = (b) => {
         slide[current].toggles.photoButtons = b;
         $chkPhotoBtn.checked = b;
         $photoBtn.style["display"] = b ? "flex" : "none";
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setBackground = (f) => {
         slide[current].imageLayer.background = f;
         $bg.src = f;
         $prevBg.src = f;
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const addImageItem = (d) => {
-        $imageList.append(d.nodes.main);
+        $imageList.append(d.nodes.lab);
         $imageLayer.append(d.nodes.img);
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const addImageItemIterable = (x) => {
         x.forEach((d) => {
@@ -304,9 +309,11 @@
         });
     };
     const selectItem = (i) => {
+        Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
         const t = slide[current].imageLayer.attachments.find((x) => x.id === i);
         if (!t) return;
         imageController.selected = i;
+        t.nodes.lab.classList.add("active-image-item");
 
         setControllerPos(t.rect.x, t.rect.y);
         setControllerSize(0, 0, t.rect.width, t.rect.height);
@@ -314,8 +321,9 @@
         $controller.style["display"] = "flex";
     };
     const unselectItem = () => {
-        slide[current].imageLayer.selectedImageItem = null;
+        imageController.selected = null;
         $controller.style["display"] = "none";
+        Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
     };
     const addImagePos = (n, x, y) => {
         const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
@@ -404,17 +412,20 @@
         delete slide[i];
         slide = slide.filter((x) => x);
         if (slide.length) {
-            current = ( i === current ? 0 : ( i > current ? current : ( i < current ? current - 1 : 0)));
-            setSlide(current);
+            if (i === current && i > 0) {
+                setSlide(i - 1);
+            } else if (i === current && i === 0) {
+                setSlide(0);
+            } else if (i < current) {
+                setSlide(current - 1);
+            };
         } else {
             createSlide();
         };
+        refreshSlideList();
     };
     const applySlide = () => {
-        const $checked = $imageList.querySelector("input:checked");
-        if ($checked) $checked.checked = false;
-        refreshSlideList();
-        $(`#slide-item-${current}`).checked = true;
+        current = slide[current] ? current : current - 1;
         const x = slide[current];
         setAreaSize(x.values.size);
         setName(x.strings.name);
@@ -428,26 +439,28 @@
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
         addImageItemIterable(x.imageLayer.attachments);
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        refreshSlideList();
     };
     const refreshSlideList = () => {
+        $slideList.innerHTML = "";
         $slideList.innerHTML = slide.map((d, i) => {
-            return `<div class="slide-item"><input type="radio" name="slide" id="slide-item-${i}" class="radio-slide-item" value="${i}">` +
-                `<label for="slide-item-${i}" id="label-slide-item-${i}" class="slide-item-body"><div class="thumb"><img src="${d.thumbnail}"></div>` +
-                `<div class="slide-item-menu"><p>${i+1}</p><button class="remove"><div class="i i-deny"></div></button></div>` +
-                `</label></div>`;
+            return `<div id="slide-item-${i}" class="slide-item"><div class="thumb"><img src="${d.thumbnail}"></div>` +
+                `<div class="slide-item-menu"><p>${i+1}</p><button class="remove"><div class="i i-deny"></div></button></div></div>`;
         }).join("");
-        Array.from($slideList.querySelectorAll(".radio-slide-item")).forEach(($n, i) => {
-            $n.onchange = (c) => {
-                if (!c.target.checked) return;
+        Array.from($slideList.querySelectorAll(".slide-item")).forEach(($n, i) => {
+            $n.onpointerdown = (p) => {
+                if (p.target !== $n) return;
                 setSlide(i);
             };
         });
         Array.from($slideList.querySelectorAll("button.remove")).forEach(($n, i) => {
-            $n.onclick = () => {
+            $n.onpointerdown = () => {
                 removeSlide(i);
             };
         });
+        $(`.active-slide:not(#slide-item-${current})`)?.classList.remove("active-slide");
+        $(`#slide-item-${current}`)?.classList.add("active-slide");
     };
     const addThumbnailQueue = (i, h) => {
         thumbnailQueue[i] = h;
@@ -456,7 +469,7 @@
         h.then((c) => {
             const src = c.toDataURL("image/png");
             slide[current].thumbnail = src;
-            const $thumb = $(`#label-slide-item-${i} div.thumb > img`);
+            const $thumb = $(`#slide-item-${i} div.thumb > img`);
             $thumb.src = src;
         });
         // html2canvas($n, { logging: false, scale: 0.3 }).then((c) => {
@@ -526,7 +539,7 @@
             $controller.releasePointerCapture(p.pointerId);
             $controller.onpointermove = null;
             $controller.onpointerup = null;
-            addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+            //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
         };
     };
     Array.from($resizePoints).forEach(($n, i) => {
@@ -599,7 +612,7 @@
                 $n.releasePointerCapture(p.pointerId);
                 $n.onpointermove = null;
                 $n.onpointerup = null;
-                addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+                //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
             };
         };
     });
@@ -671,7 +684,7 @@
         setName(x.target.value);
     };
     $inputName.onchange = () => {
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     $chkTglName.onchange = (c) => {
         toggleNamearea(c.target.checked);
@@ -691,7 +704,7 @@
         setContent(x.target.value);
     };
     $inputContent.onchange = () => {
-        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     Array.from($btnBoxStyle).forEach(($n, i) => {
         $n.onclick = () => {
@@ -817,20 +830,7 @@
                 $img.style["left"] = "0px";
                 $img.dataset.id = `${id}`;
 
-                const $chk = document.createElement("input");
-                $chk.type = "checkbox";
-                $chk.id = `image-item-${id}`;
-                $chk.classList.add("checkbox-image-item");
-                $chk.onchange = (c) => {
-                    unselectItem();
-                    Array.from($a(".checkbox-image-item")).filter(($n) => $n !== c.target).forEach(($n) => $n.checked = false);
-                    if (c.target.checked) {
-                        selectItem(id);
-                    };
-                };
-
-                const $lab = document.createElement("label");
-                $lab.setAttribute("for", `image-item-${id}`);
+                const $lab = document.createElement("div");
                 $lab.classList.add("image-item");
                 $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
                     `<p>${file.name}</p>` +
@@ -839,11 +839,17 @@
                     unselectItem();
                     $main.remove();
                     $img.remove();
-                    $chk.remove();
                     $lab.remove();
                     delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
                     slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
-                    addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+                    //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+                };
+                $lab.onclick = () => {
+                    if (imageController.selected !== id) {
+                        selectItem(id);
+                    } else {
+                        unselectItem();
+                    };
                 };
 
                 setTimeout(() => {
@@ -855,7 +861,7 @@
                         nodes: {
                             main: $main,
                             img: $img,
-                            chk: $chk,
+                            chk: null,
                             lab: $lab
                         },
                         rect: {
@@ -878,8 +884,8 @@
                     };
                     slide[current].imageLayer.attachments.push(d);
 
-                    d.nodes.main.append(d.nodes.chk);
-                    d.nodes.main.append(d.nodes.lab);
+                    // d.nodes.main.append(d.nodes.chk);
+                    // d.nodes.main.append(d.nodes.lab);
                     addImageItem(d);
                 }, 30);
             };
@@ -891,12 +897,12 @@
     $chkAutoName.checked = true;
     $chkKeyShortcut.checked = true;
 
-    let thumbnailQueueRunner = setInterval(() => {
-        Object.keys(thumbnailQueue).forEach((k) => {
-            refreshThumbnail(k, thumbnailQueue[k]);
-            delete thumbnailQueue[k];
-        });
-    }, THUMBNAIL_QUEUE_INTERVAL);
+    // let thumbnailQueueRunner = setInterval(() => {
+    //     Object.keys(thumbnailQueue).forEach((k) => {
+    //         refreshThumbnail(k, thumbnailQueue[k]);
+    //         delete thumbnailQueue[k];
+    //     });
+    // }, THUMBNAIL_QUEUE_INTERVAL);
 
     $btnOutputAll.onclick = () => {
         let i = 0;
@@ -926,7 +932,34 @@
         };
         cb();
     };
-    
+
+    $mBtnTglLeft.onclick = () => {
+        if (flagMobileMenu === "left") {
+            flagMobileMenu = null;
+            $left.classList.remove("m-menu-expand");
+            $mBtnTglLeft.classList.remove("m-active-toggle-menu");
+        } else {
+            $right.classList.remove("m-menu-expand");
+            $mBtnTglRight.classList.remove("m-active-toggle-menu");
+            flagMobileMenu = "left";
+            $left.classList.add("m-menu-expand");
+            $mBtnTglLeft.classList.add("m-active-toggle-menu");
+        };
+    };
+    $mBtnTglRight.onclick = () => {
+        if (flagMobileMenu === "right") {
+            flagMobileMenu = null;
+            $right.classList.remove("m-menu-expand");
+            $mBtnTglRight.classList.remove("m-active-toggle-menu");
+        } else {
+            $left.classList.remove("m-menu-expand");
+            $mBtnTglLeft.classList.remove("m-active-toggle-menu");
+            flagMobileMenu = "right";
+            $right.classList.add("m-menu-expand");
+            $mBtnTglRight.classList.add("m-active-toggle-menu");
+        };
+    };
+
     $ver.innerText = `${LYRA.name} - Build ${LYRA.version}@${LYRA.date} :: `;
     if (LYRA.watermark) {
         $wm = document.createElement("div");

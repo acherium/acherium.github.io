@@ -1,0 +1,321 @@
+@charset "UTF-8";
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@keyframes ani-pop-up {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+html {
+    overflow: hidden;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    color: var(--c-font);
+    font-family: "Spoqa Han Sans Neo";
+    user-select: none;
+}
+
+p, span, a, button, input, textarea {
+    font-size: 12pt;
+}
+
+.flexlist {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist > *:not(:last-child) {
+    margin-right: 8px;
+}
+.flexlist > input[type=checkbox], .flexlist > input[type=radio] {
+    display: none;
+}
+.flexlist-horizontal {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist-horizontal > *:not(:last-child) {
+    margin-right: 8px;
+}
+.flexlist-horizontal > input[type=checkbox], .flexlist-horizontal > input[type=radio] {
+    display: none;
+}
+.fjcs {
+    justify-content: flex-start;
+}
+.fjce {
+    justify-content: flex-end;
+}
+.fjcb {
+    justify-content: space-between;
+}
+.wf {
+    width: 100%;
+}
+.hf {
+    height: 100%;
+}
+.f1 {
+    flex: 1;
+}
+.wfix {
+    min-width: max-content;
+}
+.hfix { 
+    min-height: max-content;
+}
+.wm400 {
+    max-width: 100%;
+    width: 400px;
+}
+.hm300 {
+    max-height: 100%;
+    height: 300px;
+}
+
+input[type=text], textarea {
+    padding: 10px;
+    overflow: scroll;
+
+    min-height: 45px;
+
+    font-size: 12pt;
+    color: var(--c-font);
+    border: 0;
+    border-radius: var(--v-radius-small);
+    background-color: var(--c-button);
+    resize: none;
+
+    transition: all 0.1s;
+}
+input[type=text]:focus, textarea:focus {
+    outline: solid 3px var(--c-lyra);
+}
+input[type=file] {
+    display: none;
+}
+input[type=checkbox]:checked+label, input[type=radio]:checked+label {
+    background-color: var(--c-button-active-main);
+}
+select {
+    padding: 10px;
+
+    font-size: 12pt;
+    border: 0;
+    border-radius: 4px;
+    background-color: var(--c-button);
+    cursor: pointer;
+    
+    transition: all 0.1s;
+}
+select:focus {
+    outline: solid 3px var(--c-lyra);
+}
+option:not(:disabled) {
+    color: black;
+}
+
+button, label {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+
+    width: max-content;
+    height: 48px;
+
+    border: 0;
+    border-radius: var(--v-radius-small);
+    background-color: var(--c-button);
+    cursor: pointer;
+
+    transition: all 0.1s;
+}
+button > *, label > * {
+    transition: all 0.1s;
+}
+button > p, label > p {
+    margin: 0 4px;
+}
+button > .i, label > .i {
+    margin: 2px;
+}
+button > .i+p, label > .i+p {
+    margin-left: 8px;
+}
+button > p, button > .i, label > p, label > .i {
+    filter: var(--f-button);
+}
+button:hover, label:hover {
+    background-color: var(--c-button-hover-main);
+}
+button:hover > p, button:hover > .i, label:hover > p, label:hover > .i {
+    filter: var(--f-button-hover);
+}
+button:active, label:active {
+    background-color: var(--c-button-active-main);
+}
+button:active > p, button:active > .i, label:active > p, label:active > .i {
+    filter: var(--f-button-hover);
+}
+input[type=checkbox]:checked+label > p, input[type=checkbox]:checked+label > .i, input[type=radio]:checked+label > p, input[type=radio]:checked+label > .i {
+    filter: var(--f-button-hover);
+}
+input[type=checkbox]:empty+label:not(.image-item) > p::before {
+    margin-right: 4px;
+
+    content: "✖"
+}
+input[type=checkbox]:checked+label:not(.image-item) > p::before {
+    margin-right: 4px;
+
+    content: "✔";
+}
+
+.tip {
+    display: none;
+    position: absolute;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px;
+    top: 5px;
+    z-index: 10;
+
+    width: max-content;
+    height: max-content;
+
+    color: var(--c-white);
+    border-radius: 4px;
+    background-color: var(--c-lyra);
+    pointer-events: none;
+
+    animation-name: ani-pop-up;
+    animation-duration: 0.1s;
+}
+.tip::before {
+    position: absolute;
+    top: 10px;
+
+    border: solid 10px;
+    content: "";
+}
+.rtip {
+    left: calc(100% + 15px);
+}
+.rtip::before {
+    left: -19px;
+
+    border-color: transparent var(--c-lyra) transparent transparent;
+}
+.ltip {
+    right: calc(100% + 6px);
+}
+.ltip::before {
+    right: -19px;
+    border-color: transparent transparent transparent var(--c-lyra);
+}
+*:has(.tip):hover > .tip, *:has(.tip):active > .tip {
+    display: flex;
+}
+
+.i {
+    width: 20px;
+    height: 20px;
+
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--c-icon-filter);
+}
+.i-search { background-image: url("../assets/icons/1-search.svg"); }
+.i-search-go { background-image: url("../assets/icons/2-search-go.svg"); }
+.i-place { background-image: url("../assets/icons/3-place.svg"); }
+.i-download { background-image: url("../assets/icons/4-download.svg"); }
+.i-export { background-image: url("../assets/icons/5-export.svg"); }
+.i-import { background-image: url("../assets/icons/6-import.svg"); }
+.i-trash { background-image: url("../assets/icons/7-trash.svg"); }
+.i-move { background-image: url("../assets/icons/8-move.svg"); }
+.i-paint { background-image: url("../assets/icons/9-paint.svg"); }
+.i-sweep { background-image: url("../assets/icons/10-sweep.svg"); }
+.i-clear { background-image: url("../assets/icons/11-clear.svg"); }
+.i-palette-item { background-image: url("../assets/icons/12-palette-item.svg"); }
+.i-palette-background { background-image: url("../assets/icons/13-palette-background.svg"); }
+.i-config { background-image: url("../assets/icons/14-config.svg"); }
+.i-preset { background-image: url("../assets/icons/15-preset.svg"); }
+.i-menu { background-image: url("../assets/icons/16-menu.svg"); }
+.i-deny { background-image: url("../assets/icons/17-deny.svg"); }
+.i-accept { background-image: url("../assets/icons/18-accept.svg"); }
+.i-arrow0 { background-image: url("../assets/icons/19-arrow0.svg"); }
+.i-arrow1 { background-image: url("../assets/icons/20-arrow1.svg"); }
+.i-arrow2 { background-image: url("../assets/icons/21-arrow2.svg"); }
+.i-arrow3 { background-image: url("../assets/icons/22-arrow3.svg"); }
+.i-plus { background-image: url("../assets/icons/23-plus.svg"); }
+.i-minus { background-image: url("../assets/icons/24-minus.svg"); }
+.i-undo { background-image: url("../assets/icons/25-undo.svg"); }
+.i-redo { background-image: url("../assets/icons/26-redo.svg"); }
+.i-set-bg { background-image: url("../assets/icons/1001-setbg.svg"); }
+.i-remove-bg { background-image: url("../assets/icons/1002-removebg.svg"); }
+.i-bottom { background-image: url("../assets/icons/1003-bottom.svg"); }
+.i-front { background-image: url("../assets/icons/1004-front.svg"); }
+.i-flip-horizontal { background-image: url("../assets/icons/1005-flip-horizontal.svg"); }
+.i-flip-vertical { background-image: url("../assets/icons/1006-flip-vertical.svg"); }
+.i-slide { background-image: url("../assets/icons/1007-slide.svg"); }
+.i-layer { background-image: url("../assets/icons/1008-layer.svg"); }
+
+#watermark {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 6px;
+    z-index: 9999;
+
+    font-size: 10pt;
+    color: white;
+    border-radius: 4px;
+    background-color: black;
+    text-align: right;
+    opacity: 1;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 800px) {
+    .m-show-flex {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 800px) {
+    .m-hide {
+        display: none !important;
+    }
+
+    .m-show-flex {
+        display: flex;
+    }
+
+    .m-menu-expand {
+        display: flex !important;
+    }
+}
