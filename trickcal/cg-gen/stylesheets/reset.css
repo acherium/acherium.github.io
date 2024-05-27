@@ -181,6 +181,9 @@ button:active, label:active {
 button:active > p, button:active > .i, label:active > p, label:active > .i {
     filter: var(--f-button-hover);
 }
+input[type=checkbox]:checked+label, input[type=checkbox]:checked+label, input[type=radio]:checked+label, input[type=radio]:checked+label {
+    background-color: var(--c-lyra);
+}
 input[type=checkbox]:checked+label > p, input[type=checkbox]:checked+label > .i, input[type=radio]:checked+label > p, input[type=radio]:checked+label > .i {
     filter: var(--f-button-hover);
 }
@@ -250,6 +253,15 @@ input[type=checkbox]:checked+label:not(.image-item) > p::before {
     background-position: center;
     filter: var(--c-icon-filter);
 }
+.il {
+    width: 36px;
+    height: 36px;
+
+    background-size: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--c-icon-filter);
+}
 .i-search { background-image: url("../assets/icons/1-search.svg"); }
 .i-search-go { background-image: url("../assets/icons/2-search-go.svg"); }
 .i-place { background-image: url("../assets/icons/3-place.svg"); }
@@ -284,6 +296,10 @@ input[type=checkbox]:checked+label:not(.image-item) > p::before {
 .i-flip-vertical { background-image: url("../assets/icons/1006-flip-vertical.svg"); }
 .i-slide { background-image: url("../assets/icons/1007-slide.svg"); }
 .i-layer { background-image: url("../assets/icons/1008-layer.svg"); }
+.i-slide-create { background-image: url("../assets/icons/1009-slide-new.svg"); }
+.i-slide-duplicate { background-image: url("../assets/icons/1010-slide-duplicate.svg"); }
+.i-slide-size { background-image: url("../assets/icons/1011-slide-size.svg"); }
+.i-text { background-image: url("../assets/icons/1012-text.svg"); }
 
 #watermark {
     position: absolute;

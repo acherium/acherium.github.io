@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1048",
+        version: "1049",
         date: "24-05-27",
         watermark: false,
         isBeta: true
@@ -242,25 +242,23 @@
             $photozone.classList.remove(x);
         });
         $photozone.classList.add(`photo-zone-size-${i}`);
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setName = (x) => {
         slide[current].strings.name = x;
         $nameOutline.innerText = x;
         $name.innerText = x;
         $inputName.value = x;
-        // //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setColor = (hex) => {
         slide[current].values.color = hex;
         $nameBg.style["background-color"] = `#${hex}`;
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setContent = (x) => {
         slide[current].strings.content = x;
         $content.innerText = x;
         $inputContent.value = x;
-        // //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setBoxStyle = (i) => {
         const d = BOXES[i];
@@ -270,7 +268,7 @@
         $content.classList.add(`script-content-font-${d.color}`);
         $box.src = d.src;
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const toggleNamearea = (b) => {
         slide[current].toggles.namearea = b;
@@ -278,30 +276,30 @@
         $name.style["display"] = b ? "inline" : "none";
         $nameOutline.style["display"] = b ? "inline" : "none";
         $nameBg.style["display"] = b ? "block" : "none";
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const toggleSelectBox = (b) => {
         slide[current].toggles.select = b;
         $chkSelbox.checked = b;
         $selboxInner.style["display"] = b ? "flex" : "none";
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const togglePhotoButtons = (b) => {
         slide[current].toggles.photoButtons = b;
         $chkPhotoBtn.checked = b;
         $photoBtn.style["display"] = b ? "flex" : "none";
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const setBackground = (f) => {
         slide[current].imageLayer.background = f;
         $bg.src = f;
         $prevBg.src = f;
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const addImageItem = (d) => {
         $imageList.append(d.nodes.lab);
         $imageLayer.append(d.nodes.img);
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     const addImageItemIterable = (x) => {
         x.forEach((d) => {
@@ -439,7 +437,7 @@
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
         addImageItemIterable(x.imageLayer.attachments);
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
         refreshSlideList();
     };
     const refreshSlideList = () => {
@@ -539,7 +537,7 @@
             $controller.releasePointerCapture(p.pointerId);
             $controller.onpointermove = null;
             $controller.onpointerup = null;
-            //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+            addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
         };
     };
     Array.from($resizePoints).forEach(($n, i) => {
@@ -612,7 +610,7 @@
                 $n.releasePointerCapture(p.pointerId);
                 $n.onpointermove = null;
                 $n.onpointerup = null;
-                //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+                addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
             };
         };
     });
@@ -684,7 +682,7 @@
         setName(x.target.value);
     };
     $inputName.onchange = () => {
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     $chkTglName.onchange = (c) => {
         toggleNamearea(c.target.checked);
@@ -704,7 +702,7 @@
         setContent(x.target.value);
     };
     $inputContent.onchange = () => {
-        //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+        addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
     };
     Array.from($btnBoxStyle).forEach(($n, i) => {
         $n.onclick = () => {
@@ -842,7 +840,7 @@
                     $lab.remove();
                     delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
                     slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
-                    //addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
+                    addThumbnailQueue(current, html2canvas($photozone, { logging: false }));
                 };
                 $lab.onclick = () => {
                     if (imageController.selected !== id) {
@@ -897,12 +895,12 @@
     $chkAutoName.checked = true;
     $chkKeyShortcut.checked = true;
 
-    // let thumbnailQueueRunner = setInterval(() => {
-    //     Object.keys(thumbnailQueue).forEach((k) => {
-    //         refreshThumbnail(k, thumbnailQueue[k]);
-    //         delete thumbnailQueue[k];
-    //     });
-    // }, THUMBNAIL_QUEUE_INTERVAL);
+    let thumbnailQueueRunner = setInterval(() => {
+        Object.keys(thumbnailQueue).forEach((k) => {
+            refreshThumbnail(k, thumbnailQueue[k]);
+            delete thumbnailQueue[k];
+        });
+    }, THUMBNAIL_QUEUE_INTERVAL);
 
     $btnOutputAll.onclick = () => {
         let i = 0;

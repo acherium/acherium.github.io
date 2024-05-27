@@ -43,15 +43,15 @@
             <div class="partition-horizontal"></div>
             <div class="flexlist-horizontal wf">
                 <button id="button-slide-size" class="wf">
-                    <div class="i i-config"></div>
+                    <div class="i i-slide-size"></div>
                     <div class="tip rtip">슬라이드 사이즈</div>
                 </button>
                 <button id="button-add-slide" class="wf">
-                    <div class="i i-set-bg"></div>
+                    <div class="i i-slide-create"></div>
                     <div class="tip rtip">빈 슬라이드 추가</div>
                 </button>
                 <button id="button-duplicate-slide" class="wf">
-                    <div class="i i-set-bg"></div>
+                    <div class="i i-slide-duplicate"></div>
                     <div class="tip rtip">현재 슬라이드 복제</div>
                 </button>
             </div>
@@ -93,7 +93,7 @@
                                 <span></span>
                             </div>
                         </div>
-                        <span id="script-content">Lorem ipsum dolor sit amet.<br>Hello, world!</span>
+                        <span id="script-content">Lorem ipsum dolor sit amet.</span>
                     </div>
                     <div id="photo-select-area">
                         <div id="photo-select">
@@ -202,7 +202,10 @@
     </footer>
     <div id="modal-name" class="modal-area" style="display: none;">
         <div class="modal">
-            <h1>이름</h1>
+            <div class="modal-title">
+                <div class="il i-text"></div>
+                <h1>이름</h1>
+            </div>
             <input type="text" id="name" class="modal-input-text wm400">
             <select id="name-color" class="wf"></select>
             <div class="flexlist-horizontal wf">
@@ -226,7 +229,10 @@
     </div>
     <div id="modal-content" class="modal-area" style="display: none;">
         <div class="modal">
-            <h1>대화창</h1>
+            <div class="modal-title">
+                <div class="il i-text"></div>
+                <h1>대화창</h1>
+            </div>
             <h3>내용</h3>
             <textarea id="content" class="wm400 hm300"></textarea>
             <h3>형태</h3>
@@ -267,7 +273,10 @@
     </div>
     <div id="modal-slide-size" class="modal-area" style="display: none;">
         <div class="modal">
-            <h1>슬라이드 크기</h1>
+            <div class="modal-title">
+                <div class="il i-slide-size"></div>
+                <h1>슬라이드 크기</h1>
+            </div>
             <div id="slide-size-list" class="flexlist fjcb wf">
                 <input type="radio" name="slide-size" id="slide-size-0" value="0">
                 <label class="slide-size-label" for="slide-size-0">
@@ -292,7 +301,10 @@
     </div>
     <div id="modal-select" class="modal-area" style="display: none;">
         <div class="modal">
-            <h1>선택 목록</h1>
+            <div class="modal-title">
+                <div class="il i-menu"></div>
+                <h1>선택지 목록</h1>
+            </div>
             <input type="text" id="select-option-0" class="select-option modal-input-text wm400">
             <input type="text" id="select-option-1" class="select-option modal-input-text wm400">
             <input type="text" id="select-option-2" class="select-option modal-input-text wm400">

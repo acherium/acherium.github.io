@@ -596,6 +596,15 @@ input[type=checkbox] {
     margin-bottom: 12px;
 }
 
+.modal-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.modal-title > *:not(:last-child) {
+    margin-right: 8px;
+}
+
 .modal-button-list {
     display: flex;
     position: relative;
@@ -834,6 +843,13 @@ input[type=checkbox] {
 
     .image-item {
         width: 100%;
+    }
+
+    .slide-item {
+        width: 100%;
+    }
+    .slide-item > .thumb {
+        max-height: 202px;
     }
 
     .modal {
