@@ -5,6 +5,7 @@
     --c-black: rgb(0, 0, 0);
     --c-green: rgb(117, 153, 45);
     --c-main: rgb(255, 255, 255);
+    --c-sub: rgb(239, 233, 241);
     --c-font: rgb(0, 0, 0);
     --c-font-sub: rgb(150, 150, 150);
     --c-border: rgb(239, 233, 241);
@@ -25,6 +26,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --c-main: rgb(0, 0, 0);
+        --c-sub: rgb(24, 23, 24);
         --c-font: rgb(255, 255, 255);
         --c-border: rgb(30, 30, 30);
         --c-button: rgb(24, 23, 24);

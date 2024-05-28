@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1053",
+        version: "1054",
         date: "24-05-28",
         watermark: false,
         isBeta: true
@@ -165,6 +165,10 @@
     let current = 0;
     let imageItemIdInt = 0;
     let flagMobileMenu = null;
+    const areaRect = {
+        x: 0,
+        y: 0
+    };
     const imageController = {
         rect: {
             x: 0,
@@ -501,9 +505,13 @@
             $thumb.src = src;
         });
     };
+    const setAreaPos = (x, y) => {
+        areaRect.x = x;
+        areaRect.y = y;
+        $main.style["transform"] = `translate(${x}px, ${y}px)`;
+    };
 
     document.addEventListener("keydown", (k) => {
-        console.log(k.keyCode);
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
             $btnControllerReset.click();
         } else if (k.target === document.body && k.keyCode === 27) {
@@ -574,6 +582,37 @@
         duplicateSlide();
     };
 
+    $middle.onmousedown = (p) => {
+        if (p.target !== $middle) return;
+        $middle.setPointerCapture(p.pointerId);
+        $middle.onmousemove = (m) => {
+            setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);
+        };
+        $middle.onmouseup = () => {
+            $middle.releasePointerCapture(p.pointerId);
+            $middle.onmousemove = null;
+            $middle.onmouseup = null;
+        };
+    };
+    $middle.ontouchstart = (t) => {
+        if (t.touches[0].target !== $middle) return;
+        let ox = t.touches[0].clientX;
+        let oy = t.touches[0].clientY;
+        $middle.ontouchmove = (m) => {
+            const x = m.touches[0].clientX;
+            const y = m.touches[0].clientY;
+            const mx = x - ox;
+            const my = y - oy;
+            ox = x;
+            oy = y;
+            setAreaPos(areaRect.x + mx, areaRect.y + my);
+        };
+        $middle.ontouchend = () => {
+            $middle.ontouchmove = null;
+            $middle.ontouchend = null;
+        };
+    };
+
     $controller.onmousedown = (p) => {
         if (p.target !== $controller) return;
         $controller.setPointerCapture(p.pointerId);
@@ -597,7 +636,6 @@
     };
     $controller.ontouchstart = (t) => {
         if (t.touches[0].target !== $controller) return;
-        $middle.classList.add("oh");
         let ox = t.touches[0].clientX;
         let oy = t.touches[0].clientY;
         $controller.ontouchmove = (m) => {
@@ -615,7 +653,6 @@
             setControllerPos(d.rect.x, d.rect.y);
         };
         $controller.ontouchend = () => {
-            $middle.classList.remove("oh");
             refreshThumbnail(current, $photozone);
             $controller.ontouchmove = null;
             $controller.ontouchend = null;
