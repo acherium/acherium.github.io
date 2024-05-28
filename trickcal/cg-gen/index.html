@@ -40,8 +40,19 @@
     <div id="bottom">
         <div id="left">
             <div class="scroll-box-inner">
-                <h4>슬라이드</h4>
+                <h4>이미지로 출력</h4>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-download" class=wf>
+                        <div class="i i-download"></div>
+                        <p>현재</p>
+                    </button>
+                    <button id="button-download-all" class=wf>
+                        <div class="i i-download"></div>
+                        <p>전체</p>
+                    </button>
+                </div>
                 <div class="partition-horizontal"></div>
+                <h4>슬라이드</h4>
                 <button id="button-slide-size" class="wf">
                     <div class="i i-slide-size"></div>
                     <p>슬라이드 크기</p>
@@ -54,16 +65,6 @@
                     <button id="button-duplicate-slide" class="wf">
                         <div class="i i-slide-duplicate"></div>
                         <p>복제</p>
-                    </button>
-                </div>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-download" class=wf>
-                        <div class="i i-download"></div>
-                        <p>현재</p>
-                    </button>
-                    <button id="button-download-all" class=wf>
-                        <div class="i i-download"></div>
-                        <p>전체</p>
                     </button>
                 </div>
                 <div class="partition-horizontal"></div>
@@ -175,7 +176,7 @@
                     <img src="">
                 </div>
                 <div class="partition-horizontal"></div>
-                <div class="flexlist-horizontal" class="wf">
+                <div class="flexlist-horizontal wf">
                     <button id="button-content" class="wf">
                         <div class="i i-text"></div>
                         <p>대화창</p>
@@ -248,30 +249,34 @@
                 <h3>내용</h3>
                 <textarea id="content" class="wm400 hm200"></textarea>
                 <h3>형태</h3>
-                <div id="content-box-list" class="flexlist-horizontal fjcb wf">
+                <div class="flexlist wf">
                     <input type="radio" name="box-style" id="box-style-0" value="0">
                     <label class="content-box-label wf" for="box-style-0">
-                        <p>1</p>
+                        <p>기본</p>
                     </label>
                     <input type="radio" name="box-style" id="box-style-1" value="1">
                     <label class="content-box-label wf" for="box-style-1">
-                        <p>2</p>
+                        <p>기본 (속마음 있음)</p>
                     </label>
+                </div>
+                <div class="flexlist wf">
                     <input type="radio" name="box-style" id="box-style-2" value="2">
                     <label class="content-box-label wf" for="box-style-2">
-                        <p>3</p>
+                        <p>속마음</p>
                     </label>
                     <input type="radio" name="box-style" id="box-style-3" value="3">
                     <label class="content-box-label wf" for="box-style-3">
-                        <p>4</p>
+                        <p>생각</p>
                     </label>
+                </div>
+                <div class="flexlist wf">
                     <input type="radio" name="box-style" id="box-style-4" value="4">
                     <label class="content-box-label wf" for="box-style-4">
-                        <p>5</p>
+                        <p>사각형</p>
                     </label>
                     <input type="radio" name="box-style" id="box-style-5" value="5">
                     <label class="content-box-label wf" for="box-style-5">
-                        <p>6</p>
+                        <p>강조</p>
                     </label>
                 </div>
                 <div class="flexlist-hori" class="wf">
