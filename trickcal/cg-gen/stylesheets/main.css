@@ -87,22 +87,16 @@ footer a {
 }
 
 #left, #right {
-    display: flex;
     position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
     padding: 8px;
     z-index: 1;
+    overflow-y: scroll;
 
     width: max-content;
     height: 100%;
 
     background-color: var(--c-main);
     box-shadow: 0 0 5px var(--c-shadow);
-}
-#left > *:not(:last-child), #right > *:not(:last-child) {
-    margin-bottom: 8px;
 }
 #left > h4, #left > p, #right > h4, #right > p {
     width: 100%;
@@ -111,6 +105,19 @@ footer a {
 }
 #left input[type=radio] {
     display: none;
+}
+
+.scroll-box-inner, #slide-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    width: 100%;
+    height: max-content;
+}
+.scroll-box-inner > *:not(:last-child), #slide-list > *:not(:last-child) {
+    margin-bottom: 8px;
 }
 
 #left {
@@ -143,28 +150,6 @@ main {
 
 #right {
     border-left: solid 1px var(--c-border);
-}
-
-.scroll-box {
-    display: block;
-    overflow: hidden;
-    overflow-y: scroll;
-
-    flex: 1;
-    width: min-content;
-}
-
-.toolbar {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
-
-    height: inherit;
-}
-.toolbar > *:not(:last-child) {
-    margin-bottom: 8px;
 }
 
 #preview-bg {
@@ -236,6 +221,7 @@ input[type=checkbox] {
     overflow: hidden;
 
     background-color: rgb(0, 0, 0);
+    pointer-events: none;
 }
 #photo-zone * {
     font-family: "ONE Mobile POP";
@@ -266,12 +252,16 @@ input[type=checkbox] {
 
     width: 100%;
     height: 100%;
+
+    pointer-events: none;
 }
 #photo-layer > * {
     position: absolute;
 
     border-radius: var(--v-radius-small);
     cursor: pointer;
+
+    pointer-events: all;
 }
 #photo-layer > *:hover {
     outline: solid 3px var(--c-lyra);
@@ -305,10 +295,14 @@ input[type=checkbox] {
     align-items: center;
     justify-content: center;
     bottom: 0;
-    z-index: 2;
+    z-index: 4;
 
     width: 100%;
     height: 224px;
+    pointer-events: none;
+}
+.content-box-center {
+    bottom: calc(50% - 112px) !important;
 }
 
 #photo-script-box-backdrop {
@@ -316,7 +310,13 @@ input[type=checkbox] {
 
     width: 1000px;
 
+    border-radius: var(--v-radius-small);
     opacity: 0.95;
+    pointer-events: all;
+    cursor: pointer;
+}
+#photo-script-box-backdrop:hover {
+    outline: solid 3px var(--c-lyra);
 }
 
 #photo-script-box-arrow {
@@ -325,6 +325,8 @@ input[type=checkbox] {
     right: 220px;
 
     width: 20px;
+
+    pointer-events: none;
 }
 
 #photo-script-box-namearea {
@@ -337,10 +339,6 @@ input[type=checkbox] {
 
     width: 100%;
     height: 25px;
-    cursor: pointer;
-}
-#photo-script-box-namearea:hover {
-    outline: solid 3px var(--c-lyra);
 }
 
 #photo-script-box-name-backdrop {
@@ -385,16 +383,29 @@ input[type=checkbox] {
     text-align: center;
     text-overflow: ellipsis;
     border-radius: 4px;
-    cursor: pointer;
-}
-#script-content:hover {
-    outline: solid 3px var(--c-lyra);
+    pointer-events: none;
 }
 .script-content-font-dark {
     color: var(--c-trickcal-font);
 }
 .script-content-font-light {
     color: white;
+}
+#script-content span.g {
+    font-size: inherit;
+    color: var(--c-green) !important;
+}
+#script-content span.s {
+    font-size: 12pt !important;
+    color: inherit;
+}
+#script-content span.m {
+    font-size: 16pt !important;
+    color: inherit;
+}
+#script-content span.b {
+    font-size: 24pt !important;
+    color: inherit;
 }
 
 #photo-select-area {
@@ -404,7 +415,7 @@ input[type=checkbox] {
     justify-content: center;
     top: 0;
     left: 0;
-    z-index: 4;
+    z-index: 3;
 
     width: 100%;
     height: calc(100% - 224px);
@@ -424,21 +435,6 @@ input[type=checkbox] {
     height: 284px;
 
     border-radius: 4px;
-    cursor: pointer;
-    pointer-events: all;
-}
-#photo-select:hover {
-    outline: solid 3px var(--c-lyra);
-}
-#photo-select > .inner {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    width: 100%;
-    height: 100%;
 }
 
 .photo-select-option {
@@ -584,13 +580,10 @@ input[type=checkbox] {
 }
 
 .modal {
-    display: flex;
     position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
     margin: 5px;
     padding: 24px;
+    overflow-y: scroll;
 
     max-width: 100vw;
     max-height: 100vh;
@@ -634,6 +627,8 @@ input[type=checkbox] {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
+
+    width: 100%;
 }
 #image-item-list > *:not(:last-child) {
     margin-bottom: 8px;
@@ -647,7 +642,7 @@ input[type=checkbox] {
     padding: 0;
     overflow: hidden;
 
-    width: 202px;
+    width: 100%;
 
     border-radius: var(--v-radius-small);
     background-color: var(--c-button);
@@ -861,10 +856,6 @@ input[type=checkbox] {
         max-height: 202px;
     }
 
-    .modal {
-        width: 100vw;
-    }
-
     .resize-point {
         position: absolute;
     
@@ -925,7 +916,7 @@ input[type=checkbox] {
 
     #controller-bar {
         position: fixed;
-        flex-direction: column;
+        flex-direction: column-reverse;
         left: 2px;
         bottom: 2px;
 

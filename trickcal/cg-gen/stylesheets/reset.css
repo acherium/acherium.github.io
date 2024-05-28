@@ -10,6 +10,12 @@
         opacity: 1;
     }
 }
+@keyframes ani-pop-out {
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
 
 html {
     overflow: hidden;
@@ -89,6 +95,10 @@ p, span, a, button, input, textarea {
 .wm400 {
     max-width: 100%;
     width: 400px;
+}
+.hm200 {
+    max-height: 100%;
+    height: 200px;
 }
 .hm300 {
     max-height: 100%;
@@ -245,6 +255,9 @@ input[type=checkbox]:checked+label:not(.image-item) > p::before {
 }
 *:has(.tip):hover > .tip, *:has(.tip):active > .tip {
     display: flex;
+}
+*:has(.tip):not(:hover) > .tip {
+    animation-name: ani-pop-out;
 }
 
 .i {

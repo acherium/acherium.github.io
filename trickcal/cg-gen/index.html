@@ -39,37 +39,35 @@
     </div>
     <div id="bottom">
         <div id="left">
-            <h4>슬라이드</h4>
-            <div class="partition-horizontal"></div>
-            <div class="flexlist-horizontal wf">
+            <div class="scroll-box-inner">
+                <h4>슬라이드</h4>
+                <div class="partition-horizontal"></div>
                 <button id="button-slide-size" class="wf">
                     <div class="i i-slide-size"></div>
-                    <div class="tip rtip">슬라이드 사이즈</div>
+                    <p>슬라이드 크기</p>
                 </button>
-                <button id="button-add-slide" class="wf">
-                    <div class="i i-slide-create"></div>
-                    <div class="tip rtip">빈 슬라이드 추가</div>
-                </button>
-                <button id="button-duplicate-slide" class="wf">
-                    <div class="i i-slide-duplicate"></div>
-                    <div class="tip rtip">현재 슬라이드 복제</div>
-                </button>
-            </div>
-            <div class="flexlist-horizontal wf">
-                <button id="button-download" class=wf>
-                    <div class="i i-download"></div>
-                    <div class="tip rtip">현재 슬라이드 출력</div>
-                    <p>현재</p>
-                </button>
-                <button id="button-download-all" class=wf>
-                    <div class="i i-download"></div>
-                    <div class="tip rtip">전체 슬라이드 출력</div>
-                    <p>전체</p>
-                </button>
-            </div>
-            <div class="partition-horizontal"></div>
-            <div class="scroll-box">
-                <div class="toolbar">
+                <div class="flexlist-horizontal wf">
+                    <button id="button-add-slide" class="wf">
+                        <div class="i i-slide-create"></div>
+                        <p>추가</p>
+                    </button>
+                    <button id="button-duplicate-slide" class="wf">
+                        <div class="i i-slide-duplicate"></div>
+                        <p>복제</p>
+                    </button>
+                </div>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-download" class=wf>
+                        <div class="i i-download"></div>
+                        <p>현재</p>
+                    </button>
+                    <button id="button-download-all" class=wf>
+                        <div class="i i-download"></div>
+                        <p>전체</p>
+                    </button>
+                </div>
+                <div class="partition-horizontal"></div>
+                <div id="slide-list">
                 </div>
             </div>
         </div>
@@ -97,106 +95,112 @@
                     </div>
                     <div id="photo-select-area">
                         <div id="photo-select">
-                            <div class="inner" style="display: none;">
-                                <div class="photo-select-option">
-                                    <img src="./assets/images/select-option.png" alt="">
-                                    <p></p>
-                                </div>
-                                <div class="photo-select-option">
-                                    <img src="./assets/images/select-option.png" alt="">
-                                    <p></p>
-                                </div>
-                                <div class="photo-select-option">
-                                    <img src="./assets/images/select-option.png" alt="">
-                                    <p></p>
-                                </div>
+                            <div class="photo-select-option">
+                                <img src="./assets/images/select-option.png" alt="">
+                                <p></p>
+                            </div>
+                            <div class="photo-select-option">
+                                <img src="./assets/images/select-option.png" alt="">
+                                <p></p>
+                            </div>
+                            <div class="photo-select-option">
+                                <img src="./assets/images/select-option.png" alt="">
+                                <p></p>
                             </div>
                         </div>
                     </div>
-                    <div id="photo-item-controller-area" data-html2canvas-ignore="true">
-                        <div id="photo-item-controller" style="display: none;">
-                            <div id="resize-point-0" class="resize-point"></div>
-                            <div id="resize-point-1" class="resize-point"></div>
-                            <div id="resize-point-2" class="resize-point"></div>
-                            <div id="resize-point-3" class="resize-point"></div>
-                            <div id="resize-point-4" class="resize-point"></div>
-                            <div id="resize-point-5" class="resize-point"></div>
-                            <div id="resize-point-6" class="resize-point"></div>
-                            <div id="resize-point-7" class="resize-point"></div>
-                            <div id="controller-bar">
-                                <button id="button-controller-bottommost">
-                                    <div class="i i-bottom"></div>
-                                </button>
-                                <button id="button-controller-bottom">
-                                    <div class="i i-arrow2"></div>
-                                </button>
-                                <button id="button-controller-front">
-                                    <div class="i i-arrow3"></div>
-                                </button>
-                                <button id="button-controller-frontmost">
-                                    <div class="i i-front"></div>
-                                </button>
-                                <div class="partition-vertical"></div>
-                                <button id="button-controller-flip-horizontal">
-                                    <div class="i i-flip-horizontal"></div>
-                                </button>
-                                <button id="button-controller-flip-vertical">
-                                    <div class="i i-flip-vertical"></div>
-                                </button>
-                                <div class="partition-vertical"></div>
-                                <button id="button-controller-reset">
-                                    <div class="i i-reset-position"></div>
-                                </button>
-                                <button id="button-controller-remove">
-                                    <div class="i i-trash"></div>
-                                </button>
-                                <div class="partition-vertical"></div>
-                                <button id="button-controller-unselect">
-                                    <div class="i i-deny"></div>
-                                </button>
-                            </div>
+                </div>
+                <div id="photo-item-controller-area" data-html2canvas-ignore="true">
+                    <div id="photo-item-controller" style="display: none;">
+                        <div id="resize-point-0" class="resize-point"></div>
+                        <div id="resize-point-1" class="resize-point"></div>
+                        <div id="resize-point-2" class="resize-point"></div>
+                        <div id="resize-point-3" class="resize-point"></div>
+                        <div id="resize-point-4" class="resize-point"></div>
+                        <div id="resize-point-5" class="resize-point"></div>
+                        <div id="resize-point-6" class="resize-point"></div>
+                        <div id="resize-point-7" class="resize-point"></div>
+                        <div id="controller-bar">
+                            <button id="button-controller-bottommost">
+                                <div class="i i-bottom"></div>
+                            </button>
+                            <button id="button-controller-bottom">
+                                <div class="i i-arrow2"></div>
+                            </button>
+                            <button id="button-controller-front">
+                                <div class="i i-arrow3"></div>
+                            </button>
+                            <button id="button-controller-frontmost">
+                                <div class="i i-front"></div>
+                            </button>
+                            <div class="partition-vertical"></div>
+                            <button id="button-controller-flip-horizontal">
+                                <div class="i i-flip-horizontal"></div>
+                            </button>
+                            <button id="button-controller-flip-vertical">
+                                <div class="i i-flip-vertical"></div>
+                            </button>
+                            <div class="partition-vertical"></div>
+                            <button id="button-controller-reset">
+                                <div class="i i-reset-position"></div>
+                            </button>
+                            <button id="button-controller-remove">
+                                <div class="i i-trash"></div>
+                            </button>
+                            <div class="partition-vertical"></div>
+                            <button id="button-controller-unselect">
+                                <div class="i i-deny"></div>
+                            </button>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
         <div id="right">
-            <h4>레이어</h4>
-            <div class="partition-horizontal"></div>
-            <div class="scroll-box">
-                <div class="toolbar">
-                    <p>배경</p>
-                    <div class="flexlist-horizontal wf">
-                        <button id="button-set-bg" class="wf">
-                            <div class="i i-import"></div>
-                            <p>설정</p>
-                        </button>
-                        <button id="button-remove-bg" class="wf">
-                            <div class="i i-trash"></div>
-                            <p>제거</p>
-                        </button>
-                    </div>
-                    <div id="preview-bg">
-                        <img src="">
-                    </div>
-                    <div class="partition-horizontal"></div>
-                    <input type="checkbox" id="checkbox-toggle-photo-button">
-                    <label for="checkbox-toggle-photo-button" id="toggle-photo-button" class="fjcs wf">
-                        <p>조작기 표시</p>
-                    </label>
-                    <div class="partition-horizontal"></div>
-                    <p>이미지</p>
-                    <div class="flexlist-horizontal wf">
-                        <button id="button-add-image" class="wfix hfix">
-                            <div class="i i-set-bg"></div>
-                        </button>
-                        <button id="button-reset-image" class="wf">
-                            <div class="i i-trash"></div>
-                            <p>전체 삭제</p>
-                        </button>
-                    </div>
-                    <div id="image-item-list">
-                    </div>
+            <div class="scroll-box-inner">
+                <h4>레이어</h4>
+                <div class="partition-horizontal"></div>
+                <p>배경</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-set-bg" class="wf">
+                        <div class="i i-import"></div>
+                        <p>설정</p>
+                    </button>
+                    <button id="button-remove-bg" class="wf">
+                        <div class="i i-trash"></div>
+                        <p>제거</p>
+                    </button>
+                </div>
+                <div id="preview-bg">
+                    <img src="">
+                </div>
+                <div class="partition-horizontal"></div>
+                <div class="flexlist-horizontal" class="wf">
+                    <button id="button-content" class="wf">
+                        <div class="i i-text"></div>
+                        <p>대화창</p>
+                    </button>
+                    <button id="button-select-box" class="wf">
+                        <div class="i i-menu"></div>
+                        <p>선택지</p>
+                    </button>
+                </div>
+                <input type="checkbox" id="checkbox-toggle-photo-button">
+                <label for="checkbox-toggle-photo-button" id="toggle-photo-button" class="wf">
+                    <p>조작기 표시</p>
+                </label>
+                <div class="partition-horizontal"></div>
+                <p>이미지</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-add-image" class="wfix hfix">
+                        <div class="i i-set-bg"></div>
+                    </button>
+                    <button id="button-reset-image" class="wf">
+                        <div class="i i-trash"></div>
+                        <p>전체 삭제</p>
+                    </button>
+                </div>
+                <div id="image-item-list">
                 </div>
             </div>
         </div>
@@ -206,122 +210,138 @@
     </footer>
     <div id="modal-name" class="modal-area" style="display: none;">
         <div class="modal">
-            <div class="modal-title">
-                <div class="il i-text"></div>
-                <h1>이름</h1>
-            </div>
-            <input type="text" id="name" class="modal-input-text wm400">
-            <select id="name-color" class="wf"></select>
-            <div class="flexlist-horizontal wf">
-                <input type="checkbox" id="checkbox-toggle-namearea">
-                <label for="checkbox-toggle-namearea">
-                    <p>이름 표시</p>
-                </label>
-                <input type="checkbox" id="checkbox-toggle-auto-change-name">
-                <label for="checkbox-toggle-auto-change-name">
-                    <p>이름도 같이 변경</p>
-                </label>
-            </div>
-            <div class="flexlist-horizontal fjce wf">
-                <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                <button class="close">
-                    <div class="i i-accept"></div>
-                    <p>확인</p>
-                </button>
+            <div class="scroll-box-inner">
+                <div class="modal-title">
+                    <div class="il i-text"></div>
+                    <h1>이름</h1>
+                </div>
+                <div class="flexlist-horizontal fjce wf">
+                    <span class="desc">Ctrl+Enter를 눌러 확인</span>
+                    <button class="close">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <div id="modal-content" class="modal-area" style="display: none;">
         <div class="modal">
-            <div class="modal-title">
-                <div class="il i-text"></div>
-                <h1>대화창</h1>
-            </div>
-            <h3>내용</h3>
-            <textarea id="content" class="wm400 hm300"></textarea>
-            <h3>형태</h3>
-            <div id="content-box-list" class="flexlist-horizontal fjcb wf">
-                <input type="radio" name="box-style" id="box-style-0" value="0">
-                <label class="content-box-label wf" for="box-style-0">
-                    <p>1</p>
-                </label>
-                <input type="radio" name="box-style" id="box-style-1" value="1">
-                <label class="content-box-label wf" for="box-style-1">
-                    <p>2</p>
-                </label>
-                <input type="radio" name="box-style" id="box-style-2" value="2">
-                <label class="content-box-label wf" for="box-style-2">
-                    <p>3</p>
-                </label>
-                <input type="radio" name="box-style" id="box-style-3" value="3">
-                <label class="content-box-label wf" for="box-style-3">
-                    <p>4</p>
-                </label>
-                <input type="radio" name="box-style" id="box-style-4" value="4">
-                <label class="content-box-label wf" for="box-style-4">
-                    <p>5</p>
-                </label>
-                <input type="radio" name="box-style" id="box-style-5" value="5">
-                <label class="content-box-label wf" for="box-style-5">
-                    <p>6</p>
-                </label>
-            </div>
-            <div class="flexlist-horizontal fjce wf">
-                <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                <button class="close">
-                    <div class="i i-accept"></div>
-                    <p>확인</p>
-                </button>
+            <div class="scroll-box-inner">
+                <div class="modal-title">
+                    <div class="il i-text"></div>
+                    <h1>대화창</h1>
+                </div>
+                <h3>이름</h3>
+                <input type="text" id="name" class="modal-input-text wm400">
+                <select id="name-color" class="wf"></select>
+                <div class="flexlist-horizontal wf">
+                    <input type="checkbox" id="checkbox-toggle-namearea">
+                    <label for="checkbox-toggle-namearea">
+                        <p>이름 표시</p>
+                    </label>
+                    <input type="checkbox" id="checkbox-toggle-auto-change-name">
+                    <label for="checkbox-toggle-auto-change-name">
+                        <p>이름도 같이 변경</p>
+                    </label>
+                </div>
+                <h3>내용</h3>
+                <textarea id="content" class="wm400 hm200"></textarea>
+                <h3>형태</h3>
+                <div id="content-box-list" class="flexlist-horizontal fjcb wf">
+                    <input type="radio" name="box-style" id="box-style-0" value="0">
+                    <label class="content-box-label wf" for="box-style-0">
+                        <p>1</p>
+                    </label>
+                    <input type="radio" name="box-style" id="box-style-1" value="1">
+                    <label class="content-box-label wf" for="box-style-1">
+                        <p>2</p>
+                    </label>
+                    <input type="radio" name="box-style" id="box-style-2" value="2">
+                    <label class="content-box-label wf" for="box-style-2">
+                        <p>3</p>
+                    </label>
+                    <input type="radio" name="box-style" id="box-style-3" value="3">
+                    <label class="content-box-label wf" for="box-style-3">
+                        <p>4</p>
+                    </label>
+                    <input type="radio" name="box-style" id="box-style-4" value="4">
+                    <label class="content-box-label wf" for="box-style-4">
+                        <p>5</p>
+                    </label>
+                    <input type="radio" name="box-style" id="box-style-5" value="5">
+                    <label class="content-box-label wf" for="box-style-5">
+                        <p>6</p>
+                    </label>
+                </div>
+                <div class="flexlist-hori" class="wf">
+                    <input type="checkbox" id="checkbox-toggle-box-position-center">
+                    <label for="checkbox-toggle-box-position-center">
+                        <p>대화창을 중앙에 표시</p>
+                    </label>
+                </div>
+                <div class="flexlist-horizontal fjce wf">
+                    <button class="close">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <div id="modal-slide-size" class="modal-area" style="display: none;">
         <div class="modal">
-            <div class="modal-title">
-                <div class="il i-slide-size"></div>
-                <h1>슬라이드 크기</h1>
-            </div>
-            <div id="slide-size-list" class="flexlist fjcb wf">
-                <input type="radio" name="slide-size" id="slide-size-0" value="0">
-                <label class="slide-size-label" for="slide-size-0">
-                    <p>1280×720 (16:9)</p>
-                </label>
-                <input type="radio" name="slide-size" id="slide-size-1" value="1">
-                <label class="slide-size-label" for="slide-size-1">
-                    <p>1788×700 (23:9)</p>
-                </label>
-                <input type="radio" name="slide-size" id="slide-size-2" value="2">
-                <label class="slide-size-label" for="slide-size-2">
-                    <p>1280×1066 (6:5)</p>
-                </label>
-            </div>
-            <div class="flexlist-horizontal fjce wf">
-                <button class="close">
-                    <div class="i i-accept"></div>
-                    <p>확인</p>
-                </button>
+            <div class="scroll-box-inner">
+                <div class="modal-title">
+                    <div class="il i-slide-size"></div>
+                    <h1>슬라이드 크기</h1>
+                </div>
+                <div id="slide-size-list" class="flexlist fjcb wf">
+                    <input type="radio" name="slide-size" id="slide-size-0" value="0">
+                    <label class="slide-size-label" for="slide-size-0">
+                        <p>1280×720 (16:9)</p>
+                    </label>
+                    <input type="radio" name="slide-size" id="slide-size-1" value="1">
+                    <label class="slide-size-label" for="slide-size-1">
+                        <p>1788×700 (23:9)</p>
+                    </label>
+                    <input type="radio" name="slide-size" id="slide-size-2" value="2">
+                    <label class="slide-size-label" for="slide-size-2">
+                        <p>1280×1066 (6:5)</p>
+                    </label>
+                </div>
+                <div class="flexlist-horizontal fjce wf">
+                    <button class="close">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <div id="modal-select" class="modal-area" style="display: none;">
         <div class="modal">
-            <div class="modal-title">
-                <div class="il i-menu"></div>
-                <h1>선택지 목록</h1>
-            </div>
-            <input type="text" id="select-option-0" class="select-option modal-input-text wm400">
-            <input type="text" id="select-option-1" class="select-option modal-input-text wm400">
-            <input type="text" id="select-option-2" class="select-option modal-input-text wm400">
-            <div class="button-list">
-                <input type="checkbox" id="checkbox-toggle-select">
-                <label for="checkbox-toggle-select">선택 목록 표시</label>
-            </div>
-            <div class="flexlist-horizontal fjce wf">
-                <span class="desc">Ctrl+Enter를 눌러 확인</span>
-                <button class="close">
-                    <div class="i i-accept"></div>
-                    <p>확인</p>
-                </button>
+            <div class="scroll-box-inner">
+                <div class="modal-title">
+                    <div class="il i-menu"></div>
+                    <h1>선택지 목록</h1>
+                </div>
+                <input type="text" id="select-option-0" class="select-option modal-input-text wm400">
+                <input type="text" id="select-option-1" class="select-option modal-input-text wm400">
+                <input type="text" id="select-option-2" class="select-option modal-input-text wm400">
+                <div class="button-list">
+                    <input type="checkbox" id="checkbox-toggle-select">
+                    <label for="checkbox-toggle-select">
+                        <p>선택 목록 표시</p>
+                    </label>
+                </div>
+                <div class="flexlist-horizontal fjce wf">
+                    <span class="desc">Ctrl+Enter를 눌러 확인</span>
+                    <button class="close">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
