@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1054",
+        version: "1055",
         date: "24-05-28",
         watermark: false,
         isBeta: true
@@ -585,11 +585,14 @@
     $middle.onmousedown = (p) => {
         if (p.target !== $middle) return;
         $middle.setPointerCapture(p.pointerId);
+        // document.body.style["cursor"] = "grab";
         $middle.onmousemove = (m) => {
             setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);
         };
         $middle.onmouseup = () => {
             $middle.releasePointerCapture(p.pointerId);
+            $middle.setPointerCapture(p.pointerId);
+            // document.body.style["cursor"] = null;
             $middle.onmousemove = null;
             $middle.onmouseup = null;
         };

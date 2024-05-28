@@ -47,6 +47,8 @@ body {
     margin: 0 4px;
 
     width: 40px;
+
+    border-radius: var(--v-radius-small);
 }
 
 #bottom {
@@ -130,6 +132,9 @@ footer a {
 
     border-radius: var(--v-radius-large);
     background-color: var(--c-sub);
+}
+#middle:active {
+    cursor: grab;
 }
 
 main {
