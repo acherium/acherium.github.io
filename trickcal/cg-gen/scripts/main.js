@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1062",
+        version: "1063",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -239,6 +239,7 @@
     const $imageList = $("#image-item-list");
     const $controller = $("#photo-item-controller");
     const $controllerLayer = $("#photo-item-controller-area");
+    const $controllerBar = $("#controller-bar");
     const $resizePoints = $a("#photo-item-controller > .resize-point");
     const $btnBottommost = $("#button-controller-bottommost");
     const $btnBottom = $("#button-controller-bottom");
@@ -354,10 +355,12 @@
         setControllerSize(0, 0, t.rect.width, t.rect.height);
 
         $controller.style["display"] = "flex";
+        $controllerBar.style["display"] = "flex";
     };
     const unselectItem = () => {
         imageController.selected = null;
         $controller.style["display"] = "none";
+        $controllerBar.style["display"] = "none";
         Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
     };
     const addImagePos = (n, x, y) => {

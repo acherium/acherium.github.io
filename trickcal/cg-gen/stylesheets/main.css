@@ -573,7 +573,8 @@ input[type=checkbox] {
     justify-content: center;
     padding: 8px;
     bottom: -80px;
-    left: calc(50% - 270px);
+    left: calc(50% - 226px);
+    z-index: 6;
 
     width: max-content;
     height: 66px;
@@ -582,8 +583,14 @@ input[type=checkbox] {
     border-radius: 8px;
     background-color: var(--c-main);
 }
-#controller-bar > *:not(:last-child) {
-    margin-right: 8px;
+#controller-bar button, #controller-bar label {
+    background-color: var(--c-main);
+}
+#controller-bar button:hover, #controller-bar label:hover {
+    background-color: var(--c-button-hover-main);
+}
+#controller-bar button:active, #controller-bar label:active {
+    background-color: var(--c-button-active-main);
 }
 
 .modal-area {
@@ -714,9 +721,6 @@ input[type=checkbox] {
     font-weight: 900;
     color: var(--c-lyra);
 }
-.active-image-item p::before {
-    content: "→ "
-}
 
 .slide-item {
     display: flex;
@@ -767,9 +771,6 @@ input[type=checkbox] {
 .active-slide p {
     font-weight: 900;
     color: var(--c-lyra);
-}
-.active-slide p::before {
-    content: "→ "
 }
 
 .slide-item-menu {
