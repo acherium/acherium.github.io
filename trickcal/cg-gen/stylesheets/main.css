@@ -170,6 +170,16 @@ main {
     pointer-events: none;
 }
 
+#deadline {
+    position: absolute;
+    padding: 400px;
+
+    width: calc(100% + 800px);
+    height: calc(100% + 800px);
+
+    border: solid 3px var(--c-lyra);
+}
+
 #preview-bg {
     display: flex;
     position: relative;
@@ -257,11 +267,31 @@ input[type=checkbox] {
     height: 1066px;
 }
 
-#photo-bg {
+#photo-bg-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     z-index: 0;
 
-    max-width: 100%;
+    width: inherit;
+    height: inherit;
+}
+.photo-bg-fit-height {
     max-height: 100%;
+}
+.photo-bg-fit-width {
+    max-width: 100%;
+}
+.photo-bg-stretch-height {
+    height: 100%;
+}
+.photo-bg-stretch-width {
+    width: 100%;
+}
+.photo-bg-fill {
+    width: 100%;
+    height: 100%;
 }
 
 #photo-layer {

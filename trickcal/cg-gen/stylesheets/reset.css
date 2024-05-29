@@ -192,30 +192,45 @@ button > p, button > .i, label > p, label > .i {
 button:hover, label:hover {
     background-color: var(--c-button-hover-main);
 }
-button:hover > p, button:hover > .i, label:hover > p, label:hover > .i {
-    filter: var(--f-button-hover);
+button:hover > p, button:hover > .i, button:hover::before,
+label:hover > p, label:hover > .i, label:hover::before {
+    filter: var(--f-button-hover) !important;
 }
 button:active, label:active {
     background-color: var(--c-button-active-main);
 }
-button:active > p, button:active > .i, label:active > p, label:active > .i {
-    filter: var(--f-button-hover);
+button:active > p, button:active > .i, button:active::before,
+label:active > p, label:active > .i, label:active::before {
+    filter: var(--f-button-hover) !important;
 }
 input[type=checkbox]:checked+label, input[type=checkbox]:checked+label, input[type=radio]:checked+label, input[type=radio]:checked+label {
     background-color: var(--c-lyra);
 }
-input[type=checkbox]:checked+label > p, input[type=checkbox]:checked+label > .i, input[type=radio]:checked+label > p, input[type=radio]:checked+label > .i {
-    filter: var(--f-button-hover);
+input[type=checkbox]:checked+label > p, input[type=checkbox]:checked+label > .i, input[type=checkbox]:checked+label::before,
+input[type=radio]:checked+label > p, input[type=radio]:checked+label > .i, input[type=radio]:checked+label::before {
+    filter: var(--f-button-hover) !important;
 }
-input[type=checkbox]:empty+label:not(.image-item) > p::before {
-    margin-right: 4px;
+input[type=checkbox]:empty+label:not(.image-item)::before {
+    width: 20px;
+    height: 20px;
 
-    content: "✖"
+    background-image: url("../assets/icons/17-deny.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--f-icon);
+    content: "";
 }
-input[type=checkbox]:checked+label:not(.image-item) > p::before {
-    margin-right: 4px;
+input[type=checkbox]:checked+label:not(.image-item)::before {
+    width: 20px;
+    height: 20px;
 
-    content: "✔";
+    background-image: url("../assets/icons/18-accept.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--f-icon);
+    content: "";
 }
 
 .tip {

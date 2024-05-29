@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1067",
+        version: "1069",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -31,6 +31,7 @@
         },
         values: {
             style: 0,
+            backgroundFit: "fit-height",
             color: "EEC375",
             colorId: 18
         },
@@ -159,6 +160,7 @@
             color: "dark"
         }
     };
+    const BG_FIT_OPTIONS = [ "fit-height", "fit-width", "stretch-height", "stretch-width", "fill" ];
 
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
@@ -218,6 +220,13 @@
     const $photozone = $("#photo-zone");
     const $bg = $("#photo-bg");
     const $prevBg = $("#preview-bg > img");
+    const $btnConfigBg = $("#button-config-bg");
+    const $modalBg = $("#modal-config-bg");
+    const $modalBgBtnClose = $("#modal-config-bg button.close");
+    const $radioBgFit = $a(".radio-bg-fit");
+    const $btnConfigIndi = $("#button-config-indicators");
+    const $modalIndi = $("#modal-config-indicators");
+    const $modalIndiBtnClose = $("#modal-config-indicators button.close");
     const $uploader = $("#uploader");
     const $btnPhotoSet = $("#button-set-bg");
     const $btnPhotoRemove = $("#button-remove-bg");
@@ -263,6 +272,12 @@
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
 
+    const setBackgroundFit = (s) => {
+        if (!BG_FIT_OPTIONS.includes(s)) return;
+        slide[current].values.backgroundFit = s;
+        $bg.className = `photo-bg-${s}`;
+        $radioBgFit[BG_FIT_OPTIONS.indexOf(s)].checked = true;
+    };
     const setAreaWidth = (w) => {
         if (Number.isNaN(w) || w < WIDTHMIN) w = WIDTHMIN;
         if (w > WIDTHMAX) w = WIDTHMAX;
@@ -381,6 +396,8 @@
     const addImagePos = (n, x, y) => {
         const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
         const $img = d.nodes.img;
+        if (d.rect.x + x > slide[current].area.width - d.rect.width + 400 || d.rect.x + x < -400) return;
+        if (d.rect.y + y > slide[current].area.height - d.rect.height + 400 || d.rect.y + y < -400) return;
         d.rect.x += x;
         d.rect.y += y;
         $img.style["top"] = `${d.rect.y + y}px`;
@@ -390,6 +407,8 @@
     const setImagePos = (n, x, y) => {
         const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
         const $img = d.nodes.img;
+        if (x > slide[current].area.width - d.rect.width + 400 || x < -400) return;
+        if (y > slide[current].area.height - d.rect.height + 400 || y < -400) return;
         d.rect.x = x;
         d.rect.y = y;
         $img.style["top"] = `${d.rect.y}px`;
@@ -399,10 +418,14 @@
     const addControllerPos = (x, y) => {
         const originX = parseInt($controller.style["left"]);
         const originY = parseInt($controller.style["top"]);
+        if (originX + x > slide[current].area.width - imageController.rect.width + 400 || originX + x < -400) return;
+        if (originY + y > slide[current].area.height - imageController.rect.height + 400 || originY + y < -400) return;
         $controller.style["top"] = `${originY + y}px`;
         $controller.style["left"] = `${originX + x}px`;
     };
     const setControllerPos = (x, y) => {
+        if (x > slide[current].area.width - imageController.rect.width + 400 || x < -400) return;
+        if (y > slide[current].area.height - imageController.rect.height + 400 || y < -400) return;
         imageController.rect.x = x;
         imageController.rect.y = y;
         $controller.style["top"] = `${y}px`;
@@ -411,6 +434,8 @@
     const addImageSize = (n, x, y, w, h) => {
         const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
         const $img = d.nodes.img;
+        // if (d.rect.x + x + d.rect.width + w > slide[current].area.width + 400 || d.rect.x + x + d.rect.width + w < -400) return;
+        // if (d.rect.y + y + d.rect.height + h > slide[current].area.height + 400 || d.rect.y + y + d.rect.height + h < -400) return;
         d.rect.width += w;
         d.rect.height += h;
         addImagePos(n, x, y);
@@ -480,6 +505,7 @@
     const applySlide = () => {
         current = slide[current] ? current : current - 1;
         const x = slide[current];
+        setBackgroundFit(x.values.backgroundFit);
         setAreaSize(x.area.width, x.area.height);
         setName(x.strings.name);
         setColor(x.values.colorId);
@@ -1183,6 +1209,26 @@
             $right.classList.add("m-menu-expand");
             $mBtnTglRight.classList.add("m-active-toggle-menu");
         };
+    };
+
+    $btnConfigBg.onclick = () => {
+        $modalBg.style["display"] = "flex";
+    };
+    $modalBgBtnClose.onclick = () => {
+        $modalBg.style["display"] = "none";
+    };
+    Array.from($radioBgFit).forEach(($n) => {
+        $n.onchange = (c) => {
+            if (!c.target.checked) return;
+            setBackgroundFit(c.target.value);
+        };
+    });
+
+    $btnConfigIndi.onclick = () => {
+        $modalIndi.style["display"] = "flex";
+    };
+    $modalIndiBtnClose.onclick = () => {
+        $modalIndi.style["display"] = "none";
     };
 
     $ver.innerText = `build ${LYRA.version}`;

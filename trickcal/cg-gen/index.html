@@ -83,7 +83,9 @@
         <div id="middle">
             <main>
                 <div id="photo-zone">
-                    <img src="" id="photo-bg">
+                    <div id="photo-bg-area">
+                        <img src="" id="photo-bg">
+                    </div>
                     <div id="photo-layer"></div>
                     <img src="./assets/images/vignetting.png" id="photo-vignetting">
                     <div id="photo-button-area">
@@ -131,6 +133,7 @@
                         <div id="resize-point-7" class="resize-point"></div>
                     </div>
                 </div>
+                <div id="deadline"></div>
             </main>
             <div id="controller-bar">
                 <button id="button-controller-bottommost">
@@ -212,10 +215,6 @@
                     <div class="i i-config"></div>
                     <p>기타 요소 설정</p>
                 </button>
-                <input type="checkbox" id="checkbox-toggle-photo-button">
-                <label for="checkbox-toggle-photo-button" id="toggle-photo-button" class="wf">
-                    <p>조작기 표시</p>
-                </label>
                 <div class="partition-horizontal"></div>
                 <p>이미지</p>
                 <div class="flexlist-horizontal wf">
@@ -352,7 +351,7 @@
         <div class="modal">
             <div class="scroll-box-inner">
                 <div class="modal-title">
-                    <div class="il i-menu"></div>
+                    <div class="il i-select"></div>
                     <h1>선택지 목록</h1>
                 </div>
                 <input type="text" id="select-option-0" class="select-option modal-input-text wm400">
@@ -365,7 +364,67 @@
                     </label>
                 </div>
                 <div class="flexlist-horizontal fjce wf">
-                    <span class="desc">Ctrl+Enter를 눌러 확인</span>
+                    <button class="close">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-config-bg" class="modal-area" style="display: none;">
+        <div class="modal">
+            <div class="scroll-box-inner">
+                <div class="modal-title">
+                    <div class="il i-config"></div>
+                    <h1>기타 배경 설정</h1>
+                </div>
+                <h4>배경 이미지 맞춤</h4>
+                <div class="flexlist wm600">
+                    <input type="radio" name="bg-fit" id="bg-fit-0" class="radio-bg-fit" value="fit-height">
+                    <label for="bg-fit-0" class="wf">
+                        <p>영역 높이에 맞춤</p>
+                    </label>
+                    <input type="radio" name="bg-fit" id="bg-fit-1" class="radio-bg-fit" value="fit-width">
+                    <label for="bg-fit-1" class="wf">
+                        <p>영역 폭에 맞춤</p>
+                    </label>
+                </div>
+                <div class="flexlist wm600">
+                    <input type="radio" name="bg-fit" id="bg-fit-2" class="radio-bg-fit" value="stretch-height">
+                    <label for="bg-fit-2" class="wf">
+                        <p>영역 높이에 맞춰 늘림</p>
+                    </label>
+                    <input type="radio" name="bg-fit" id="bg-fit-3" class="radio-bg-fit" value="stretch-width">
+                    <label for="bg-fit-3" class="wf">
+                        <p>영역 폭에 맞춰 늘림</p>
+                    </label>
+                    <input type="radio" name="bg-fit" id="bg-fit-4" class="radio-bg-fit" value="fill">
+                    <label for="bg-fit-4" class="wf">
+                        <p>영역에 채움</p>
+                    </label>
+                </div>
+                <div class="flexlist-horizontal fjce wf">
+                    <button class="close">
+                        <div class="i i-accept"></div>
+                        <p>확인</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-config-indicators" class="modal-area" style="display: none;">
+        <div class="modal">
+            <div class="scroll-box-inner">
+                <div class="modal-title">
+                    <div class="il i-config"></div>
+                    <h1>기타 요소 설정</h1>
+                </div>
+                <input type="checkbox" id="checkbox-toggle-photo-button">
+                <label for="checkbox-toggle-photo-button" id="toggle-photo-button" class="wf">
+                    <p>조작기 표시</p>
+                </label>
+                <div class="flexlist-horizontal fjce wf">
                     <button class="close">
                         <div class="i i-accept"></div>
                         <p>확인</p>
