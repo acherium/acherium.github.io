@@ -238,27 +238,14 @@ input[type=checkbox]:checked+label:not(.image-item) > p::before {
     animation-name: ani-pop-up;
     animation-duration: 0.1s;
 }
-.tip::before {
-    position: absolute;
-    top: 10px;
-
-    border: solid 10px;
-    content: "";
-}
 .rtip {
     left: calc(100% + 15px);
-}
-.rtip::before {
-    left: -19px;
-
-    border-color: transparent var(--c-lyra) transparent transparent;
 }
 .ltip {
     right: calc(100% + 6px);
 }
-.ltip::before {
-    right: -19px;
-    border-color: transparent transparent transparent var(--c-lyra);
+.utip {
+    top: -45px;
 }
 *:has(.tip):hover > .tip, *:has(.tip):active > .tip {
     display: flex;
