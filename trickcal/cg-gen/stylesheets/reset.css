@@ -320,6 +320,7 @@ input[type=checkbox]:checked+label:not(.image-item) > p::before {
 .i-slide-size { background-image: url("../assets/icons/1011-slide-size.svg"); }
 .i-text { background-image: url("../assets/icons/1012-text.svg"); }
 .i-reset-position { background-image: url("../assets/icons/1013-reset-position.svg"); }
+.i-select { background-image: url("../assets/icons/1014-select.svg"); }
 
 #watermark {
     position: absolute;

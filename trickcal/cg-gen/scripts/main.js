@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1063",
+        version: "1065",
         date: "24-05-29",
         watermark: false,
         isBeta: true

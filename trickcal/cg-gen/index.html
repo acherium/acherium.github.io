@@ -130,40 +130,40 @@
                         <div id="resize-point-6" class="resize-point"></div>
                         <div id="resize-point-7" class="resize-point"></div>
                     </div>
+                    <div id="controller-bar">
+                        <button id="button-controller-bottommost">
+                            <div class="i i-bottom"></div>
+                        </button>
+                        <button id="button-controller-bottom">
+                            <div class="i i-arrow2"></div>
+                        </button>
+                        <button id="button-controller-front">
+                            <div class="i i-arrow3"></div>
+                        </button>
+                        <button id="button-controller-frontmost">
+                            <div class="i i-front"></div>
+                        </button>
+                        <div class="partition-vertical"></div>
+                        <button id="button-controller-flip-horizontal">
+                            <div class="i i-flip-horizontal"></div>
+                        </button>
+                        <button id="button-controller-flip-vertical">
+                            <div class="i i-flip-vertical"></div>
+                        </button>
+                        <div class="partition-vertical"></div>
+                        <button id="button-controller-reset">
+                            <div class="i i-reset-position"></div>
+                        </button>
+                        <button id="button-controller-remove">
+                            <div class="i i-trash"></div>
+                        </button>
+                        <div class="partition-vertical"></div>
+                        <button id="button-controller-unselect">
+                            <div class="i i-deny"></div>
+                        </button>
+                    </div>
                 </div>
             </main>
-            <div id="controller-bar">
-                <button id="button-controller-bottommost">
-                    <div class="i i-bottom"></div>
-                </button>
-                <button id="button-controller-bottom">
-                    <div class="i i-arrow2"></div>
-                </button>
-                <button id="button-controller-front">
-                    <div class="i i-arrow3"></div>
-                </button>
-                <button id="button-controller-frontmost">
-                    <div class="i i-front"></div>
-                </button>
-                <div class="partition-vertical"></div>
-                <button id="button-controller-flip-horizontal">
-                    <div class="i i-flip-horizontal"></div>
-                </button>
-                <button id="button-controller-flip-vertical">
-                    <div class="i i-flip-vertical"></div>
-                </button>
-                <div class="partition-vertical"></div>
-                <button id="button-controller-reset">
-                    <div class="i i-reset-position"></div>
-                </button>
-                <button id="button-controller-remove">
-                    <div class="i i-trash"></div>
-                </button>
-                <div class="partition-vertical"></div>
-                <button id="button-controller-unselect">
-                    <div class="i i-deny"></div>
-                </button>
-            </div>
         </div>
         <div id="right">
             <div class="scroll-box-inner">
@@ -180,18 +180,28 @@
                         <p>제거</p>
                     </button>
                 </div>
+                <button id="button-config-bg" class="wf">
+                    <div class="i i-config"></div>
+                    <p>기타 배경 설정</p>
+                </button>
                 <div id="preview-bg">
                     <img src="">
                 </div>
                 <div class="partition-horizontal"></div>
                 <p>요소 제어</p>
-                <button id="button-content" class="wf">
-                    <div class="i i-text"></div>
-                    <p>대화창</p>
-                </button>
-                <button id="button-select-box" class="wf">
-                    <div class="i i-menu"></div>
-                    <p>선택지</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-content" class="wf">
+                        <div class="i i-text"></div>
+                        <p>대화창</p>
+                    </button>
+                    <button id="button-select-box" class="wf">
+                        <div class="i i-select"></div>
+                        <p>선택지</p>
+                    </button>
+                </div>
+                <button id="button-config-indicators" class="wf">
+                    <div class="i i-config"></div>
+                    <p>기타 요소 설정</p>
                 </button>
                 <input type="checkbox" id="checkbox-toggle-photo-button">
                 <label for="checkbox-toggle-photo-button" id="toggle-photo-button" class="wf">
