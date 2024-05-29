@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1070",
+        version: "1071",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -311,15 +311,16 @@
         $selNameBgCol.querySelectorAll("option")[i].selected = true;
     };
     const setContent = (x) => {
-        const res = x.replace(/([\n\r]){1,2}/g, `<br>`)
-            .replace(/(\(\(\()/g, `<span class="s">`)
-            .replace(/({{{)/g, `<span class="m">`)
-            .replace(/(\[\[\[)/g, `<span class="b">`)
-            .replace(/(>>>)/g, `<span class="g">`)
-            .replace(/(\:\:\:)/g, `</span>`)
+        const res = x.replace(/([\n\r]){1,2}/g, `<br>​`)
+            .replace(/(\(\(\()/g, `<span class="s">​`)
+            .replace(/({{{)/g, `<span class="m">​`)
+            .replace(/(\[\[\[)/g, `<span class="b">​`)
+            .replace(/(>>>)/g, `<span class="g">​`)
+            .replace(/(\:\:\:)/g, `</span>​`)
             .replace(/\\/g, "");
         slide[current].strings.contentRaw = x;
         slide[current].strings.content = res;
+        console.log(res);
         $content.innerHTML = res;
         $inputContent.value = x;
     };
