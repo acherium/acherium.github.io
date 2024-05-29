@@ -1149,7 +1149,7 @@
         };
     };
 
-    $ver.innerText = `${LYRA.name} - Build ${LYRA.version}@${LYRA.date} :: `;
+    $ver.innerText = `build ${LYRA.version}`;
     if (LYRA.watermark) {
         $wm = document.createElement("div");
         $wm.id = "watermark";

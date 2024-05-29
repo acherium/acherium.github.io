@@ -4,9 +4,12 @@
     src: url("../assets/fonts/ONE Mobile POP.ttf");
 }
 
-span.desc {
-    font-size: 10pt;
+.desc, .desc * {
+    font-size: 8pt;
     color: var(--c-font-sub);
+}
+.desc a {
+    color: var(--c-lyra);
 }
 
 body {
@@ -39,16 +42,32 @@ body {
     display: flex;
     align-items: center;
 }
+#top > div:nth-child(1) {
+    align-items: flex-start;
+}
+#top > div:nth-child(1) > *:not(:last-child) {
+    margin-right: 4px;
+}
 #top input[type=radio] {
     display: none;
 }
 
 #logo {
-    margin: 0 4px;
-
     width: 40px;
 
     border-radius: var(--v-radius-small);
+}
+#logotype {
+    height: 40px;
+    line-height: 40px;
+}
+#ver {
+    padding: 3px;
+
+    font-size: 8pt;
+    color: var(--c-white);
+    border-radius: var(--v-radius-small);
+    background-color: var(--c-lyra);
 }
 
 #bottom {
@@ -59,7 +78,7 @@ body {
     z-index: 0;
 
     flex: 1;
-    max-height: calc(100vh - 68px);
+    max-height: 100%;
     width: 100%;
 
     background-color: var(--c-main);
@@ -130,7 +149,7 @@ footer a {
     width: 100%;
     height: 100%;
 
-    border-radius: var(--v-radius-large);
+    border-radius: var(--v-radius-large) var(--v-radius-large) 0 0;
     background-color: var(--c-sub);
 }
 #middle:active {

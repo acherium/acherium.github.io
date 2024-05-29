@@ -71,6 +71,9 @@ p, span, a, button, input, textarea {
 .fjcs {
     justify-content: flex-start;
 }
+.fjcc {
+    justify-content: center;
+}
 .fjce {
     justify-content: flex-end;
 }
