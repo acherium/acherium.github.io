@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1069",
+        version: "1070",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -261,6 +261,7 @@
     const $btnFrontmost = $("#button-controller-frontmost");
     const $btnFlipHorizontal = $("#button-controller-flip-horizontal");
     const $btnFlipVertical = $("#button-controller-flip-vertical");
+    const $chkTglDarkder = $("#checkbox-toggle-controller-darker");
     const $btnControllerReset = $("#button-controller-reset");
     const $btnControllerRemove = $("#button-controller-remove");
     const $btnControllerUnselect = $("#button-controller-unselect");
@@ -386,6 +387,7 @@
 
         $controller.style["display"] = "flex";
         $controllerBar.style["display"] = "flex";
+        $chkTglDarkder.checked = t.darker ? "checked" : null;
     };
     const unselectItem = () => {
         imageController.selected = null;
@@ -904,6 +906,14 @@
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
         $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
     };
+    $chkTglDarkder.onchange = (c) => {
+        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].darker = c.target.checked;
+        if (c.target.checked) {
+            slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.add("image-item-darker");
+        } else {
+            slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.remove("image-item-darker");
+        };
+    };
     $btnControllerReset.onclick = () => {
         const rect = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).rectOrigin;
         setImagePos(imageController.selected, rect.x, rect.y);
@@ -977,6 +987,7 @@
     };
 
     $btnPhotoSet.onclick = () => {
+        $uploader.multiple = null;
         $uploader.onchange = (f) => {
             const file = f.target.files[0];
             const reader = new FileReader();
@@ -1074,79 +1085,83 @@
     });
 
     $btnAddImage.onclick = () => {
+        $uploader.multiple = true;
         $uploader.onchange = (f) => {
-            const file = f.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = (e) => {
-                const id = imageItemIdInt++;
-
-                const $div = document.createElement("div");
-
-                const $img = new Image();
-                $img.src = reader.result;
-                $img.style["top"] = "0px";
-                $img.style["left"] = "0px";
-                $img.dataset.id = `${id}`;
-                $img.onclick = () => {
-                    selectItem(id);
-                };
-
-                const $lab = document.createElement("div");
-                $lab.classList.add("image-item");
-                $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
-                    `<p>${file.name}</p>` +
-                    `<button class="remove"><div class="i i-deny"></div></button>`;
-                $lab.querySelector("button.remove").onclick = () => {
-                    unselectItem();
-                    $div.remove();
-                    $img.remove();
-                    $lab.remove();
-                    delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
-                    slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
-                };
-                $lab.onclick = () => {
-                    if (imageController.selected !== id) {
+            $uploader.multiple = null;
+            Array.from(f.target.files).forEach((file) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const id = imageItemIdInt++;
+    
+                    const $div = document.createElement("div");
+    
+                    const $img = new Image();
+                    $img.src = reader.result;
+                    $img.style["top"] = "0px";
+                    $img.style["left"] = "0px";
+                    $img.dataset.id = `${id}`;
+                    $img.onclick = () => {
                         selectItem(id);
-                    } else {
+                    };
+    
+                    const $lab = document.createElement("div");
+                    $lab.classList.add("image-item");
+                    $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
+                        `<p>${file.name}</p>` +
+                        `<button class="remove"><div class="i i-deny"></div></button>`;
+                    $lab.querySelector("button.remove").onclick = () => {
                         unselectItem();
+                        $div.remove();
+                        $img.remove();
+                        $lab.remove();
+                        delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
+                        slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
                     };
+                    $lab.onclick = () => {
+                        if (imageController.selected !== id) {
+                            selectItem(id);
+                        } else {
+                            unselectItem();
+                        };
+                    };
+    
+                    setTimeout(() => {
+                        const d = {
+                            id: id,
+                            name: file.name,
+                            visible: true,
+                            data: reader.result,
+                            nodes: {
+                                main: $div,
+                                img: $img,
+                                chk: null,
+                                lab: $lab
+                            },
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: $img.width,
+                                height: $img.height
+                            },
+                            rectOrigin: {
+                                x: 0,
+                                y: 0,
+                                width: parseInt($img.width),
+                                height: parseInt($img.height)
+                            },
+                            flip: {
+                                horizontal: false,
+                                vertical: false
+                            },
+                            rotate: 0,
+                            darker: false
+                        };
+                        slide[current].imageLayer.attachments.push(d);
+                        addImageItem(d);
+                    }, 30);
                 };
-
-                setTimeout(() => {
-                    const d = {
-                        id: id,
-                        name: file.name,
-                        visible: true,
-                        data: reader.result,
-                        nodes: {
-                            main: $div,
-                            img: $img,
-                            chk: null,
-                            lab: $lab
-                        },
-                        rect: {
-                            x: 0,
-                            y: 0,
-                            width: $img.width,
-                            height: $img.height
-                        },
-                        rectOrigin: {
-                            x: 0,
-                            y: 0,
-                            width: parseInt($img.width),
-                            height: parseInt($img.height)
-                        },
-                        flip: {
-                            horizontal: false,
-                            vertical: false
-                        },
-                        rotate: 0
-                    };
-                    slide[current].imageLayer.attachments.push(d);
-                    addImageItem(d);
-                }, 30);
-            };
+            });
         };
         $uploader.click();
     };
