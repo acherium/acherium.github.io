@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1061",
+        version: "1062",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -957,7 +957,7 @@
         html2canvas($photozone, { logging: false }).then((c) => {
             const l = document.createElement("a");
             const d = Date.now();
-            const filename = `TCAG-${d}-OUTPUT.png`;
+            const filename = `TCAG-${d}.png`;
             document.body.append(l);
             l.href = c.toDataURL("image/png");
             l.download = filename;
