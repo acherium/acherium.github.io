@@ -130,40 +130,40 @@
                         <div id="resize-point-6" class="resize-point"></div>
                         <div id="resize-point-7" class="resize-point"></div>
                     </div>
-                    <div id="controller-bar">
-                        <button id="button-controller-bottommost">
-                            <div class="i i-bottom"></div>
-                        </button>
-                        <button id="button-controller-bottom">
-                            <div class="i i-arrow2"></div>
-                        </button>
-                        <button id="button-controller-front">
-                            <div class="i i-arrow3"></div>
-                        </button>
-                        <button id="button-controller-frontmost">
-                            <div class="i i-front"></div>
-                        </button>
-                        <div class="partition-vertical"></div>
-                        <button id="button-controller-flip-horizontal">
-                            <div class="i i-flip-horizontal"></div>
-                        </button>
-                        <button id="button-controller-flip-vertical">
-                            <div class="i i-flip-vertical"></div>
-                        </button>
-                        <div class="partition-vertical"></div>
-                        <button id="button-controller-reset">
-                            <div class="i i-reset-position"></div>
-                        </button>
-                        <button id="button-controller-remove">
-                            <div class="i i-trash"></div>
-                        </button>
-                        <div class="partition-vertical"></div>
-                        <button id="button-controller-unselect">
-                            <div class="i i-deny"></div>
-                        </button>
-                    </div>
                 </div>
             </main>
+            <div id="controller-bar">
+                <button id="button-controller-bottommost">
+                    <div class="i i-bottom"></div>
+                </button>
+                <button id="button-controller-bottom">
+                    <div class="i i-arrow2"></div>
+                </button>
+                <button id="button-controller-front">
+                    <div class="i i-arrow3"></div>
+                </button>
+                <button id="button-controller-frontmost">
+                    <div class="i i-front"></div>
+                </button>
+                <div class="partition-vertical"></div>
+                <button id="button-controller-flip-horizontal">
+                    <div class="i i-flip-horizontal"></div>
+                </button>
+                <button id="button-controller-flip-vertical">
+                    <div class="i i-flip-vertical"></div>
+                </button>
+                <div class="partition-vertical"></div>
+                <button id="button-controller-reset">
+                    <div class="i i-reset-position"></div>
+                </button>
+                <button id="button-controller-remove">
+                    <div class="i i-trash"></div>
+                </button>
+                <div class="partition-vertical"></div>
+                <button id="button-controller-unselect">
+                    <div class="i i-deny"></div>
+                </button>
+            </div>
         </div>
         <div id="right">
             <div class="scroll-box-inner">
@@ -309,25 +309,26 @@
         </div>
     </div>
     <div id="modal-slide-size" class="modal-area" style="display: none;">
-        <div class="modal">
+        <div class="modal wm600">
             <div class="scroll-box-inner">
                 <div class="modal-title">
                     <div class="il i-slide-size"></div>
                     <h1>슬라이드 크기</h1>
                 </div>
-                <div id="slide-size-list" class="flexlist fjcb wf">
-                    <input type="radio" name="slide-size" id="slide-size-0" value="0">
-                    <label class="slide-size-label" for="slide-size-0">
+                <div class="flexlist-horizontal wf">
+                    <input type="number" id="input-slide-size-width" class="wf"><span>×</span><input type="number" id="input-slide-size-height" class="wf">
+                </div>
+                <h4>프리셋</h4>
+                <div class="flexlist wf">
+                    <button class="button-slide-size wf" data-width="1280" data-height="720">
                         <p>1280×720 (16:9)</p>
-                    </label>
-                    <input type="radio" name="slide-size" id="slide-size-1" value="1">
-                    <label class="slide-size-label" for="slide-size-1">
+                    </button>
+                    <button class="button-slide-size wf" data-width="1788" data-height="700">
                         <p>1788×700 (23:9)</p>
-                    </label>
-                    <input type="radio" name="slide-size" id="slide-size-2" value="2">
-                    <label class="slide-size-label" for="slide-size-2">
+                    </button>
+                    <button class="button-slide-size wf" data-width="1280" data-height="1066">
                         <p>1280×1066 (6:5)</p>
-                    </label>
+                    </button>
                 </div>
                 <div class="flexlist-horizontal fjce wf">
                     <button class="close">

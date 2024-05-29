@@ -3,12 +3,16 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1065",
+        version: "1066",
         date: "24-05-29",
         watermark: false,
         isBeta: true
     };
     const SIZEMIN = 32;
+    const WIDTHMIN = 1000;
+    const HEIGHTMIN = 600;
+    const WIDTHMAX = 2000;
+    const HEIGHTMAX = 2000;
     const DATATEMPLATE = {
         version: 2,
         strings: {
@@ -22,11 +26,10 @@
             ]
         },
         area: {
-            width: 0,
-            height: 0
+            width: 1280,
+            height: 720
         },
         values: {
-            size: 0,
             style: 0,
             color: "EEC375",
             colorId: 18
@@ -225,7 +228,9 @@
     const $btnModalSlideSize = $("#button-slide-size");
     const $modalSlideSize = $("#modal-slide-size");
     const $modalSlideSizeBtnClose = $("#modal-slide-size button.close");
-    const $btnSlideSize = $a(".slide-size-label");
+    const $btnSlideSize = $a(".button-slide-size");
+    const $inputSlideWidth = $("#input-slide-size-width");
+    const $inputSlideHeight = $("#input-slide-size-height");
     const $selboxOption = $a(".photo-select-option");
     const $inputSelboxOption = $a(".select-option");
     const $selbox = $("#photo-select");
@@ -258,13 +263,23 @@
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
 
-    const setAreaSize = (i) => {
-        slide[current].values.size = i;
-        $(`#slide-size-${i}`).checked = true;
-        $photozone.classList.forEach((x) => {
-            $photozone.classList.remove(x);
-        });
-        $photozone.classList.add(`photo-zone-size-${i}`);
+    const setAreaWidth = (w) => {
+        if (Number.isNaN(w) || w < WIDTHMIN) w = WIDTHMIN;
+        if (w > WIDTHMAX) w = WIDTHMAX;
+        slide[current].area.width = w;
+        $inputSlideWidth.value = w;
+        $photozone.style["width"] = `${w}px`;
+    };
+    const setAreaHeight = (h) => {
+        if (Number.isNaN(h) || h < HEIGHTMIN) h = HEIGHTMIN;
+        if (h > HEIGHTMAX) h = HEIGHTMAX;
+        slide[current].area.height = h;
+        $inputSlideHeight.value = h;
+        $photozone.style["height"] = `${h}px`;
+    };
+    const setAreaSize = (w, h) => {
+        setAreaWidth(w);
+        setAreaHeight(h);
     };
     const setName = (x) => {
         slide[current].strings.name = x;
@@ -465,7 +480,7 @@
     const applySlide = () => {
         current = slide[current] ? current : current - 1;
         const x = slide[current];
-        setAreaSize(x.values.size);
+        setAreaSize(x.area.width, x.area.height);
         setName(x.strings.name);
         setColor(x.values.colorId);
         setContent(x.strings.content);
@@ -600,14 +615,12 @@
     $middle.onmousedown = (p) => {
         if (p.target !== $middle) return;
         $middle.setPointerCapture(p.pointerId);
-        // document.body.style["cursor"] = "grab";
         $middle.onmousemove = (m) => {
             setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);
         };
         $middle.onmouseup = () => {
             $middle.releasePointerCapture(p.pointerId);
             $middle.setPointerCapture(p.pointerId);
-            // document.body.style["cursor"] = null;
             $middle.onmousemove = null;
             $middle.onmouseup = null;
         };
@@ -981,12 +994,22 @@
     $modalSlideSizeBtnClose.onclick = () => {
         $modalSlideSize.style["display"] = "none";
     };
-    Array.from($btnSlideSize).forEach(($n, i) => {
+    Array.from($btnSlideSize).forEach(($n) => {
         $n.onclick = () => {
-            setAreaSize(i);
+            const w = parseInt($n.dataset.width);
+            const h = parseInt($n.dataset.height);
+            setAreaSize(w, h);
             refreshThumbnail(current, $photozone);
         };
     });
+    $inputSlideWidth.onchange = (c) => {
+        setAreaWidth(c.target.value);
+        refreshThumbnail(current, $photozone);
+    };
+    $inputSlideHeight.onchange = (c) => {
+        setAreaHeight(c.target.value);
+        refreshThumbnail(current, $photozone);
+    };
 
     $btnSelbox.onclick = () => {
         $modalSelbox.style["display"] = "flex";
