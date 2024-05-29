@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1071",
+        version: "1072",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -399,8 +399,8 @@
     const addImagePos = (n, x, y) => {
         const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
         const $img = d.nodes.img;
-        if (d.rect.x + x > slide[current].area.width - d.rect.width + 400 || d.rect.x + x < -400) return;
-        if (d.rect.y + y > slide[current].area.height - d.rect.height + 400 || d.rect.y + y < -400) return;
+        // if (d.rect.x + x > slide[current].area.width - d.rect.width + 400 || d.rect.x + x < -400) return;
+        // if (d.rect.y + y > slide[current].area.height - d.rect.height + 400 || d.rect.y + y < -400) return;
         d.rect.x += x;
         d.rect.y += y;
         $img.style["top"] = `${d.rect.y + y}px`;
@@ -410,8 +410,8 @@
     const setImagePos = (n, x, y) => {
         const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
         const $img = d.nodes.img;
-        if (x > slide[current].area.width - d.rect.width + 400 || x < -400) return;
-        if (y > slide[current].area.height - d.rect.height + 400 || y < -400) return;
+        // if (x > slide[current].area.width - d.rect.width + 400 || x < -400) return;
+        // if (y > slide[current].area.height - d.rect.height + 400 || y < -400) return;
         d.rect.x = x;
         d.rect.y = y;
         $img.style["top"] = `${d.rect.y}px`;
@@ -421,14 +421,14 @@
     const addControllerPos = (x, y) => {
         const originX = parseInt($controller.style["left"]);
         const originY = parseInt($controller.style["top"]);
-        if (originX + x > slide[current].area.width - imageController.rect.width + 400 || originX + x < -400) return;
-        if (originY + y > slide[current].area.height - imageController.rect.height + 400 || originY + y < -400) return;
+        // if (originX + x > slide[current].area.width - imageController.rect.width + 400 || originX + x < -400) return;
+        // if (originY + y > slide[current].area.height - imageController.rect.height + 400 || originY + y < -400) return;
         $controller.style["top"] = `${originY + y}px`;
         $controller.style["left"] = `${originX + x}px`;
     };
     const setControllerPos = (x, y) => {
-        if (x > slide[current].area.width - imageController.rect.width + 400 || x < -400) return;
-        if (y > slide[current].area.height - imageController.rect.height + 400 || y < -400) return;
+        // if (x > slide[current].area.width - imageController.rect.width + 400 || x < -400) return;
+        // if (y > slide[current].area.height - imageController.rect.height + 400 || y < -400) return;
         imageController.rect.x = x;
         imageController.rect.y = y;
         $controller.style["top"] = `${y}px`;
