@@ -352,6 +352,6 @@ input[type=checkbox]:checked+label:not(.image-item) > p::before {
     }
 
     .m-menu-expand {
-        display: flex !important;
+        display: block !important;
     }
 }

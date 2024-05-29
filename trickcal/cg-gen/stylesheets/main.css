@@ -78,7 +78,7 @@ body {
     z-index: 0;
 
     flex: 1;
-    max-height: 100%;
+    max-height: calc(100vh - 56px);
     width: 100%;
 
     background-color: var(--c-main);
@@ -810,7 +810,6 @@ input[type=checkbox] {
     #bottom {
         flex-direction: column;
 
-        max-height: none;
         height: 100%;
     }
 
@@ -819,10 +818,6 @@ input[type=checkbox] {
         position: absolute;
 
         width: 100vw;
-        height: calc(100% - 56px);
-
-        border: 0;
-        box-shadow: none;
     }
 
     .scroll-box {

@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1058",
+        version: "1060",
         date: "24-05-29",
         watermark: false,
         isBeta: true
@@ -487,8 +487,18 @@
         Array.from($slideList.querySelectorAll(".slide-item")).forEach(($n, i) => {
             $n.onpointerdown = (p) => {
                 if (p.target !== $n) return;
-                setSlide(i);
-                refreshThumbnail(i, $photozone);
+                let flag = true;
+                $n.onpointermove = () => {
+                    flag = false;
+                };
+                $n.onpointerup = () => {
+                    if (flag) {
+                        setSlide(i);
+                        refreshThumbnail(i, $photozone);
+                    };
+                    $n.onpointermove = null;
+                    $n.onpointerup = null;
+                };
             };
         });
         Array.from($slideList.querySelectorAll("button.remove")).forEach(($n, i) => {
