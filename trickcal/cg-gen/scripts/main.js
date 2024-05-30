@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1081",
+        version: "1082",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -56,6 +56,7 @@
             title: false,
             location: false,
             namearea: true,
+            content: true,
             select: false,
             photoButtons: true,
             boxCenter: false
@@ -250,6 +251,7 @@
     const $inputContent = $("#content");
     const $modalContent = $("#modal-content");
     const $modalContentBtnClose = $("#modal-content button.close");
+    const $chkTglContent = $("#checkbox-toggle-content");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
     const $selectBoxStyle = $("#content-box-style");
@@ -473,6 +475,11 @@
         $chkTglLoc.checked = b;
         $locArea.style["display"] = b ? "flex" : "none";
     };
+    const toggleContent = (b) => {
+        slide[current].toggles.content = b;
+        $chkTglContent.checked = b;
+        $contentArea.style["display"] = b ? "flex" : "none";
+    };
     const setBackground = (f) => {
         slide[current].imageLayer.background = f;
         $bg.src = f;
@@ -637,6 +644,7 @@
         toggleContentBoxCenter(x.toggles.boxCenter);
         toggleTitle(x.toggles.title);
         toggleLocation(x.toggles.location);
+        toggleContent(x.toggles.content);
         setBackground(x.imageLayer.background);
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
@@ -1167,6 +1175,10 @@
     };
     $chkTglLoc.onchange = (c) => {
         toggleLocation(c.target.checked);
+        refreshThumbnail(current, $photozone);
+    };
+    $chkTglContent.onchange = (c) => {
+        toggleContent(c.target.checked);
         refreshThumbnail(current, $photozone);
     };
     $chkPhotoBtn.onchange = (c) => {
