@@ -34,11 +34,9 @@
         <div class="m-show-flex flexlist-horizontal">
             <button id="m-button-toggle-slide">
                 <div class="i i-slide"></div>
-                <p>슬라이드</p>
             </button>
             <button id="m-button-toggle-layer">
                 <div class="i i-layer"></div>
-                <p>레이어</p>
             </button>
         </div>
     </div>
@@ -254,58 +252,68 @@
         </div>
     </div>
     <div id="modal-content" class="modal-area" style="display: none;">
-        <div class="modal">
+        <div class="modal wm600">
             <div class="scroll-box-inner">
                 <div class="modal-title">
                     <div class="il i-text"></div>
                     <h1>대화창</h1>
                 </div>
                 <h3>이름</h3>
-                <input type="text" id="name" class="modal-input-text wm400">
-                <select id="name-color" class="wf"></select>
                 <div class="flexlist-horizontal wf">
                     <input type="checkbox" id="checkbox-toggle-namearea">
                     <label for="checkbox-toggle-namearea">
-                        <p>이름 표시</p>
                     </label>
+                    <input type="text" id="name" class="modal-input-text wf f1">
+                </div>
+                <div id="colorpicker-namearea" class="colorpicker-area">
+                    <div class="left colorpicker-preview">
+                        <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+                    </div>
+                    <div class="right">
+                        <p>R</p>
+                        <div class="colorpicker-bar colorpicker-bar-r">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-r">
+                        <p>G</p>
+                        <div class="colorpicker-bar colorpicker-bar-g">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-g">
+                        <p>B</p>
+                        <div class="colorpicker-bar colorpicker-bar-b">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-b">
+                    </div>
+                </div>
+                <div class="flexlist-horizontal wf">
+                    <p>프리셋</p>
+                    <select id="name-color" class="f1"></select>
+                </div>
+                <div class="flexlist-horizontal wf">
                     <input type="checkbox" id="checkbox-toggle-auto-change-name">
                     <label for="checkbox-toggle-auto-change-name">
                         <p>이름도 같이 변경</p>
                     </label>
                 </div>
                 <h3>내용</h3>
-                <textarea id="content" class="wm400 hm200"></textarea>
+                <textarea id="content" class="wf hm200"></textarea>
                 <h3>형태</h3>
-                <div class="flexlist wf">
-                    <input type="radio" name="box-style" id="box-style-0" value="0">
-                    <label class="content-box-label wf" for="box-style-0">
-                        <p>기본</p>
-                    </label>
-                    <input type="radio" name="box-style" id="box-style-1" value="1">
-                    <label class="content-box-label wf" for="box-style-1">
-                        <p>기본 (속마음 있음)</p>
-                    </label>
-                </div>
-                <div class="flexlist wf">
-                    <input type="radio" name="box-style" id="box-style-2" value="2">
-                    <label class="content-box-label wf" for="box-style-2">
-                        <p>속마음</p>
-                    </label>
-                    <input type="radio" name="box-style" id="box-style-3" value="3">
-                    <label class="content-box-label wf" for="box-style-3">
-                        <p>생각</p>
-                    </label>
-                </div>
-                <div class="flexlist wf">
-                    <input type="radio" name="box-style" id="box-style-4" value="4">
-                    <label class="content-box-label wf" for="box-style-4">
-                        <p>사각형</p>
-                    </label>
-                    <input type="radio" name="box-style" id="box-style-5" value="5">
-                    <label class="content-box-label wf" for="box-style-5">
-                        <p>강조</p>
-                    </label>
-                </div>
+                <select id="content-box-style" class="wf">
+                    <option value="0">기본</option>
+                    <option value="1">기본 (속마음 있음)</option>
+                    <option value="2">속마음</option>
+                    <option value="3">생각</option>
+                    <option value="4">사각형</option>
+                    <option value="5">놀람</option>
+                </select>
                 <div class="flexlist-hori" class="wf">
                     <input type="checkbox" id="checkbox-toggle-box-position-center">
                     <label for="checkbox-toggle-box-position-center">
@@ -378,37 +386,49 @@
         </div>
     </div>
     <div id="modal-config-bg" class="modal-area" style="display: none;">
-        <div class="modal">
+        <div class="modal wm600">
             <div class="scroll-box-inner">
                 <div class="modal-title">
                     <div class="il i-config"></div>
                     <h1>기타 배경 설정</h1>
                 </div>
+                <h4>배경 기본 색상</h4>
+                <div id="colorpicker-bg" class="colorpicker-area">
+                    <div class="left colorpicker-preview">
+                        <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+                    </div>
+                    <div class="right">
+                        <p>R</p>
+                        <div class="colorpicker-bar colorpicker-bar-r">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-r">
+                        <p>G</p>
+                        <div class="colorpicker-bar colorpicker-bar-g">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-g">
+                        <p>B</p>
+                        <div class="colorpicker-bar colorpicker-bar-b">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-b">
+                    </div>
+                </div>
                 <h4>배경 이미지 맞춤</h4>
-                <div class="flexlist wm600">
-                    <input type="radio" name="bg-fit" id="bg-fit-0" class="radio-bg-fit" value="fit-height">
-                    <label for="bg-fit-0" class="wf">
-                        <p>영역 높이에 맞춤</p>
-                    </label>
-                    <input type="radio" name="bg-fit" id="bg-fit-1" class="radio-bg-fit" value="fit-width">
-                    <label for="bg-fit-1" class="wf">
-                        <p>영역 폭에 맞춤</p>
-                    </label>
-                </div>
-                <div class="flexlist wm600">
-                    <input type="radio" name="bg-fit" id="bg-fit-2" class="radio-bg-fit" value="stretch-height">
-                    <label for="bg-fit-2" class="wf">
-                        <p>영역 높이에 맞춰 늘림</p>
-                    </label>
-                    <input type="radio" name="bg-fit" id="bg-fit-3" class="radio-bg-fit" value="stretch-width">
-                    <label for="bg-fit-3" class="wf">
-                        <p>영역 폭에 맞춰 늘림</p>
-                    </label>
-                    <input type="radio" name="bg-fit" id="bg-fit-4" class="radio-bg-fit" value="fill">
-                    <label for="bg-fit-4" class="wf">
-                        <p>영역에 채움</p>
-                    </label>
-                </div>
+                <select id="select-bg-fit" class="wf">
+                    <option value="fit-height">슬라이드 높이에 맞춤</option>
+                    <option value="fit-width">슬라이드 폭에 맞춤</option>
+                    <option value="stretch-height">슬라이드 높이에 맞춰 늘림</option>
+                    <option value="stretch-height">슬라이드 폭에 맞춰 늘림</option>
+                    <option value="fill">슬라이드 채움</option>
+                </select>
                 <div class="flexlist-horizontal fjce wf">
                     <button class="close">
                         <div class="i i-accept"></div>

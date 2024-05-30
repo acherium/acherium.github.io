@@ -627,12 +627,16 @@ input[type=checkbox] {
 #controller-bar input[type=checkbox]:checked+label {
     background-color: var(--c-button-hover-main);
 }
+#controller-bar label::before {
+    content: none;
+}
 
 .modal-area {
     display: flex;
     position: fixed;
     align-items: center;
     justify-content: center;
+    padding: 5px;
     top: 0;
     left: 0;
     z-index: 100;
@@ -645,7 +649,6 @@ input[type=checkbox] {
 
 .modal {
     position: relative;
-    margin: 5px;
     padding: 24px;
     overflow-y: scroll;
 
@@ -828,6 +831,99 @@ input[type=checkbox] {
     pointer-events: all;
 }
 
+.colorpicker-area {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: max-content;
+}
+.colorpicker-preview {
+    display: flex;
+    position: relative;
+    align-items: flex-end;
+    justify-content: center;
+    margin-right: 3px;
+
+    width: 150px;
+    height: 150px;
+
+    border: solid 3px red;
+    border-radius: var(--v-radius-small);
+    background-color: red;
+}
+.colorpicker-preview-value {
+    padding: 0 4px;
+
+    width: 100%;
+
+    background-color: var(--c-white);
+}
+.colorpicker-area > .right {
+    display: grid;
+    grid-template-columns: 40px calc(100% - 120px) 80px;
+    grid-template-rows: 48px 48px 48px;
+    row-gap: 3px;
+
+    flex: 1;
+    width: 100%;
+    height: 150px;
+}
+.colorpicker-area > .right > p {
+    line-height: 48px;
+
+    font-weight: 900;
+    text-align: center;
+
+    color: var(--c-font);
+    border-radius: var(--v-radius-small) 0 0 var(--v-radius-small);
+    background-color: var(--c-button);
+}
+.colorpicker-bar {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+.colorpicker-bar > div {
+    position: relative;
+
+    width: calc(100% - 20px);
+    height: 100%;
+}
+.colorpicker-bar-r {
+    background-image: linear-gradient(90deg, rgb(0, 0, 0), rgb(255, 0, 0));
+}
+.colorpicker-bar-g {
+    background-image: linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 255, 0));
+}
+.colorpicker-bar-b {
+    background-image: linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 255));
+}
+.colorpicker-pointer {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 20px;
+    height: 100%;
+
+    border: solid 2px var(--c-border);
+    background-color: var(--c-white);
+    cursor: ew-resize;
+}
+.colorpicker-pointer:active {
+    outline: solid 3px var(--c-lyra);
+}
+.colorpicker-area > .right > input[type=number] {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0 var(--v-radius-small) var(--v-radius-small) 0;
+}
+
 .alert {
     display: flex;
     position: absolute;
@@ -986,6 +1082,24 @@ input[type=checkbox] {
     #controller-bar > .partition-vertical {
         width: 48px;
         height: 2px;
+    }
+
+    .colorpicker-area {
+        flex-direction: column;
+    }
+    .colorpicker-preview {
+        margin: 0 0 3px 0;
+        width: 100%;
+        height: 100px;
+    }
+
+    .modal-area {
+        padding: 0;
+    }
+    .modal {
+        width: 100vw;
+
+        border-radius: 0;
     }
 }
 @media screen and ((max-width: 900px) and (max-height: 600px)) {

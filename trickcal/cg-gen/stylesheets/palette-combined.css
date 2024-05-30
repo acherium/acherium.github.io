@@ -19,6 +19,7 @@
     --f-button: brightness(0);
     --f-button-hover: brightness(0) invert(1);
     --f-button-active: brightness(0.9);
+    --v-radius-tiny: 1px;
     --v-radius-small: 4px;
     --v-radius-medium: 8px;
     --v-radius-large: 20px;

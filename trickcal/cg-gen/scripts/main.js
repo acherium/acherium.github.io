@@ -3,8 +3,8 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1072",
-        date: "24-05-29",
+        version: "1080",
+        date: "24-05-30",
         watermark: false,
         isBeta: true
     };
@@ -34,6 +34,18 @@
             backgroundFit: "fit-height",
             color: "EEC375",
             colorId: 18
+        },
+        color: {
+            namearea: {
+                r: 238,
+                g: 195,
+                b: 117
+            },
+            background: {
+                r: 0,
+                g: 0,
+                b: 0
+            }
         },
         toggles: {
             namearea: true,
@@ -201,6 +213,12 @@
     const $nameBg = $("#photo-script-box-name-backdrop");
     const $inputName = $("#name");
     const $selNameBgCol = $("#name-color");
+    const $pickerName = $("#colorpicker-namearea");
+    const $pickerNamePrev = $("#colorpicker-namearea .colorpicker-preview");
+    const $pickerNamePrevValue = $("#colorpicker-namearea .colorpicker-preview-value");
+    const $pickerNameBars = $a("#colorpicker-namearea .colorpicker-bar");
+    const $pickerNamePointers = $a("#colorpicker-namearea .colorpicker-pointer");
+    const $pickerNameInputs = $a("#colorpicker-namearea .colorpicker-input");
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
     const $chkTglName = $("#checkbox-toggle-namearea");
     const $modalName = $("#modal-name");
@@ -216,14 +234,20 @@
     const $modalContentBtnClose = $("#modal-content button.close");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
-    const $btnBoxStyle = $a(".content-box-label");
+    const $selectBoxStyle = $("#content-box-style");
     const $photozone = $("#photo-zone");
     const $bg = $("#photo-bg");
     const $prevBg = $("#preview-bg > img");
     const $btnConfigBg = $("#button-config-bg");
     const $modalBg = $("#modal-config-bg");
     const $modalBgBtnClose = $("#modal-config-bg button.close");
-    const $radioBgFit = $a(".radio-bg-fit");
+    const $selectBgFit = $("#select-bg-fit");
+    const $pickerBg = $("#colorpicker-bg");
+    const $pickerBgPrev = $("#colorpicker-bg .colorpicker-preview");
+    const $pickerBgPrevValue = $("#colorpicker-bg .colorpicker-preview-value");
+    const $pickerBgBars = $a("#colorpicker-bg .colorpicker-bar");
+    const $pickerBgPointers = $a("#colorpicker-bg .colorpicker-pointer");
+    const $pickerBgInputs = $a("#colorpicker-bg .colorpicker-input");
     const $btnConfigIndi = $("#button-config-indicators");
     const $modalIndi = $("#modal-config-indicators");
     const $modalIndiBtnClose = $("#modal-config-indicators button.close");
@@ -273,11 +297,31 @@
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
 
+    const INTtoHEX = (i) => {
+        let res = i.toString(16).toUpperCase();
+        res = res.length === 1 ? `0${res}` : res;
+        return res;
+    };
+    const RGBtoHEX = (rgb) => {
+        let r = rgb.r.toString(16).toUpperCase();
+        let g = rgb.g.toString(16).toUpperCase();
+        let b = rgb.b.toString(16).toUpperCase();
+        r = r.length === 1 ? `0${r}` : r;
+        g = g.length === 1 ? `0${g}` : g;
+        b = b.length === 1 ? `0${b}` : b;
+        return `${r}${g}${b}`;
+    };
+    const HEXtoRGB = (hex) => {
+        const r = Number(`0x${hex.substring(0, 2)}`);
+        const g = Number(`0x${hex.substring(2, 4)}`);
+        const b = Number(`0x${hex.substring(4, 6)}`);
+        return { r: r, g: g, b: b };
+    };
     const setBackgroundFit = (s) => {
         if (!BG_FIT_OPTIONS.includes(s)) return;
         slide[current].values.backgroundFit = s;
         $bg.className = `photo-bg-${s}`;
-        $radioBgFit[BG_FIT_OPTIONS.indexOf(s)].checked = true;
+        Array.from($selectBgFit.querySelectorAll("option")).find(($n) => $n.value === slide[current].values.backgroundFit).selected = true;
     };
     const setAreaWidth = (w) => {
         if (Number.isNaN(w) || w < WIDTHMIN) w = WIDTHMIN;
@@ -303,12 +347,36 @@
         $name.innerText = x;
         $inputName.value = x;
     };
-    const setColor = (i) => {
-        const hex = Object.values(PALETTE)[i][2];
-        slide[current].values.color = hex;
-        slide[current].values.colorId = i;
+    const setNameColor = (hex) => {
+        const rgb = HEXtoRGB(hex);
+        slide[current].color.namearea = rgb;
+        const posper = Object.values(rgb).map((i) => i / 255 * 100);
         $nameBg.style["background-color"] = `#${hex}`;
-        $selNameBgCol.querySelectorAll("option")[i].selected = true;
+        $pickerNamePrev.style["background-color"] = `#${hex}`;
+        $pickerNamePrev.style["border-color"] = `#${hex}`;
+        $pickerNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
+        Array.from($pickerNamePointers).forEach(($n, i) => {
+            $n.style["left"] = `${posper[i]}%`;
+        });
+        Array.from($pickerNameInputs).forEach(($n, i) => {
+            $n.value = Object.values(rgb)[i];
+        });
+    };
+    const setNameColorRGB = (rgb) => {
+        slide[current].color.namearea = rgb;
+        const posper = Object.values(rgb).map((i) => i / 255 * 100);
+        const hex = RGBtoHEX(rgb);
+        $nameBg.style["background-color"] = `#${hex}`;
+        $pickerNamePrev.style["background-color"] = `#${hex}`;
+        $pickerNamePrev.style["border-color"] = `#${hex}`;
+        $pickerNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
+        Array.from($pickerNamePointers).forEach(($n, i) => {
+            $n.style["left"] = `${posper[i]}%`;
+        });
+        Array.from($pickerNameInputs).forEach(($n, i) => {
+            $n.value = Object.values(rgb)[i];
+        });
+
     };
     const setContent = (x) => {
         const res = x.replace(/([\n\r]){1,2}/g, `<br>​`)
@@ -320,19 +388,19 @@
             .replace(/\\/g, "");
         slide[current].strings.contentRaw = x;
         slide[current].strings.content = res;
-        console.log(res);
         $content.innerHTML = res;
         $inputContent.value = x;
     };
     const setBoxStyle = (i) => {
         const d = BOXES[i];
         if (!d) return;
+        slide[current].values.style = i;
         $content.classList.remove("script-content-font-dark");
         $content.classList.remove("script-content-font-light");
         $content.classList.add(`script-content-font-${d.color}`);
         $box.src = d.src;
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
-        $(`#box-style-${i}`).checked = true;
+        $selectBoxStyle.querySelectorAll("option")[i].selected = true;
     };
     const toggleNamearea = (b) => {
         slide[current].toggles.namearea = b;
@@ -509,9 +577,10 @@
         current = slide[current] ? current : current - 1;
         const x = slide[current];
         setBackgroundFit(x.values.backgroundFit);
+        setBackgroundColor(x.color.background);
         setAreaSize(x.area.width, x.area.height);
         setName(x.strings.name);
-        setColor(x.values.colorId);
+        setNameColorRGB(x.color.namearea);
         setContent(x.strings.content);
         setBoxStyle(x.values.style);
         toggleNamearea(x.toggles.namearea);
@@ -532,20 +601,10 @@
                 `<div class="slide-item-menu"><p>${i+1}</p><button class="remove"><div class="i i-deny"></div></button></div></div>`;
         }).join("");
         Array.from($slideList.querySelectorAll(".slide-item")).forEach(($n, i) => {
-            $n.onpointerdown = (p) => {
-                if (p.target !== $n) return;
-                let flag = true;
-                $n.onpointermove = () => {
-                    flag = false;
-                };
-                $n.onpointerup = () => {
-                    if (flag) {
-                        setSlide(i);
-                        refreshThumbnail(i, $photozone);
-                    };
-                    $n.onpointermove = null;
-                    $n.onpointerup = null;
-                };
+            $n.onclick = (c) => {
+                if (c.target !== $n) return;
+                setSlide(i);
+                refreshThumbnail(i, $photozone);
             };
         });
         Array.from($slideList.querySelectorAll("button.remove")).forEach(($n, i) => {
@@ -569,6 +628,21 @@
         areaRect.y = y;
         $main.style["transform"] = `translate(${x}px, ${y}px)`;
     };
+    const setBackgroundColor = (rgb) => {
+        slide[current].color.background = rgb;
+        const posper = Object.values(rgb).map((i) => i / 255 * 100);
+        const hex = RGBtoHEX(rgb);
+        $photozone.style["background-color"] = `#${hex}`;
+        $pickerBgPrev.style["background-color"] = `#${hex}`;
+        $pickerBgPrev.style["border-color"] = `#${hex}`;
+        $pickerBgPrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
+        Array.from($pickerBgPointers).forEach(($n, i) => {
+            $n.style["left"] = `${posper[i]}%`;
+        });
+        Array.from($pickerBgInputs).forEach(($n, i) => {
+            $n.value = Object.values(rgb)[i];
+        });
+    };
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
@@ -579,17 +653,17 @@
         if (!$chkKeyShortcut.checked) return;
         if (k.target !== document.body) return;
         if (k.keyCode === 49) {
-            $btnBoxStyle[0].click();
+            // $btnBoxStyle[0].click();
         } else if (k.keyCode === 50) {
-            $btnBoxStyle[1].click();
+            // $btnBoxStyle[1].click();
         } else if (k.keyCode === 51) {
-            $btnBoxStyle[2].click();
+            // $btnBoxStyle[2].click();
         } else if (k.keyCode === 52) {
-            $btnBoxStyle[3].click();
+            // $btnBoxStyle[3].click();
         } else if (k.keyCode === 53) {
-            $btnBoxStyle[4].click();
+            // $btnBoxStyle[4].click();
         } else if (k.keyCode === 54) {
-            $btnBoxStyle[5].click();
+            // $btnBoxStyle[5].click();
         } else if (k.keyCode === 65) {
             $modalContent.style["display"] = "flex";
             setTimeout(() => {
@@ -620,15 +694,15 @@
             $op.innerText = `===== ${x[1]} ====`;
             $op.setAttribute("disabled", "true");
         } else {
-            $op.value = `${x[1]}::${x[2]}::${i}`;
-            $op.innerText = `${x[1]} :: #${x[2]}`;
+            $op.value = `${x[1]}::${x[2]}`;
+            $op.innerText = `${x[1]}`;
             $op.style["background-color"] = `#${x[2]}`;
         };
         $selNameBgCol.append($op);
     });
     $selNameBgCol.onchange = (c) => {
         const d = c.target.value.split("::");
-        setColor(d[2]);
+        setNameColor(d[1]);
         if ($chkAutoName.checked) setName(d[0]);
     };
 
@@ -976,12 +1050,10 @@
     $inputContent.onchange = () => {
         refreshThumbnail(current, $photozone);
     };
-    Array.from($btnBoxStyle).forEach(($n, i) => {
-        $n.onclick = () => {
-            setBoxStyle(i);
-            refreshThumbnail(current, $photozone);
-        };
-    });
+    $selectBoxStyle.onchange = (c) => {
+        setBoxStyle(parseInt(c.target.value));
+        refreshThumbnail(current, $photozone);
+    };
     $chkTglContentCenter.onchange = (c) => {
         toggleContentBoxCenter(c.target.checked);
         refreshThumbnail(current, $photozone);
@@ -1233,12 +1305,10 @@
     $modalBgBtnClose.onclick = () => {
         $modalBg.style["display"] = "none";
     };
-    Array.from($radioBgFit).forEach(($n) => {
-        $n.onchange = (c) => {
-            if (!c.target.checked) return;
-            setBackgroundFit(c.target.value);
-        };
-    });
+    $selectBgFit.onchange = (c) => {
+        setBackgroundFit(c.target.value);
+        refreshThumbnail(current, $photozone);
+    };
 
     $btnConfigIndi.onclick = () => {
         $modalIndi.style["display"] = "flex";
@@ -1246,6 +1316,101 @@
     $modalIndiBtnClose.onclick = () => {
         $modalIndi.style["display"] = "none";
     };
+    
+    Array.from($pickerBgPointers).forEach(($n, i) => {
+        $n.onmousedown = (p) => {
+            $n.setPointerCapture(p.pointerId);
+            const $dragarea = p.target.parentNode;
+            const dragareaRect = $dragarea.getBoundingClientRect();
+            $n.onmousemove = (m) => {
+                const rgb = Object.values(slide[current].color.background);
+                let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
+                per = per < 0 ? 0 : per > 100 ? 100 : per;
+                rgb[i] = Math.floor(per / 100 * 255);
+                setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+            };
+            $n.onmouseup = () => {
+                $n.releasePointerCapture(p.pointerId);
+                $n.onmousemove = null;
+                $n.onmouseup = null;
+                refreshThumbnail(current, $photozone);
+            };
+        };
+        $n.ontouchstart = (t) => {
+            $modalBg.querySelector(".modal").style["overflow"] = "hidden";
+            const $dragarea = t.target.parentNode;
+            const dragareaRect = $dragarea.getBoundingClientRect();
+            $n.ontouchmove = (m) => {
+                const rgb = Object.values(slide[current].color.background);
+                let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
+                per = per < 0 ? 0 : per > 100 ? 100 : per;
+                rgb[i] = Math.floor(per / 100 * 255);
+                setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+            };
+            $n.ontouchend = () => {
+                $modalBg.querySelector(".modal").style["overflow"] = "hidden";
+                $n.ontouchmove = null;
+                $n.ontouchend = null;
+                refreshThumbnail(current, $photozone);
+            };
+        };
+    });
+    Array.from($pickerBgInputs).forEach(($n, i) => {
+        $n.onchange = (c) => {
+            const rgb = Object.values(slide[current].color.background);
+            let v = parseInt(c.target.value);
+            v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
+            rgb[i] = v;
+            setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+        };
+    });
+    Array.from($pickerNamePointers).forEach(($n, i) => {
+        $n.onmousedown = (p) => {
+            $n.setPointerCapture(p.pointerId);
+            const $dragarea = p.target.parentNode;
+            const dragareaRect = $dragarea.getBoundingClientRect();
+            $n.onmousemove = (m) => {
+                const rgb = Object.values(slide[current].color.namearea);
+                let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
+                per = per < 0 ? 0 : per > 100 ? 100 : per;
+                rgb[i] = Math.floor(per / 100 * 255);
+                setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+            };
+            $n.onmouseup = () => {
+                $n.releasePointerCapture(p.pointerId);
+                $n.onmousemove = null;
+                $n.onmouseup = null;
+                refreshThumbnail(current, $photozone);
+            };
+        };
+        $n.ontouchstart = (t) => {
+            $modalContent.querySelector(".modal").style["overflow"] = "hidden";
+            const $dragarea = t.target.parentNode;
+            const dragareaRect = $dragarea.getBoundingClientRect();
+            $n.ontouchmove = (m) => {
+                const rgb = Object.values(slide[current].color.namearea);
+                let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
+                per = per < 0 ? 0 : per > 100 ? 100 : per;
+                rgb[i] = Math.floor(per / 100 * 255);
+                setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+            };
+            $n.ontouchend = () => {
+                $modalContent.querySelector(".modal").style["overflow"] = "scroll";
+                $n.ontouchmove = null;
+                $n.ontouchend = null;
+                refreshThumbnail(current, $photozone);
+            };
+        };
+    });
+    Array.from($pickerNameInputs).forEach(($n, i) => {
+        $n.onchange = (c) => {
+            const rgb = Object.values(slide[current].color.namearea);
+            let v = parseInt(c.target.value);
+            v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
+            rgb[i] = v;
+            setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+        };
+    });
 
     $ver.innerText = `build ${LYRA.version}`;
     if (LYRA.watermark) {
