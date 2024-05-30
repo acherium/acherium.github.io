@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1086",
+        version: "1087",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -196,6 +196,7 @@
     let current = 0;
     let imageItemIdInt = 0;
     let flagMobileMenu = null;
+    let imageLayer = {};
     const areaRect = {
         x: 0,
         y: 0
@@ -494,8 +495,41 @@
         refreshThumbnail(current, $photozone);
     };
     const addImageItem = (d) => {
-        $imageList.append(d.nodes.lab);
-        $imageLayer.append(d.nodes.img);
+        const item = JSON.parse(JSON.stringify(d));
+        const $img = new Image();
+        $img.src = item.data;
+        $img.style["top"] = `${item.rect.x}px`;
+        $img.style["left"] = `${item.rect.y}px`;
+        $img.style["width"] = `${item.rect.width}px`;
+        $img.style["height"] = `${item.rect.height}px`;
+        $img.dataset.id = `${item.id}`;
+        $img.onclick = () => {
+            selectItem(item.id);
+        };
+        const $lab = document.createElement("div");
+        $lab.classList.add("image-item");
+        $lab.innerHTML += `<div class="thumb"><img src="${item.data}"></div>` +
+            `<p>${item.name}</p>` +
+            `<button class="remove"><div class="i i-deny"></div></button>`;
+        $lab.querySelector("button.remove").onclick = () => {
+            unselectItem();
+            $img.remove();
+            $lab.remove();
+            delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === item.id)];
+            slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
+        };
+        $lab.onclick = () => {
+            if (imageController.selected !== item.id) {
+                selectItem(item.id);
+            } else {
+                unselectItem();
+            };
+        };
+        item.lab = $lab;
+        item.img = $img;
+        imageLayer[item.id] = item;
+        $imageList.append($lab);
+        $imageLayer.append($img);
         refreshThumbnail(current, $photozone);
     };
     const addImageItemIterable = (x) => {
@@ -505,10 +539,10 @@
     };
     const selectItem = (i) => {
         Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
-        const t = slide[current].imageLayer.attachments.find((x) => x.id === i);
+        const t = imageLayer[i];
         if (!t) return;
         imageController.selected = i;
-        t.nodes.lab.classList.add("active-image-item");
+        t.lab.classList.add("active-image-item");
 
         setControllerPos(t.rect.x, t.rect.y);
         setControllerSize(0, 0, t.rect.width, t.rect.height);
@@ -524,8 +558,9 @@
         Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
     };
     const addImagePos = (n, x, y) => {
-        const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
-        const $img = d.nodes.img;
+        const d = imageLayer[n];
+        if (!d) return;
+        const $img = d.img;
         // if (d.rect.x + x > slide[current].area.width - d.rect.width + 400 || d.rect.x + x < -400) return;
         // if (d.rect.y + y > slide[current].area.height - d.rect.height + 400 || d.rect.y + y < -400) return;
         d.rect.x += x;
@@ -535,8 +570,9 @@
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === n)] = d;
     };
     const setImagePos = (n, x, y) => {
-        const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
-        const $img = d.nodes.img;
+        const d = imageLayer[n];
+        if (!d) return;
+        const $img = d.img;
         // if (x > slide[current].area.width - d.rect.width + 400 || x < -400) return;
         // if (y > slide[current].area.height - d.rect.height + 400 || y < -400) return;
         d.rect.x = x;
@@ -562,8 +598,9 @@
         $controller.style["left"] = `${x}px`;
     };
     const addImageSize = (n, x, y, w, h) => {
-        const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
-        const $img = d.nodes.img;
+        const d = imageLayer[n];
+        if (!d) return;
+        const $img = d.img;
         // if (d.rect.x + x + d.rect.width + w > slide[current].area.width + 400 || d.rect.x + x + d.rect.width + w < -400) return;
         // if (d.rect.y + y + d.rect.height + h > slide[current].area.height + 400 || d.rect.y + y + d.rect.height + h < -400) return;
         d.rect.width += w;
@@ -574,8 +611,9 @@
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === n)] = d;
     };
     const setImageSize = (n, x, y, w, h) => {
-        const d = slide[current].imageLayer.attachments.find((x) => x.id === n);
-        const $img = d.nodes.img;
+        const d = imageLayer[n];
+        if (!d) return;
+        const $img = d.img;
         addImagePos(n, x, y);
         d.rect.width = w;
         d.rect.height = h;
@@ -653,6 +691,7 @@
         toggleLocation(x.toggles.location);
         toggleContent(x.toggles.content);
         setBackground(x.imageLayer.background);
+        imageLayer = {};
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
         addImageItemIterable(x.imageLayer.attachments);
@@ -1155,9 +1194,11 @@
         $uploader.click();
     };
     $btnPhotoRemove.onclick = () => {
+        slide[current].imageLayer.background = "";
         $uploader.value = null;
         $bg.src = "";
         $prevBg.src = "";
+        refreshThumbnail(current, $photozone);
     };
 
     $btnOutput.onclick = () => {
@@ -1278,51 +1319,14 @@
                 reader.readAsDataURL(file);
                 reader.onload = (e) => {
                     const id = imageItemIdInt++;
-    
-                    const $div = document.createElement("div");
-    
                     const $img = new Image();
                     $img.src = reader.result;
-                    $img.style["top"] = "0px";
-                    $img.style["left"] = "0px";
-                    $img.dataset.id = `${id}`;
-                    $img.onclick = () => {
-                        selectItem(id);
-                    };
-    
-                    const $lab = document.createElement("div");
-                    $lab.classList.add("image-item");
-                    $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
-                        `<p>${file.name}</p>` +
-                        `<button class="remove"><div class="i i-deny"></div></button>`;
-                    $lab.querySelector("button.remove").onclick = () => {
-                        unselectItem();
-                        $div.remove();
-                        $img.remove();
-                        $lab.remove();
-                        delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
-                        slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
-                    };
-                    $lab.onclick = () => {
-                        if (imageController.selected !== id) {
-                            selectItem(id);
-                        } else {
-                            unselectItem();
-                        };
-                    };
-    
                     setTimeout(() => {
                         const d = {
                             id: id,
                             name: file.name,
                             visible: true,
                             data: reader.result,
-                            nodes: {
-                                main: $div,
-                                img: $img,
-                                chk: null,
-                                lab: $lab
-                            },
                             rect: {
                                 x: 0,
                                 y: 0,
@@ -1345,6 +1349,70 @@
                         slide[current].imageLayer.attachments.push(d);
                         addImageItem(d);
                     }, 30);
+    
+                    // const $img = new Image();
+                    // $img.src = reader.result;
+                    // $img.style["top"] = "0px";
+                    // $img.style["left"] = "0px";
+                    // $img.dataset.id = `${id}`;
+                    // $img.onclick = () => {
+                    //     selectItem(id);
+                    // };
+    
+                    // const $lab = document.createElement("div");
+                    // $lab.classList.add("image-item");
+                    // $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
+                    //     `<p>${file.name}</p>` +
+                    //     `<button class="remove"><div class="i i-deny"></div></button>`;
+                    // $lab.querySelector("button.remove").onclick = () => {
+                    //     unselectItem();
+                    //     $img.remove();
+                    //     $lab.remove();
+                    //     delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
+                    //     slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
+                    // };
+                    // $lab.onclick = () => {
+                    //     if (imageController.selected !== id) {
+                    //         selectItem(id);
+                    //     } else {
+                    //         unselectItem();
+                    //     };
+                    // };
+    
+                    // setTimeout(() => {
+                    //     const d = {
+                    //         id: id,
+                    //         name: file.name,
+                    //         visible: true,
+                    //         data: reader.result,
+                    //         nodes: {
+                    //             main: null,
+                    //             img: $img,
+                    //             chk: null,
+                    //             lab: $lab
+                    //         },
+                    //         rect: {
+                    //             x: 0,
+                    //             y: 0,
+                    //             width: $img.width,
+                    //             height: $img.height
+                    //         },
+                    //         rectOrigin: {
+                    //             x: 0,
+                    //             y: 0,
+                    //             width: parseInt($img.width),
+                    //             height: parseInt($img.height)
+                    //         },
+                    //         flip: {
+                    //             horizontal: false,
+                    //             vertical: false
+                    //         },
+                    //         rotate: 0,
+                    //         darker: false
+                    //     };
+                    //     slide[current].imageLayer.attachments.push(d);
+                    //     addImageItem(d);
+                    // }, 30);
                 };
             });
         };
