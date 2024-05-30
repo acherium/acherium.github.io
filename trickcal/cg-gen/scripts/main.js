@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1084",
+        version: "1085",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -708,6 +708,23 @@
             $n.value = Object.values(rgb)[i];
         });
     };
+    const showError = (t, c) => {
+        const $m = document.createElement("div");
+        $m.classList.add("modal-area");
+        $m.innerHTML = `<div class="modal wm600"><div class="scroll-box-inner>` +
+            `<div class="modal-title"><h1>${t}</h1></div>` +
+            `<p style="user-select: text;">${c}</p>` +
+            `<div class="flexlist-horizontal fjce wf"><button class="close"><div class="i i-accept"></div><p>확인</p></button></div>` +
+            `</div></div>`;
+        $m.querySelector("button.close").onclick = () => {
+            $m.remove();
+        };
+        document.body.append($m);
+    };
+
+    window.addEventListener("error", (e, s) => {
+        showError("Error", `${e.message}<br>${e.filename}@${e.lineno}:${e.colno}`);
+    });
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
