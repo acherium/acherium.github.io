@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1082",
+        version: "1083",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -152,31 +152,37 @@
         0: {
             src: "./assets/images/scriptbox-0.png",
             vignetting: false,
+            sokmaeum: false,
             color: "dark"
         },
         1: {
             src: "./assets/images/scriptbox-1.png",
             vignetting: false,
+            sokmaeum: true,
             color: "dark"
         },
         2: {
             src: "./assets/images/scriptbox-2.png",
             vignetting: true,
+            sokmaeum: false,
             color: "light"
         },
         3: {
             src: "./assets/images/scriptbox-3.png",
             vignetting: false,
+            sokmaeum: false,
             color: "dark"
         },
         4: {
             src: "./assets/images/scriptbox-4.png",
             vignetting: false,
+            sokmaeum: false,
             color: "dark"
         },
         5: {
             src: "./assets/images/scriptbox-5.png",
             vignetting: false,
+            sokmaeum: false,
             color: "dark"
         }
     };
@@ -254,6 +260,7 @@
     const $chkTglContent = $("#checkbox-toggle-content");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
+    const $sokmaeum = $("#photo-button-sokmaeum");
     const $selectBoxStyle = $("#content-box-style");
     const $photozone = $("#photo-zone");
     const $bg = $("#photo-bg");
@@ -420,11 +427,11 @@
         $content.classList.add(`script-content-font-${d.color}`);
         $box.src = d.src;
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
+        $sokmaeum.style["display"] = d.sokmaeum ? "block" : "none";
         $selectBoxStyle.querySelectorAll("option")[i].selected = true;
     };
     const setTitleName = (s) => {
         slide[current].strings.title.name = s;
-        console.log($titleName);
         $titleOutline.innerText = s;
         $titleName.innerText = s;
         $inputTitleName.value = s;
@@ -711,17 +718,17 @@
         if (!$chkKeyShortcut.checked) return;
         if (k.target !== document.body) return;
         if (k.keyCode === 49) {
-            // $btnBoxStyle[0].click();
+            setBoxStyle(0);
         } else if (k.keyCode === 50) {
-            // $btnBoxStyle[1].click();
+            setBoxStyle(1);
         } else if (k.keyCode === 51) {
-            // $btnBoxStyle[2].click();
+            setBoxStyle(2);
         } else if (k.keyCode === 52) {
-            // $btnBoxStyle[3].click();
+            setBoxStyle(3);
         } else if (k.keyCode === 53) {
-            // $btnBoxStyle[4].click();
+            setBoxStyle(4);
         } else if (k.keyCode === 54) {
-            // $btnBoxStyle[5].click();
+            setBoxStyle(5);
         } else if (k.keyCode === 65) {
             $modalContent.style["display"] = "flex";
             setTimeout(() => {
@@ -773,17 +780,17 @@
         duplicateSlide();
     };
 
-    $middle.onmousedown = (p) => {
+    $middle.onpointerdown = (p) => {
         if (p.target !== $middle) return;
         $middle.setPointerCapture(p.pointerId);
-        $middle.onmousemove = (m) => {
+        $middle.onpointermove = (m) => {
             setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);
         };
-        $middle.onmouseup = () => {
+        $middle.onpointerup = () => {
             $middle.releasePointerCapture(p.pointerId);
             $middle.setPointerCapture(p.pointerId);
-            $middle.onmousemove = null;
-            $middle.onmouseup = null;
+            $middle.onpointermove = null;
+            $middle.onpointerup = null;
         };
     };
     $middle.ontouchstart = (t) => {
@@ -805,11 +812,11 @@
         };
     };
 
-    $controller.onmousedown = (p) => {
+    $controller.onpointerdown = (p) => {
         if (p.target !== $controller) return;
         $controller.setPointerCapture(p.pointerId);
         let flag = true;
-        $controller.onmousemove = (m) => {
+        $controller.onpointermove = (m) => {
             flag = false;
             const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
             if (!d) return;
@@ -818,12 +825,12 @@
             setImagePos(d.id, d.rect.x, d.rect.y);
             setControllerPos(d.rect.x, d.rect.y);
         };
-        $controller.onmouseup = () => {
+        $controller.onpointerup = () => {
             if (flag) unselectItem();
             $controller.releasePointerCapture(p.pointerId);
             refreshThumbnail(current, $photozone);
-            $controller.onmousemove = null;
-            $controller.onmouseup = null;
+            $controller.onpointermove = null;
+            $controller.onpointerup = null;
         };
     };
     $controller.ontouchstart = (t) => {
@@ -851,9 +858,9 @@
         };
     };
     Array.from($resizePoints).forEach(($n, i) => {
-        $n.onmousedown = (p) => {
+        $n.onpointerdown = (p) => {
             $n.setPointerCapture(p.pointerId);
-            $n.onmousemove = (m) => {
+            $n.onpointermove = (m) => {
                 const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
                 if (!d) return;
                 const mx = m.movementX;
@@ -916,11 +923,11 @@
                     };
                 };
             };
-            $n.onmouseup = () => {
+            $n.onpointerup = () => {
                 $n.releasePointerCapture(p.pointerId);
                 refreshThumbnail(current, $photozone);
-                $n.onmousemove = null;
-                $n.onmouseup = null;
+                $n.onpointermove = null;
+                $n.onpointerup = null;
             };
         };
         $n.ontouchstart = (t) => {
@@ -1406,21 +1413,21 @@
     };
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
-        $n.onmousedown = (p) => {
+        $n.onpointerdown = (p) => {
             $n.setPointerCapture(p.pointerId);
             const $dragarea = p.target.parentNode;
             const dragareaRect = $dragarea.getBoundingClientRect();
-            $n.onmousemove = (m) => {
+            $n.onpointermove = (m) => {
                 const rgb = Object.values(slide[current].color.background);
                 let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
                 per = per < 0 ? 0 : per > 100 ? 100 : per;
                 rgb[i] = Math.floor(per / 100 * 255);
                 setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
             };
-            $n.onmouseup = () => {
+            $n.onpointerup = () => {
                 $n.releasePointerCapture(p.pointerId);
-                $n.onmousemove = null;
-                $n.onmouseup = null;
+                $n.onpointermove = null;
+                $n.onpointerup = null;
                 refreshThumbnail(current, $photozone);
             };
         };
@@ -1453,21 +1460,21 @@
         };
     });
     Array.from($pickerNamePointers).forEach(($n, i) => {
-        $n.onmousedown = (p) => {
+        $n.onpointerdown = (p) => {
             $n.setPointerCapture(p.pointerId);
             const $dragarea = p.target.parentNode;
             const dragareaRect = $dragarea.getBoundingClientRect();
-            $n.onmousemove = (m) => {
+            $n.onpointermove = (m) => {
                 const rgb = Object.values(slide[current].color.namearea);
                 let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
                 per = per < 0 ? 0 : per > 100 ? 100 : per;
                 rgb[i] = Math.floor(per / 100 * 255);
                 setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
             };
-            $n.onmouseup = () => {
+            $n.onpointerup = () => {
                 $n.releasePointerCapture(p.pointerId);
-                $n.onmousemove = null;
-                $n.onmouseup = null;
+                $n.onpointermove = null;
+                $n.onpointerup = null;
                 refreshThumbnail(current, $photozone);
             };
         };
