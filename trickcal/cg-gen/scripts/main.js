@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1088",
+        version: "1089",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -506,17 +506,22 @@
         $img.onclick = () => {
             selectItem(item.id);
         };
+        $img.style["transform"] = `${item.flip.horizontal ? "scaleX(-1)" : ""}${item.flip.vertical ? "scaleY(-1)" : ""}`;
+        if (item.darker) {
+            $img.classList.add("image-item-darker");
+        };
         const $lab = document.createElement("div");
         $lab.classList.add("image-item");
         $lab.innerHTML += `<div class="thumb"><img src="${item.data}"></div>` +
             `<p>${item.name}</p>` +
             `<button class="remove"><div class="i i-deny"></div></button>`;
         $lab.querySelector("button.remove").onclick = () => {
-            unselectItem();
             $img.remove();
             $lab.remove();
+            delete imageLayer[imageController.selected];
             delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === item.id)];
             slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
+            unselectItem();
         };
         $lab.onclick = () => {
             if (imageController.selected !== item.id) {
@@ -1065,17 +1070,20 @@
         };
     });
     $btnBottommost.onclick = () => {
-        const $img = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.img;
+        const d = imageLayer[imageController.selected];
+        const $img = d.img;
         $imageLayer.insertAdjacentElement("afterbegin", $img);
     };
     $btnBottom.onclick = () => {
-        const $img = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.img;
+        const d = imageLayer[imageController.selected];
+        const $img = d.img;
         const $target = $img.previousSibling;
         if (!$target) return;
         $imageLayer.insertBefore($img, $target);
     };
     $btnFront.onclick = () => {
-        const $img = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.img;
+        const d = imageLayer[imageController.selected];
+        const $img = d.img;
         const $target1 = $img.nextSibling;
         const $target2 = $target1?.nextSibling;
         if ($target1 && !$target2) {
@@ -1085,19 +1093,22 @@
         };
     };
     $btnFrontmost.onclick = () => {
-        const $img = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.img;
+        const d = imageLayer[imageController.selected];
+        const $img = d.img;
         $imageLayer.insertAdjacentElement("beforeend", $img);
     };
     $btnFlipHorizontal.onclick = () => {
-        const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
-        const $img = d.nodes.img;
+        const d = imageLayer[imageController.selected];
+        const $img = d.img;
         d.flip.horizontal = !d.flip.horizontal;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
+        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)] = d;
+        
+        // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
         $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
     };
     $btnFlipVertical.onclick = () => {
-        const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
-        const $img = d.nodes.img;
+        const d = imageLayer[imageController.selected];
+        const $img = d.img;
         d.flip.vertical = !d.flip.vertical;
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
         $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
@@ -1105,9 +1116,11 @@
     $chkTglDarkder.onchange = (c) => {
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].darker = c.target.checked;
         if (c.target.checked) {
-            slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.add("image-item-darker");
+            imageLayer[imageController.selected].img.classList.add("image-item-darker");
+            // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.add("image-item-darker");
         } else {
-            slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.remove("image-item-darker");
+            imageLayer[imageController.selected].img.classList.remove("image-item-darker");
+            // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.remove("image-item-darker");
         };
     };
     $btnControllerReset.onclick = () => {
@@ -1118,7 +1131,8 @@
         setControllerSize(0, 0, rect.width, rect.height);
     };
     $btnControllerRemove.onclick = () => {
-        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.lab.querySelector("button.remove").click();
+        imageLayer[imageController.selected].lab.querySelector("button.remove").click();
+        // slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.lab.querySelector("button.remove").click();
     };
     $btnControllerUnselect.onclick = () => {
         unselectItem();
@@ -1344,7 +1358,8 @@
                                 vertical: false
                             },
                             rotate: 0,
-                            darker: false
+                            darker: false,
+                            sort: 0
                         };
                         slide[current].imageLayer.attachments.push(d);
                         addImageItem(d);
