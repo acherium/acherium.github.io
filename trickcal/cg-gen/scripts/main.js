@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1083",
+        version: "1084",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -150,37 +150,37 @@
     };
     const BOXES = {
         0: {
-            src: "./assets/images/scriptbox-0.png",
+            src: "./assets/images/scriptbox-0.svg",
             vignetting: false,
             sokmaeum: false,
             color: "dark"
         },
         1: {
-            src: "./assets/images/scriptbox-1.png",
+            src: "./assets/images/scriptbox-1.svg",
             vignetting: false,
             sokmaeum: true,
             color: "dark"
         },
         2: {
-            src: "./assets/images/scriptbox-2.png",
+            src: "./assets/images/scriptbox-2.svg",
             vignetting: true,
             sokmaeum: false,
             color: "light"
         },
         3: {
-            src: "./assets/images/scriptbox-3.png",
+            src: "./assets/images/scriptbox-3.svg",
             vignetting: false,
             sokmaeum: false,
             color: "dark"
         },
         4: {
-            src: "./assets/images/scriptbox-4.png",
+            src: "./assets/images/scriptbox-4.svg",
             vignetting: false,
             sokmaeum: false,
             color: "dark"
         },
         5: {
-            src: "./assets/images/scriptbox-5.png",
+            src: "./assets/images/scriptbox-5.svg",
             vignetting: false,
             sokmaeum: false,
             color: "dark"
