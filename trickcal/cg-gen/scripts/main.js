@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1080",
+        version: "1081",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -14,7 +14,7 @@
     const WIDTHMAX = 2000;
     const HEIGHTMAX = 2000;
     const DATATEMPLATE = {
-        version: 2,
+        version: 3,
         strings: {
             name: "버터",
             content: "나오라고.",
@@ -23,7 +23,12 @@
                 "선택 1",
                 "선택 2",
                 "선택 3"
-            ]
+            ],
+            location: "대충 망한 요정 마을",
+            title: {
+                name: "에피소드 1",
+                content: "에피소드 제목"
+            }
         },
         area: {
             width: 1280,
@@ -48,6 +53,8 @@
             }
         },
         toggles: {
+            title: false,
+            location: false,
             namearea: true,
             select: false,
             photoButtons: true,
@@ -224,6 +231,17 @@
     const $modalName = $("#modal-name");
     const $modalNameBtnClose = $("#modal-name button.close");
     const $btnName = $("#photo-script-box-namebox > span:last-child");
+    const $titleArea = $("#photo-title-box-area");
+    const $title = $("#photo-title > span");
+    const $titleOutline = $("#photo-title-box-namearea > span:nth-child(1)");
+    const $titleName = $("#photo-title-box-namearea > span:nth-child(2)");
+    const $inputTitleName = $("#input-title-name");
+    const $inputTitle = $("#input-title-content");
+    const $chkTglTitle = $("#checkbox-toggle-title");
+    const $locArea = $("#photo-location-box-area");
+    const $loc = $("#photo-location");
+    const $inputLoc = $("#input-location");
+    const $chkTglLoc = $("#checkbox-toggle-location");
     const $contentArea = $("#photo-script-box-area");
     const $content = $("#script-content");
     const $contentBox = $("#photo-script-box-backdrop");
@@ -402,6 +420,23 @@
         $vignetting.style["display"] = d.vignetting ? "block" : "none";
         $selectBoxStyle.querySelectorAll("option")[i].selected = true;
     };
+    const setTitleName = (s) => {
+        slide[current].strings.title.name = s;
+        console.log($titleName);
+        $titleOutline.innerText = s;
+        $titleName.innerText = s;
+        $inputTitleName.value = s;
+    };
+    const setTitle = (s) => {
+        slide[current].strings.title.content = s;
+        $title.innerText = s;
+        $inputTitle.value =s;
+    };
+    const setLocation = (s) => {
+        slide[current].strings.location = s;
+        $loc.innerText = s;
+        $inputLoc.value = s;
+    };
     const toggleNamearea = (b) => {
         slide[current].toggles.namearea = b;
         $chkTglName.checked = b;
@@ -427,6 +462,16 @@
         } else {
             $contentArea.classList.remove("content-box-center");
         };
+    };
+    const toggleTitle = (b) => {
+        slide[current].toggles.title = b;
+        $chkTglTitle.checked = b;
+        $titleArea.style["display"] = b ? "flex" : "none";
+    };
+    const toggleLocation = (b) => {
+        slide[current].toggles.location = b;
+        $chkTglLoc.checked = b;
+        $locArea.style["display"] = b ? "flex" : "none";
     };
     const setBackground = (f) => {
         slide[current].imageLayer.background = f;
@@ -583,10 +628,15 @@
         setNameColorRGB(x.color.namearea);
         setContent(x.strings.content);
         setBoxStyle(x.values.style);
+        setTitleName(x.strings.title.name);
+        setTitle(x.strings.title.content);
+        setLocation(x.strings.location);
         toggleNamearea(x.toggles.namearea);
         toggleSelectBox(x.toggles.select);
         togglePhotoButtons(x.toggles.photoButtons);
         toggleContentBoxCenter(x.toggles.boxCenter);
+        toggleTitle(x.toggles.title);
+        toggleLocation(x.toggles.location);
         setBackground(x.imageLayer.background);
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
@@ -1093,6 +1143,32 @@
         });
     };
 
+    $chkTglTitle.onchange = (c) => {
+        toggleTitle(c.target.checked);
+        refreshThumbnail(current, $photozone);
+    };
+    $inputTitleName.oninput = (c) => {
+        setTitleName(c.target.value);
+    };
+    $inputTitleName.onchange = () => {
+        refreshThumbnail(current, $photozone);
+    };
+    $inputTitle.oninput = (c) => {
+        setTitle(c.target.value);
+    };
+    $inputTitle.onchange = () => {
+        refreshThumbnail(current, $photozone);
+    };
+    $inputLoc.oninput = (c) => {
+        setLocation(c.target.value);
+    };
+    $inputLoc.onchange = () => {
+        refreshThumbnail(current, $photozone);
+    };
+    $chkTglLoc.onchange = (c) => {
+        toggleLocation(c.target.checked);
+        refreshThumbnail(current, $photozone);
+    };
     $chkPhotoBtn.onchange = (c) => {
         togglePhotoButtons(c.target.checked);
         refreshThumbnail(current, $photozone);

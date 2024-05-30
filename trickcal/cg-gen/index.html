@@ -96,8 +96,8 @@
                         <div id="photo-script-box-namearea">
                             <div id="photo-script-box-name-backdrop"></div>
                             <div id="photo-script-box-namebox">
-                                <span></span>
-                                <span></span>
+                                <span>Lorem ipsum dolor sit amet.</span>
+                                <span>Lorem ipsum dolor sit amet.</span>
                             </div>
                         </div>
                         <span id="script-content">Lorem ipsum dolor sit amet.</span>
@@ -117,6 +117,23 @@
                                 <p></p>
                             </div>
                         </div>
+                    </div>
+                    <div id="photo-title-box-area">
+                        <img src="./assets/images/titlebox.png" id="photo-title-box-backdrop">
+                        <p id="photo-title">
+                            <img src="./assets/images/star.svg">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </p>
+                        <div id="photo-title-box-namearea">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </div>
+                    <div id="photo-location-box-area">
+                        <img src="./assets/images/leaf.png" alt="">
+                        <p id="photo-location">
+                            Loream ipsum dolor sit amet.
+                        </p>
                     </div>
                 </div>
                 <div id="photo-item-controller-area" data-html2canvas-ignore="true">
@@ -425,8 +442,7 @@
                 <select id="select-bg-fit" class="wf">
                     <option value="fit-height">슬라이드 높이에 맞춤</option>
                     <option value="fit-width">슬라이드 폭에 맞춤</option>
-                    <option value="stretch-height">슬라이드 높이에 맞춰 늘림</option>
-                    <option value="stretch-height">슬라이드 폭에 맞춰 늘림</option>
+                    <option value="stretch-height">슬라이드에 맞춰 늘이기</option>
                     <option value="fill">슬라이드 채움</option>
                 </select>
                 <div class="flexlist-horizontal fjce wf">
@@ -439,15 +455,41 @@
         </div>
     </div>
     <div id="modal-config-indicators" class="modal-area" style="display: none;">
-        <div class="modal">
+        <div class="modal wm600">
             <div class="scroll-box-inner">
                 <div class="modal-title">
                     <div class="il i-config"></div>
                     <h1>기타 요소 설정</h1>
                 </div>
+                <div class="partition-horizontal"></div>
+                <h4>타이틀 표시기</h4>
+                <div class="flexlist-horizontal wf">
+                    <p>제목</p>
+                    <input type="text" id="input-title-name" class="f1">
+                </div>
+                <div class="flexlist-horizontal wf">
+                    <p>내용</p>
+                    <input type="text" id="input-title-content" class="f1">
+                </div>
+                <input type="checkbox" id="checkbox-toggle-title">
+                <label for="checkbox-toggle-title" id="toggle-title">
+                    <p>표시</p>
+                </label>
+                <div class="partition-horizontal"></div>
+                <h4>위치 표시기</h4>
+                <div class="flexlist-horizontal wf">
+                    <p>이름</p>
+                    <input type="text" id="input-location" class="f1">
+                </div>
+                <input type="checkbox" id="checkbox-toggle-location">
+                <label for="checkbox-toggle-location" id="toggle-location">
+                    <p>표시</p>
+                </label>
+                <div class="partition-horizontal"></div>
+                <h4>조작기 표시기</h4>
                 <input type="checkbox" id="checkbox-toggle-photo-button">
-                <label for="checkbox-toggle-photo-button" id="toggle-photo-button" class="wf">
-                    <p>조작기 표시</p>
+                <label for="checkbox-toggle-photo-button" id="toggle-photo-button">
+                    <p>표시</p>
                 </label>
                 <div class="flexlist-horizontal fjce wf">
                     <button class="close">
