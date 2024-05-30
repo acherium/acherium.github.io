@@ -26,8 +26,8 @@
      showgrid="true"
      inkscape:lockguides="false"
      inkscape:zoom="32"
-     inkscape:cx="9.90625"
-     inkscape:cy="10.484375"
+     inkscape:cx="9.921875"
+     inkscape:cy="10.453125"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -58,20 +58,20 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.00707107"
        id="rect101"
        width="0.2"
-       height="0.02"
+       height="0.0099999961"
        x="0.041421358"
-       y="-0.0099999979"
+       y="-0.0050000018"
        transform="rotate(45)" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect102"
-       width="0.02"
-       height="0.2"
-       x="0.13142136"
-       y="-0.1"
-       transform="rotate(45)" />
+       style="fill:#000000;fill-opacity:1;stroke-width:0.00707107"
+       id="rect101-0"
+       width="0.2"
+       height="0.0099999961"
+       x="-0.1"
+       y="0.13642135"
+       transform="rotate(-45)" />
   </g>
 </svg>

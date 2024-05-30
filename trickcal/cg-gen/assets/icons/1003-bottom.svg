@@ -26,8 +26,8 @@
      showgrid="true"
      inkscape:lockguides="false"
      inkscape:zoom="32"
-     inkscape:cx="9.90625"
-     inkscape:cy="12.984375"
+     inkscape:cx="9.921875"
+     inkscape:cy="12.953125"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -58,17 +58,17 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect102"
+       style="fill:#000000;stroke-width:0.01"
+       id="rect1"
        width="0.2"
-       height="0.02"
+       height="0.0099999998"
        x="0"
-       y="-0.2"
+       y="-0.19999999"
        transform="scale(1,-1)" />
     <path
-       id="rect6"
+       id="rect5"
        style="fill:#000000;stroke-width:0.01"
-       d="m 0.10999999,0 v 0.14171881 l 0.0465625,-0.0465625 0.0141406,0.0141406 L 0.11414059,0.1658594 0.09999996,0.18 0.08585936,0.1658594 0.02929686,0.1092969 0.04343746,0.0951563 0.08999996,0.1417188 V 0 Z"
+       d="M 0.10500002,-1.2814999e-8 0.105,0.17085999 l 0.0657031,-0.0657031 0.00707,0.00707 -0.0707031,0.0707031 -0.00707,0.00707 -0.00707,-0.00707 -0.0707031,-0.0707031 0.00707,-0.00707 0.06570309,0.0657028 L 0.095,0 Z"
        sodipodi:nodetypes="cccccccccccc" />
   </g>
 </svg>

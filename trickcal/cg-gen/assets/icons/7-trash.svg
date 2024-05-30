@@ -26,8 +26,8 @@
      showgrid="true"
      inkscape:lockguides="false"
      inkscape:zoom="32"
-     inkscape:cx="9.90625"
-     inkscape:cy="10.484375"
+     inkscape:cx="9.921875"
+     inkscape:cy="11.109375"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -58,60 +58,41 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.0113389"
-       id="rect94"
-       width="0.18000001"
-       height="0.02"
-       x="0.0099999942"
-       y="0.0099999998" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect95"
+       style="fill:#000000;stroke-width:0.01"
+       id="rect10"
        width="0.039999999"
-       height="0.02"
+       height="0.0099999998"
        x="0.079999998"
        y="0" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect96"
-       width="0.02"
-       height="0.12"
-       x="0.090000004"
-       y="0.049999997" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect97"
-       width="0.02"
-       height="0.12"
-       x="0.12"
-       y="0.049999997" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect98"
-       width="0.02"
-       height="0.12"
-       x="0.059999999"
-       y="0.049999997" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.010328"
-       id="rect99"
-       width="0.02"
-       height="0.16000001"
-       x="0.029999999"
-       y="0.039999999" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.010328"
-       id="rect100"
-       width="0.02"
-       height="0.16000001"
-       x="0.15000001"
-       y="0.039999999" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
-       id="rect101"
+       style="fill:#000000;stroke-width:0.0108012"
+       id="rect11"
        width="0.14"
-       height="0.02"
+       height="0.0099999998"
        x="0.029999999"
-       y="0.18000001" />
+       y="0.0099999998" />
+    <rect
+       style="fill:#000000;stroke-width:0.0100086"
+       id="rect13"
+       width="0.0099999998"
+       height="0.17029387"
+       x="0.038235292"
+       y="0.030051857"
+       transform="matrix(1,0,0.05872201,0.99827437,0,0)" />
+    <rect
+       style="fill:#000000;stroke-width:0.0100086"
+       id="rect13-2"
+       width="0.0099999998"
+       height="0.17029387"
+       x="-0.1617647"
+       y="0.030051857"
+       transform="matrix(-1,0,-0.05872201,0.99827437,0,0)" />
+    <rect
+       style="fill:#000000;stroke-width:0.01"
+       id="rect14"
+       width="0.1"
+       height="0.0099999998"
+       x="0.050000001"
+       y="0.19" />
   </g>
 </svg>

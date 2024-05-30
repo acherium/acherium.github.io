@@ -26,7 +26,7 @@
      showgrid="true"
      inkscape:lockguides="false"
      inkscape:zoom="32.776423"
-     inkscape:cx="8.6342552"
+     inkscape:cx="8.64951"
      inkscape:cy="10.297036"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
@@ -57,13 +57,30 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <path
+    <rect
+       style="fill:#000000;stroke-width:0.01"
        id="rect1"
+       width="0.2"
+       height="0.0099999998"
+       x="0"
+       y="0.19" />
+    <rect
        style="fill:#000000;stroke-width:0.01"
-       d="M 0 0.13 L 0 0.2 L 0.02 0.2 L 0.18 0.2 L 0.2 0.2 L 0.2 0.18 L 0.2 0.13 L 0.18 0.13 L 0.18 0.18 L 0.02 0.18 L 0.02 0.13 L 0 0.13 z " />
+       id="rect2"
+       width="0.0099999998"
+       height="0.07"
+       x="0"
+       y="0.13" />
+    <rect
+       style="fill:#000000;stroke-width:0.01"
+       id="rect3"
+       width="0.010000007"
+       height="0.070000008"
+       x="0.19"
+       y="0.13" />
     <path
-       id="rect6"
+       id="rect5"
        style="fill:#000000;stroke-width:0.01"
-       d="M 0.09 0 L 0.09 0.11171875 L 0.0434375 0.06515625 L 0.029296875 0.079296875 L 0.085859375 0.13585938 L 0.1 0.15 L 0.11414062 0.13585938 L 0.17070313 0.079296875 L 0.1565625 0.06515625 L 0.11 0.11171875 L 0.11 0 L 0.09 0 z " />
+       d="M 0.095 0 L 0.095 0.15085937 L 0.029296875 0.08515625 L 0.022226563 0.092226562 L 0.092929687 0.16292969 L 0.1 0.17 L 0.10707031 0.16292969 L 0.17777344 0.092226562 L 0.17070313 0.08515625 L 0.105 0.15085937 L 0.105 0 L 0.095 0 z " />
   </g>
 </svg>

@@ -26,8 +26,8 @@
      showgrid="true"
      inkscape:lockguides="false"
      inkscape:zoom="32"
-     inkscape:cx="9.90625"
-     inkscape:cy="9.609375"
+     inkscape:cx="9.921875"
+     inkscape:cy="9.578125"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -70,25 +70,25 @@
        d="M 0,0.14 V 0.2 L 0.04,0.17 0,0.14"
        id="path82" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.00707107"
        id="rect84"
        width="0.14"
-       height="0.02"
-       x="0.059999999"
-       y="0.02" />
+       height="0.0099999998"
+       x="0.059999991"
+       y="0.024999999" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.00707107"
        id="rect85"
        width="0.14"
-       height="0.02"
-       x="0.059999999"
-       y="0.090000004" />
+       height="0.0099999961"
+       x="0.059999991"
+       y="0.094999999" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke-width:0.01"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.00707107"
        id="rect86"
        width="0.14"
-       height="0.02"
-       x="0.059999999"
-       y="0.16" />
+       height="0.010000002"
+       x="0.059999991"
+       y="0.16499999" />
   </g>
 </svg>
