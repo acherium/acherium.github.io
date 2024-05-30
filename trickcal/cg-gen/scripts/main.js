@@ -3,7 +3,7 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1087",
+        version: "1088",
         date: "24-05-30",
         watermark: false,
         isBeta: true
@@ -498,8 +498,8 @@
         const item = JSON.parse(JSON.stringify(d));
         const $img = new Image();
         $img.src = item.data;
-        $img.style["top"] = `${item.rect.x}px`;
-        $img.style["left"] = `${item.rect.y}px`;
+        $img.style["top"] = `${item.rect.y}px`;
+        $img.style["left"] = `${item.rect.x}px`;
         $img.style["width"] = `${item.rect.width}px`;
         $img.style["height"] = `${item.rect.height}px`;
         $img.dataset.id = `${item.id}`;
