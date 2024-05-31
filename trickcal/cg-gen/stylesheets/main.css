@@ -987,16 +987,16 @@ input[type=checkbox] {
     width: 150px;
     height: 150px;
 
-    border: solid 3px red;
+    border: solid 3px var(--c-lyra);
     border-radius: var(--v-radius-small);
-    background-color: red;
+    background-color: var(--c-lyra);
 }
 .colorpicker-preview-value {
     padding: 0 4px;
 
     width: 100%;
 
-    background-color: var(--c-white);
+    background-color: var(--c-main);
 }
 .colorpicker-area > .right {
     display: grid;
@@ -1048,7 +1048,7 @@ input[type=checkbox] {
     height: 100%;
 
     border: solid 2px var(--c-border);
-    background-color: var(--c-white);
+    background-color: var(--c-main);
     cursor: ew-resize;
 }
 .colorpicker-pointer:active {

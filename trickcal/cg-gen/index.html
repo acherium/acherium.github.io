@@ -25,7 +25,7 @@
             <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1>
             <!-- <span id="ver"></span> -->
         </div>
-        <div class="m-hide">
+        <div class="m-hide flexlist-horizontal">
             <input type="checkbox" id="checkbox-toggle-shortcut">
             <label for="checkbox-toggle-shortcut" id="toggle-shortcut">
                 <p>단축키 사용</p>
@@ -449,7 +449,8 @@
                 <select id="select-bg-fit" class="wf">
                     <option value="fit-height">슬라이드 높이에 맞춤</option>
                     <option value="fit-width">슬라이드 폭에 맞춤</option>
-                    <option value="stretch-height">슬라이드에 맞춰 늘이기</option>
+                    <!-- <option value="stretch-height">슬라이드 높이에 맞춰 늘림</option>
+                    <option value="stretch-width">슬라이드 폭에 맞춰 늘림</option> -->
                     <option value="fill">슬라이드 채움</option>
                 </select>
                 <div class="flexlist-horizontal fjce wf">
@@ -472,11 +473,11 @@
                 <h4>타이틀 표시기</h4>
                 <div class="flexlist-horizontal wf">
                     <p>제목</p>
-                    <input type="text" id="input-title-name" class="f1">
+                    <input type="text" id="input-title-name" class="f1 wf">
                 </div>
                 <div class="flexlist-horizontal wf">
                     <p>내용</p>
-                    <input type="text" id="input-title-content" class="f1">
+                    <input type="text" id="input-title-content" class="f1 wf">
                 </div>
                 <input type="checkbox" id="checkbox-toggle-title">
                 <label for="checkbox-toggle-title" id="toggle-title">
@@ -486,7 +487,7 @@
                 <h4>위치 표시기</h4>
                 <div class="flexlist-horizontal wf">
                     <p>이름</p>
-                    <input type="text" id="input-location" class="f1">
+                    <input type="text" id="input-location" class="f1 wf">
                 </div>
                 <input type="checkbox" id="checkbox-toggle-location">
                 <label for="checkbox-toggle-location" id="toggle-location">
