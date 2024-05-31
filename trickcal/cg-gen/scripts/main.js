@@ -3,8 +3,8 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1089",
-        date: "24-05-30",
+        version: "1090",
+        date: "24-05-31",
         watermark: false,
         isBeta: true
     };
@@ -215,6 +215,7 @@
         y: 0
     };
 
+    const $logo = $("#logo-area");
     const $ver = $("#ver");
     const $main = $("main");
     const $left = $("#left");
@@ -514,7 +515,7 @@
         $lab.classList.add("image-item");
         $lab.innerHTML += `<div class="thumb"><img src="${item.data}"></div>` +
             `<p>${item.name}</p>` +
-            `<button class="remove"><div class="i i-deny"></div></button>`;
+            `<button class="remove"><div class="i i-trash"></div></button>`;
         $lab.querySelector("button.remove").onclick = () => {
             $img.remove();
             $lab.remove();
@@ -752,7 +753,7 @@
             $n.value = Object.values(rgb)[i];
         });
     };
-    const showError = (t, c) => {
+    const showModal = (t, c) => {
         const $m = document.createElement("div");
         $m.classList.add("modal-area");
         $m.innerHTML = `<div class="modal wm600"><div class="scroll-box-inner>` +
@@ -767,7 +768,7 @@
     };
 
     window.addEventListener("error", (e, s) => {
-        showError("Error", `${e.message}<br>${e.filename}@${e.lineno}:${e.colno}`);
+        showModal("Error", `${e.message}<br>${e.filename}@${e.lineno}:${e.colno}`);
     });
 
     document.addEventListener("keydown", (k) => {
@@ -1359,75 +1360,11 @@
                             },
                             rotate: 0,
                             darker: false,
-                            sort: 0
+                            sort: null
                         };
                         slide[current].imageLayer.attachments.push(d);
                         addImageItem(d);
                     }, 30);
-    
-                    // const $img = new Image();
-                    // $img.src = reader.result;
-                    // $img.style["top"] = "0px";
-                    // $img.style["left"] = "0px";
-                    // $img.dataset.id = `${id}`;
-                    // $img.onclick = () => {
-                    //     selectItem(id);
-                    // };
-    
-                    // const $lab = document.createElement("div");
-                    // $lab.classList.add("image-item");
-                    // $lab.innerHTML += `<div class="thumb"><img src="${reader.result}"></div>` +
-                    //     `<p>${file.name}</p>` +
-                    //     `<button class="remove"><div class="i i-deny"></div></button>`;
-                    // $lab.querySelector("button.remove").onclick = () => {
-                    //     unselectItem();
-                    //     $img.remove();
-                    //     $lab.remove();
-                    //     delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === id)];
-                    //     slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
-                    // };
-                    // $lab.onclick = () => {
-                    //     if (imageController.selected !== id) {
-                    //         selectItem(id);
-                    //     } else {
-                    //         unselectItem();
-                    //     };
-                    // };
-    
-                    // setTimeout(() => {
-                    //     const d = {
-                    //         id: id,
-                    //         name: file.name,
-                    //         visible: true,
-                    //         data: reader.result,
-                    //         nodes: {
-                    //             main: null,
-                    //             img: $img,
-                    //             chk: null,
-                    //             lab: $lab
-                    //         },
-                    //         rect: {
-                    //             x: 0,
-                    //             y: 0,
-                    //             width: $img.width,
-                    //             height: $img.height
-                    //         },
-                    //         rectOrigin: {
-                    //             x: 0,
-                    //             y: 0,
-                    //             width: parseInt($img.width),
-                    //             height: parseInt($img.height)
-                    //         },
-                    //         flip: {
-                    //             horizontal: false,
-                    //             vertical: false
-                    //         },
-                    //         rotate: 0,
-                    //         darker: false
-                    //     };
-                    //     slide[current].imageLayer.attachments.push(d);
-                    //     addImageItem(d);
-                    // }, 30);
                 };
             });
         };
@@ -1607,12 +1544,14 @@
         };
     });
 
-    $ver.innerText = `build ${LYRA.version}`;
+    // $ver.innerText = `build ${LYRA.version}`;
     if (LYRA.watermark) {
         $wm = document.createElement("div");
         $wm.id = "watermark";
         $wm.innerText = `Build ${LYRA.version}@${LYRA.date}\n${LYRA.isBeta ? "테스트용 빌드입니다" : ""}`;
         document.body.append($wm);
     };
-    
+    $logo.onclick = () => {
+        showModal("정보", `${LYRA.name}<br>Build ${LYRA.version}@${LYRA.date}`)
+    };
 })();
