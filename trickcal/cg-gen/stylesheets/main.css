@@ -360,7 +360,7 @@ input[type=checkbox] {
     bottom: 0;
     z-index: 5;
 
-    width: 100%;
+    width: 1000px;
     height: 224px;
     pointer-events: none;
 }
@@ -1068,7 +1068,7 @@ input[type=checkbox] {
     justify-content: center;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 101;
 
     width: 100vw;
     height: 100vh;

@@ -3,8 +3,8 @@
         name: "Trickcal CG Scene Generator",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1092",
-        date: "24-06-01",
+        version: "1093",
+        date: "24-06-03",
         watermark: false,
         isBeta: true
     };
@@ -284,6 +284,7 @@
     const $btnPhotoSet = $("#button-set-bg");
     const $btnPhotoRemove = $("#button-remove-bg");
     const $btnOutput = $("#button-download");
+    const $btnOutputContent = $("#button-download-scriptbox");
     const $photoBtn = $("#photo-button-area");
     const $chkPhotoBtn = $("#checkbox-toggle-photo-button");
     const $chkKeyShortcut = $("#checkbox-toggle-shortcut");
@@ -1218,6 +1219,20 @@
     $btnOutput.onclick = () => {
         $alertDownload.style["display"] = "flex";
         html2canvas($photozone, { logging: false }).then((c) => {
+            const l = document.createElement("a");
+            const d = Date.now();
+            const filename = `TCAG-${d}.png`;
+            document.body.append(l);
+            l.href = c.toDataURL("image/png");
+            l.download = filename;
+            l.click();
+            l.remove();
+            $alertDownload.style["display"] = "none";
+        });
+    };
+    $btnOutputContent.onclick = () => {
+        $alertDownload.style["display"] = "flex";
+        html2canvas($contentArea, { scale: 2, backgroundColor: null, logging: false }).then((c) => {
             const l = document.createElement("a");
             const d = Date.now();
             const filename = `TCAG-${d}.png`;
