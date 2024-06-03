@@ -64,14 +64,14 @@ body {
     height: 40px;
     line-height: 40px;
 }
-#ver {
+/* #ver {
     padding: 3px;
 
     font-size: 8pt;
     color: var(--c-white);
     border-radius: var(--v-radius-small);
     background-color: var(--c-lyra);
-}
+} */
 
 #bottom {
     display: flex;
@@ -797,6 +797,9 @@ input[type=checkbox] {
     max-width: 100%;
 
     word-break: break-all;
+}
+.modal > img {
+    max-width: 100%;
 }
 
 .modal-title {

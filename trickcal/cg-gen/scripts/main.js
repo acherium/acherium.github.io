@@ -1,9 +1,9 @@
 (() => {
     const LYRA = {
-        name: "Trickcal CG Scene Generator",
+        name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1093",
+        version: "1094",
         date: "24-06-03",
         watermark: false,
         isBeta: true
@@ -217,6 +217,8 @@
 
     const $logo = $("#logo-area");
     const $ver = $("#ver");
+    const $modalVer = $("#modal-about");
+    const $modalVerBtnClose = $("#modal-about button.close");
     const $main = $("main");
     const $left = $("#left");
     const $middle = $("#middle");
@@ -1558,14 +1560,11 @@
         };
     });
 
-    // $ver.innerText = `build ${LYRA.version}`;
-    if (LYRA.watermark) {
-        $wm = document.createElement("div");
-        $wm.id = "watermark";
-        $wm.innerText = `Build ${LYRA.version}@${LYRA.date}\n${LYRA.isBeta ? "테스트용 빌드입니다" : ""}`;
-        document.body.append($wm);
-    };
+    $ver.innerText = `${LYRA.name}\nBuild ${LYRA.version}@${LYRA.date}`;
     $logo.onclick = () => {
-        showModal("정보", `${LYRA.name}<br>Build ${LYRA.version}@${LYRA.date}`)
+        $modalVer.style["display"] = "flex";
+    };
+    $modalVerBtnClose.onclick = () => {
+        $modalVer.style["display"] = "none";
     };
 })();
