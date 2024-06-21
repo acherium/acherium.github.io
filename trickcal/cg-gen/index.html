@@ -11,6 +11,7 @@
     <meta property="og:url" content="https://acherium.github.io/trickcal/cg-gen/">
 
     <link rel="stylesheet" href="./stylesheets/palette-combined.css" id="palette">
+    <link rel="stylesheet" href="./stylesheets/lyra-icons.css">
     <link rel="stylesheet" href="./stylesheets/reset.css">
     <link rel="stylesheet" href="./stylesheets/main.css">
 
@@ -45,11 +46,11 @@
             <div class="scroll-box-inner">
                 <h4>이미지로 출력</h4>
                 <div class="flexlist-horizontal wf">
-                    <button id="button-download" class=wf>
-                        <div class="i i-download"></div>
+                    <button id="button-download" class="wf">
+                        <div class="i i-slide"></div>
                         <p>현재</p>
                     </button>
-                    <button id="button-download-all" class=wf>
+                    <button id="button-download-all" class="wf">
                         <div class="i i-download"></div>
                         <p>전체</p>
                     </button>
@@ -65,11 +66,11 @@
                 </button>
                 <div class="flexlist-horizontal wf">
                     <button id="button-add-slide" class="wf">
-                        <div class="i i-slide-create"></div>
+                        <div class="i i-create-slide"></div>
                         <p>추가</p>
                     </button>
                     <button id="button-duplicate-slide" class="wf">
-                        <div class="i i-slide-duplicate"></div>
+                        <div class="i i-duplicate-slide"></div>
                         <p>복제</p>
                     </button>
                 </div>
@@ -155,19 +156,19 @@
             </main>
             <div id="controller-bar">
                 <button id="button-controller-bottommost">
-                    <div class="i i-bottom"></div>
+                    <div class="i i-bottommost"></div>
                     <div class="tip utip">맨 아래로</div>
                 </button>
                 <button id="button-controller-bottom">
-                    <div class="i i-arrow2"></div>
+                    <div class="i i-bottom"></div>
                     <div class="tip utip">아래로</div>
                 </button>
                 <button id="button-controller-front">
-                    <div class="i i-arrow3"></div>
+                    <div class="i i-front"></div>
                     <div class="tip utip">위로</div>
                 </button>
                 <button id="button-controller-frontmost">
-                    <div class="i i-front"></div>
+                    <div class="i i-frontmost"></div>
                     <div class="tip utip">맨 위로</div>
                 </button>
                 <div class="partition-vertical"></div>
@@ -181,12 +182,12 @@
                 </button>
                 <input type="checkbox" id="checkbox-toggle-controller-darker">
                 <label for="checkbox-toggle-controller-darker" id="controller-toggle-darker">
-                    <div class="i i-toggle"></div>
+                    <div class="i i-invert"></div>
                     <div class="tip utip">어둡게</div>
                 </label>
                 <div class="partition-vertical"></div>
                 <button id="button-controller-reset">
-                    <div class="i i-reset-position"></div>
+                    <div class="i i-rescue"></div>
                     <div class="tip utip">위치 및 크기 초기화</div>
                 </button>
                 <button id="button-controller-remove">
@@ -207,7 +208,7 @@
                 <p>배경</p>
                 <div class="flexlist-horizontal wf">
                     <button id="button-set-bg" class="wf">
-                        <div class="i i-set-bg"></div>
+                        <div class="i i-plus"></div>
                         <p>설정</p>
                     </button>
                     <button id="button-remove-bg" class="wf">
@@ -226,11 +227,11 @@
                 <p>요소 제어</p>
                 <div class="flexlist-horizontal wf">
                     <button id="button-content" class="wf">
-                        <div class="i i-text"></div>
+                        <div class="i i-content"></div>
                         <p>대화창</p>
                     </button>
                     <button id="button-select-box" class="wf">
-                        <div class="i i-select"></div>
+                        <div class="i i-content"></div>
                         <p>선택지</p>
                     </button>
                 </div>
@@ -275,7 +276,7 @@
         <div class="modal wm600">
             <div class="scroll-box-inner">
                 <div class="modal-title">
-                    <div class="il i-text"></div>
+                    <div class="il i-content"></div>
                     <h1>대화창</h1>
                 </div>
                 <h3>이름</h3>
@@ -392,7 +393,7 @@
         <div class="modal">
             <div class="scroll-box-inner">
                 <div class="modal-title">
-                    <div class="il i-select"></div>
+                    <div class="il i-content"></div>
                     <h1>선택지 목록</h1>
                 </div>
                 <input type="text" id="select-option-0" class="select-option modal-input-text wm400">

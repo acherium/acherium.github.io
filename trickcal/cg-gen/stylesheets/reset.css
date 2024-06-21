@@ -276,66 +276,6 @@ input[type=checkbox]:checked+label:not(.image-item)::before {
     animation-name: ani-pop-out;
 }
 
-.i {
-    width: 20px;
-    height: 20px;
-
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: var(--f-icon);
-}
-.il {
-    width: 36px;
-    height: 36px;
-
-    background-size: 36px;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: var(--f-icon);
-}
-.i-search { background-image: url("../assets/icons/1-search.svg"); }
-.i-search-go { background-image: url("../assets/icons/2-search-go.svg"); }
-.i-place { background-image: url("../assets/icons/3-place.svg"); }
-.i-download { background-image: url("../assets/icons/4-download.svg"); }
-.i-export { background-image: url("../assets/icons/5-export.svg"); }
-.i-import { background-image: url("../assets/icons/6-import.svg"); }
-.i-trash { background-image: url("../assets/icons/7-trash.svg"); }
-.i-move { background-image: url("../assets/icons/8-move.svg"); }
-.i-paint { background-image: url("../assets/icons/9-paint.svg"); }
-.i-sweep { background-image: url("../assets/icons/10-sweep.svg"); }
-.i-clear { background-image: url("../assets/icons/11-clear.svg"); }
-.i-palette-item { background-image: url("../assets/icons/12-palette-item.svg"); }
-.i-palette-background { background-image: url("../assets/icons/13-palette-background.svg"); }
-.i-config { background-image: url("../assets/icons/14-config.svg"); }
-.i-preset { background-image: url("../assets/icons/15-preset.svg"); }
-.i-menu { background-image: url("../assets/icons/16-menu.svg"); }
-.i-deny { background-image: url("../assets/icons/17-deny.svg"); }
-.i-accept { background-image: url("../assets/icons/18-accept.svg"); }
-.i-arrow0 { background-image: url("../assets/icons/19-arrow0.svg"); }
-.i-arrow1 { background-image: url("../assets/icons/20-arrow1.svg"); }
-.i-arrow2 { background-image: url("../assets/icons/21-arrow2.svg"); }
-.i-arrow3 { background-image: url("../assets/icons/22-arrow3.svg"); }
-.i-plus { background-image: url("../assets/icons/23-plus.svg"); }
-.i-minus { background-image: url("../assets/icons/24-minus.svg"); }
-.i-undo { background-image: url("../assets/icons/25-undo.svg"); }
-.i-redo { background-image: url("../assets/icons/26-redo.svg"); }
-.i-set-bg { background-image: url("../assets/icons/1001-setbg.svg"); }
-.i-remove-bg { background-image: url("../assets/icons/1002-removebg.svg"); }
-.i-bottom { background-image: url("../assets/icons/1003-bottom.svg"); }
-.i-front { background-image: url("../assets/icons/1004-front.svg"); }
-.i-flip-horizontal { background-image: url("../assets/icons/1005-flip-horizontal.svg"); }
-.i-flip-vertical { background-image: url("../assets/icons/1006-flip-vertical.svg"); }
-.i-slide { background-image: url("../assets/icons/1007-slide.svg"); }
-.i-layer { background-image: url("../assets/icons/1008-layer.svg"); }
-.i-slide-create { background-image: url("../assets/icons/1009-slide-new.svg"); }
-.i-slide-duplicate { background-image: url("../assets/icons/1010-slide-duplicate.svg"); }
-.i-slide-size { background-image: url("../assets/icons/1011-slide-size.svg"); }
-.i-text { background-image: url("../assets/icons/1012-text.svg"); }
-.i-reset-position { background-image: url("../assets/icons/1013-reset-position.svg"); }
-.i-select { background-image: url("../assets/icons/1014-select.svg"); }
-.i-toggle { background-image: url("../assets/icons/1015-toggle.svg"); }
-
 #watermark {
     position: absolute;
     right: 10px;
