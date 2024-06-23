@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1097",
-        date: "24-06-21",
+        version: "1100",
+        date: "24-06-23",
         watermark: false,
         isBeta: false
     };
@@ -107,6 +107,7 @@
         "maestro": [ "maestro", "마에스트로 2호", "35B7AE" ],
         "festa": [ "festa", "페스타", "EC7A84" ],
         "renewa": [ "renewa", "리뉴아", "E8D7B7" ],
+        "renewa2": [ "renewa2", "리뉴아", "43475D" ],
         
         "partition3": [ "partition", "정령" ],
         "ui": [ "ui", "우이", "FFDB5B" ],
