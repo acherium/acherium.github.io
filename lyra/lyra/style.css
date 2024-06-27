@@ -1,0 +1,338 @@
+@charset "UTF-8";
+@import url("./icons.css");
+:root {
+    --c-lyra: oklch(59% 0.3 309);
+    --c-white: oklch(100% 0 0);
+    --c-n9: oklch(90% 0 0);
+    --c-n8: oklch(80% 0 0);
+    --c-n7: oklch(70% 0 0);
+    --c-n6: oklch(60% 0 0);
+    --c-n5: oklch(50% 0 0);
+    --c-n4: oklch(40% 0 0);
+    --c-n3: oklch(30% 0 0);
+    --c-n2: oklch(20% 0 0);
+    --c-n1: oklch(10% 0 0);
+    --c-black: oklch(0% 0 0);
+    --c-blue: oklch(60% 0.11 245);
+    --c-main: var(--c-white);
+    --c-font: var(--c-black);
+    --c-button: oklch(94% 0.01 317);
+    --c-button-cover: var(--c-black);
+    --c-button-cover-disabled: oklch(100% 0 0 / 0.5);
+    --c-checkbox-border: var(--c-n7);
+
+    --r-tiny: 2px;
+    --r-small: 4px;
+    --r-medium: 8px;
+    --r-large: 20px;
+    --r: var(--r-small);
+
+    --p-tiny: 2px;
+    --p-small: 4px;
+    --p-medium: 8px;
+    --p-large: 12px;
+    --p: var(--p-medium);
+    
+    --m-tiny: 2px;
+    --m-small: 4px;
+    --m-medium: 8px;
+    --m-large: 12px;
+    --m: var(--m-small);
+
+    --t-transition: 0.05s;
+    
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --c-main: var(--c-black);
+        --c-font: var(--c-white);
+        --c-button: oklch(20% 0 325);
+        --c-button-cover: var(--c-white);
+        --c-button-cover-disabled: oklch(0% 0 0 / 0.5);
+        --c-checkbox-border: var(--c-n5);
+    }
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Pretendard GOV Variable";
+    color: var(--c-font);
+}
+body {
+    background-color: var(--c-main);
+}
+
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    border-radius: var(--r);
+    outline: solid 2px var(--c-lyra);
+}
+button:disabled, input:disabled, select:disabled, textarea:disabled {
+    /* pointer-events: none; */
+    cursor: no-drop;
+}
+
+a {
+    color: var(--c-blue);
+    text-decoration: underline dotted 2px;
+}
+a::before {
+    display: inline-block;
+    margin: 0 0.2em;
+
+    width: 1em;
+    height: 1em;
+
+    content: "";
+    background: no-repeat top/1em var(--i-arrow-ne);
+}
+a:visited {
+    color: var(--c-lyra);
+}
+
+button {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    padding: var(--p-large);
+    overflow: hidden;
+
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+button > *:not(:last-child) {
+    margin-right: var(--m);
+}
+button:not(:disabled) {
+    cursor: pointer;
+}
+button:not(:disabled)::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: inherit;
+    background-color: var(--c-button-cover);
+    opacity: 0;
+    content: "";
+
+    transition: opacity var(--t-transition) linear;
+    will-change: opacity;
+}
+button:not(:disabled)::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 50px;
+    height: 100%;
+
+    background: linear-gradient(90deg, transparent, oklch(0% 0 0 / 0.05), oklch(0% 0 0 / 0.05), transparent);
+    content: "";
+
+    transform: translateX(-50px);
+    will-change: transform;
+}
+button:not(:disabled):hover::before {
+    opacity: 0.1;
+}
+button:not(:disabled):hover::after {
+    animation: 1s ease-out 0.25s ani-button-cover-effect;
+}
+button:not(:disabled):active::before {
+    opacity: 0.2;
+}
+button:disabled {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+@keyframes ani-button-cover-effect {
+    0% {
+        transform: translateX(-50px);
+    }
+    100% {
+        transform: translateX(calc(100% + 100px));
+    }
+}
+
+input[type=checkbox], input[type=radio] {
+    display: none;
+}
+label:has(input[type=checkbox]), label:has(input[type=radio]) {
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    width: fit-content;
+    height: fit-content;
+}
+label:has(input[type=checkbox])::before, label:has(input[type=radio])::before {
+    box-sizing: border-box;
+
+    margin: 0 0.2em;
+    width: 20px;
+    height: 20px;
+
+    border: solid 2px var(--c-checkbox-border);
+    content: "";
+}
+label:has(input[type=checkbox])::before {
+    border-radius: var(--r);
+}
+label:has(input[type=radio])::before {
+    border-radius: 10px;
+}
+label:has(input[type=checkbox]:not(:disabled)), label:has(input[type=radio]:not(:disabled)) {
+    cursor: pointer;
+}
+label:has(input[type=checkbox]:not(:disabled))::before, label:has(input[type=radio]:not(:disabled))::before {
+    transition: border var(--t-transition) linear;
+    will-change: border;
+}
+label:has(input[type=checkbox]:not(:disabled))::before {
+    border-radius: var(--r);
+}
+label:has(input[type=radio]:not(:disabled))::before {
+    border: solid 2px var(--c-checkbox-border);
+}
+label:has(input[type=checkbox]:not(:disabled)):hover::before, label:has(input[type=radio]:not(:disabled)):hover::before {
+    border-color: var(--c-lyra);
+}
+label:has(input[type=checkbox]:not(:disabled):checked)::before {
+    border: solid 6px var(--c-lyra);
+}
+label:has(input[type=radio]:not(:disabled):checked)::before {
+    border: solid 6px var(--c-lyra);
+}
+label:has(input[type=checkbox]:disabled), label:has(input[type=radio]:disabled) {
+    opacity: 0.5;
+}
+label:has(input[type=checkbox]:disabled), label:has(input[type=radio]:disabled) {
+    cursor: no-drop;
+}
+label:has(input[type=checkbox]:disabled)::before, label:has(input[type=radio]:disabled)::before {
+    background-color: var(--c-checkbox-border);
+}
+
+input[type=text], input[type=number] {
+    padding: var(--p-large);
+
+    font-size: inherit;
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+    appearance: textfield;
+}
+input[type=text]::placeholder, input[type=number]::placeholder {
+    color: var(--c-checkbox-border);
+    font-style: italic;
+}
+input[type=text]:disabled, input[type=number]:disabled {
+    opacity: 0.5;
+}
+label:has(input[type=text]), label:has(input[type=number]) {
+    display: flex;
+    align-items: center;
+    padding: var(--p);
+
+    width: fit-content;
+    height: fit-content;
+
+    border: solid 2px var(--c-button);
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+label:has(input[type=text]) > *:not(:last-child), label:has(input[type=number]) > *:not(:last-child) {
+    margin-right: var(--m);
+}
+label:has(input[type=text]) > input[type=text], label:has(input[type=number]) > input[type=number] {
+    margin-left: var(--m);
+    padding: var(--p-small) var(--p-small) var(--p-small) var(--p);
+
+    border: none;
+    border-left: solid 2px var(--c-checkbox-border);
+    border-radius: 0;
+}
+label:has(input[type=text]:focus), label:has(input[type=number]:focus) {
+    outline: solid 2px var(--c-lyra);
+}
+label:has(input[type=text]:focus) > input[type=text], label:has(input[type=number]:focus) > input[type=number] {
+    outline: none;
+}
+label:has(input[type=text]:not(:disabled)), label:has(input[type=number]:not(:disabled)) {
+    cursor: text;
+}
+label:has(input[type=text]:disabled), label:has(input[type=number]:disabled) {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+textarea {
+    padding: var(--p);
+
+    font-size: inherit;
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+textarea::placeholder {
+    color: var(--c-checkbox-border);
+    font-style: italic;
+}
+textarea:disabled {
+    opacity: 0.5;
+}
+label:has(textarea) {
+    display: grid;
+    grid-template-columns: 24px auto;
+    grid-template-rows: 24px auto;
+    place-items: center start;
+    padding: var(--p);
+
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+label:has(textarea) > p {
+    overflow: hidden;
+
+    width: min-content;
+
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+label:has(textarea):not(:has(div.i)) > p {
+    grid-column: 1 / -1;
+}
+label:has(textarea) > textarea {
+    grid-column: 1 / -1;
+    margin-top: var(--m-large);
+    padding: var(--p) 0 0 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-top: solid 2px var(--c-checkbox-border);
+    border-radius: 0;
+}
+label:has(textarea:focus) {
+    outline: solid 2px var(--c-lyra);
+}
+label:has(textarea) > textarea:focus {
+    border-radius: 0;
+    outline: none;
+}
+label:has(textarea:disabled) {
+    opacity: 0.5;
+    cursor: no-drop;
+}
