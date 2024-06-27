@@ -1,3 +1,15 @@
+const __lyra = {
+    dir: document.currentScript.src.split("/").slice(0, -1).join("/")
+};
+
+function freeze(obj) {
+    for (const key in obj) {
+        const value = obj[key];
+        if (value && typeof value === "object") freeze(value);
+    };
+    Object.freeze(obj);
+    return;
+};
 function $(selectors, $target=document) {
     return $target.querySelector(selectors);
 };
@@ -21,5 +33,11 @@ function $append($element, $target = document.body) {
 };
 
 (() => {
-    document.head.insertAdjacentHTML("beforeend", "<link rel=\"stylesheet\" href=\"./lyra/style.css\">");
+    document.head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="${__lyra.dir}/style.css">`);
+    if (!Array.from($all("link")).find(($x) => $x.rel === "icon")) {
+        document.head.insertAdjacentHTML("beforeend", `<link rel="icon" href="${__lyra.dir}/assets/essentials/favicon.svg" type="image/x-icon">`);
+    };
 })();
+document.addEventListener("DOMContentLoaded", () => {
+    freeze(__lyra);
+});
