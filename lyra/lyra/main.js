@@ -21,5 +21,5 @@ function $append($element, $target = document.body) {
 };
 
 (() => {
-    document.head.insertAdjacentHTML("beforeend", "<link rel=\"stylesheet\" href=\"/lyra/style.css\">");
+    document.head.insertAdjacentHTML("beforeend", "<link rel=\"stylesheet\" href=\"./lyra/style.css\">");
 })();
