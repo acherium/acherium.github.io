@@ -162,7 +162,6 @@ footer a {
     margin-bottom: 8px;
 }
 
-
 #middle {
     display: flex;
     position: relative;
@@ -1067,6 +1066,10 @@ input[type=checkbox] {
 }
 *:has(.tip):not(:hover) > .tip {
     animation-name: ani-pop-out;
+}
+
+.modal-input-text, #content {
+    font-family: "ONE Mobile POP";
 }
 
 @media screen and (max-width: 900px) {
