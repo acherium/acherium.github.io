@@ -1,10 +1,10 @@
 (() => {
-    const LYRA = {
+    const app = {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1100",
-        date: "24-06-23",
+        version: "1101",
+        date: "24-06-30",
         watermark: false,
         isBeta: false
     };
@@ -218,8 +218,6 @@
 
     const $logo = $("#logo-area");
     const $ver = $("#ver");
-    const $modalVer = $("#modal-about");
-    const $modalVerBtnClose = $("#modal-about button.close");
     const $main = $("main");
     const $left = $("#left");
     const $middle = $("#middle");
@@ -240,8 +238,6 @@
     const $pickerNameInputs = $a("#colorpicker-namearea .colorpicker-input");
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
     const $chkTglName = $("#checkbox-toggle-namearea");
-    const $modalName = $("#modal-name");
-    const $modalNameBtnClose = $("#modal-name button.close");
     const $btnName = $("#photo-script-box-namebox > span:last-child");
     const $titleArea = $("#photo-title-box-area");
     const $title = $("#photo-title > span");
@@ -261,7 +257,6 @@
     const $chkTglContentCenter = $("#checkbox-toggle-box-position-center");
     const $inputContent = $("#content");
     const $modalContent = $("#modal-content");
-    const $modalContentBtnClose = $("#modal-content button.close");
     const $chkTglContent = $("#checkbox-toggle-content");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
@@ -271,8 +266,6 @@
     const $bg = $("#photo-bg");
     const $prevBg = $("#preview-bg > img");
     const $btnConfigBg = $("#button-config-bg");
-    const $modalBg = $("#modal-config-bg");
-    const $modalBgBtnClose = $("#modal-config-bg button.close");
     const $selectBgFit = $("#select-bg-fit");
     const $pickerBg = $("#colorpicker-bg");
     const $pickerBgPrev = $("#colorpicker-bg .colorpicker-preview");
@@ -281,8 +274,6 @@
     const $pickerBgPointers = $a("#colorpicker-bg .colorpicker-pointer");
     const $pickerBgInputs = $a("#colorpicker-bg .colorpicker-input");
     const $btnConfigIndi = $("#button-config-indicators");
-    const $modalIndi = $("#modal-config-indicators");
-    const $modalIndiBtnClose = $("#modal-config-indicators button.close");
     const $uploader = $("#uploader");
     const $btnPhotoSet = $("#button-set-bg");
     const $btnPhotoRemove = $("#button-remove-bg");
@@ -292,16 +283,12 @@
     const $chkPhotoBtn = $("#checkbox-toggle-photo-button");
     const $chkKeyShortcut = $("#checkbox-toggle-shortcut");
     const $btnModalSlideSize = $("#button-slide-size");
-    const $modalSlideSize = $("#modal-slide-size");
-    const $modalSlideSizeBtnClose = $("#modal-slide-size button.close");
     const $btnSlideSize = $a(".button-slide-size");
     const $inputSlideWidth = $("#input-slide-size-width");
     const $inputSlideHeight = $("#input-slide-size-height");
     const $selboxOption = $a(".photo-select-option");
     const $inputSelboxOption = $a(".select-option");
     const $selbox = $("#photo-select");
-    const $modalSelbox = $("#modal-select");
-    const $modalSelboxBtnClose = $("#modal-select button.close");
     const $chkSelbox = $("#checkbox-toggle-select");
     const $btnSelbox = $("#button-select-box");
     const $modalBgs = $a(".modal-area");
@@ -318,7 +305,8 @@
     const $btnFrontmost = $("#button-controller-frontmost");
     const $btnFlipHorizontal = $("#button-controller-flip-horizontal");
     const $btnFlipVertical = $("#button-controller-flip-vertical");
-    const $chkTglDarkder = $("#checkbox-toggle-controller-darker");
+    const $chkTglDarker = $("#checkbox-toggle-controller-darker");
+    const $btnTglDarker = $("#controller-toggle-darker");
     const $btnControllerReset = $("#button-controller-reset");
     const $btnControllerRemove = $("#button-controller-remove");
     const $btnControllerUnselect = $("#button-controller-unselect");
@@ -559,7 +547,7 @@
 
         $controller.style["display"] = "flex";
         $controllerBar.style["display"] = "flex";
-        $chkTglDarkder.checked = t.darker ? "checked" : null;
+        $chkTglDarker.checked = t.darker ? "checked" : null;
     };
     const unselectItem = () => {
         imageController.selected = null;
@@ -771,10 +759,6 @@
         document.body.append($m);
     };
 
-    window.addEventListener("error", (e, s) => {
-        showModal("Error", `${e.message}<br>${e.filename}@${e.lineno}:${e.colno}`);
-    });
-
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
             $btnControllerReset.click();
@@ -796,7 +780,7 @@
         } else if (k.keyCode === 54) {
             setBoxStyle(5);
         } else if (k.keyCode === 65) {
-            $modalContent.style["display"] = "flex";
+            $contentBox.click();
             setTimeout(() => {
                 $inputContent.focus();
             }, 30);
@@ -1117,7 +1101,7 @@
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
         $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
     };
-    $chkTglDarkder.onchange = (c) => {
+    $chkTglDarker.onchange = (c) => {
         slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].darker = c.target.checked;
         if (c.target.checked) {
             imageLayer[imageController.selected].img.classList.add("image-item-darker");
@@ -1126,6 +1110,9 @@
             imageLayer[imageController.selected].img.classList.remove("image-item-darker");
             // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.remove("image-item-darker");
         };
+    };
+    $btnTglDarker.onclick = () => {
+        $chkTglDarker.click();
     };
     $btnControllerReset.onclick = () => {
         const rect = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).rectOrigin;
@@ -1142,21 +1129,15 @@
         unselectItem();
     };
     $btnResetImage.onclick = () => {
-        slide[current].imageLayer.attachments.forEach((x) => {
-            x.nodes.lab.querySelector("button.remove").click();
+        Object.values(imageLayer).forEach((x) => {
+            x.lab.querySelector("button.remove").click();
         });
         refreshThumbnail(current, $photozone);
     };
 
-    $namearea.onclick = () => {
-        $modalName.style["display"] = "flex";
-        $inputName.focus();
-    };
-    $modalNameBtnClose.onclick = () => {
-        $modalName.style["display"] = "none";
-    };
     $inputName.onkeydown = (k) => {
-        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) $modalNameBtnClose.click();
+        console.log(true);
+        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-content"].close();
     };
     $inputName.oninput = (x) => {
         setName(x.target.value);
@@ -1170,18 +1151,13 @@
     };
 
     $contentBox.onclick = () => {
-        $modalContent.style["display"] = "flex";
-        $inputContent.focus();
+        __manager.modal.reserve["modal-content"].show();
     };
     $btnContent.onclick = () => {
-        $modalContent.style["display"] = "flex";
-        $inputContent.focus();
-    };
-    $modalContentBtnClose.onclick = () => {
-        $modalContent.style["display"] = "none";
+        __manager.modal.reserve["modal-content"].show();
     };
     $inputContent.onkeydown = (k) => {
-        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) $modalContentBtnClose.click();
+        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-content"].close();
     };
     $inputContent.oninput = (x) => {
         setContent(x.target.value);
@@ -1284,10 +1260,7 @@
     };
 
     $btnModalSlideSize.onclick = () => {
-        $modalSlideSize.style["display"] = "flex";
-    };
-    $modalSlideSizeBtnClose.onclick = () => {
-        $modalSlideSize.style["display"] = "none";
+        __manager.modal.reserve["modal-slide-size"].show();
     };
     Array.from($btnSlideSize).forEach(($n) => {
         $n.onclick = () => {
@@ -1307,10 +1280,7 @@
     };
 
     $btnSelbox.onclick = () => {
-        $modalSelbox.style["display"] = "flex";
-    };
-    $modalSelboxBtnClose.onclick = () => {
-        $modalSelbox.style["display"] = "none";
+        __manager.modal.reserve["modal-select"].show();
     };
     Array.from($inputSelboxOption).forEach(($n, i) => {
         const $t = $selboxOption[i];
@@ -1326,7 +1296,7 @@
             };
         };
         $n.onkeydown = (k) => {
-            if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) $modalSelboxBtnClose.click();
+            if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-select"].close();
         };
     });
     $chkSelbox.onchange = (c) => {
@@ -1449,10 +1419,7 @@
     };
 
     $btnConfigBg.onclick = () => {
-        $modalBg.style["display"] = "flex";
-    };
-    $modalBgBtnClose.onclick = () => {
-        $modalBg.style["display"] = "none";
+        __manager.modal.reserve["modal-config-bg"].show();
     };
     $selectBgFit.onchange = (c) => {
         setBackgroundFit(c.target.value);
@@ -1460,10 +1427,7 @@
     };
 
     $btnConfigIndi.onclick = () => {
-        $modalIndi.style["display"] = "flex";
-    };
-    $modalIndiBtnClose.onclick = () => {
-        $modalIndi.style["display"] = "none";
+        __manager.modal.reserve["modal-config-indicators"].show();
     };
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
@@ -1486,7 +1450,7 @@
             };
         };
         $n.ontouchstart = (t) => {
-            $modalBg.querySelector(".modal").style["overflow"] = "hidden";
+            __manager.modal.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
             const $dragarea = t.target.parentNode;
             const dragareaRect = $dragarea.getBoundingClientRect();
             $n.ontouchmove = (m) => {
@@ -1497,7 +1461,7 @@
                 setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
             };
             $n.ontouchend = () => {
-                $modalBg.querySelector(".modal").style["overflow"] = "hidden";
+                __manager.modal.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
                 $n.ontouchmove = null;
                 $n.ontouchend = null;
                 refreshThumbnail(current, $photozone);
@@ -1533,7 +1497,7 @@
             };
         };
         $n.ontouchstart = (t) => {
-            $modalContent.querySelector(".modal").style["overflow"] = "hidden";
+            __manager.modal.reserve["modal-content"].$content.style["overflow"] = "hidden";
             const $dragarea = t.target.parentNode;
             const dragareaRect = $dragarea.getBoundingClientRect();
             $n.ontouchmove = (m) => {
@@ -1544,7 +1508,7 @@
                 setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
             };
             $n.ontouchend = () => {
-                $modalContent.querySelector(".modal").style["overflow"] = "scroll";
+                __manager.modal.reserve["modal-content"].$content.style["overflow"] = "scroll";
                 $n.ontouchmove = null;
                 $n.ontouchend = null;
                 refreshThumbnail(current, $photozone);
@@ -1561,11 +1525,8 @@
         };
     });
 
-    $ver.innerText = `${LYRA.name}\nBuild ${LYRA.version}@${LYRA.date}`;
+    $ver.innerText = `${app.name}\nBuild ${app.version}@${app.date}\n\nPowered by ${__lyra.meta.name}\nBuild ${__lyra.meta.version}@${__lyra.meta.date}`;
     $logo.onclick = () => {
-        $modalVer.style["display"] = "flex";
-    };
-    $modalVerBtnClose.onclick = () => {
-        $modalVer.style["display"] = "none";
+        __manager.modal.reserve["modal-about"].show();
     };
 })();

@@ -3,6 +3,22 @@
     font-family: "ONE Mobile POP";
     src: url("../assets/fonts/ONE Mobile POP.ttf");
 }
+:root {
+    --c-green: rgb(117, 153, 45);
+    --c-lightgreen: rgb(219, 237, 167);
+    --c-backgroundgreen: rgb(239, 245, 219);
+    --c-sub: rgb(239, 233, 241);
+    --c-trickcal-font: rgb(52, 51, 52);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --c-sub: rgb(24, 23, 24);
+    }
+}
+
+input[type=file] {
+    display: none;
+}
 
 .desc, .desc * {
     font-size: 8pt;
@@ -52,13 +68,20 @@ body {
     display: none;
 }
 
+#banner {
+    max-width: 100%;
+    max-height: 100%;
+
+    border-bottom: solid 2px var(--c-lyra);
+}
+
 #logo-area {
     cursor: pointer;
 }
 #logo {
     width: 40px;
 
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
 }
 #logotype {
     height: 40px;
@@ -69,7 +92,7 @@ body {
 
     font-size: 8pt;
     color: var(--c-white);
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
     background-color: var(--c-lyra);
 } */
 
@@ -152,7 +175,7 @@ footer a {
     width: 100%;
     height: 100%;
 
-    border-radius: var(--v-radius-large) var(--v-radius-large) 0 0;
+    border-radius: var(--r-large) var(--r-large) 0 0;
     background-color: var(--c-sub);
 }
 #middle:active {
@@ -309,13 +332,13 @@ input[type=checkbox] {
 #photo-layer > * {
     position: absolute;
 
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
     cursor: pointer;
 
     pointer-events: all;
 }
 #photo-layer > *:hover {
-    outline: solid 3px var(--c-lyra);
+    outline: solid 2px var(--c-lyra);
 }
 
 #photo-button-area {
@@ -373,13 +396,13 @@ input[type=checkbox] {
 
     width: 1000px;
 
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
     opacity: 0.95;
     pointer-events: all;
     cursor: pointer;
 }
 #photo-script-box-backdrop:hover {
-    outline: solid 3px var(--c-lyra);
+    outline: solid 2px var(--c-lyra);
 }
 
 #photo-script-box-arrow {
@@ -738,7 +761,7 @@ input[type=checkbox] {
     z-index: 6;
 
     width: max-content;
-    height: 66px;
+    height: 60px;
 
     border-radius: 8px;
     background-color: var(--c-main);
@@ -748,85 +771,7 @@ input[type=checkbox] {
     margin: 0 8px;
 }
 #controller-bar button, #controller-bar label {
-    background-color: var(--c-main);
-}
-#controller-bar button:hover, #controller-bar label:hover {
-    background-color: var(--c-button-hover-main);
-}
-#controller-bar button:active, #controller-bar label:active {
-    background-color: var(--c-button-active-main);
-}
-#controller-bar input[type=checkbox]:checked+label {
-    background-color: var(--c-button-hover-main);
-}
-#controller-bar label::before {
-    content: none;
-}
-
-.modal-area {
-    display: flex;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    top: 0;
-    left: 0;
-    z-index: 100;
-
-    width: 100vw;
-    height: 100vh;
-
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal {
-    position: relative;
-    padding: 24px;
-    overflow-y: scroll;
-
-    max-width: 100vw;
-    max-height: 100vh;
-
-    border-radius: 20px;
-    background-color: var(--c-main);
-}
-.modal > *:not(:last-child) {
-    margin-bottom: 12px;
-}
-.modal > p {
-    max-width: 100%;
-
-    word-break: break-all;
-}
-.modal > img {
-    max-width: 100%;
-}
-
-.modal-title {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-.modal-title > *:not(:last-child) {
-    margin-right: 8px;
-}
-
-.modal-button-list {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: flex-end;
-
-    width: 100%;
-    
-    background-color: var(--c-main);
-}
-.modal-button-list > *:not(:last-child) {
-    margin-right: 10px;
-}
-
-.modal-input-text, #content {
-    font-family: "ONE Mobile POP";
+    background-color: transparent;
 }
 
 #image-item-list {
@@ -851,7 +796,7 @@ input[type=checkbox] {
 
     width: 100%;
 
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
     background-color: var(--c-button);
     cursor: pointer;
 }
@@ -915,7 +860,7 @@ input[type=checkbox] {
     width: 100%;
     height: max-content;
 
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
     background-color: var(--c-button);
     cursor: pointer;
 }
@@ -991,7 +936,7 @@ input[type=checkbox] {
     height: 150px;
 
     border: solid 3px var(--c-lyra);
-    border-radius: var(--v-radius-small);
+    border-radius: var(--r-small);
     background-color: var(--c-lyra);
 }
 .colorpicker-preview-value {
@@ -1018,7 +963,7 @@ input[type=checkbox] {
     text-align: center;
 
     color: var(--c-font);
-    border-radius: var(--v-radius-small) 0 0 var(--v-radius-small);
+    border-radius: var(--r-small) 0 0 var(--r-small);
     background-color: var(--c-button);
 }
 .colorpicker-bar {
@@ -1055,13 +1000,13 @@ input[type=checkbox] {
     cursor: ew-resize;
 }
 .colorpicker-pointer:active {
-    outline: solid 3px var(--c-lyra);
+    outline: solid 2px var(--c-lyra);
 }
 .colorpicker-area > .right > input[type=number] {
     width: 100%;
     height: 100%;
 
-    border-radius: 0 var(--v-radius-small) var(--v-radius-small) 0;
+    border-radius: 0 var(--r-small) var(--r-small) 0;
 }
 
 .alert {
@@ -1080,6 +1025,48 @@ input[type=checkbox] {
 }
 .alert > * {
     color: white;
+}
+
+.modal .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--m-medium);
+}
+
+.tip {
+    display: none;
+    position: absolute;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px;
+    top: 5px;
+    z-index: 10;
+
+    width: max-content;
+    height: max-content;
+
+    color: var(--c-white);
+    border-radius: 4px;
+    background-color: var(--c-lyra);
+    pointer-events: none;
+
+    animation-name: ani-pop-up;
+    animation-duration: 0.1s;
+}
+.rtip {
+    left: calc(100% + 15px);
+}
+.ltip {
+    right: calc(100% + 6px);
+}
+.utip {
+    top: -45px;
+}
+*:has(.tip):hover > .tip, *:has(.tip):active > .tip {
+    display: flex;
+}
+*:has(.tip):not(:hover) > .tip {
+    animation-name: ani-pop-out;
 }
 
 @media screen and (max-width: 900px) {
