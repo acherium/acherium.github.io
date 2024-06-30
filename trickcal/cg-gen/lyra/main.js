@@ -14,7 +14,7 @@ const __lyra = {
         name: "Lyra Engine",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1000",
+        version: "1001",
         date: "24-06-30"
     }
 };
@@ -269,6 +269,14 @@ class LyraNotification {
 
         if ($origin && $origin.constructor === HTMLDivElement && $origin.classList.contains("notification")) {
             this.$ = new LyraElement(null, {}, $origin.parentNode.removeChild($origin));
+            this.$.$.onpointerover = () => {
+                if (!this.options["autoClose"]) return;
+                this.offTimer();
+                this.$.$.onpointerleave = () => {
+                    this.onTimer();
+                    this.$.$.onpointerleave = null;
+                };
+            };
             this.$icon = this.$.get(".icon");
             this.$text = this.$.get("p");
             const _rawParams = {
