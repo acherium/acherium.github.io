@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1103",
+        version: "1104",
         date: "24-06-30",
         watermark: false,
         isBeta: false
