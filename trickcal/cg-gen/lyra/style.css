@@ -22,6 +22,7 @@
     --c-checkbox-border: var(--c-n7);
     --c-shadow: oklch(0% 0 0 / 0.5);
     --c-modal-bg: oklch(0% 0 0 / 0.5);
+    --c-notification-bg: oklch(100% 0 0 / 0.8);
 
     --r-tiny: 2px;
     --r-small: 4px;
@@ -55,6 +56,8 @@
         --c-button-cover: var(--c-white);
         --c-button-cover-disabled: oklch(0% 0 0 / 0.5);
         --c-checkbox-border: var(--c-n5);
+        --c-shadow: oklch(50% 0 0 / 0.5);
+        --c-notification-bg: oklch(20% 0 0 / 0.8);
     }
 }
 * {
@@ -109,10 +112,10 @@ body {
 .flexlist {
     display: flex;
     position: relative;
-    align-items: center;
-    justify-content: flex-start;
     gap: var(--m);
+    flex-wrap: wrap;
 
+    max-width: 100%;
     width: max-content;
     height: max-content;
 
@@ -515,7 +518,22 @@ select {
     z-index: 101;
 }
 #lyra-notification-area {
+    display: flex;
+    justify-content: center;
     z-index: 102;
+}
+#lyra-notification-area > div.wrap {
+    display: flex;
+    position: absolute;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: var(--m-large);
+    padding: var(--p);
+    bottom: 65%;
+
+    max-width: 700px;
+    width: 100vw;
+    height: max-content;
 }
 
 .modal {
@@ -598,7 +616,7 @@ select {
     text-wrap: nowrap;
     text-overflow: ellipsis;
 }
-.modal > .body > .title > .il+h1 {
+.modal > .body > .title > .icon+h1 {
     grid-column: auto;
 }
 .modal > .body > .content {
@@ -613,6 +631,67 @@ select {
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: var(--m);
+}
+
+.notification {
+    display: grid;
+    grid-template-columns: 20px minmax(0, auto) 36px;
+    grid-template-rows: minmax(36px, auto);
+    gap: var(--m);
+    place-items: center;
+    padding: var(--p-modal);
+    overflow: hidden;
+
+    max-width: inherit;
+    width: auto;
+    height: max-content;
+
+    border-radius: var(--r-medium);
+    background-color: var(--c-notification-bg);
+    box-shadow: 0 0 10px var(--c-shadow);
+    pointer-events: auto;
+
+    animation: 0.25s var(--af-sweep-in) ani-window-in both;
+    will-change: transform, opacity;
+}
+.notification > p {
+    grid-column: 1 / span 2;
+
+    width: 100%;
+
+    word-break: break-all;
+}
+.notification > .icon+p {
+    grid-column: auto;
+}
+.notification > button {
+    grid-column: 3;
+    padding: var(--p);
+
+    border-radius: 18px;
+    background-color: transparent;
+}
+.notification > .gauge {
+    grid-column: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 0%;
+    height: 6px;
+
+    background-color: var(--c-font);
+    opacity: 0.5;
+
+    will-change: width;
+}
+@keyframes ani-notification-gauge {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
 }
 
 .bg-blur, .bg-acrylic {

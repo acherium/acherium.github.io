@@ -3,6 +3,7 @@ const __lyra = {
     env: {
         "ANIMATION-INTERVAL": 30,
         "WINDOW-ANIMATION-DURATION": 250,
+        "DEFAULT-NOTIFICATION-DURATION": 5000,
         "LOREM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut venenatis ipsum at neque lobortis faucibus. In et erat quis quam mattis malesuada nec eget quam. Nam congue, risus quis aliquet pharetra, quam nisl condimentum diam, eget consectetur velit est in nulla. Proin iaculis vestibulum nisl a pellentesque. Sed in magna ac sapien finibus pharetra. Curabitur vitae vehicula libero, ullamcorper faucibus eros. Ut gravida sem et ante aliquam, et pellentesque urna blandit. Aliquam ac accumsan nibh, ac ultrices ligula. Mauris tincidunt ullamcorper dignissim. Nullam euismod blandit justo, in finibus mauris fringilla sed. Fusce dolor ex, dictum id odio id, posuere finibus nulla. " +
             "Vivamus metus enim, euismod sit amet pretium in, eleifend at justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed quam arcu, malesuada eget fermentum ac, interdum nec ligula. Sed ac faucibus justo, quis consectetur lorem. Nam consectetur eleifend felis, eu ultricies ipsum viverra eget. Mauris ac risus ac orci consectetur varius. Nulla egestas, nulla non iaculis condimentum, nisl odio vehicula tortor, posuere dignissim neque ligula ut erat. Cras neque nibh, mollis vitae mauris vitae, venenatis elementum metus. Fusce vestibulum lacus a dapibus bibendum. Quisque dapibus dolor non placerat efficitur. Aliquam finibus est neque, at sagittis tortor suscipit et. Sed mollis mauris ex, a feugiat lorem faucibus non. Curabitur ac sollicitudin nibh. " +
             "Nunc pharetra sem eu porta sagittis. Nullam fringilla consequat tortor vel venenatis. Nulla facilisi. Curabitur quis mauris et tellus porttitor laoreet a et dolor. Integer odio urna, ultricies nec dolor eu, interdum dignissim lacus. Ut pellentesque lorem ante. Quisque vitae lacus nisl. Nulla sodales neque neque, vehicula pharetra tellus semper eget. Morbi vel nunc rhoncus quam condimentum porttitor. Sed vitae molestie lorem. Aliquam erat volutpat. Ut volutpat justo sit amet enim pharetra, vitae porttitor ipsum ultricies. Sed nisl nisl, volutpat sit amet pulvinar ut, finibus nec neque. Proin nec faucibus nibh. " +
@@ -10,11 +11,11 @@ const __lyra = {
             "Nulla a magna vitae felis ultricies auctor nec eget ipsum. Sed ultrices risus sed nunc dictum maximus. Nullam vel sapien a magna laoreet malesuada. Ut nec sem cursus, accumsan libero sed, tincidunt magna. Aliquam eleifend urna quis mattis tincidunt. Vivamus consectetur vestibulum sapien, vitae luctus libero porta efficitur. Praesent id ipsum sit amet elit congue faucibus sed ut lacus. Curabitur lacinia leo at iaculis maximus. Mauris fermentum dignissim quam sit amet pretium. In nec ante a felis maximus imperdiet."
     },
     meta: {
-        name: "LyraUX",
+        name: "Lyra Engine",
         author: "Acherium",
         contact: "acherium@pm.me",
         version: "1000",
-        date: "24-06-29"
+        date: "24-06-30"
     }
 };
 const __manager = {
@@ -28,6 +29,8 @@ const __manager = {
     },
     notification: {
         area: null,
+        wrap: null,
+        id: 0,
         reserve: {}
     }
 };
@@ -170,7 +173,7 @@ class LyraModal {
         this.$content = null;
         this.$controller = null;
         this.$buttons = [];
-        this.$closeButton = new LyraButton({ icon: "accept", text: "확인", onclick: () => this.$bg.click() });
+        this.$closeButton = new LyraButton({ icon: "accept", text: "확인", onclick: () => this.close() });
         this._closeButtonIndex = -1;
 
         if ($origin && $origin.constructor === HTMLDivElement && $origin.classList.contains("modal")) {
@@ -248,6 +251,105 @@ class LyraModal {
         return this;
     };
 };
+class LyraNotification {
+    constructor(params = {}, $origin = null) {
+        this.$ = null;
+        this.$icon = null;
+        this.$text = null;
+        this.$gauge = new LyraElement("div", { class: [ "gauge" ] });
+        this.$closeButton = new LyraButton({ icon: "deny", onclick: () => this.close() });
+        this.options = {
+            duration: typeof params["duration"] !== "undefined" ? parseInt(params["duration"]) : parseInt(__lyra.env["DEFAULT-NOTIFICATION-DURATION"]),
+            autoShow: typeof params["autoShow"] !== "undefined" ? Boolean(params["autoShow"]) : false,
+            autoClose: typeof params["autoClose"] !== "undefined" ? Boolean(params["autoClose"]) : true,
+            autoDestroy: typeof params["autoDestroy"] !== "undefined" ? Boolean(params["autoDestroy"]) : true,
+            closeButton: typeof params["closeButton"] !== "undefined" ? Boolean(params["closeButton"]) : true,
+            timeoutId: null
+        };
+
+        if ($origin && $origin.constructor === HTMLDivElement && $origin.classList.contains("notification")) {
+            this.$ = new LyraElement(null, {}, $origin.parentNode.removeChild($origin));
+            this.$icon = this.$.get(".icon");
+            this.$text = this.$.get("p");
+            const _rawParams = {
+                duration: this.$.$.getAttribute("lyra-duration"),
+                autoShow: this.$.$.getAttribute("lyra-autoShow"),
+                autoClose: this.$.$.getAttribute("lyra-autoClose"),
+                autoDestroy: this.$.$.getAttribute("lyra-autoDestroy"),
+                closeButton: this.$.$.getAttribute("lyra-closeButton")
+            };
+            this.options["duration"] = _rawParams["duration"] !== null ? parseInt(_rawParams["duration"]) : this.options["duration"];
+            this.options["autoShow"] = _rawParams["autoShow"] !== null ? (_rawParams["autoShow"] === "true" ? true : false) : this.options["autoShow"];
+            this.options["autoClose"] = _rawParams["autoClose"] !== null ? (_rawParams["autoClose"] === "false" ? false : true) : this.options["autoClose"];
+            this.options["autoDestroy"] = _rawParams["autoDestroy"] !== null ? (_rawParams["autoDestroy"] === "false" ? false : true) : this.options["autoDestroy"];
+            this.options["closeButton"] = _rawParams["closeButton"] !== null ? (_rawParams["closeButton"] === "false" ? false : true) : this.options["closeButton"];
+        } else {
+            this.$ = new LyraElement("div", {
+                class: [ "notification", "bg-acrylic" ],
+                onpointerover: () => {
+                    if (!this.options["autoClose"]) return;
+                    this.offTimer();
+                    this.$.$.onpointerleave = () => {
+                        this.onTimer();
+                        this.$.$.onpointerleave = null;
+                    };
+                }
+            });
+            for (const _i in params) {
+                if (_i === "icon") this.$icon = new LyraElement("div", { class: [ "icon", "i", `i-${params[_i]}` ] }).into(this.$);
+                if (_i === "text") this.$text = new LyraElement("p", { text: params[_i] }).into(this.$);
+            };
+        };
+        if (typeof params["duration"] !== "undefined") this.options["duration"] = parseInt(params["duration"]);
+        if (this.options["closeButton"]) this.$closeButton.into(this.$);
+        this.$gauge.into(this.$);
+        if (this.options["autoShow"]) {
+            setTimeout(() => {
+                this.show();
+            });
+        };
+        return this;
+    };
+    show() {
+        this.$.style["pointer-events"] = "auto";
+        this.$.style["animation-timing-function"] = "var(--af-sweep-in)";
+        this.$.style["animation-name"] = "ani-window-in";
+        this.$.into(__manager.notification.wrap);
+        this.$closeButton.focus();
+        if (this.options["autoClose"]) {
+            this.onTimer();
+            return this;
+        };
+    };
+    close() {
+        this.$.style["pointer-events"] = "none";
+        this.$.style["animation-timing-function"] = "var(--af-sweep-out)";
+        this.$.style["animation-name"] = "ani-window-out";
+        if (this.options["autoDestroy"]) {
+            setTimeout(() => {
+                this.destroy();
+            }, __lyra.env["WINDOW-ANIMATION-DURATION"] + __lyra.env["ANIMATION-INTERVAL"]);
+        };
+        return this;
+    };
+    destroy() {
+        if (this.timeoutId !== null) clearTimeout(this.timeoutId);
+        this.$.remove();
+        return null;
+    };
+    onTimer() {
+        this.timeoutId = setTimeout(() => {
+            this.close();
+        }, this.options.duration + __lyra.env["ANIMATION-INTERVAL"]);
+        this.$gauge.style["animation"] = `${this.options.duration/1000}s linear ani-notification-gauge both`;
+        return this;
+    };
+    offTimer() {
+        if (this.timeoutId) clearTimeout(this.timeoutId);
+        this.$gauge.style["animation"] = null;
+        return this;
+    };
+};
 
 (() => {
     document.head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="${__lyra.dir}/style.css">`);
@@ -262,12 +364,17 @@ document.addEventListener("DOMContentLoaded", () => {
     __manager.modal.area = $append($create("div", { id: "lyra-modal-area" }));
     __manager.window.area = $append($create("div", { id: "lyra-window-area" }));
     __manager.notification.area = $append($create("div", { id: "lyra-notification-area" }));
+    __manager.notification.wrap = $append($create("div", { class: [ "wrap" ] }), __manager.notification.area);
     Object.freeze(__manager);
     Object.keys(__manager).forEach((x) => Object.freeze(__manager[x]));
     freeze(__lyra);
 
-    for (const $m of $all(".modal")) {
-        if (!$m.id) continue;
-        __manager.modal.reserve[$m.id] = new LyraModal({}, $m);
+    for (const $node of $all(".modal")) {
+        if (!$node.id) continue;
+        __manager.modal.reserve[$node.id] = new LyraModal({}, $node);
     };
+    for (const $node of $all(".notification")) {
+        if (!$node.id) continue;
+        __manager.notification.reserve[$node] = new LyraNotification({}, $node);
+    }
 });
