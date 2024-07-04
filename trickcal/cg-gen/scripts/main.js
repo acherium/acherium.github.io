@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1107",
+        version: "1108",
         date: "24-07-04",
         watermark: false,
         isBeta: false
@@ -108,7 +108,7 @@
         "festa": [ "festa", "페스타", "EC7A84" ],
         "renewa": [ "renewa", "리뉴아", "E8D7B7" ],
         "renewa2": [ "renewa2", "리뉴아", "43475D" ],
-        "heily": [ "heily", "헤일리", "E83B92" ],
+        "haley": [ "haley", "헤일리", "E83B92" ],
         
         "partition3": [ "partition", "정령" ],
         "ui": [ "ui", "우이", "FFDB5B" ],
