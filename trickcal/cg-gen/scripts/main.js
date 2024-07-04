@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1105",
-        date: "24-06-30",
+        version: "1106",
+        date: "24-07-04",
         watermark: false,
         isBeta: false
     };
@@ -108,6 +108,7 @@
         "festa": [ "festa", "페스타", "EC7A84" ],
         "renewa": [ "renewa", "리뉴아", "E8D7B7" ],
         "renewa2": [ "renewa2", "리뉴아", "43475D" ],
+        "heily": [ "heily", "헤일리", "E83B92" ],
         
         "partition3": [ "partition", "정령" ],
         "ui": [ "ui", "우이", "FFDB5B" ],
@@ -128,6 +129,7 @@
         "selline": [ "selline", "셀리네", "F7AFBB" ],
         "speaki": [ "speaki", "스피키", "71566C" ],
         "espi": [ "espi",  "에스피", "D4B9BA" ],
+        "lethe": [ "lethe", "레테", "A8BCC7" ],
     
         "partition5": [ "partition", "용족" ],
         "vivi": [ "vivi", "비비", "B8AFB1" ],
@@ -188,6 +190,18 @@
         }
     };
     const BG_FIT_OPTIONS = [ "fit-height", "fit-width", "stretch-height", "stretch-width", "fill" ];
+    const SCRIPT_MARKDOWN = [
+        [ /(\(\(\()/g, "<span class=\"s\">" ],
+        [ /({{{)/g, "<span class=\"m\">" ],
+        [ /(\[\[\[)/g, "<span class=\"b\">" ],
+        [ /(>>>)/g, "<span class=\"cg\">" ],
+        [ /(>>r>>)/g, "<span class=\"cr\">" ],
+        [ /(>>g>>)/g, "<span class=\"cg\">" ],
+        [ /(>>b>>)/g, "<span class=\"cb\">" ],
+        [ /(>>y>>)/g, "<span class=\"cy\">" ],
+        [ /(>>p>>)/g, "<span class=\"cp\">" ],
+        [ /(\:\:\:)/g, "</span>" ]
+    ];
 
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
@@ -400,13 +414,17 @@
 
     };
     const setContent = (x) => {
-        const res = x.replace(/([\n\r]){1,2}/g, `<br>​`)
-            .replace(/(\(\(\()/g, `<span class="s">​`)
-            .replace(/({{{)/g, `<span class="m">​`)
-            .replace(/(\[\[\[)/g, `<span class="b">​`)
-            .replace(/(>>>)/g, `<span class="g">​`)
-            .replace(/(\:\:\:)/g, `</span>​`)
-            .replace(/\\/g, "");
+        let res = x.replace(/([\n\r]){1,2}/g, `<br>​`);
+        for (const regxp of SCRIPT_MARKDOWN) {
+            res = res.replace(regxp[0], regxp[1]);
+        };
+        // const res = x.replace(/([\n\r]){1,2}/g, `<br>​`)
+        //     .replace(/(\(\(\()/g, `<span class="s">​`)
+        //     .replace(/({{{)/g, `<span class="m">​`)
+        //     .replace(/(\[\[\[)/g, `<span class="b">​`)
+        //     .replace(/(>>>)/g, `<span class="g">​`)
+        //     .replace(/(\:\:\:)/g, `</span>​`)
+        //     .replace(/\\/g, "");
         slide[current].strings.contentRaw = x;
         slide[current].strings.content = res;
         $content.innerHTML = res;

@@ -9,6 +9,12 @@
     --c-backgroundgreen: rgb(239, 245, 219);
     --c-sub: rgb(239, 233, 241);
     --c-trickcal-font: rgb(52, 51, 52);
+    --c-trickcal-font-main: rgb(52, 51, 52);
+    --c-trickcal-font-red: rgb(245, 84, 113);
+    --c-trickcal-font-green: rgb(110, 160, 9);
+    --c-trickcal-font-blue: rgb(30, 119, 228);
+    --c-trickcal-font-yellow: rgb(248, 161, 0);
+    --c-trickcal-font-purple: rgb(112, 29, 217);
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -476,9 +482,25 @@ input[type=checkbox] {
 .script-content-font-light {
     color: white;
 }
-#script-content span.g {
+#script-content span.cr {
     font-size: inherit;
-    color: var(--c-green) !important;
+    color: var(--c-trickcal-font-red) !important;
+}
+#script-content span.cg {
+    font-size: inherit;
+    color: var(--c-trickcal-font-green) !important;
+}
+#script-content span.cb {
+    font-size: inherit;
+    color: var(--c-trickcal-font-blue) !important;
+}
+#script-content span.cy {
+    font-size: inherit;
+    color: var(--c-trickcal-font-yellow) !important;
+}
+#script-content span.cp {
+    font-size: inherit;
+    color: var(--c-trickcal-font-purple) !important;
 }
 #script-content span.s {
     font-size: 12pt !important;
