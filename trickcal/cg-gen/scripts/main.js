@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1108",
-        date: "24-07-04",
+        version: "1110",
+        date: "24-07-11",
         watermark: false,
         isBeta: false
     };
@@ -276,6 +276,7 @@
     const $inputContent = $("#content");
     const $modalContent = $("#modal-content");
     const $chkTglContent = $("#checkbox-toggle-content");
+    const $btnMdHelp = $("#button-markdown-help");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
     const $sokmaeum = $("#photo-button-sokmaeum");
@@ -1270,6 +1271,10 @@
     $chkPhotoBtn.onchange = (c) => {
         togglePhotoButtons(c.target.checked);
         refreshThumbnail(current, $photozone);
+    };
+
+    $btnMdHelp.onclick = () => {
+        __manager.modal.reserve["modal-markdown"].show();
     };
 
     $btnModalSlideSize.onclick = () => {

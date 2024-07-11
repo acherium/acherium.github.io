@@ -581,6 +581,11 @@ input[type=checkbox] {
     color: var(--c-trickcal-font);
 }
 
+#content {
+    min-height: 100px;
+    resize: none;
+}
+
 #photo-location-box-area {
     display: flex;
     position: absolute;
@@ -1092,6 +1097,13 @@ input[type=checkbox] {
 
 .modal-input-text, #content {
     font-family: "ONE Mobile POP";
+}
+
+button {
+    min-height: 44px;
+}
+.wfc {
+    width: fit-content !important;
 }
 
 @media screen and (max-width: 900px) {

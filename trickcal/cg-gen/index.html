@@ -319,12 +319,18 @@
                     <p>프리셋</p>
                     <select id="name-color" class="f1"></select>
                 </div>
+                <div class="partition-horizontal"></div>
                 <label>
                     <input type="checkbox" id="checkbox-toggle-auto-change-name">
                     <p>이름도 같이 변경</p>
                 </label>
                 <h3>내용</h3>
-                <textarea id="content" class="wf hm200"></textarea>
+                <textarea id="content" class="wf"></textarea>
+                <button id="button-markdown-help" class="wfc">
+                    <div class="i i-notification"></div>
+                    <p>마크다운 문법 도움말</p>
+                </button>
+                <div class="partition-horizontal"></div>
                 <h3>형태</h3>
                 <select id="content-box-style" class="wf">
                     <option value="0">기본</option>
@@ -513,10 +519,35 @@
             </div>
         </div>
     </div>
+    <div id="modal-markdown" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-notification"></div>
+                <h1>마크다운 문법 도움말</h1>
+            </div>
+            <div class="content">
+                <p>내용 입력칸에 다음과 같은 규칙을 적용하여 작성하면 영역 내 글자의 크기나 색상을 조절할 수 있습니다.<br>한 단어에 여러 종류의 규칙을 적용할 수 있으며, 줄바꿈도 가능합니다.</p>
+                <div class="partition-horizontal"></div>
+                <pre>(((가나다:::&#09;&#09;→ 작은 글자</pre>
+                <pre>{{{가나다:::&#09;&#09;→ 중간 글자(기본)</pre>
+                <pre>[[[가나다:::&#09;&#09;→ 큰 글자</pre>
+                <pre>>>>가나다:::&#09;→ 기본 강조색(초록)</pre>
+                <pre>>>r>>가나다:::&#09;→ 강조색(빨강)</pre>
+                <pre>>>g>>가나다:::&#09;→ 강조색(초록)</pre>
+                <pre>>>b>>가나다:::&#09;→ 강조색(파랑)</pre>
+                <pre>>>y>>가나다:::&#09;→ 강조색(노랑)</pre>
+                <pre>>>p>>가나다:::&#09;→ 강조색(보라)</pre>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
     <div id="alert-downloading" class="alert" style="display: none;">
         <h3>저장중입니다</h3>
     </div>
-    <div id="beta-alert" class="notification bg-acrylic" lyra-autoShow="true">
+    <div id="beta-alert" class="notification bg-acrylic" lyra-autoShow="false">
         <div class="icon i i-warning"></div>
         <p>개발 중인 빌드입니다. 성능 저하나 오류가 있을 수 있습니다.<br>자세한 빌드 정보는 정보 창을 확인하세요.</p>
     </div>
