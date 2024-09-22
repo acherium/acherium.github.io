@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keydown Event Detector</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <p>
+    key: <span id="key"></span><br>
+    code: <span id="code"></span><br>
+    charCode: <span id="char-code"></span><br>
+    keyCode: <span id="key-code"></span><br>
+    ctrlKey: <span id="ctrl-key"></span><br>
+    altKey: <span id="alt-key"></span><br>
+    shiftKey: <span id="shift-key"></span>
+  </p>
+  <script>
+    document.addEventListener("keydown", (e) => {
+      document.querySelector("#key").innerText = `${e.key}`;
+      document.querySelector("#code").innerText = `${e.code}`;
+      document.querySelector("#char-code").innerText = `${e.charCode}`;
+      document.querySelector("#key-code").innerText = `${e.keyCode}`;
+      document.querySelector("#ctrl-key").innerText = `${e.ctrlKey}`;
+      document.querySelector("#alt-key").innerText = `${e.altKey}`;
+      document.querySelector("#shift-key").innerText = `${e.shiftKey}`;
+    });
+  </script>
+</body>
+</html>
