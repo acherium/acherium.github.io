@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* 목록 공통 */
+.list,
+.list-row,
+.list-column,
+.list-rev,
+.list-rev-row,
+.list-rev-column{
+  display: flex;
+  position: relative;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  max-width: 100%;
+  max-height: 100%;
+  width: fit-content;
+  height: fit-content;
+}
+
+/* 목록 특성별 방향 설정 */
+.list-column { flex-direction: column; }
+.list-rev,
+.list-rev-row { flex-direction: row-reverse; }
+.list-rev-column { flex-direction: column-reverse; }
+
+/* 모바일 뷰 */
+@media screen and (max-width: 900px) {
+  .list { flex-direction: column; }
+  .list-rev { flex-direction: column-reverse; }
+}
+
+/* 그리드 목록 */
+.list-grid {
+  container: list-grid / size;
+}
+
+.list-grid > .wrap {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: minmax(0, auto);
+  gap: var(--gap);
+  margin: 0;
+}
+
+@container list-grid (max-width: 1000px) {
+  .list-grid > .wrap { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@container list-grid (max-width: 700px) {
+  .list-grid > .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
