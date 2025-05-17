@@ -1,4 +1,9 @@
 @charset "UTF-8";
+:root {
+  --header-size: 44px;
+  --header-padding: 4px;
+}
+
 body {
   display: flex;
   position: relative;
@@ -12,9 +17,9 @@ header {
   display: flex;
   position: relative;
   flex-direction: column;
-  padding: 0 0 0 4px;
+  padding: 0 0 0 var(--header-padding);
 
-  width: 48px;
+  width: calc(var(--header-size) + var(--header-padding));
   height: 100%;
 
   background-color: var(--anti);
@@ -28,7 +33,7 @@ header::before {
   left: 0;
   top: 0;
 
-  width: 4px;
+  width: var(--header-padding);
   height: 100%;
 
   background-color: var(--accent);
@@ -40,22 +45,31 @@ header button {
 
   min-width: unset;
   min-height: unset;
-  width: 44px;
-  height: 44px;
+  width: var(--header-size);
+  height: var(--header-size);
 
   border-radius: unset;
   --icon: var(--main);
 }
 
-.logo {
-  mask: no-repeat center center/auto 100% url("../assets/essentials/logomark.svg");
+.logo { mask: no-repeat center center/auto 100% url("../assets/essentials/logomark.svg"); }
+
+.logotype {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 130px;
+  height: 44px;
+
+  background: no-repeat 10px center/auto 20px url("../assets/essentials/logotype.svg");
 }
 
 main {
   display: flex;
   position: relative;
   flex-direction: column;
-  padding: 30px;
+  padding: 100px 8px;
   gap: 15px;
 
   width: 100%;
@@ -111,4 +125,26 @@ footer span {
   background-image: linear-gradient(90deg, oklch(0% 0 0/0), oklch(0% 0 0/0), oklch(0% 0 0/0.03));
   mask: repeat center/80px url("../assets/images/backdrop.svg");
   pointer-events: none;
+}
+
+@media screen and (max-width: 900px) {
+  body { flex-direction: column; }
+
+  header {
+    padding: var(--header-padding) 0 0 0;
+
+    width: 100%;
+    height: calc(var(--header-size) + var(--header-padding));
+  }
+
+  header::before {
+    width: 100%;
+    height: var(--header-padding);
+  }
+
+  main {
+    padding: 130px 8px 100px;
+  }
+
+  #backdrop { background-image: linear-gradient(oklch(0% 0 0/0), oklch(0% 0 0/0), oklch(0% 0 0/0.03)); }
 }
